@@ -1,0 +1,203 @@
+/* Card — Vanilla CSS from Stellar Design System
+ * Uses --themed-* and --stellar-* token variables from tokens/stellar-tokens.css.
+ */
+
+/* ==========================================
+   ROOT (non-interactive: <section>)
+   ========================================== */
+
+.stellar-card {
+  background-color: var(--themed-surface-level-2-background);
+  border: 1px solid var(--themed-reusable-border-default);
+  border-radius: var(--stellar-radius-md);
+  padding: var(--stellar-space-horizontal-2xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--stellar-space-gap-lg);
+  text-align: start;
+  min-width: 0;
+  margin: 0;
+  flex-grow: 1;
+  flex-shrink: 1;
+  box-sizing: border-box;
+  font-family: var(--themed-font-family-body);
+}
+
+/* ==========================================
+   INTERACTIVE CARD (button / link)
+   ========================================== */
+
+.stellar-card--interactive {
+  cursor: pointer;
+  text-decoration: none;
+  transition: box-shadow 0.1s ease-in-out;
+  width: 100%;
+  box-shadow: none;
+  outline: none;
+  outline-offset: 0;
+  color: inherit;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+a.stellar-card--interactive {
+  color: inherit;
+}
+
+.stellar-card--interactive:hover {
+  box-shadow: var(--themed-elevation-2-box-shadow);
+  background-color: var(--themed-surface-level-2-background);
+  border-color: var(--themed-reusable-border-bright);
+}
+
+.stellar-card--interactive:active {
+  box-shadow: none;
+  background-color: var(--themed-surface-level-2-background);
+  border-color: var(--themed-reusable-border-default);
+}
+
+.stellar-card--interactive:focus-visible {
+  outline: 2px solid var(--themed-reusable-border-focused-active-item);
+  outline-offset: 0;
+  box-shadow: none;
+}
+
+/* ==========================================
+   INTERACTIVE DISABLED
+   ========================================== */
+
+.stellar-card--disabled {
+  cursor: not-allowed;
+  box-shadow: none;
+  background-color: var(--themed-surface-level-2-background);
+  border-color: var(--themed-reusable-border-disabled);
+}
+
+.stellar-card--disabled:hover {
+  box-shadow: none;
+  background-color: var(--themed-surface-level-2-background);
+  border-color: var(--themed-reusable-border-disabled);
+}
+
+.stellar-card--disabled .stellar-card__header,
+.stellar-card--disabled .stellar-card__heading,
+.stellar-card--disabled .stellar-card__subtitle,
+.stellar-card--disabled .stellar-card__body {
+  color: var(--themed-reusable-disabled-text);
+}
+
+/* ==========================================
+   HEADER
+   ========================================== */
+
+.stellar-card__header {
+  display: flex;
+  flex-direction: row;
+  gap: var(--stellar-space-gap-lg);
+  align-items: normal;
+}
+
+.stellar-card__header--no-subtitle {
+  align-items: center;
+}
+
+.stellar-card__header-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--stellar-space-gap-2xs);
+  overflow: hidden;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0%;
+  min-width: 0;
+}
+
+.stellar-card__heading-row {
+  display: flex;
+  align-items: center;
+  gap: var(--stellar-space-gap-sm);
+}
+
+/* ==========================================
+   HEADING
+   ========================================== */
+
+.stellar-card__heading {
+  font-family: var(--themed-font-family-heading);
+  font-size: var(--themed-font-size-large);
+  font-weight: var(--themed-font-weight-semi-bold);
+  line-height: var(--themed-line-height-sub-header);
+  color: var(--themed-reusable-text-primary);
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ==========================================
+   SUBTITLE
+   ========================================== */
+
+.stellar-card__subtitle {
+  font-family: var(--themed-font-family-body);
+  font-size: var(--themed-font-size-small);
+  font-weight: var(--themed-font-weight-regular);
+  line-height: var(--themed-line-height-small-body);
+  color: var(--themed-reusable-text-secondary);
+  margin: 0;
+  padding: 0;
+  white-space: collapse balance;
+  max-width: 70em;
+}
+
+/* ==========================================
+   INFO TOOLTIP BUTTON
+   ========================================== */
+
+.stellar-card__info-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  color: var(--themed-reusable-icon-default);
+}
+
+.stellar-card__info-icon {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+/* ==========================================
+   SECONDARY ACTIONS
+   ========================================== */
+
+.stellar-card__secondary-actions {
+  flex-shrink: 0;
+}
+
+/* ==========================================
+   BODY
+   ========================================== */
+
+.stellar-card__body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+/* ==========================================
+   FOOTER
+   ========================================== */
+
+.stellar-card__footer {
+  display: flex;
+  flex-direction: row;
+  gap: var(--stellar-space-gap-sm);
+}

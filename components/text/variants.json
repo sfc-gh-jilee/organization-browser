@@ -1,0 +1,183 @@
+{
+  "component": "Text",
+  "tarball": "snowflake-stellar-components-0.25.2.tgz",
+  "props": {
+    "displayName": {
+      "default": "Span",
+      "values": [
+        "Editorial",
+        "Heading",
+        "HeadingContext",
+        "Label",
+        "Paragraph",
+        "ParagraphContext",
+        "Pre",
+        "SingleLine",
+        "Span"
+      ]
+    },
+    "size": {
+      "default": "regular",
+      "values": [
+        "large",
+        "pageHeader",
+        "regular",
+        "small"
+      ]
+    },
+    "variant": {
+      "default": "primary",
+      "values": [
+        "caution",
+        "critical",
+        "primary",
+        "secondary"
+      ]
+    }
+  },
+  "booleanStates": [
+    "disabled"
+  ],
+  "contextDependencies": [
+    "SizeContext (inheritable size prop)"
+  ],
+  "styleKeys": [
+    "editorial",
+    "heading",
+    "disabled",
+    "label",
+    "primary",
+    "secondary",
+    "caution",
+    "critical",
+    "paragraph",
+    "limitWidth",
+    "pre",
+    "error",
+    "singleLine",
+    "span",
+    "truncate"
+  ],
+  "combinations": [
+    {
+      "props": {
+        "variant": "caution",
+        "size": "large"
+      },
+      "label": "caution / large"
+    },
+    {
+      "props": {
+        "variant": "caution",
+        "size": "pageHeader"
+      },
+      "label": "caution / pageHeader"
+    },
+    {
+      "props": {
+        "variant": "caution",
+        "size": "regular"
+      },
+      "label": "caution / regular"
+    },
+    {
+      "props": {
+        "variant": "caution",
+        "size": "small"
+      },
+      "label": "caution / small"
+    },
+    {
+      "props": {
+        "variant": "critical",
+        "size": "large"
+      },
+      "label": "critical / large"
+    },
+    {
+      "props": {
+        "variant": "critical",
+        "size": "pageHeader"
+      },
+      "label": "critical / pageHeader"
+    },
+    {
+      "props": {
+        "variant": "critical",
+        "size": "regular"
+      },
+      "label": "critical / regular"
+    },
+    {
+      "props": {
+        "variant": "critical",
+        "size": "small"
+      },
+      "label": "critical / small"
+    },
+    {
+      "props": {
+        "variant": "primary",
+        "size": "large"
+      },
+      "label": "primary / large"
+    },
+    {
+      "props": {
+        "variant": "primary",
+        "size": "pageHeader"
+      },
+      "label": "primary / pageHeader"
+    },
+    {
+      "props": {
+        "variant": "primary",
+        "size": "regular"
+      },
+      "label": "primary / regular"
+    },
+    {
+      "props": {
+        "variant": "primary",
+        "size": "small"
+      },
+      "label": "primary / small"
+    },
+    {
+      "props": {
+        "variant": "secondary",
+        "size": "large"
+      },
+      "label": "secondary / large"
+    },
+    {
+      "props": {
+        "variant": "secondary",
+        "size": "pageHeader"
+      },
+      "label": "secondary / pageHeader"
+    },
+    {
+      "props": {
+        "variant": "secondary",
+        "size": "regular"
+      },
+      "label": "secondary / regular"
+    },
+    {
+      "props": {
+        "variant": "secondary",
+        "size": "small"
+      },
+      "label": "secondary / small"
+    },
+    {
+      "props": {
+        "disabled": true,
+        "variant": "caution"
+      },
+      "label": "caution + disabled",
+      "isState": true
+    }
+  ]
+}

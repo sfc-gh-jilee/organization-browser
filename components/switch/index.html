@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" class="lightMode">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Switch — Stellar Vanilla Component</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../tokens/stellar-tokens.css">
+  <link rel="stylesheet" href="switch.css">
+  <style>
+    body { font-family: Inter, system-ui, sans-serif; max-width: 900px; margin: 0 auto; padding: 40px; background: var(--themed-surface-level-1-background); color: var(--themed-reusable-text-primary); }
+    h1 { margin-bottom: 8px; }
+    .subtitle { color: #666; margin-bottom: 32px; }
+    .demo { background: var(--themed-surface-level-2-background); padding: 40px; border-radius: 8px; margin-bottom: 32px; display: flex; flex-direction: column; gap: 24px; align-items: flex-start; }
+    .demo-row { display: flex; gap: 16px; align-items: center; }
+    .demo-label { min-width: 180px; font-size: 12px; color: var(--themed-reusable-text-secondary); font-family: monospace; }
+    .code-section { margin-bottom: 32px; }
+    .code-section h2 { margin-bottom: 8px; }
+    pre { background: #1e1e1e; color: #d4d4d4; padding: 16px; border-radius: 8px; overflow-x: auto; font-size: 14px; line-height: 1.5; }
+    .copy-btn { float: right; background: #333; color: #fff; border: none; padding: 4px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+    .copy-btn:hover { background: #555; }
+    .links { display: flex; gap: 16px; margin-top: 32px; }
+    .links a { color: var(--themed-reusable-link-default); }
+  </style>
+  <script>
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('mode') === 'dark') {
+        document.documentElement.classList.replace('lightMode', 'darkMode');
+      }
+    })();
+  </script>
+</head>
+<body>
+  <h1>Switch</h1>
+  <p class="subtitle">Vanilla HTML/CSS/JS — extracted from Stellar Design System</p>
+
+  <div class="demo">
+    <div class="demo-row">
+      <span class="demo-label">Default</span>
+      <label class="stellar-switch" role="switch" tabindex="0" aria-label="Demo switch" aria-checked="false">
+        <input class="stellar-switch__input" type="checkbox" tabindex="-1" aria-hidden="true">
+        <div class="stellar-switch__knob"></div>
+      </label>
+    </div>
+    <div class="demo-row">
+      <span class="demo-label">Checked</span>
+      <label class="stellar-switch" data-selected="true" role="switch" tabindex="0" aria-label="Demo checked switch" aria-checked="true">
+        <input class="stellar-switch__input" type="checkbox" checked tabindex="-1" aria-hidden="true">
+        <div class="stellar-switch__knob"></div>
+      </label>
+    </div>
+    <div class="demo-row">
+      <span class="demo-label">Disabled</span>
+      <label class="stellar-switch" data-disabled="true" role="switch" aria-label="Demo disabled switch" aria-disabled="true" aria-checked="false">
+        <input class="stellar-switch__input" type="checkbox" disabled tabindex="-1" aria-hidden="true">
+        <div class="stellar-switch__knob"></div>
+      </label>
+    </div>
+    <div class="demo-row">
+      <span class="demo-label">Checked + Disabled</span>
+      <label class="stellar-switch" data-selected="true" data-disabled="true" role="switch" aria-label="Demo checked disabled switch" aria-disabled="true" aria-checked="true">
+        <input class="stellar-switch__input" type="checkbox" checked disabled tabindex="-1" aria-hidden="true">
+        <div class="stellar-switch__knob"></div>
+      </label>
+    </div>
+  </div>
+
+  <div class="code-section">
+    <h2>HTML</h2>
+    <button class="copy-btn" onclick="copyCode('html-code')">Copy</button>
+    <pre id="html-code"><code>&lt;label class="stellar-switch" role="switch" tabindex="0" aria-label="Toggle" aria-checked="false"&gt;
+  &lt;input class="stellar-switch__input" type="checkbox" tabindex="-1" aria-hidden="true"&gt;
+  &lt;div class="stellar-switch__knob"&gt;&lt;/div&gt;
+&lt;/label&gt;
+
+&lt;!-- Checked --&gt;
+&lt;label class="stellar-switch" data-selected="true" role="switch" tabindex="0" aria-checked="true"&gt;
+  &lt;input class="stellar-switch__input" type="checkbox" checked tabindex="-1" aria-hidden="true"&gt;
+  &lt;div class="stellar-switch__knob"&gt;&lt;/div&gt;
+&lt;/label&gt;
+
+&lt;!-- Disabled --&gt;
+&lt;label class="stellar-switch" data-disabled="true" role="switch" aria-disabled="true" aria-checked="false"&gt;
+  &lt;input class="stellar-switch__input" type="checkbox" disabled tabindex="-1" aria-hidden="true"&gt;
+  &lt;div class="stellar-switch__knob"&gt;&lt;/div&gt;
+&lt;/label&gt;</code></pre>
+  </div>
+
+  <div class="code-section">
+    <h2>CSS</h2>
+    <button class="copy-btn" onclick="copyCode('css-code')">Copy</button>
+    <pre id="css-code"><code>.stellar-switch {
+  display: inline-block;
+  position: relative;
+  width: var(--stellar-size-md);      /* 32px */
+  height: var(--stellar-size-2xs);    /* 16px */
+  border-radius: var(--stellar-radius-md); /* 8px */
+  background-color: var(--themed-component-form-control-background-unselected);
+  transition: background-color 0.15s ease-in-out;
+  cursor: pointer;
+}
+
+.stellar-switch[data-selected] {
+  background-color: var(--themed-component-form-control-background-selected-default);
+}
+
+.stellar-switch__knob {
+  position: absolute;
+  width: var(--stellar-size-3xs);     /* 12px */
+  height: var(--stellar-size-3xs);    /* 12px */
+  border-radius: var(--stellar-radius-md);
+  top: 50%;
+  transform: translateY(-50%);
+  left: var(--stellar-space-horizontal-3xs); /* 2px */
+  background-color: var(--themed-component-form-control-knob-default);
+  transition: left 0.1s ease-in-out;
+}
+
+.stellar-switch[data-selected] .stellar-switch__knob {
+  left: calc(var(--stellar-size-md) - var(--stellar-space-horizontal-3xs) - var(--stellar-size-3xs));
+}</code></pre>
+  </div>
+
+  <div class="links">
+    <a href="reference.html">Reference (React)</a>
+    <a href="test.html">Test (Vanilla)</a>
+  </div>
+
+  <script src="switch.js"></script>
+  <script>
+    function copyCode(id) {
+      const code = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(code);
+    }
+  </script>
+</body>
+</html>

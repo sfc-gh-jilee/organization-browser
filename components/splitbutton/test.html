@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" class="lightMode">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SplitButton Test</title>
+  <link rel="stylesheet" href="../../tokens/stellar-tokens.css">
+  <link rel="stylesheet" href="splitbutton.css">
+  <link rel="stylesheet" href="../menu/menu.css">
+  <style>
+    *, ::before, ::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"; line-height: 1.15; }
+    body { background: var(--themed-surface-level-1-background); color: var(--themed-reusable-text-primary); }
+    .reference-container {
+      padding: 40px;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+  <script>
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('mode') === 'dark') {
+        document.documentElement.classList.replace('lightMode', 'darkMode');
+      }
+    })();
+  </script>
+</head>
+<body>
+  <div class="reference-container">
+    <div data-component="splitbutton" style="display: flex; flex-direction: column; gap: 24px; align-items: flex-start;">
+
+      <!-- primary -->
+      <div style="display: flex; gap: 16px; align-items: center;">
+        <span style="min-width: 180px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">primary</span>
+        <div class="stellar-splitbutton stellar-splitbutton--primary">
+          <button role="button" class="stellar-splitbutton__action">Create</button>
+          <button aria-label="More options" role="button" class="stellar-splitbutton__trigger">
+            <svg class="stellar-splitbutton__trigger-icon" viewBox="0 0 16 16" role="presentation" aria-hidden="true" fill="none" stroke="none" xmlns="http://www.w3.org/2000/svg"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="m3 5.5 5 5 5-5"></path></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- secondary -->
+      <div style="display: flex; gap: 16px; align-items: center;">
+        <span style="min-width: 180px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">secondary</span>
+        <div class="stellar-splitbutton stellar-splitbutton--secondary">
+          <button role="button" class="stellar-splitbutton__action">Options</button>
+          <button aria-label="More options" role="button" class="stellar-splitbutton__trigger">
+            <svg class="stellar-splitbutton__trigger-icon" viewBox="0 0 16 16" role="presentation" aria-hidden="true" fill="none" stroke="none" xmlns="http://www.w3.org/2000/svg"><g><path fill="currentColor" d="m13.354 5.854-5 5a.5.5 0 0 1-.708 0l-5-5 .708-.708L8 9.793l4.647-4.647z"></path></g></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- tertiary -->
+      <div style="display: flex; gap: 16px; align-items: center;">
+        <span style="min-width: 180px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">tertiary</span>
+        <div class="stellar-splitbutton stellar-splitbutton--tertiary">
+          <button role="button" class="stellar-splitbutton__action">More</button>
+          <button aria-label="More options" role="button" class="stellar-splitbutton__trigger">
+            <svg class="stellar-splitbutton__trigger-icon" viewBox="0 0 16 16" role="presentation" aria-hidden="true" fill="none" stroke="none" xmlns="http://www.w3.org/2000/svg"><g><path fill="currentColor" d="m13.354 5.854-5 5a.5.5 0 0 1-.708 0l-5-5 .708-.708L8 9.793l4.647-4.647z"></path></g></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- primary-critical -->
+      <div style="display: flex; gap: 16px; align-items: center;">
+        <span style="min-width: 180px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">primary-critical</span>
+        <div class="stellar-splitbutton stellar-splitbutton--critical">
+          <button role="button" class="stellar-splitbutton__action">Delete</button>
+          <button aria-label="More options" role="button" class="stellar-splitbutton__trigger">
+            <svg class="stellar-splitbutton__trigger-icon" viewBox="0 0 16 16" role="presentation" aria-hidden="true" fill="none" stroke="none" xmlns="http://www.w3.org/2000/svg"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="m3 5.5 5 5 5-5"></path></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- primary + icon -->
+      <div style="display: flex; gap: 16px; align-items: center;">
+        <span style="min-width: 180px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">primary + icon</span>
+        <div class="stellar-splitbutton stellar-splitbutton--primary">
+          <button role="button" class="stellar-splitbutton__action">
+            <svg class="stellar-splitbutton__action-icon" viewBox="0 0 16 16" role="presentation" aria-hidden="true" fill="none" stroke="none" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M8 7h6.005v1H8v6H7V8H1.005V7H7V1h1z"></path></svg>Create
+          </button>
+          <button aria-label="More create options" role="button" class="stellar-splitbutton__trigger">
+            <svg class="stellar-splitbutton__trigger-icon" viewBox="0 0 16 16" role="presentation" aria-hidden="true" fill="none" stroke="none" xmlns="http://www.w3.org/2000/svg"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="m3 5.5 5 5 5-5"></path></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- secondary + icon -->
+      <div style="display: flex; gap: 16px; align-items: center;">
+        <span style="min-width: 180px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">secondary + icon</span>
+        <div class="stellar-splitbutton stellar-splitbutton--secondary">
+          <button role="button" class="stellar-splitbutton__action">
+            <svg class="stellar-splitbutton__action-icon" viewBox="0 0 16 16" role="presentation" aria-hidden="true" fill="none" stroke="none" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M8 7h6.005v1H8v6H7V8H1.005V7H7V1h1z"></path></svg>Create
+          </button>
+          <button aria-label="More create options" role="button" class="stellar-splitbutton__trigger">
+            <svg class="stellar-splitbutton__trigger-icon" viewBox="0 0 16 16" role="presentation" aria-hidden="true" fill="none" stroke="none" xmlns="http://www.w3.org/2000/svg"><g><path fill="currentColor" d="m13.354 5.854-5 5a.5.5 0 0 1-.708 0l-5-5 .708-.708L8 9.793l4.647-4.647z"></path></g></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- primary + disabled -->
+      <div style="display: flex; gap: 16px; align-items: center;">
+        <span style="min-width: 180px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">primary + disabled</span>
+        <div class="stellar-splitbutton stellar-splitbutton--primary stellar-splitbutton--disabled">
+          <button role="button" aria-disabled="true" class="stellar-splitbutton__action">Create</button>
+          <button aria-label="More options" aria-disabled="true" role="button" class="stellar-splitbutton__trigger">
+            <svg class="stellar-splitbutton__trigger-icon" viewBox="0 0 16 16" role="presentation" aria-hidden="true" fill="none" stroke="none" xmlns="http://www.w3.org/2000/svg"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="m3 5.5 5 5 5-5"></path></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- secondary + disabled -->
+      <div style="display: flex; gap: 16px; align-items: center;">
+        <span style="min-width: 180px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">secondary + disabled</span>
+        <div class="stellar-splitbutton stellar-splitbutton--secondary stellar-splitbutton--disabled">
+          <button role="button" aria-disabled="true" class="stellar-splitbutton__action">Options</button>
+          <button aria-label="More options" aria-disabled="true" role="button" class="stellar-splitbutton__trigger">
+            <svg class="stellar-splitbutton__trigger-icon" viewBox="0 0 16 16" role="presentation" aria-hidden="true" fill="none" stroke="none" xmlns="http://www.w3.org/2000/svg"><g><path fill="currentColor" d="m13.354 5.854-5 5a.5.5 0 0 1-.708 0l-5-5 .708-.708L8 9.793l4.647-4.647z"></path></g></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- primary + menu (closed) -->
+      <div style="display: flex; gap: 16px; align-items: center;">
+        <span style="min-width: 180px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">primary + menu (closed)</span>
+        <div class="stellar-splitbutton stellar-splitbutton--primary stellar-menu-trigger" style="position: relative;">
+          <button role="button" class="stellar-splitbutton__action">
+            <svg class="stellar-splitbutton__action-icon" viewBox="0 0 16 16" role="presentation" aria-hidden="true" fill="none" stroke="none" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M8 7h6.005v1H8v6H7V8H1.005V7H7V1h1z"></path></svg>Data product
+          </button>
+          <button aria-label="More create options" role="button" class="stellar-splitbutton__trigger">
+            <svg class="stellar-splitbutton__trigger-icon" viewBox="0 0 16 16" role="presentation" aria-hidden="true" fill="none" stroke="none" xmlns="http://www.w3.org/2000/svg"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="m3 5.5 5 5 5-5"></path></svg>
+          </button>
+          <div class="stellar-menu" role="dialog">
+            <div class="stellar-menu__list" role="menu" tabindex="0">
+              <div class="stellar-menu__item" role="menuitem" data-key="share">
+                <div class="stellar-menu__item-label" tabindex="0">
+                  <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
+                    <span class="stellar-menu__item-text">Direct share</span>
+                  </div>
+                </div>
+              </div>
+              <div class="stellar-menu__divider" role="separator"></div>
+              <div class="stellar-menu__item" role="menuitem" data-key="exchange">
+                <div class="stellar-menu__item-label" tabindex="0">
+                  <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
+                    <span class="stellar-menu__item-text">Private Data Exchange</span>
+                  </div>
+                </div>
+              </div>
+              <div class="stellar-menu__item" role="menuitem" data-key="cleanroom">
+                <div class="stellar-menu__item-label" tabindex="0">
+                  <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
+                    <span class="stellar-menu__item-text">Data Clean Room</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- secondary + menu (closed) -->
+      <div style="display: flex; gap: 16px; align-items: center;">
+        <span style="min-width: 180px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">secondary + menu (closed)</span>
+        <div class="stellar-splitbutton stellar-splitbutton--secondary stellar-menu-trigger" style="position: relative;">
+          <button role="button" class="stellar-splitbutton__action">Options</button>
+          <button aria-label="More options" role="button" class="stellar-splitbutton__trigger">
+            <svg class="stellar-splitbutton__trigger-icon" viewBox="0 0 16 16" role="presentation" aria-hidden="true" fill="none" stroke="none" xmlns="http://www.w3.org/2000/svg"><g><path fill="currentColor" d="m13.354 5.854-5 5a.5.5 0 0 1-.708 0l-5-5 .708-.708L8 9.793l4.647-4.647z"></path></g></svg>
+          </button>
+          <div class="stellar-menu" role="dialog">
+            <div class="stellar-menu__list" role="menu" tabindex="0">
+              <div class="stellar-menu__item" role="menuitem" data-key="option1">
+                <div class="stellar-menu__item-label" tabindex="0">
+                  <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
+                    <span class="stellar-menu__item-text">Option 1</span>
+                  </div>
+                </div>
+              </div>
+              <div class="stellar-menu__item" role="menuitem" data-key="option2">
+                <div class="stellar-menu__item-label" tabindex="0">
+                  <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
+                    <span class="stellar-menu__item-text">Option 2</span>
+                  </div>
+                </div>
+              </div>
+              <div class="stellar-menu__item" role="menuitem" data-key="option3">
+                <div class="stellar-menu__item-label" tabindex="0">
+                  <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
+                    <span class="stellar-menu__item-text">Option 3</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="splitbutton.js"></script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" class="lightMode">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card Test</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../tokens/stellar-tokens.css">
+  <link rel="stylesheet" href="card.css">
+  <link rel="stylesheet" href="../button/button.css">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html {
+      line-height: 1.15;
+      -webkit-text-size-adjust: 100%;
+      font-family: Inter, Roboto, "Helvetica Neue", "Arial Nova", "Nimbus Sans", Arial, sans-serif;
+    }
+    body { background: var(--themed-surface-level-1-background); color: var(--themed-reusable-text-primary); -webkit-font-smoothing: antialiased; margin: 0; padding: 0; }
+  </style>
+  <script>
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('mode') === 'dark') {
+        document.documentElement.classList.replace('lightMode', 'darkMode');
+      }
+    })();
+  </script>
+</head>
+<body>
+  <div data-component="card" style="padding: 40px; display: flex; flex-direction: column; gap: 32px; min-height: 100vh; align-items: flex-start;">
+
+      <!-- default / header + body + footer -->
+      <div>
+        <span style="font-size: 11px; color: rgb(136, 136, 136); font-family: monospace; margin-bottom: 8px; display: block;">default / header + body + footer</span>
+        <div style="width: 400px;">
+          <section class="stellar-card">
+            <header class="stellar-card__header">
+              <div class="stellar-card__header-content">
+                <div class="stellar-card__heading-row">
+                  <h1 class="stellar-card__heading">Card Title</h1>
+                </div>
+                <p class="stellar-card__subtitle">A short description of the card content</p>
+              </div>
+            </header>
+            <div class="stellar-card__body">
+              <p style="margin: 0;">This is the body content of the card. It can contain any content.</p>
+            </div>
+            <footer class="stellar-card__footer">
+              <button class="stellar-button stellar-button--secondary" type="button">Cancel</button>
+              <button class="stellar-button stellar-button--primary" type="button">Submit</button>
+            </footer>
+          </section>
+        </div>
+      </div>
+
+      <!-- default / header + body -->
+      <div>
+        <span style="font-size: 11px; color: rgb(136, 136, 136); font-family: monospace; margin-bottom: 8px; display: block;">default / header + body</span>
+        <div style="width: 400px;">
+          <section class="stellar-card">
+            <header class="stellar-card__header stellar-card__header--no-subtitle">
+              <div class="stellar-card__header-content">
+                <div class="stellar-card__heading-row">
+                  <h1 class="stellar-card__heading">Card Title</h1>
+                </div>
+              </div>
+            </header>
+            <div class="stellar-card__body">
+              <p style="margin: 0;">Body content without a footer.</p>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- default / header only -->
+      <div>
+        <span style="font-size: 11px; color: rgb(136, 136, 136); font-family: monospace; margin-bottom: 8px; display: block;">default / header only</span>
+        <div style="width: 400px;">
+          <section class="stellar-card">
+            <header class="stellar-card__header">
+              <div class="stellar-card__header-content">
+                <div class="stellar-card__heading-row">
+                  <h1 class="stellar-card__heading">Card Title</h1>
+                </div>
+                <p class="stellar-card__subtitle">Subtitle text</p>
+              </div>
+            </header>
+          </section>
+        </div>
+      </div>
+
+      <!-- header / subHeadingPlacement info-tooltip -->
+      <div>
+        <span style="font-size: 11px; color: rgb(136, 136, 136); font-family: monospace; margin-bottom: 8px; display: block;">header / subHeadingPlacement info-tooltip</span>
+        <div style="width: 400px;">
+          <section class="stellar-card">
+            <header class="stellar-card__header stellar-card__header--no-subtitle">
+              <div class="stellar-card__header-content">
+                <div class="stellar-card__heading-row">
+                  <h1 class="stellar-card__heading">Card Title</h1>
+                  <button class="stellar-card__info-btn" aria-label="Tooltip description">
+                    <svg class="stellar-card__info-icon" viewBox="0 0 16 16" role="presentation" aria-hidden="true" fill="none" stroke="none" xmlns="http://www.w3.org/2000/svg"><g><g fill="rgb(93, 106, 133)"><path d="M8.5 12h-1V7h1zM8 4a.75.75 0 1 1 0 1.5A.75.75 0 0 1 8 4"></path><path fill-rule="evenodd" d="M8 1a7 7 0 1 1 0 14A7 7 0 0 1 8 1m0 1a6 6 0 1 0 0 12A6 6 0 0 0 8 2" clip-rule="evenodd"></path></g></g></svg>
+                  </button>
+                </div>
+              </div>
+            </header>
+            <div class="stellar-card__body">
+              <p style="margin: 0;">The subtitle appears as an info tooltip.</p>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- header / secondaryActions -->
+      <div>
+        <span style="font-size: 11px; color: rgb(136, 136, 136); font-family: monospace; margin-bottom: 8px; display: block;">header / secondaryActions</span>
+        <div style="width: 400px;">
+          <section class="stellar-card">
+            <header class="stellar-card__header">
+              <div class="stellar-card__header-content">
+                <div class="stellar-card__heading-row">
+                  <h1 class="stellar-card__heading">Card Title</h1>
+                </div>
+                <p class="stellar-card__subtitle">With action buttons</p>
+              </div>
+              <div class="stellar-card__secondary-actions">
+                <button class="stellar-button stellar-button--tertiary" type="button">
+                  <span class="stellar-button__icon">
+                    <svg viewBox="0 0 16 16" role="presentation" aria-hidden="true" fill="none" stroke="none" xmlns="http://www.w3.org/2000/svg"><g><path fill="currentColor" fill-rule="evenodd" d="M6.197 2.544a2.3 2.3 0 0 1 3.606 0l.257.35c.216.295.533.497.889.567l.42.082a2.3 2.3 0 0 1 1.804 2.727l-.083.42a1.47 1.47 0 0 0 .159 1.038l.226.374a2.3 2.3 0 0 1-.687 3.176l-.375.225a1.47 1.47 0 0 0-.647.828l-.122.41a2.3 2.3 0 0 1-2.99 1.532l-.406-.14a1.47 1.47 0 0 0-1.005.032l-.394.16a2.3 2.3 0 0 1-3.092-1.307l-.143-.402a1.47 1.47 0 0 0-.68-.804l-.382-.213A2.3 2.3 0 0 1 2.2 8.427l.204-.385a1.47 1.47 0 0 0 .114-1.042l-.104-.415A2.3 2.3 0 0 1 4.37 3.978l.418.103c.355.087.73.04 1.052-.178zm2.776.614a1.3 1.3 0 0 0-2.039 0l-.257.35a2.47 2.47 0 0 1-1.493.953l-.42.083a1.3 1.3 0 0 0-1.02 1.542l.105.414a2.47 2.47 0 0 1-.192 1.75l-.204.385a1.3 1.3 0 0 0 .39 1.675l.382.213a2.47 2.47 0 0 1 1.143 1.352l.142.402a1.3 1.3 0 0 0 1.748.739l.394-.16a2.47 2.47 0 0 1 1.688-.053l.406.14a1.3 1.3 0 0 0 1.69-.866l.123-.411a2.47 2.47 0 0 1 1.088-1.392l.374-.225a1.3 1.3 0 0 0 .389-1.796l-.226-.374a2.47 2.47 0 0 1-.267-1.743l.082-.42a1.3 1.3 0 0 0-1.02-1.542l-.42-.082a2.47 2.47 0 0 1-1.494-.953zM8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M6.5 8a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0" clip-rule="evenodd"></path></g></svg>
+                  </span>
+                  Settings
+                </button>
+              </div>
+            </header>
+            <div class="stellar-card__body">
+              <p style="margin: 0;">This card has secondary actions in the header.</p>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- interactive / button -->
+      <div>
+        <span style="font-size: 11px; color: rgb(136, 136, 136); font-family: monospace; margin-bottom: 8px; display: block;">interactive / button</span>
+        <div style="width: 400px;">
+          <button type="button" class="stellar-card stellar-card--interactive">
+            <header class="stellar-card__header">
+              <div class="stellar-card__header-content">
+                <div class="stellar-card__heading-row">
+                  <h1 class="stellar-card__heading">Clickable Card</h1>
+                </div>
+                <p class="stellar-card__subtitle">Click anywhere on this card</p>
+              </div>
+            </header>
+            <div class="stellar-card__body">
+              <p style="margin: 0;">This entire card is a button.</p>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- interactive / button + disabled -->
+      <div>
+        <span style="font-size: 11px; color: rgb(136, 136, 136); font-family: monospace; margin-bottom: 8px; display: block;">interactive / button + disabled</span>
+        <div style="width: 400px;">
+          <button type="button" class="stellar-card stellar-card--interactive stellar-card--disabled" disabled>
+            <header class="stellar-card__header">
+              <div class="stellar-card__header-content">
+                <div class="stellar-card__heading-row">
+                  <h1 class="stellar-card__heading">Disabled Button Card</h1>
+                </div>
+                <p class="stellar-card__subtitle">This card cannot be clicked</p>
+              </div>
+            </header>
+            <div class="stellar-card__body">
+              <p style="margin: 0;">This card is disabled.</p>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- interactive / link -->
+      <div>
+        <span style="font-size: 11px; color: rgb(136, 136, 136); font-family: monospace; margin-bottom: 8px; display: block;">interactive / link</span>
+        <div style="width: 400px;">
+          <a href="#" class="stellar-card stellar-card--interactive">
+            <header class="stellar-card__header">
+              <div class="stellar-card__header-content">
+                <div class="stellar-card__heading-row">
+                  <h1 class="stellar-card__heading">Link Card</h1>
+                </div>
+                <p class="stellar-card__subtitle">This card is a link</p>
+              </div>
+            </header>
+            <div class="stellar-card__body">
+              <p style="margin: 0;">Clicking navigates to a URL.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- interactive / link + disabled -->
+      <div>
+        <span style="font-size: 11px; color: rgb(136, 136, 136); font-family: monospace; margin-bottom: 8px; display: block;">interactive / link + disabled</span>
+        <div style="width: 400px;">
+          <a href="#" class="stellar-card stellar-card--interactive stellar-card--disabled" aria-disabled="true" tabindex="-1">
+            <header class="stellar-card__header">
+              <div class="stellar-card__header-content">
+                <div class="stellar-card__heading-row">
+                  <h1 class="stellar-card__heading">Disabled Link Card</h1>
+                </div>
+                <p class="stellar-card__subtitle">This link card is disabled</p>
+              </div>
+            </header>
+            <div class="stellar-card__body">
+              <p style="margin: 0;">Navigation is disabled.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en" class="lightMode">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Text Test</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../tokens/stellar-tokens.css">
+  <link rel="stylesheet" href="text.css">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html {
+      line-height: 1.15;
+      -webkit-text-size-adjust: 100%;
+      font-family: Inter, Roboto, "Helvetica Neue", "Arial Nova", "Nimbus Sans", Arial, sans-serif;
+    }
+    body { background: var(--themed-surface-level-1-background); color: var(--themed-reusable-text-primary); -webkit-font-smoothing: antialiased; }
+    .reference-container {
+      min-height: 100vh;
+    }
+  </style>
+  <script>
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('mode') === 'dark') {
+        document.documentElement.classList.replace('lightMode', 'darkMode');
+      }
+    })();
+  </script>
+</head>
+<body>
+  <div class="reference-container">
+    <div data-component="text" style="padding: 40px; display: flex; flex-direction: column; gap: 20px; min-height: 100vh; align-items: flex-start;">
+
+      <!-- Editorial / larger (default) -->
+      <div style="display: flex; gap: 16px; align-items: baseline;">
+        <span style="min-width: 260px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">Editorial / larger (default)</span>
+        <div class="stellar-editorial stellar-type-larger-editorial">Editorial Larger</div>
+      </div>
+
+      <!-- Editorial / large -->
+      <div style="display: flex; gap: 16px; align-items: baseline;">
+        <span style="min-width: 260px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">Editorial / large</span>
+        <div class="stellar-editorial stellar-type-large-editorial">Editorial Large</div>
+      </div>
+
+      <!-- Heading / pageHeader -->
+      <div style="display: flex; gap: 16px; align-items: baseline;">
+        <span style="min-width: 260px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">Heading / pageHeader</span>
+        <h1 class="stellar-heading stellar-type-page-header">Page Header</h1>
+      </div>
+
+      <!-- Heading / subHeader (default) -->
+      <div style="display: flex; gap: 16px; align-items: baseline;">
+        <span style="min-width: 260px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">Heading / subHeader (default)</span>
+        <h1 class="stellar-heading stellar-type-sub-header">Sub Header</h1>
+      </div>
+
+      <!-- Paragraph / primary -->
+      <div style="display: flex; gap: 16px; align-items: baseline;">
+        <span style="min-width: 260px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">Paragraph / primary</span>
+        <p class="stellar-paragraph stellar-type-paragraph stellar-text--primary">Primary paragraph text for reading content.</p>
+      </div>
+
+      <!-- Paragraph / secondary -->
+      <div style="display: flex; gap: 16px; align-items: baseline;">
+        <span style="min-width: 260px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">Paragraph / secondary</span>
+        <p class="stellar-paragraph stellar-type-paragraph stellar-text--secondary">Secondary paragraph text for supporting content.</p>
+      </div>
+
+      <!-- Paragraph / critical -->
+      <div style="display: flex; gap: 16px; align-items: baseline;">
+        <span style="min-width: 260px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">Paragraph / critical</span>
+        <p class="stellar-paragraph stellar-type-paragraph stellar-text--critical">Critical paragraph text for error messages.</p>
+      </div>
+
+      <!-- Paragraph / caution -->
+      <div style="display: flex; gap: 16px; align-items: baseline;">
+        <span style="min-width: 260px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">Paragraph / caution</span>
+        <p class="stellar-paragraph stellar-type-paragraph stellar-text--caution">Caution paragraph text for warning messages.</p>
+      </div>
+
+      <!-- Paragraph / small -->
+      <div style="display: flex; gap: 16px; align-items: baseline;">
+        <span style="min-width: 260px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">Paragraph / small</span>
+        <p class="stellar-paragraph stellar-type-small-paragraph stellar-text--primary">Small paragraph text for compact areas.</p>
+      </div>
+
+      <!-- Paragraph / bold -->
+      <div style="display: flex; gap: 16px; align-items: baseline;">
+        <span style="min-width: 260px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">Paragraph / bold</span>
+        <p class="stellar-paragraph stellar-type-paragraph-bold stellar-text--primary">Bold paragraph text for emphasis.</p>
+      </div>
+
+      <!-- Paragraph / small + bold -->
+      <div style="display: flex; gap: 16px; align-items: baseline;">
+        <span style="min-width: 260px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">Paragraph / small + bold</span>
+        <p class="stellar-paragraph stellar-type-small-paragraph-bold stellar-text--primary">Small bold paragraph text.</p>
+      </div>
+
+      <!-- Paragraph / caps -->
+      <div style="display: flex; gap: 16px; align-items: baseline;">
+        <span style="min-width: 260px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">Paragraph / caps</span>
+        <p class="stellar-paragraph stellar-type-all-caps stellar-text--primary">Caps paragraph text for labels.</p>
+      </div>
+
+      <!-- Paragraph + Span -->
+      <div style="display: flex; gap: 16px; align-items: baseline;">
+        <span style="min-width: 260px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">Paragraph + Span</span>
+        <p class="stellar-paragraph stellar-type-paragraph stellar-text--primary">Normal text with <span class="stellar-span stellar-type-paragraph-bold stellar-text--primary">bold span</span> and <span class="stellar-span stellar-type-paragraph stellar-text--secondary">secondary span</span> inside.</p>
+      </div>
+
+      <!-- Label / primary -->
+      <div style="display: flex; gap: 16px; align-items: baseline;">
+        <span style="min-width: 260px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">Label / primary</span>
+        <label class="stellar-label stellar-type-label stellar-text--primary">Primary Label</label>
+      </div>
+
+      <!-- Label / secondary -->
+      <div style="display: flex; gap: 16px; align-items: baseline;">
+        <span style="min-width: 260px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">Label / secondary</span>
+        <label class="stellar-label stellar-type-label stellar-text--secondary">Secondary Label</label>
+      </div>
+
+      <!-- Label / caution -->
+      <div style="display: flex; gap: 16px; align-items: baseline;">
+        <span style="min-width: 260px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">Label / caution</span>
+        <label class="stellar-label stellar-type-label stellar-text--caution">Caution Label</label>
+      </div>
+
+      <!-- Label / critical -->
+      <div style="display: flex; gap: 16px; align-items: baseline;">
+        <span style="min-width: 260px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">Label / critical</span>
+        <label class="stellar-label stellar-type-label stellar-text--critical">Critical Label</label>
+      </div>
+
+      <!-- Label / small -->
+      <div style="display: flex; gap: 16px; align-items: baseline;">
+        <span style="min-width: 260px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">Label / small</span>
+        <label class="stellar-label stellar-type-label-small">Small Label</label>
+      </div>
+
+      <!-- Label / caps -->
+      <div style="display: flex; gap: 16px; align-items: baseline;">
+        <span style="min-width: 260px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">Label / caps</span>
+        <label class="stellar-label stellar-type-all-caps">Caps Label</label>
+      </div>
+
+      <!-- Label / small + caps -->
+      <div style="display: flex; gap: 16px; align-items: baseline;">
+        <span style="min-width: 260px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">Label / small + caps</span>
+        <label class="stellar-label stellar-type-all-caps-small">Small Caps Label</label>
+      </div>
+
+      <!-- SingleLine / primary -->
+      <div style="display: flex; gap: 16px; align-items: baseline;">
+        <span style="min-width: 260px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">SingleLine / primary</span>
+        <p class="stellar-singleline stellar-type-single-line stellar-text--primary" style="max-width: 300px;">Single line text that truncates when it gets too long for its container.</p>
+      </div>
+
+      <!-- SingleLine / secondary -->
+      <div style="display: flex; gap: 16px; align-items: baseline;">
+        <span style="min-width: 260px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">SingleLine / secondary</span>
+        <p class="stellar-singleline stellar-type-single-line stellar-text--secondary">Secondary single line text.</p>
+      </div>
+
+      <!-- SingleLine / bold -->
+      <div style="display: flex; gap: 16px; align-items: baseline;">
+        <span style="min-width: 260px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">SingleLine / bold</span>
+        <p class="stellar-singleline stellar-type-single-line-bold stellar-text--primary">Bold single line text.</p>
+      </div>
+
+      <!-- SingleLine / small -->
+      <div style="display: flex; gap: 16px; align-items: baseline;">
+        <span style="min-width: 260px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">SingleLine / small</span>
+        <p class="stellar-singleline stellar-type-small-single-line stellar-text--primary">Small single line text.</p>
+      </div>
+
+      <!-- SingleLine / caps -->
+      <div style="display: flex; gap: 16px; align-items: baseline;">
+        <span style="min-width: 260px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">SingleLine / caps</span>
+        <p class="stellar-singleline stellar-type-all-caps stellar-text--primary">Caps single line text.</p>
+      </div>
+
+      <!-- Pre / primary -->
+      <div style="display: flex; gap: 16px; align-items: baseline;">
+        <span style="min-width: 260px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">Pre / primary</span>
+        <pre class="stellar-pre stellar-type-paragraph stellar-text--primary">const x = 42;</pre>
+      </div>
+
+      <!-- Pre / secondary -->
+      <div style="display: flex; gap: 16px; align-items: baseline;">
+        <span style="min-width: 260px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">Pre / secondary</span>
+        <pre class="stellar-pre stellar-type-paragraph stellar-text--secondary">// comment text</pre>
+      </div>
+
+      <!-- Pre / critical -->
+      <div style="display: flex; gap: 16px; align-items: baseline;">
+        <span style="min-width: 260px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">Pre / critical</span>
+        <pre class="stellar-pre stellar-type-paragraph stellar-text--critical">Error: undefined</pre>
+      </div>
+
+      <!-- Pre / bold -->
+      <div style="display: flex; gap: 16px; align-items: baseline;">
+        <span style="min-width: 260px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">Pre / bold</span>
+        <pre class="stellar-pre stellar-type-paragraph-bold">function main()</pre>
+      </div>
+
+      <!-- Pre / small -->
+      <div style="display: flex; gap: 16px; align-items: baseline;">
+        <span style="min-width: 260px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">Pre / small</span>
+        <pre class="stellar-pre stellar-type-small-paragraph">small monospace text</pre>
+      </div>
+
+      <!-- Pre / caps -->
+      <div style="display: flex; gap: 16px; align-items: baseline;">
+        <span style="min-width: 260px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">Pre / caps</span>
+        <pre class="stellar-pre stellar-type-all-caps">CAPS MONO TEXT</pre>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,138 @@
+{
+  "component": "Menu",
+  "tarball": "snowflake-stellar-components-0.25.2.tgz",
+  "props": {
+    "align": {
+      "default": "start",
+      "values": [
+        "start"
+      ]
+    },
+    "ariaLabel": {
+      "default": "Loading more options",
+      "values": [
+        "Loading more options"
+      ]
+    },
+    "displayName": {
+      "default": "Menu.Sub",
+      "values": [
+        "Menu.Divider",
+        "Menu.Item",
+        "Menu.LoadingIndicator",
+        "Menu.Root",
+        "Menu.Section",
+        "Menu.SectionHeader",
+        "Menu.Sub"
+      ]
+    },
+    "keys": {
+      "default": null,
+      "values": [
+        "all"
+      ]
+    },
+    "position": {
+      "default": "bottom",
+      "values": [
+        "bottom"
+      ]
+    },
+    "RESTORE_FOCUS_EVENT": {
+      "default": "react-aria-focus-scope-restore",
+      "values": [
+        "react-aria-focus-scope-restore"
+      ]
+    },
+    "sectionType": {
+      "default": null,
+      "values": [
+        "radio"
+      ]
+    },
+    "selected": {
+      "default": null,
+      "values": [
+        "boolean"
+      ]
+    },
+    "sizeContext": {
+      "default": null,
+      "values": [
+        "small"
+      ]
+    },
+    "v": {
+      "default": null,
+      "values": [
+        "all"
+      ]
+    },
+    "variant": {
+      "default": "default",
+      "values": [
+        "checkbox",
+        "default",
+        "radio"
+      ]
+    }
+  },
+  "booleanStates": [
+    "isLoading",
+    "selected",
+    "disabled"
+  ],
+  "contextDependencies": [
+    "SizeContext (inheritable size prop)"
+  ],
+  "styleKeys": [
+    "separator",
+    "small",
+    "header",
+    "smallHeader"
+  ],
+  "combinations": [
+    {
+      "props": {
+        "variant": "checkbox"
+      },
+      "label": "checkbox"
+    },
+    {
+      "props": {
+        "variant": "default"
+      },
+      "label": "default"
+    },
+    {
+      "props": {
+        "variant": "radio"
+      },
+      "label": "radio"
+    },
+    {
+      "props": {
+        "isLoading": true,
+        "variant": "checkbox"
+      },
+      "label": "checkbox + isLoading",
+      "isState": true
+    },
+    {
+      "props": {
+        "selected": true,
+        "variant": "checkbox"
+      },
+      "label": "checkbox + selected",
+      "isState": true
+    },
+    {
+      "props": {
+        "disabled": true,
+        "variant": "checkbox"
+      },
+      "label": "checkbox + disabled",
+      "isState": true
+    }
+  ]
+}

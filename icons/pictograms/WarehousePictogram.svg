@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 48"
+ width="48" height="48" fill="none"
+ role="presentation" aria-hidden="true">
+<path stroke="currentColor" stroke-width="2" d="M7 18.397a6 6 0 0 1 2.967-5.177l12.011-7.036a4 4 0 0 1 4.044 0l12.01 7.036A6 6 0 0 1 41 18.397V37a6 6 0 0 1-6 6H13a6 6 0 0 1-6-6z"/><path fill="currentColor" stroke="currentColor" stroke-width="2" d="M23.15 18.315c.367-.571 1.251-.309 1.251.366v7.718h4.916c.506 0 .82.523.62.96l-.047.085-5.04 7.837c-.367.572-1.251.309-1.251-.366v-7.719h-4.916l-.099-.007a.678.678 0 0 1-.52-.95l.046-.087z"/>
+</svg>

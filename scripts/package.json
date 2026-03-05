@@ -1,0 +1,13 @@
+{
+  "name": "vanilla-stellar-scripts",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "extract-colors": "node extract-colors.mjs",
+    "setup": "npm install"
+  },
+  "dependencies": {
+    "pngjs": "^7.0.0"
+  }
+}

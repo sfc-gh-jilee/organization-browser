@@ -1,0 +1,55 @@
+{
+  "component": "SegmentedButton",
+  "tarball": "snowflake-stellar-components-0.25.2.tgz",
+  "props": {
+    "contextSize": {
+      "default": null,
+      "values": [
+        "small"
+      ]
+    },
+    "countBadge": {
+      "default": null,
+      "values": [
+        "number"
+      ]
+    },
+    "displayName": {
+      "default": "SegmentedButton.Item",
+      "values": [
+        "SegmentedButton.Item",
+        "SegmentedButton.Root"
+      ]
+    },
+    "size": {
+      "default": "regular",
+      "values": [
+        "regular",
+        "small"
+      ]
+    }
+  },
+  "booleanStates": [],
+  "contextDependencies": [
+    "SizeContext (inheritable size prop)"
+  ],
+  "styleKeys": [
+    "root",
+    "small",
+    "item"
+  ],
+  "combinations": [
+    {
+      "props": {
+        "size": "regular"
+      },
+      "label": "regular"
+    },
+    {
+      "props": {
+        "size": "small"
+      },
+      "label": "small"
+    }
+  ]
+}

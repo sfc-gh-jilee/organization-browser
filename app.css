@@ -1,0 +1,541 @@
+/* Organization Browser — Custom Styles */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; }
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--themed-surface-level-1-background);
+  padding: 24px 40px 0;
+  gap: 24px;
+}
+
+/* --- Breadcrumb --- */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--stellar-space-gap-2xs);
+  padding-bottom: 0;
+}
+
+/* --- Page header --- */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* --- Control bar --- */
+.control-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--stellar-space-gap-sm);
+  min-height: 32px;
+}
+
+.control-bar__left { flex-shrink: 0; }
+.control-bar__center {
+  display: flex;
+  align-items: center;
+  gap: var(--stellar-space-gap-sm);
+  flex: 1;
+  justify-content: flex-start;
+  padding-left: var(--stellar-space-horizontal-sm);
+}
+.control-bar__right { margin-left: auto; display: flex; align-items: center; gap: var(--stellar-space-gap-sm); }
+
+/* Selection pill */
+.selection-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  background: #5D6A85;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-family: var(--themed-font-family-body);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  line-height: 18px;
+  white-space: nowrap;
+  height: 32px;
+}
+.selection-pill:hover {
+  background: var(--themed-interaction-pressable-hovered-background);
+}
+.selection-pill__clear {
+  opacity: 0.8;
+}
+.selection-pill:hover .selection-pill__clear {
+  opacity: 1;
+}
+
+/* --- Columns container --- */
+.columns-container {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  min-height: 0;
+  border-top: 1px solid var(--themed-reusable-border-default);
+}
+
+/* --- Individual column --- */
+.column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid transparent;
+  border-right: 1px solid var(--themed-reusable-border-default);
+  min-width: 0;
+  min-height: 0;
+  box-sizing: border-box;
+}
+.column:last-child { border-right: none; }
+
+.column--active {
+  box-shadow: inset 0 2px 0 0 var(--themed-reusable-border-active);
+}
+
+.column__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--stellar-space-vertical-sm) var(--stellar-space-horizontal-md);
+  flex-shrink: 0;
+  background: var(--themed-surface-level-1-background);
+}
+
+.column__header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--stellar-space-gap-2xs);
+}
+
+.column__header-right {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.column__count {
+  font-variant-numeric: tabular-nums;
+}
+
+.column__icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: var(--stellar-radius-sm);
+  background: transparent;
+  color: var(--themed-reusable-text-secondary);
+  cursor: pointer;
+}
+.column__icon-btn:hover {
+  background: var(--themed-reusable-background-row-hover);
+  color: var(--themed-reusable-text-primary);
+}
+
+/* --- Column body (virtual scroll container) --- */
+.column__body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.virtual-spacer {
+  width: 100%;
+  pointer-events: none;
+}
+
+.virtual-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  gap: 4px;
+}
+
+/* --- List item --- */
+.list-item {
+  display: flex;
+  align-items: center;
+  gap: var(--stellar-space-gap-sm);
+  padding: var(--stellar-space-vertical-sm) var(--stellar-space-horizontal-md);
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  min-height: 56px;
+  border-radius: var(--stellar-radius-sm);
+}
+
+.list-item:hover {
+  background: var(--themed-reusable-background-row-hover);
+}
+
+.list-item--selected {
+  background: #D6E6FF;
+  border-radius: 6px;
+}
+.list-item--selected:hover {
+  background: #D6E6FF;
+}
+
+/* Related / highlighted items (upstream/downstream of selection) */
+.list-item--related {
+  background: #ECEEF1;
+  border-radius: 6px;
+}
+.list-item--related:hover {
+  background: #ECEEF1;
+}
+
+.list-item--drag-over {
+  /* background: var(--themed-status-info-background); */
+  box-shadow: inset 0 0 0 2px var(--themed-reusable-border-active);
+}
+
+/* Avatar / initials circle */
+.list-item__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--stellar-radius-circle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 400;
+  flex-shrink: 0;
+  color: var(--themed-reusable-text-primary);
+  background: var(--themed-reusable-background-additional-info);
+  border: 1px solid var(--themed-reusable-border-default);
+  font-family: Inter, sans-serif;
+}
+
+.list-item__avatar--account {
+  border-radius: var(--stellar-radius-sm);
+  background: var(--themed-surface-level-2-background);
+}
+
+/* Status dot */
+.list-item__status {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--stellar-radius-circle);
+  flex-shrink: 0;
+  position: absolute;
+  left: 14px;
+  top: 12px;
+}
+.list-item__status--enabled {
+  background: var(--themed-status-success-ui);
+}
+.list-item__status--disabled {
+  background: var(--themed-reusable-disabled-text);
+}
+
+/* Text area */
+.list-item__text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.list-item__name {
+  font-family: var(--themed-font-family-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--themed-reusable-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 18px;
+}
+
+.list-item__subtitle {
+  font-family: var(--themed-font-family-body);
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--themed-reusable-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 16px;
+}
+
+.list-item__subtitle-tag {
+  color: var(--themed-interaction-pressable-default-background);
+  cursor: pointer;
+}
+.list-item__subtitle-tag:hover {
+  text-decoration: underline;
+}
+
+/* Chevron on account items */
+.list-item__chevron {
+  flex-shrink: 0;
+  color: var(--themed-reusable-text-secondary);
+}
+
+/* --- Drag ghost --- */
+.drag-ghost {
+  position: fixed;
+  top: -1000px;
+  left: -1000px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--themed-interaction-pressable-default-background);
+  color: var(--themed-interaction-pressable-default-content);
+  border-radius: var(--stellar-radius-sm);
+  font-family: var(--themed-font-family-body);
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: var(--themed-elevation-3-box-shadow);
+  z-index: 10000;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.drag-ghost__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  background: rgba(255,255,255,0.25);
+  border-radius: var(--stellar-radius-circle);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* Drop zone highlight on columns */
+.column--drop-target {
+  /* background: var(--themed-status-info-background); */
+  border: 1px solid hsla(219, 22%, 69%, 1);
+}
+.column--drop-target .column__header {
+  /* background: var(--themed-status-info-background); */
+}
+
+/* Dragging state on items */
+.list-item--dragging {
+  opacity: 0.5;
+}
+
+/* Keyboard focus indicator */
+.list-item:focus-visible {
+  outline: 2px solid var(--themed-reusable-border-active);
+  outline-offset: -2px;
+}
+
+.stellar-textinput {
+  height: 32px;
+  padding: 0 12px;
+}
+/* Relation counts next to selection pill */
+.relation-counts {
+  font-family: var(--themed-font-family-body);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--themed-reusable-text-secondary);
+  white-space: nowrap;
+  padding: 0 12px;
+}
+
+/* Column select button (Select unassigned / Select all) */
+.column__select-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--themed-reusable-text-secondary);
+  font-family: var(--themed-font-family-body);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.column__select-btn:hover {
+  background: var(--themed-reusable-background-row-hover);
+  color: var(--themed-reusable-text-primary);
+}
+
+/* Filter menu */
+.filter-trigger {
+  position: relative;
+}
+
+.filter-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 4px;
+  min-width: 180px;
+  background: var(--themed-surface-level-1-background);
+  border: 1px solid var(--themed-reusable-border-default);
+  border-radius: 6px;
+  box-shadow: var(--themed-elevation-3-box-shadow);
+  z-index: 100;
+  padding: 4px 0;
+  font-family: var(--themed-font-family-body);
+}
+.filter-menu--open {
+  display: block;
+}
+
+.filter-menu__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px;
+  font-size: 13px;
+  color: var(--themed-reusable-text-primary);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.filter-menu__item:hover {
+  background: var(--themed-reusable-background-row-hover);
+}
+.filter-menu__item-chevron {
+  width: 12px;
+  height: 12px;
+  color: var(--themed-reusable-text-secondary);
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+/* Submenu */
+.filter-submenu {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: -4px;
+  min-width: 160px;
+  background: var(--themed-surface-level-1-background);
+  border: 1px solid var(--themed-reusable-border-default);
+  border-radius: 6px;
+  box-shadow: var(--themed-elevation-3-box-shadow);
+  z-index: 101;
+  padding: 4px 0;
+  max-height: 280px;
+  overflow-y: auto;
+}
+.filter-menu__item:hover > .filter-submenu {
+  display: block;
+}
+
+.filter-submenu__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  font-size: 13px;
+  color: var(--themed-reusable-text-primary);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.filter-submenu__item:hover {
+  background: var(--themed-reusable-background-row-hover);
+}
+
+.filter-submenu__check {
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--themed-reusable-border-default);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: transparent;
+}
+.filter-submenu__item--active .filter-submenu__check {
+  background: var(--themed-interaction-pressable-default-background);
+  border-color: var(--themed-interaction-pressable-default-background);
+}
+.filter-submenu__check-icon {
+  display: none;
+  width: 10px;
+  height: 10px;
+  color: #fff;
+}
+.filter-submenu__item--active .filter-submenu__check-icon {
+  display: block;
+}
+
+/* Active filter indicator on the button */
+.column__icon-btn--filter-active {
+  color: var(--themed-interaction-pressable-default-background);
+}
+
+/* Clear filters item */
+.filter-menu__clear {
+  padding: 6px 12px;
+  font-size: 12px;
+  color: var(--themed-reusable-text-secondary);
+  cursor: pointer;
+  border-top: 1px solid var(--themed-reusable-border-default);
+  margin-top: 4px;
+  padding-top: 8px;
+}
+.filter-menu__clear:hover {
+  color: var(--themed-reusable-text-primary);
+}
+
+/* Filter count badge in button */
+.filter-count-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  border-radius: 8px;
+  font-family: var(--themed-font-family-body);
+}
+
+.column__icon-btn--filter-active {
+  background: var(--themed-interaction-pressable-default-background);
+  color: #fff;
+}
+.column__icon-btn--filter-active:hover {
+  background: var(--themed-interaction-pressable-hovered-background);
+  color: #fff;
+}
+
+/* Active filter menu item label */
+.filter-menu__item--active > span:first-child {
+  color: var(--themed-interaction-pressable-default-background);
+  font-weight: 500;
+}
+
+/* Filter submenu item count */
+.filter-submenu__count {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--themed-reusable-text-secondary);
+  font-variant-numeric: tabular-nums;
+}

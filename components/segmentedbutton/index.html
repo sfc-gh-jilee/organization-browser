@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SegmentedButton — Stellar Vanilla Component</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../tokens/stellar-tokens.css">
+  <link rel="stylesheet" href="segmentedbutton.css">
+  <style>
+    body { font-family: Inter, system-ui, sans-serif; max-width: 900px; margin: 0 auto; padding: 40px; color: #1e252f; }
+    h1 { margin-bottom: 8px; }
+    .subtitle { color: #666; margin-bottom: 32px; }
+    h2 { margin-top: 32px; margin-bottom: 16px; font-size: 18px; }
+    .demo { background: #f8f8f8; padding: 32px; border-radius: 8px; margin-bottom: 16px;
+            display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
+    .demo-row { display: flex; gap: 16px; align-items: center; }
+    .demo-label { min-width: 120px; font-size: 12px; color: #888; font-family: monospace; }
+    .code-section { margin-bottom: 32px; }
+    .code-section h3 { margin-bottom: 8px; font-size: 14px; }
+    pre { background: #1e1e1e; color: #d4d4d4; padding: 16px; border-radius: 8px;
+          overflow-x: auto; font-size: 13px; line-height: 1.5; }
+    .copy-btn { float: right; background: #333; color: #fff; border: none; padding: 4px 12px;
+                border-radius: 4px; cursor: pointer; font-size: 12px; }
+    .copy-btn:hover { background: #555; }
+    .links { display: flex; gap: 16px; margin-top: 32px; padding-top: 16px; border-top: 1px solid #e5e5e5; }
+    .links a { color: #085BD7; }
+  </style>
+</head>
+<body>
+  <h1>SegmentedButton</h1>
+  <p class="subtitle">Vanilla HTML/CSS/JS — extracted from Stellar Design System</p>
+
+  <h2>Basic</h2>
+  <div class="demo">
+    <div class="demo-row">
+      <span class="demo-label">Regular</span>
+      <div class="stellar-segmentedbutton stellar-segmentedbutton--regular" role="radiogroup" aria-orientation="horizontal">
+        <button class="stellar-segmentedbutton__item" type="button" role="radio" aria-checked="true" data-selected="true" data-value="first" tabindex="0">First</button>
+        <button class="stellar-segmentedbutton__item" type="button" role="radio" aria-checked="false" data-value="second" tabindex="-1">Second</button>
+        <button class="stellar-segmentedbutton__item" type="button" role="radio" aria-checked="false" data-value="third" tabindex="-1">Third</button>
+      </div>
+    </div>
+    <div class="demo-row">
+      <span class="demo-label">Small</span>
+      <div class="stellar-segmentedbutton stellar-segmentedbutton--small" role="radiogroup" aria-orientation="horizontal">
+        <button class="stellar-segmentedbutton__item" type="button" role="radio" aria-checked="true" data-selected="true" data-value="first" tabindex="0">First</button>
+        <button class="stellar-segmentedbutton__item" type="button" role="radio" aria-checked="false" data-value="second" tabindex="-1">Second</button>
+        <button class="stellar-segmentedbutton__item" type="button" role="radio" aria-checked="false" data-value="third" tabindex="-1">Third</button>
+      </div>
+    </div>
+  </div>
+
+  <h2>With Icons</h2>
+  <div class="demo">
+    <div class="stellar-segmentedbutton stellar-segmentedbutton--regular" role="radiogroup" aria-orientation="horizontal">
+      <button class="stellar-segmentedbutton__item" type="button" role="radio" aria-checked="true" data-selected="true" data-value="list" tabindex="0"><svg viewBox="0 0 16 16" role="presentation" aria-hidden="true" fill="none" stroke="none" xmlns="http://www.w3.org/2000/svg"><g><path d="M2.75 11.75a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5M11 13H5v-1h6zM2.75 7.25a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5M14 8.5H5v-1h9zM2.75 2.75a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5M12.5 4H5V3h7.5z"></path></g></svg>List</button>
+      <button class="stellar-segmentedbutton__item" type="button" role="radio" aria-checked="false" data-value="grid" tabindex="-1"><svg viewBox="0 0 16 16" role="presentation" aria-hidden="true" fill="none" stroke="none" xmlns="http://www.w3.org/2000/svg"><g><path fill-rule="evenodd" d="M6.5 9a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-4a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5zM3 13h3v-3H3zm10.5-4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-4a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5zM10 13h3v-3h-3zM6.5 2a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-4a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5zM3 6h3V3H3zm10.5-4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-4a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5zM10 6h3V3h-3z" clip-rule="evenodd"></path></g></svg>Grid</button>
+      <button class="stellar-segmentedbutton__item" type="button" role="radio" aria-checked="false" data-value="chart" tabindex="-1"><svg viewBox="0 0 16 16" role="presentation" aria-hidden="true" fill="none" stroke="none" xmlns="http://www.w3.org/2000/svg"><g><path fill-rule="evenodd" d="M13 2a2 2 0 1 1-.396 3.96l-1.211 2.606a2 2 0 1 1-3.114.419L7.013 7.721a2 2 0 0 1-1.433.233l-1.27 2.54c.423.366.69.903.69 1.506a2 2 0 1 1-1.582-1.956l1.269-2.538A2 2 0 1 1 8 6c0 .37-.104.716-.28 1.014l1.265 1.264a2 2 0 0 1 1.536-.208l1.184-2.548A2 2 0 0 1 13 2M3 11a1 1 0 1 0 0 2 1 1 0 0 0 0-2m7-2a1 1 0 1 0 0 2 1 1 0 0 0 0-2M6 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2m7-2a1 1 0 1 0 0 2 1 1 0 0 0 0-2" clip-rule="evenodd"></path></g></svg>Chart</button>
+    </div>
+  </div>
+
+  <h2>With Count Badge</h2>
+  <div class="demo">
+    <div class="stellar-segmentedbutton stellar-segmentedbutton--regular" role="radiogroup" aria-orientation="horizontal">
+      <button class="stellar-segmentedbutton__item" type="button" role="radio" aria-checked="true" data-selected="true" data-value="all" tabindex="0">All<span class="stellar-segmentedbutton__badge">42</span></button>
+      <button class="stellar-segmentedbutton__item" type="button" role="radio" aria-checked="false" data-value="active" tabindex="-1">Active<span class="stellar-segmentedbutton__badge">18</span></button>
+      <button class="stellar-segmentedbutton__item" type="button" role="radio" aria-checked="false" data-value="archived" tabindex="-1">Archived<span class="stellar-segmentedbutton__badge">7</span></button>
+    </div>
+  </div>
+
+  <h2>Disabled Item</h2>
+  <div class="demo">
+    <div class="stellar-segmentedbutton stellar-segmentedbutton--regular" role="radiogroup" aria-orientation="horizontal">
+      <button class="stellar-segmentedbutton__item" type="button" role="radio" aria-checked="true" data-selected="true" data-value="first" tabindex="0">First</button>
+      <button class="stellar-segmentedbutton__item" type="button" role="radio" aria-checked="false" data-value="second" disabled>Second</button>
+      <button class="stellar-segmentedbutton__item" type="button" role="radio" aria-checked="false" data-value="third" tabindex="0">Third</button>
+    </div>
+  </div>
+
+  <div class="code-section">
+    <h2>HTML</h2>
+    <button class="copy-btn" onclick="copyCode('html-code')">Copy</button>
+    <pre id="html-code"><code>&lt;div class="stellar-segmentedbutton stellar-segmentedbutton--regular"
+     role="radiogroup" aria-orientation="horizontal"&gt;
+  &lt;button class="stellar-segmentedbutton__item" type="button"
+          role="radio" aria-checked="true" data-selected="true"
+          data-value="first" tabindex="0"&gt;First&lt;/button&gt;
+  &lt;button class="stellar-segmentedbutton__item" type="button"
+          role="radio" aria-checked="false"
+          data-value="second" tabindex="-1"&gt;Second&lt;/button&gt;
+  &lt;button class="stellar-segmentedbutton__item" type="button"
+          role="radio" aria-checked="false"
+          data-value="third" tabindex="-1"&gt;Third&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+
+  <div class="code-section">
+    <h2>CSS</h2>
+    <button class="copy-btn" onclick="copyCode('css-code')">Copy</button>
+    <pre id="css-code"><code>.stellar-segmentedbutton {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  background-color: rgb(245, 245, 245);
+  border-radius: 8px;
+  font-family: Inter, Roboto, "Helvetica Neue", "Arial Nova", "Nimbus Sans", Arial, sans-serif;
+  font-weight: 500;
+}
+.stellar-segmentedbutton--regular { height: 32px; font-size: 14px; line-height: 16px; }
+.stellar-segmentedbutton--small { height: 24px; font-size: 12px; line-height: 16px; }
+.stellar-segmentedbutton__item {
+  display: flex; align-items: center; gap: 4px;
+  height: 100%; padding: 0 12px;
+  border: 1px solid transparent; border-radius: 8px;
+  background: transparent; color: rgb(93, 106, 133);
+  cursor: pointer; font: inherit; appearance: none;
+}
+.stellar-segmentedbutton__item[aria-checked="true"] {
+  background-color: rgb(251, 251, 251);
+  color: rgb(8, 91, 215);
+  border-color: rgb(213, 218, 228);
+}
+.stellar-segmentedbutton__item:disabled {
+  color: rgb(159, 171, 193); cursor: not-allowed;
+}</code></pre>
+  </div>
+
+  <div class="links">
+    <a href="reference.html">Reference (React)</a>
+    <a href="test.html">Test (Vanilla)</a>
+  </div>
+
+  <script src="segmentedbutton.js"></script>
+  <script>
+    function copyCode(id) {
+      const code = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(code);
+    }
+  </script>
+</body>
+</html>

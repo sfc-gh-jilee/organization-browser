@@ -1,0 +1,353 @@
+/* SplitButton — Vanilla CSS from Stellar Design System
+ * Uses --themed-* and --base-* token variables from tokens/stellar-tokens.css.
+ */
+
+/* Container */
+.stellar-splitbutton {
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+}
+
+/* === Action button (left side) === */
+.stellar-splitbutton__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--stellar-space-gap-2xs);
+  height: var(--stellar-size-md);
+  padding: 0 var(--stellar-space-horizontal-md);
+  margin: 0;
+  border-top-left-radius: var(--stellar-radius-sm);
+  border-bottom-left-radius: var(--stellar-radius-sm);
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  font-family: var(--themed-font-family-body);
+  font-size: var(--themed-font-size-regular);
+  font-weight: var(--themed-font-weight-medium);
+  line-height: var(--themed-line-height-regular-single-line);
+  cursor: pointer;
+  appearance: none;
+  user-select: none;
+  white-space: nowrap;
+  text-decoration: none;
+  position: relative;
+  outline-width: 0;
+  outline-style: none;
+  touch-action: manipulation;
+  box-sizing: border-box;
+  border-style: solid;
+}
+
+.stellar-splitbutton__action::before {
+  content: "";
+  position: absolute;
+  border-radius: inherit;
+  inset: 0;
+  pointer-events: none;
+}
+
+.stellar-splitbutton__action:focus-visible {
+  outline: 2px solid var(--themed-interaction-pressable-default-background);
+  outline-offset: 0;
+}
+
+/* === Trigger button (right chevron) === */
+.stellar-splitbutton__trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--stellar-space-gap-2xs);
+  height: var(--stellar-size-md);
+  width: var(--stellar-size-md);
+  padding: var(--stellar-space-vertical-sm);
+  margin: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: var(--stellar-radius-sm);
+  border-bottom-right-radius: var(--stellar-radius-sm);
+  font-family: var(--themed-font-family-body);
+  font-size: var(--themed-font-size-regular);
+  font-weight: var(--themed-font-weight-medium);
+  line-height: var(--themed-line-height-regular-single-line);
+  cursor: pointer;
+  appearance: none;
+  user-select: none;
+  white-space: nowrap;
+  position: relative;
+  outline-width: 0;
+  outline-style: none;
+  touch-action: manipulation;
+  box-sizing: border-box;
+  border-style: solid;
+}
+
+.stellar-splitbutton__trigger::before {
+  content: "";
+  position: absolute;
+  border-radius: inherit;
+  inset: 0;
+  pointer-events: none;
+}
+
+.stellar-splitbutton__trigger:focus-visible {
+  outline: 2px solid var(--themed-interaction-pressable-default-background);
+  outline-offset: 0;
+}
+
+.stellar-splitbutton__trigger-icon {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+.stellar-splitbutton__action-icon {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+/* ========================
+   Primary variant
+   ======================== */
+.stellar-splitbutton--primary .stellar-splitbutton__action {
+  background-color: var(--themed-interaction-pressable-default-background);
+  color: var(--themed-interaction-pressable-default-content);
+  border-width: 0;
+  border-color: transparent;
+  border-right-width: 1px;
+  border-right-style: solid;
+  border-right-color: var(--themed-reusable-border-default);
+  box-shadow: none;
+}
+
+.stellar-splitbutton--primary .stellar-splitbutton__action:hover {
+  background-color: var(--themed-interaction-pressable-hovered-background);
+}
+
+.stellar-splitbutton--primary .stellar-splitbutton__action:active {
+  background-color: var(--themed-interaction-pressable-pressed-background);
+}
+
+.stellar-splitbutton--primary .stellar-splitbutton__trigger {
+  background-color: var(--themed-interaction-pressable-default-background);
+  color: var(--themed-interaction-pressable-default-content);
+  border-width: 0;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.stellar-splitbutton--primary .stellar-splitbutton__trigger:hover {
+  background-color: var(--themed-interaction-pressable-hovered-background);
+}
+
+.stellar-splitbutton--primary .stellar-splitbutton__trigger:active {
+  background-color: var(--themed-interaction-pressable-pressed-background);
+}
+
+/* Primary disabled */
+.stellar-splitbutton--primary.stellar-splitbutton--disabled .stellar-splitbutton__action {
+  background-color: var(--themed-interaction-pressable-disabled-background);
+  color: var(--themed-interaction-pressable-disabled-content);
+  cursor: not-allowed;
+  border-right-color: var(--themed-reusable-border-default);
+}
+
+.stellar-splitbutton--primary.stellar-splitbutton--disabled .stellar-splitbutton__action:hover {
+  background-color: var(--themed-interaction-pressable-disabled-background);
+}
+
+.stellar-splitbutton--primary.stellar-splitbutton--disabled .stellar-splitbutton__trigger {
+  background-color: var(--themed-interaction-pressable-disabled-background);
+  color: var(--themed-interaction-pressable-disabled-content);
+  cursor: not-allowed;
+}
+
+.stellar-splitbutton--primary.stellar-splitbutton--disabled .stellar-splitbutton__trigger:hover {
+  background-color: var(--themed-interaction-pressable-disabled-background);
+}
+
+/* ========================
+   Secondary variant
+   ======================== */
+.stellar-splitbutton--secondary .stellar-splitbutton__action {
+  background-color: var(--themed-surface-level-2-background);
+  color: var(--themed-reusable-text-primary);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--themed-reusable-border-bright);
+  border-right-width: 0;
+  box-shadow: none;
+}
+
+.stellar-splitbutton--secondary .stellar-splitbutton__action:hover {
+  background-color: var(--themed-surface-level-2-background);
+  border-color: var(--themed-reusable-border-hover);
+}
+
+.stellar-splitbutton--secondary .stellar-splitbutton__action:active {
+  background-color: var(--button-secondary-background-press);
+  border-color: var(--themed-reusable-border-hover);
+}
+
+.stellar-splitbutton--secondary .stellar-splitbutton__trigger {
+  background-color: var(--themed-surface-level-2-background);
+  color: var(--themed-reusable-text-primary);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--themed-reusable-border-bright);
+  box-shadow: none;
+}
+
+.stellar-splitbutton--secondary .stellar-splitbutton__trigger:hover {
+  background-color: var(--themed-surface-level-2-background);
+  border-color: var(--themed-reusable-border-hover);
+}
+
+.stellar-splitbutton--secondary .stellar-splitbutton__trigger:active {
+  background-color: var(--button-secondary-background-press);
+  border-color: var(--themed-reusable-border-hover);
+}
+
+/* Secondary disabled */
+.stellar-splitbutton--secondary.stellar-splitbutton--disabled .stellar-splitbutton__action {
+  background-color: var(--themed-surface-level-1-background);
+  color: var(--themed-reusable-disabled-text);
+  border-color: var(--themed-reusable-border-disabled);
+  cursor: not-allowed;
+}
+
+.stellar-splitbutton--secondary.stellar-splitbutton--disabled .stellar-splitbutton__action:hover {
+  background-color: var(--themed-surface-level-1-background);
+  border-color: var(--themed-reusable-border-disabled);
+}
+
+.stellar-splitbutton--secondary.stellar-splitbutton--disabled .stellar-splitbutton__trigger {
+  background-color: var(--themed-surface-level-1-background);
+  color: var(--themed-reusable-disabled-text);
+  border-color: var(--themed-reusable-border-disabled);
+  cursor: not-allowed;
+}
+
+.stellar-splitbutton--secondary.stellar-splitbutton--disabled .stellar-splitbutton__trigger:hover {
+  background-color: var(--themed-surface-level-1-background);
+  border-color: var(--themed-reusable-border-disabled);
+}
+
+/* ========================
+   Tertiary variant
+   ======================== */
+.stellar-splitbutton--tertiary .stellar-splitbutton__action {
+  background-color: transparent;
+  color: var(--themed-reusable-text-secondary);
+  border-width: 0;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.stellar-splitbutton--tertiary .stellar-splitbutton__action:hover {
+  background-color: var(--themed-reusable-border-default);
+  color: var(--themed-reusable-text-primary);
+}
+
+.stellar-splitbutton--tertiary .stellar-splitbutton__action:active {
+  background-color: var(--themed-reusable-border-bright);
+  color: var(--themed-reusable-text-primary);
+}
+
+.stellar-splitbutton--tertiary .stellar-splitbutton__trigger {
+  background-color: transparent;
+  color: var(--themed-reusable-text-secondary);
+  border-width: 0;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.stellar-splitbutton--tertiary .stellar-splitbutton__trigger:hover {
+  background-color: var(--themed-reusable-border-default);
+  color: var(--themed-reusable-text-primary);
+}
+
+.stellar-splitbutton--tertiary .stellar-splitbutton__trigger:active {
+  background-color: var(--themed-reusable-border-bright);
+  color: var(--themed-reusable-text-primary);
+}
+
+/* Tertiary disabled */
+.stellar-splitbutton--tertiary.stellar-splitbutton--disabled .stellar-splitbutton__action {
+  background-color: transparent;
+  color: var(--themed-reusable-disabled-text);
+  cursor: not-allowed;
+}
+
+.stellar-splitbutton--tertiary.stellar-splitbutton--disabled .stellar-splitbutton__action:hover {
+  background-color: transparent;
+}
+
+.stellar-splitbutton--tertiary.stellar-splitbutton--disabled .stellar-splitbutton__trigger {
+  background-color: transparent;
+  color: var(--themed-reusable-disabled-text);
+  cursor: not-allowed;
+}
+
+.stellar-splitbutton--tertiary.stellar-splitbutton--disabled .stellar-splitbutton__trigger:hover {
+  background-color: transparent;
+}
+
+/* ========================
+   Critical variant
+   ======================== */
+.stellar-splitbutton--critical .stellar-splitbutton__action {
+  background-color: var(--button-primary-critical-background-default);
+  color: var(--button-primary-critical-text-default);
+  border-width: 0;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.stellar-splitbutton--critical .stellar-splitbutton__action:hover {
+  background-color: var(--button-primary-critical-background-hover);
+}
+
+.stellar-splitbutton--critical .stellar-splitbutton__action:active {
+  background-color: var(--button-primary-critical-background-press);
+}
+
+.stellar-splitbutton--critical .stellar-splitbutton__trigger {
+  background-color: var(--button-primary-critical-background-default);
+  color: var(--button-primary-critical-text-default);
+  border-width: 0;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.stellar-splitbutton--critical .stellar-splitbutton__trigger:hover {
+  background-color: var(--button-primary-critical-background-hover);
+}
+
+.stellar-splitbutton--critical .stellar-splitbutton__trigger:active {
+  background-color: var(--button-primary-critical-background-press);
+}
+
+/* Critical disabled */
+.stellar-splitbutton--critical.stellar-splitbutton--disabled .stellar-splitbutton__action {
+  background-color: var(--button-primary-critical-background-disabled);
+  color: var(--button-primary-critical-text-disabled);
+  cursor: not-allowed;
+}
+
+.stellar-splitbutton--critical.stellar-splitbutton--disabled .stellar-splitbutton__action:hover {
+  background-color: var(--button-primary-critical-background-disabled);
+}
+
+.stellar-splitbutton--critical.stellar-splitbutton--disabled .stellar-splitbutton__trigger {
+  background-color: var(--button-primary-critical-background-disabled);
+  color: var(--button-primary-critical-text-disabled);
+  cursor: not-allowed;
+}
+
+.stellar-splitbutton--critical.stellar-splitbutton--disabled .stellar-splitbutton__trigger:hover {
+  background-color: var(--themed-status-critical-background);
+}

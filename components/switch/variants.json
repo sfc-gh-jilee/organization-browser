@@ -1,0 +1,39 @@
+{
+  "component": "Switch",
+  "tarball": "snowflake-stellar-components-0.25.2.tgz",
+  "props": {
+    "displayName": {
+      "default": "Switch",
+      "values": [
+        "Switch"
+      ]
+    },
+    "visible": {
+      "default": "true",
+      "values": [
+        "true"
+      ]
+    }
+  },
+  "booleanStates": [
+    "disabled"
+  ],
+  "contextDependencies": [],
+  "styleKeys": [
+    "switch",
+    "switchKnob"
+  ],
+  "combinations": [
+    {
+      "props": {},
+      "label": "default"
+    },
+    {
+      "props": {
+        "disabled": true
+      },
+      "label": "disabled",
+      "isState": true
+    }
+  ]
+}

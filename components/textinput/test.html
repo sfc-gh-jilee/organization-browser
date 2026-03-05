@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en" class="lightMode">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TextInput Test</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../tokens/stellar-tokens.css">
+  <link rel="stylesheet" href="textinput.css">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html {
+      line-height: 1.15;
+      -webkit-text-size-adjust: 100%;
+      font-family: Inter, Roboto, "Helvetica Neue", "Arial Nova", "Nimbus Sans", Arial, sans-serif;
+    }
+    body { background: var(--themed-surface-level-1-background); color: var(--themed-reusable-text-primary); -webkit-font-smoothing: antialiased; }
+  </style>
+  <script>
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('mode') === 'dark') {
+        document.documentElement.classList.replace('lightMode', 'darkMode');
+      }
+    })();
+  </script>
+</head>
+<body>
+    <div data-component="textinput" style="padding: 40px; display: flex; flex-direction: column; gap: 24px; min-height: 100vh; align-items: flex-start;">
+
+      <!-- === STANDALONE TEXTINPUT (no Field wrapper) === -->
+
+      <!-- regular (default) -->
+      <div style="display: flex; gap: 16px; align-items: center;">
+        <span style="min-width: 240px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">regular (default)</span>
+        <div class="stellar-textinput stellar-textinput--regular" data-stellar-field="true" data-focus-visible="false">
+          <input class="stellar-textinput__input" type="text" placeholder="Placeholder text" aria-label="Regular input" data-testid="input">
+        </div>
+      </div>
+
+      <!-- small -->
+      <div style="display: flex; gap: 16px; align-items: center;">
+        <span style="min-width: 240px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">small</span>
+        <div class="stellar-textinput stellar-textinput--small" data-stellar-field="true" data-focus-visible="false">
+          <input class="stellar-textinput__input" type="text" placeholder="Placeholder text" aria-label="Small input" data-testid="input">
+        </div>
+      </div>
+
+      <!-- regular + value -->
+      <div style="display: flex; gap: 16px; align-items: center;">
+        <span style="min-width: 240px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">regular + value</span>
+        <div class="stellar-textinput stellar-textinput--regular" data-stellar-field="true" data-focus-visible="false">
+          <input class="stellar-textinput__input" type="text" value="Input value" aria-label="Input with value" data-testid="input">
+        </div>
+      </div>
+
+      <!-- small + value -->
+      <div style="display: flex; gap: 16px; align-items: center;">
+        <span style="min-width: 240px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">small + value</span>
+        <div class="stellar-textinput stellar-textinput--small" data-stellar-field="true" data-focus-visible="false">
+          <input class="stellar-textinput__input" type="text" value="Input value" aria-label="Small input with value" data-testid="input">
+        </div>
+      </div>
+
+      <!-- regular + prefixIcon -->
+      <div style="display: flex; gap: 16px; align-items: center;">
+        <span style="min-width: 240px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">regular + prefixIcon</span>
+        <div class="stellar-textinput stellar-textinput--regular" data-stellar-field="true" data-focus-visible="false">
+          <svg class="stellar-textinput__icon" viewBox="0 0 16 16" role="presentation" aria-hidden="true" fill="none" stroke="none" xmlns="http://www.w3.org/2000/svg"><g><path fill="currentColor" fill-rule="evenodd" d="M7 2a5 5 0 0 1 3.871 8.164l3.983 3.983-.707.707-3.983-3.983A5 5 0 1 1 7 2m0 1a4 4 0 1 0 0 8 4 4 0 0 0 0-8" clip-rule="evenodd"></path></g></svg>
+          <input class="stellar-textinput__input" type="text" placeholder="Search..." aria-label="Search input" data-testid="input">
+        </div>
+      </div>
+
+      <!-- small + prefixIcon -->
+      <div style="display: flex; gap: 16px; align-items: center;">
+        <span style="min-width: 240px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">small + prefixIcon</span>
+        <div class="stellar-textinput stellar-textinput--small" data-stellar-field="true" data-focus-visible="false">
+          <svg class="stellar-textinput__icon" viewBox="0 0 16 16" role="presentation" aria-hidden="true" fill="none" stroke="none" xmlns="http://www.w3.org/2000/svg"><g><path fill="currentColor" fill-rule="evenodd" d="M7 2a5 5 0 0 1 3.871 8.164l3.983 3.983-.707.707-3.983-3.983A5 5 0 1 1 7 2m0 1a4 4 0 1 0 0 8 4 4 0 0 0 0-8" clip-rule="evenodd"></path></g></svg>
+          <input class="stellar-textinput__input" type="text" placeholder="Search..." aria-label="Small search input" data-testid="input">
+        </div>
+      </div>
+
+      <!-- regular + disabled -->
+      <div style="display: flex; gap: 16px; align-items: center;">
+        <span style="min-width: 240px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">regular + disabled</span>
+        <div class="stellar-textinput stellar-textinput--regular stellar-textinput--disabled" disabled data-stellar-field="true" data-focus-visible="false">
+          <input class="stellar-textinput__input" type="text" placeholder="Disabled" aria-label="Disabled input" disabled data-testid="input">
+        </div>
+      </div>
+
+      <!-- small + disabled -->
+      <div style="display: flex; gap: 16px; align-items: center;">
+        <span style="min-width: 240px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">small + disabled</span>
+        <div class="stellar-textinput stellar-textinput--small stellar-textinput--disabled" disabled data-stellar-field="true" data-focus-visible="false">
+          <input class="stellar-textinput__input" type="text" placeholder="Disabled" aria-label="Small disabled input" disabled data-testid="input">
+        </div>
+      </div>
+
+      <!-- regular + readOnly -->
+      <div style="display: flex; gap: 16px; align-items: center;">
+        <span style="min-width: 240px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">regular + readOnly</span>
+        <div class="stellar-textinput stellar-textinput--regular stellar-textinput--readonly" data-stellar-field="true" data-focus-visible="false">
+          <input class="stellar-textinput__input" type="text" value="Read only value" aria-label="Read-only input" readonly data-testid="input">
+        </div>
+      </div>
+
+      <!-- regular + fullWidth -->
+      <div style="display: flex; gap: 16px; align-items: center; width: 500px;">
+        <span style="min-width: 240px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">regular + fullWidth</span>
+        <div class="stellar-textinput stellar-textinput--regular stellar-textinput--fullwidth" data-stellar-field="true" data-focus-visible="false">
+          <input class="stellar-textinput__input" type="text" placeholder="Full width input" aria-label="Full width input" data-testid="input">
+        </div>
+      </div>
+
+      <!-- === WITH FIELD WRAPPER (label + description + validation) === -->
+
+      <!-- Field / regular -->
+      <div>
+        <span style="font-size: 11px; color: rgb(136, 136, 136); font-family: monospace; margin-bottom: 8px; display: block;">Field / regular</span>
+        <div class="stellar-field">
+          <div class="stellar-field__label-area">
+            <label class="stellar-field__label">Label</label>
+          </div>
+          <div class="stellar-field__control-area">
+            <div class="stellar-textinput stellar-textinput--regular stellar-textinput--fullwidth" data-stellar-field="true" data-focus-visible="false">
+              <input class="stellar-textinput__input" type="text" placeholder="Placeholder text" data-testid="input">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Field / small -->
+      <div>
+        <span style="font-size: 11px; color: rgb(136, 136, 136); font-family: monospace; margin-bottom: 8px; display: block;">Field / small</span>
+        <div class="stellar-field">
+          <div class="stellar-field__label-area">
+            <label class="stellar-field__label">Label</label>
+          </div>
+          <div class="stellar-field__control-area">
+            <div class="stellar-textinput stellar-textinput--small stellar-textinput--fullwidth" data-stellar-field="true" data-focus-visible="false">
+              <input class="stellar-textinput__input" type="text" placeholder="Placeholder text" data-testid="input">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Field + description -->
+      <div>
+        <span style="font-size: 11px; color: rgb(136, 136, 136); font-family: monospace; margin-bottom: 8px; display: block;">Field + description</span>
+        <div class="stellar-field">
+          <div class="stellar-field__label-area">
+            <label class="stellar-field__label">Label</label>
+          </div>
+          <div class="stellar-field__control-area">
+            <div class="stellar-textinput stellar-textinput--regular stellar-textinput--fullwidth" data-stellar-field="true" data-focus-visible="false">
+              <input class="stellar-textinput__input" type="text" placeholder="Placeholder text" data-testid="input">
+            </div>
+            <p class="stellar-field__description">Helper text for the field</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Field + error -->
+      <div>
+        <span style="font-size: 11px; color: rgb(136, 136, 136); font-family: monospace; margin-bottom: 8px; display: block;">Field + error</span>
+        <div class="stellar-field">
+          <div class="stellar-field__label-area">
+            <label class="stellar-field__label">Label</label>
+          </div>
+          <div class="stellar-field__control-area">
+            <div class="stellar-textinput stellar-textinput--regular stellar-textinput--fullwidth stellar-textinput--critical" data-variant="critical" data-stellar-field="true" data-focus-visible="false">
+              <input class="stellar-textinput__input" type="text" placeholder="Placeholder text" data-testid="input">
+              <span class="stellar-textinput__status-icon"><svg viewBox="0 0 16 16" role="presentation" aria-hidden="true" fill="none" stroke="none" xmlns="http://www.w3.org/2000/svg"><g><path fill="rgb(211, 19, 47)" fill-rule="evenodd" d="M8 1a7 7 0 1 1 0 14A7 7 0 0 1 8 1m0 6.293L5.354 4.646l-.708.708L7.293 8l-2.647 2.646.708.707L8 8.708l2.646 2.646.707-.707L8.708 8l2.646-2.646-.707-.708z" clip-rule="evenodd"></path></g></svg></span>
+            </div>
+            <p class="stellar-field__description stellar-field__description--critical">This field is required</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Field + warning -->
+      <div>
+        <span style="font-size: 11px; color: rgb(136, 136, 136); font-family: monospace; margin-bottom: 8px; display: block;">Field + warning</span>
+        <div class="stellar-field">
+          <div class="stellar-field__label-area">
+            <label class="stellar-field__label">Label</label>
+          </div>
+          <div class="stellar-field__control-area">
+            <div class="stellar-textinput stellar-textinput--regular stellar-textinput--fullwidth stellar-textinput--caution" data-variant="caution" data-stellar-field="true" data-focus-visible="false">
+              <input class="stellar-textinput__input" type="text" placeholder="Placeholder text" data-testid="input">
+              <span class="stellar-textinput__status-icon"><svg viewBox="0 0 16 16" role="presentation" aria-hidden="true" fill="none" stroke="none" xmlns="http://www.w3.org/2000/svg"><g><path fill="rgb(243, 190, 15)" fill-rule="evenodd" d="M6.68 2.899c.566-1.052 2.074-1.052 2.64 0l5.327 9.89A1.5 1.5 0 0 1 13.327 15H2.673a1.5 1.5 0 0 1-1.32-2.21zM8 11.5A.75.75 0 1 0 8 13a.75.75 0 0 0 0-1.5M7.5 6v4.5h1V6z" clip-rule="evenodd"></path></g></svg></span>
+            </div>
+            <p class="stellar-field__description stellar-field__description--caution">This value might be incorrect</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Field + success -->
+      <div>
+        <span style="font-size: 11px; color: rgb(136, 136, 136); font-family: monospace; margin-bottom: 8px; display: block;">Field + success</span>
+        <div class="stellar-field">
+          <div class="stellar-field__label-area">
+            <label class="stellar-field__label">Label</label>
+          </div>
+          <div class="stellar-field__control-area">
+            <div class="stellar-textinput stellar-textinput--regular stellar-textinput--fullwidth stellar-textinput--success" data-variant="success" data-stellar-field="true" data-focus-visible="false">
+              <input class="stellar-textinput__input" type="text" placeholder="Placeholder text" data-testid="input">
+              <span class="stellar-textinput__status-icon"><svg viewBox="0 0 16 16" role="presentation" aria-hidden="true" fill="none" stroke="none" xmlns="http://www.w3.org/2000/svg"><g><path fill="rgb(14, 156, 115)" fill-rule="evenodd" d="M8 1a7 7 0 1 1 0 14A7 7 0 0 1 8 1m-1.163 9.254L4.362 7.655l-.724.69 2.857 3a.5.5 0 0 0 .741-.02l5.144-6-.76-.65z" clip-rule="evenodd"></path></g></svg></span>
+            </div>
+            <p class="stellar-field__description">Value is valid</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Field + disabled -->
+      <div>
+        <span style="font-size: 11px; color: rgb(136, 136, 136); font-family: monospace; margin-bottom: 8px; display: block;">Field + disabled</span>
+        <div class="stellar-field">
+          <div class="stellar-field__label-area">
+            <label class="stellar-field__label">Label</label>
+          </div>
+          <div class="stellar-field__control-area">
+            <div class="stellar-textinput stellar-textinput--regular stellar-textinput--fullwidth stellar-textinput--disabled" disabled data-stellar-field="true" data-focus-visible="false">
+              <input class="stellar-textinput__input" type="text" placeholder="Disabled" disabled data-testid="input">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Field + prefixIcon + error -->
+      <div>
+        <span style="font-size: 11px; color: rgb(136, 136, 136); font-family: monospace; margin-bottom: 8px; display: block;">Field + prefixIcon + error</span>
+        <div class="stellar-field">
+          <div class="stellar-field__label-area">
+            <label class="stellar-field__label">Label</label>
+          </div>
+          <div class="stellar-field__control-area">
+            <div class="stellar-textinput stellar-textinput--regular stellar-textinput--fullwidth stellar-textinput--critical" data-variant="critical" data-stellar-field="true" data-focus-visible="false">
+              <svg class="stellar-textinput__icon" viewBox="0 0 16 16" role="presentation" aria-hidden="true" fill="none" stroke="none" xmlns="http://www.w3.org/2000/svg"><g><path fill="currentColor" fill-rule="evenodd" d="M7 2a5 5 0 0 1 3.871 8.164l3.983 3.983-.707.707-3.983-3.983A5 5 0 1 1 7 2m0 1a4 4 0 1 0 0 8 4 4 0 0 0 0-8" clip-rule="evenodd"></path></g></svg>
+              <input class="stellar-textinput__input" type="text" placeholder="Search..." data-testid="input">
+              <span class="stellar-textinput__status-icon"><svg viewBox="0 0 16 16" role="presentation" aria-hidden="true" fill="none" stroke="none" xmlns="http://www.w3.org/2000/svg"><g><path fill="rgb(211, 19, 47)" fill-rule="evenodd" d="M8 1a7 7 0 1 1 0 14A7 7 0 0 1 8 1m0 6.293L5.354 4.646l-.708.708L7.293 8l-2.647 2.646.708.707L8 8.708l2.646 2.646.707-.707L8.708 8l2.646-2.646-.707-.708z" clip-rule="evenodd"></path></g></svg></span>
+            </div>
+            <p class="stellar-field__description stellar-field__description--critical">Invalid input</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  <script src="textinput.js"></script>
+</body>
+</html>

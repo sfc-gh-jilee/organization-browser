@@ -1,0 +1,787 @@
+{
+  "component": "button",
+  "timestamp": "2026-02-23T17:48:18.549Z",
+  "summary": {
+    "totalChecks": 36,
+    "passChecks": 36,
+    "failChecks": 0,
+    "allPass": true,
+    "byState": {
+      "hover": {
+        "checks": 18,
+        "averageMatch": 99.8,
+        "minMatch": 99.7,
+        "failing": 0
+      },
+      "focus": {
+        "checks": 18,
+        "averageMatch": 99.8,
+        "minMatch": 99.8,
+        "failing": 0
+      }
+    }
+  },
+  "refElements": [
+    {
+      "index": 0,
+      "role": "button",
+      "tag": "button",
+      "text": "Label",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 1,
+      "role": "button",
+      "tag": "button",
+      "text": "Label",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 2,
+      "role": "button",
+      "tag": "button",
+      "text": "Label",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 3,
+      "role": "button",
+      "tag": "button",
+      "text": "Label",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 4,
+      "role": "button",
+      "tag": "button",
+      "text": "Label",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 5,
+      "role": "button",
+      "tag": "button",
+      "text": "Label",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 6,
+      "role": "button",
+      "tag": "button",
+      "text": "Label",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 7,
+      "role": "button",
+      "tag": "button",
+      "text": "Label",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 8,
+      "role": "button",
+      "tag": "button",
+      "text": "Label",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 9,
+      "role": "button",
+      "tag": "button",
+      "text": "Label",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 10,
+      "role": "button",
+      "tag": "button",
+      "text": "Label",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 11,
+      "role": "button",
+      "tag": "button",
+      "text": "Label",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 12,
+      "role": "button",
+      "tag": "button",
+      "text": "Create",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 13,
+      "role": "button",
+      "tag": "button",
+      "text": "Settings",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 14,
+      "role": "button",
+      "tag": "button",
+      "text": "Delete",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 15,
+      "role": "button",
+      "tag": "button",
+      "text": "Label",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 16,
+      "role": "button",
+      "tag": "button",
+      "text": "Label",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 17,
+      "role": "button",
+      "tag": "button",
+      "text": "Label",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    }
+  ],
+  "testElements": [
+    {
+      "index": 0,
+      "role": "button",
+      "tag": "button",
+      "text": "Label",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 1,
+      "role": "button",
+      "tag": "button",
+      "text": "Label",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 2,
+      "role": "button",
+      "tag": "button",
+      "text": "Label",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 3,
+      "role": "button",
+      "tag": "button",
+      "text": "Label",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 4,
+      "role": "button",
+      "tag": "button",
+      "text": "Label",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 5,
+      "role": "button",
+      "tag": "button",
+      "text": "Label",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 6,
+      "role": "button",
+      "tag": "button",
+      "text": "Label",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 7,
+      "role": "button",
+      "tag": "button",
+      "text": "Label",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 8,
+      "role": "button",
+      "tag": "button",
+      "text": "Label",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 9,
+      "role": "button",
+      "tag": "button",
+      "text": "Label",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 10,
+      "role": "button",
+      "tag": "button",
+      "text": "Label",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 11,
+      "role": "button",
+      "tag": "button",
+      "text": "Label",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 12,
+      "role": "button",
+      "tag": "button",
+      "text": "Create",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 13,
+      "role": "button",
+      "tag": "button",
+      "text": "Settings",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 14,
+      "role": "button",
+      "tag": "button",
+      "text": "Delete",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 15,
+      "role": "button",
+      "tag": "button",
+      "text": "Label",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 16,
+      "role": "button",
+      "tag": "button",
+      "text": "Label",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 17,
+      "role": "button",
+      "tag": "button",
+      "text": "Label",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    }
+  ],
+  "roleMismatches": [],
+  "results": [
+    {
+      "state": "hover",
+      "element": "button[0] \"Label\"",
+      "role": "button",
+      "index": 0,
+      "matchPct": 99.8,
+      "mismatchPixels": 2343,
+      "files": {
+        "ref": "hover-button-0-ref.png",
+        "test": "hover-button-0-test.png",
+        "diff": "hover-button-0-diff.png"
+      }
+    },
+    {
+      "state": "hover",
+      "element": "button[1] \"Label\"",
+      "role": "button",
+      "index": 1,
+      "matchPct": 99.8,
+      "mismatchPixels": 2350,
+      "files": {
+        "ref": "hover-button-1-ref.png",
+        "test": "hover-button-1-test.png",
+        "diff": "hover-button-1-diff.png"
+      }
+    },
+    {
+      "state": "hover",
+      "element": "button[2] \"Label\"",
+      "role": "button",
+      "index": 2,
+      "matchPct": 99.8,
+      "mismatchPixels": 2334,
+      "files": {
+        "ref": "hover-button-2-ref.png",
+        "test": "hover-button-2-test.png",
+        "diff": "hover-button-2-diff.png"
+      }
+    },
+    {
+      "state": "hover",
+      "element": "button[3] \"Label\"",
+      "role": "button",
+      "index": 3,
+      "matchPct": 99.8,
+      "mismatchPixels": 2340,
+      "files": {
+        "ref": "hover-button-3-ref.png",
+        "test": "hover-button-3-test.png",
+        "diff": "hover-button-3-diff.png"
+      }
+    },
+    {
+      "state": "hover",
+      "element": "button[4] \"Label\"",
+      "role": "button",
+      "index": 4,
+      "matchPct": 99.8,
+      "mismatchPixels": 2351,
+      "files": {
+        "ref": "hover-button-4-ref.png",
+        "test": "hover-button-4-test.png",
+        "diff": "hover-button-4-diff.png"
+      }
+    },
+    {
+      "state": "hover",
+      "element": "button[5] \"Label\"",
+      "role": "button",
+      "index": 5,
+      "matchPct": 99.8,
+      "mismatchPixels": 2347,
+      "files": {
+        "ref": "hover-button-5-ref.png",
+        "test": "hover-button-5-test.png",
+        "diff": "hover-button-5-diff.png"
+      }
+    },
+    {
+      "state": "hover",
+      "element": "button[6] \"Label\"",
+      "role": "button",
+      "index": 6,
+      "matchPct": 99.8,
+      "mismatchPixels": 2345,
+      "files": {
+        "ref": "hover-button-6-ref.png",
+        "test": "hover-button-6-test.png",
+        "diff": "hover-button-6-diff.png"
+      }
+    },
+    {
+      "state": "hover",
+      "element": "button[7] \"Label\"",
+      "role": "button",
+      "index": 7,
+      "matchPct": 99.8,
+      "mismatchPixels": 2351,
+      "files": {
+        "ref": "hover-button-7-ref.png",
+        "test": "hover-button-7-test.png",
+        "diff": "hover-button-7-diff.png"
+      }
+    },
+    {
+      "state": "hover",
+      "element": "button[8] \"Label\"",
+      "role": "button",
+      "index": 8,
+      "matchPct": 99.8,
+      "mismatchPixels": 2342,
+      "files": {
+        "ref": "hover-button-8-ref.png",
+        "test": "hover-button-8-test.png",
+        "diff": "hover-button-8-diff.png"
+      }
+    },
+    {
+      "state": "hover",
+      "element": "button[9] \"Label\"",
+      "role": "button",
+      "index": 9,
+      "matchPct": 99.8,
+      "mismatchPixels": 2336,
+      "files": {
+        "ref": "hover-button-9-ref.png",
+        "test": "hover-button-9-test.png",
+        "diff": "hover-button-9-diff.png"
+      }
+    },
+    {
+      "state": "hover",
+      "element": "button[10] \"Label\"",
+      "role": "button",
+      "index": 10,
+      "matchPct": 99.8,
+      "mismatchPixels": 2355,
+      "files": {
+        "ref": "hover-button-10-ref.png",
+        "test": "hover-button-10-test.png",
+        "diff": "hover-button-10-diff.png"
+      }
+    },
+    {
+      "state": "hover",
+      "element": "button[11] \"Label\"",
+      "role": "button",
+      "index": 11,
+      "matchPct": 99.8,
+      "mismatchPixels": 2339,
+      "files": {
+        "ref": "hover-button-11-ref.png",
+        "test": "hover-button-11-test.png",
+        "diff": "hover-button-11-diff.png"
+      }
+    },
+    {
+      "state": "hover",
+      "element": "button[12] \"Create\"",
+      "role": "button",
+      "index": 12,
+      "matchPct": 99.8,
+      "mismatchPixels": 2334,
+      "files": {
+        "ref": "hover-button-12-ref.png",
+        "test": "hover-button-12-test.png",
+        "diff": "hover-button-12-diff.png"
+      }
+    },
+    {
+      "state": "hover",
+      "element": "button[13] \"Settings\"",
+      "role": "button",
+      "index": 13,
+      "matchPct": 99.8,
+      "mismatchPixels": 2341,
+      "files": {
+        "ref": "hover-button-13-ref.png",
+        "test": "hover-button-13-test.png",
+        "diff": "hover-button-13-diff.png"
+      }
+    },
+    {
+      "state": "hover",
+      "element": "button[14] \"Delete\"",
+      "role": "button",
+      "index": 14,
+      "matchPct": 99.8,
+      "mismatchPixels": 2347,
+      "files": {
+        "ref": "hover-button-14-ref.png",
+        "test": "hover-button-14-test.png",
+        "diff": "hover-button-14-diff.png"
+      }
+    },
+    {
+      "state": "hover",
+      "element": "button[15] \"Label\"",
+      "role": "button",
+      "index": 15,
+      "matchPct": 99.7,
+      "mismatchPixels": 3974,
+      "files": {
+        "ref": "hover-button-15-ref.png",
+        "test": "hover-button-15-test.png",
+        "diff": "hover-button-15-diff.png"
+      }
+    },
+    {
+      "state": "hover",
+      "element": "button[16] \"Label\"",
+      "role": "button",
+      "index": 16,
+      "matchPct": 99.8,
+      "mismatchPixels": 2350,
+      "files": {
+        "ref": "hover-button-16-ref.png",
+        "test": "hover-button-16-test.png",
+        "diff": "hover-button-16-diff.png"
+      }
+    },
+    {
+      "state": "hover",
+      "element": "button[17] \"Label\"",
+      "role": "button",
+      "index": 17,
+      "matchPct": 99.8,
+      "mismatchPixels": 2350,
+      "files": {
+        "ref": "hover-button-17-ref.png",
+        "test": "hover-button-17-test.png",
+        "diff": "hover-button-17-diff.png"
+      }
+    },
+    {
+      "state": "focus",
+      "element": "button[0] \"Label\"",
+      "role": "button",
+      "index": 0,
+      "matchPct": 99.8,
+      "mismatchPixels": 2342,
+      "files": {
+        "ref": "focus-button-0-ref.png",
+        "test": "focus-button-0-test.png",
+        "diff": "focus-button-0-diff.png"
+      }
+    },
+    {
+      "state": "focus",
+      "element": "button[1] \"Label\"",
+      "role": "button",
+      "index": 1,
+      "matchPct": 99.8,
+      "mismatchPixels": 2337,
+      "files": {
+        "ref": "focus-button-1-ref.png",
+        "test": "focus-button-1-test.png",
+        "diff": "focus-button-1-diff.png"
+      }
+    },
+    {
+      "state": "focus",
+      "element": "button[2] \"Label\"",
+      "role": "button",
+      "index": 2,
+      "matchPct": 99.8,
+      "mismatchPixels": 2341,
+      "files": {
+        "ref": "focus-button-2-ref.png",
+        "test": "focus-button-2-test.png",
+        "diff": "focus-button-2-diff.png"
+      }
+    },
+    {
+      "state": "focus",
+      "element": "button[3] \"Label\"",
+      "role": "button",
+      "index": 3,
+      "matchPct": 99.8,
+      "mismatchPixels": 2346,
+      "files": {
+        "ref": "focus-button-3-ref.png",
+        "test": "focus-button-3-test.png",
+        "diff": "focus-button-3-diff.png"
+      }
+    },
+    {
+      "state": "focus",
+      "element": "button[4] \"Label\"",
+      "role": "button",
+      "index": 4,
+      "matchPct": 99.8,
+      "mismatchPixels": 2341,
+      "files": {
+        "ref": "focus-button-4-ref.png",
+        "test": "focus-button-4-test.png",
+        "diff": "focus-button-4-diff.png"
+      }
+    },
+    {
+      "state": "focus",
+      "element": "button[5] \"Label\"",
+      "role": "button",
+      "index": 5,
+      "matchPct": 99.8,
+      "mismatchPixels": 2333,
+      "files": {
+        "ref": "focus-button-5-ref.png",
+        "test": "focus-button-5-test.png",
+        "diff": "focus-button-5-diff.png"
+      }
+    },
+    {
+      "state": "focus",
+      "element": "button[6] \"Label\"",
+      "role": "button",
+      "index": 6,
+      "matchPct": 99.8,
+      "mismatchPixels": 2348,
+      "files": {
+        "ref": "focus-button-6-ref.png",
+        "test": "focus-button-6-test.png",
+        "diff": "focus-button-6-diff.png"
+      }
+    },
+    {
+      "state": "focus",
+      "element": "button[7] \"Label\"",
+      "role": "button",
+      "index": 7,
+      "matchPct": 99.8,
+      "mismatchPixels": 2341,
+      "files": {
+        "ref": "focus-button-7-ref.png",
+        "test": "focus-button-7-test.png",
+        "diff": "focus-button-7-diff.png"
+      }
+    },
+    {
+      "state": "focus",
+      "element": "button[8] \"Label\"",
+      "role": "button",
+      "index": 8,
+      "matchPct": 99.8,
+      "mismatchPixels": 2650,
+      "files": {
+        "ref": "focus-button-8-ref.png",
+        "test": "focus-button-8-test.png",
+        "diff": "focus-button-8-diff.png"
+      }
+    },
+    {
+      "state": "focus",
+      "element": "button[9] \"Label\"",
+      "role": "button",
+      "index": 9,
+      "matchPct": 99.8,
+      "mismatchPixels": 2682,
+      "files": {
+        "ref": "focus-button-9-ref.png",
+        "test": "focus-button-9-test.png",
+        "diff": "focus-button-9-diff.png"
+      }
+    },
+    {
+      "state": "focus",
+      "element": "button[10] \"Label\"",
+      "role": "button",
+      "index": 10,
+      "matchPct": 99.8,
+      "mismatchPixels": 2661,
+      "files": {
+        "ref": "focus-button-10-ref.png",
+        "test": "focus-button-10-test.png",
+        "diff": "focus-button-10-diff.png"
+      }
+    },
+    {
+      "state": "focus",
+      "element": "button[11] \"Label\"",
+      "role": "button",
+      "index": 11,
+      "matchPct": 99.8,
+      "mismatchPixels": 2651,
+      "files": {
+        "ref": "focus-button-11-ref.png",
+        "test": "focus-button-11-test.png",
+        "diff": "focus-button-11-diff.png"
+      }
+    },
+    {
+      "state": "focus",
+      "element": "button[12] \"Create\"",
+      "role": "button",
+      "index": 12,
+      "matchPct": 99.8,
+      "mismatchPixels": 2453,
+      "files": {
+        "ref": "focus-button-12-ref.png",
+        "test": "focus-button-12-test.png",
+        "diff": "focus-button-12-diff.png"
+      }
+    },
+    {
+      "state": "focus",
+      "element": "button[13] \"Settings\"",
+      "role": "button",
+      "index": 13,
+      "matchPct": 99.8,
+      "mismatchPixels": 2510,
+      "files": {
+        "ref": "focus-button-13-ref.png",
+        "test": "focus-button-13-test.png",
+        "diff": "focus-button-13-diff.png"
+      }
+    },
+    {
+      "state": "focus",
+      "element": "button[14] \"Delete\"",
+      "role": "button",
+      "index": 14,
+      "matchPct": 99.8,
+      "mismatchPixels": 2453,
+      "files": {
+        "ref": "focus-button-14-ref.png",
+        "test": "focus-button-14-test.png",
+        "diff": "focus-button-14-diff.png"
+      }
+    },
+    {
+      "state": "focus",
+      "element": "button[15] \"Label\"",
+      "role": "button",
+      "index": 15,
+      "matchPct": 99.8,
+      "mismatchPixels": 2337,
+      "files": {
+        "ref": "focus-button-15-ref.png",
+        "test": "focus-button-15-test.png",
+        "diff": "focus-button-15-diff.png"
+      }
+    },
+    {
+      "state": "focus",
+      "element": "button[16] \"Label\"",
+      "role": "button",
+      "index": 16,
+      "matchPct": 99.8,
+      "mismatchPixels": 2348,
+      "files": {
+        "ref": "focus-button-16-ref.png",
+        "test": "focus-button-16-test.png",
+        "diff": "focus-button-16-diff.png"
+      }
+    },
+    {
+      "state": "focus",
+      "element": "button[17] \"Label\"",
+      "role": "button",
+      "index": 17,
+      "matchPct": 99.8,
+      "mismatchPixels": 2661,
+      "files": {
+        "ref": "focus-button-17-ref.png",
+        "test": "focus-button-17-test.png",
+        "diff": "focus-button-17-diff.png"
+      }
+    }
+  ]
+}

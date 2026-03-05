@@ -1,0 +1,113 @@
+{
+  "component": "card",
+  "timestamp": "2026-02-20T22:02:07.896Z",
+  "summary": {
+    "totalChecks": 0,
+    "passChecks": 0,
+    "failChecks": 0,
+    "allPass": true,
+    "byState": {}
+  },
+  "refElements": [
+    {
+      "index": 0,
+      "role": "button",
+      "tag": "button",
+      "text": "Cancel",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 1,
+      "role": "button",
+      "tag": "button",
+      "text": "Submit",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 2,
+      "role": "button",
+      "tag": "button",
+      "text": "Settings",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 3,
+      "role": "button",
+      "tag": "button",
+      "text": "",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 4,
+      "role": "button",
+      "tag": "button",
+      "text": "Clickable CardClick anywhere on this car",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 5,
+      "role": "button",
+      "tag": "button",
+      "text": "Disabled Button CardThis card cannot be ",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    }
+  ],
+  "testElements": [
+    {
+      "index": 0,
+      "role": "button",
+      "tag": "button",
+      "text": "Cancel",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 1,
+      "role": "button",
+      "tag": "button",
+      "text": "Submit",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 2,
+      "role": "button",
+      "tag": "button",
+      "text": "",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 3,
+      "role": "button",
+      "tag": "button",
+      "text": "Settings",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 4,
+      "role": "button",
+      "tag": "button",
+      "text": "Clickable Card\n                \n        ",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 5,
+      "role": "button",
+      "tag": "button",
+      "text": "Disabled Button Card\n                \n  ",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    }
+  ],
+  "roleMismatches": [],
+  "results": []
+}

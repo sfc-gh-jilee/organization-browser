@@ -1,0 +1,238 @@
+/* TextInput — Vanilla CSS from Stellar Design System
+ * Uses --themed-* and --base-* token variables from tokens/stellar-tokens.css.
+ */
+
+/* ==============================
+   FIELD WRAPPER (Form.Field)
+   ============================== */
+
+.stellar-field {
+  display: inline-flex;
+  gap: var(--stellar-space-gap-lg);
+  flex-direction: row;
+}
+
+.stellar-field__label-area {
+  display: flex;
+  flex-direction: row;
+  gap: 0px;
+  align-items: center;
+  align-self: flex-start;
+  min-height: var(--stellar-size-sm);
+  margin-top: var(--stellar-space-vertical-2xs);
+}
+
+.stellar-field__label {
+  display: flex;
+  align-items: center;
+  font-family: var(--themed-font-family-body);
+  font-size: var(--themed-font-size-regular);
+  font-weight: var(--themed-font-weight-medium);
+  line-height: var(--themed-line-height-regular-single-line);
+  color: var(--themed-reusable-text-primary);
+  margin: 0;
+  padding: 0;
+}
+
+.stellar-field__control-area {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: var(--stellar-space-gap-2xs);
+}
+
+.stellar-field__description {
+  font-family: var(--themed-font-family-body);
+  font-size: var(--themed-font-size-small);
+  font-weight: var(--themed-font-weight-regular);
+  line-height: var(--themed-line-height-small-body);
+  color: var(--themed-component-form-control-helper-text-default);
+  margin: 0;
+  padding: 0;
+}
+
+.stellar-field__description--critical {
+  color: var(--themed-component-form-control-helper-text-critical);
+}
+
+.stellar-field__description--caution {
+  color: var(--themed-component-form-control-helper-text-caution);
+}
+
+/* ==============================
+   TEXT INPUT WRAPPER
+   ============================== */
+
+.stellar-textinput {
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
+  text-align: left;
+  background-color: var(--themed-component-form-control-background-default);
+  border: 1px solid var(--themed-component-form-control-border-default);
+  border-radius: var(--stellar-radius-sm);
+  color: var(--themed-reusable-text-primary);
+  font-family: var(--themed-font-family-body);
+  outline: none;
+  box-sizing: border-box;
+}
+
+.stellar-textinput:hover:not([disabled]):not(.stellar-textinput--disabled):not(.stellar-textinput--readonly):not(.stellar-textinput--critical):not(.stellar-textinput--caution):not(.stellar-textinput--success) {
+  border-color: var(--themed-component-form-control-border-hover);
+}
+
+.stellar-textinput:focus-within:not([disabled]):not(.stellar-textinput--disabled):not(.stellar-textinput--critical):not(.stellar-textinput--caution):not(.stellar-textinput--success) {
+  border-color: var(--themed-component-form-control-border-active);
+  box-shadow: 0 0 0 2px var(--themed-reusable-border-focused-active-item);
+}
+
+/* Size: regular (default) */
+.stellar-textinput--regular {
+  gap: var(--stellar-space-gap-sm);
+  height: var(--stellar-size-md);
+  min-height: var(--stellar-size-md);
+  padding-left: var(--stellar-space-horizontal-md);
+  padding-right: var(--stellar-space-horizontal-md);
+  font-size: var(--themed-font-size-regular);
+  line-height: var(--themed-line-height-regular-single-line);
+  font-weight: var(--themed-font-weight-regular);
+}
+
+/* Size: small */
+.stellar-textinput--small {
+  gap: var(--stellar-space-gap-sm);
+  height: var(--stellar-size-sm);
+  min-height: var(--stellar-size-sm);
+  padding-left: var(--stellar-space-horizontal-sm);
+  padding-right: var(--stellar-space-horizontal-sm);
+  font-size: var(--themed-font-size-small);
+  line-height: var(--themed-line-height-small-single-line);
+  font-weight: var(--themed-font-weight-regular);
+}
+
+/* State: disabled */
+.stellar-textinput--disabled,
+.stellar-textinput[disabled] {
+  background-color: var(--themed-component-form-control-background-disabled);
+  border-color: var(--themed-component-form-control-border-disabled);
+  color: var(--themed-reusable-disabled-text);
+  cursor: not-allowed;
+}
+
+.stellar-textinput--disabled *,
+.stellar-textinput[disabled] * {
+  cursor: not-allowed;
+  color: var(--themed-reusable-disabled-text);
+}
+
+/* State: read-only */
+.stellar-textinput--readonly {
+  background-color: var(--themed-component-form-control-background-disabled);
+  border-color: var(--themed-component-form-control-border-disabled);
+  cursor: not-allowed;
+}
+
+.stellar-textinput--readonly * {
+  cursor: not-allowed;
+}
+
+/* State: full width */
+.stellar-textinput--fullwidth {
+  flex-grow: 1;
+  width: 100%;
+}
+
+/* Variant: critical (error) */
+.stellar-textinput--critical {
+  border-color: var(--themed-component-form-control-border-critical);
+}
+
+.stellar-textinput--critical:focus-within {
+  border-color: var(--themed-component-form-control-border-critical);
+  box-shadow: 0 0 0 2px var(--themed-reusable-border-focused-critical-item);
+}
+
+/* Variant: caution (warning) */
+.stellar-textinput--caution {
+  border-color: var(--themed-component-form-control-border-caution);
+}
+
+.stellar-textinput--caution:focus-within {
+  border-color: var(--themed-component-form-control-border-caution);
+  box-shadow: 0 0 0 2px var(--themed-reusable-border-focused-warning-item);
+}
+
+/* Variant: success */
+.stellar-textinput--success {
+  border-color: var(--themed-component-form-control-border-success);
+}
+
+.stellar-textinput--success:focus-within {
+  border-color: var(--themed-component-form-control-border-success);
+  box-shadow: 0 0 0 2px var(--themed-reusable-border-focused-success-item);
+}
+
+/* ==============================
+   INPUT ELEMENT
+   ============================== */
+
+.stellar-textinput__input {
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: inherit;
+  flex-grow: 1;
+  margin: 0;
+  min-width: 0;
+  outline: none;
+  padding: 0;
+}
+
+.stellar-textinput__input::placeholder {
+  color: var(--themed-reusable-text-secondary);
+}
+
+.stellar-textinput--disabled .stellar-textinput__input::placeholder,
+.stellar-textinput[disabled] .stellar-textinput__input::placeholder {
+  color: var(--themed-reusable-disabled-text);
+}
+
+/* ==============================
+   PREFIX ICON
+   ============================== */
+
+.stellar-textinput__icon {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  color: var(--themed-reusable-icon-default);
+}
+
+.stellar-textinput__icon svg {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+/* ==============================
+   STATUS ICON (error/warning/success)
+   ============================== */
+
+.stellar-textinput__status-icon {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+.stellar-textinput__status-icon svg {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}

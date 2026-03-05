@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" class="lightMode">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Button — Stellar Vanilla Component</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../tokens/stellar-tokens.css">
+  <link rel="stylesheet" href="button.css">
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 960px; margin: 0 auto; padding: 40px; color: #1e252f; }
+    h1 { margin-bottom: 8px; }
+    .subtitle { color: #666; margin-bottom: 32px; }
+    h2 { margin-bottom: 12px; font-size: 18px; }
+    .demo { background: #f8f9fa; padding: 32px; border-radius: 8px; margin-bottom: 32px; }
+    .demo-row { display: flex; gap: 12px; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
+    .demo-row:last-child { margin-bottom: 0; }
+    .demo-label { min-width: 140px; font-size: 12px; color: #888; font-family: monospace; }
+    .code-section { margin-bottom: 32px; }
+    pre { background: #1e1e1e; color: #d4d4d4; padding: 16px; border-radius: 8px;
+          overflow-x: auto; font-size: 13px; line-height: 1.5; }
+    .copy-btn { float: right; background: #333; color: #fff; border: none; padding: 4px 12px;
+                border-radius: 4px; cursor: pointer; font-size: 12px; }
+    .copy-btn:hover { background: #555; }
+    .links { display: flex; gap: 16px; margin-top: 32px; }
+    .links a { color: #0066cc; }
+    hr { border: none; border-top: 1px solid #eee; margin: 24px 0; }
+  </style>
+</head>
+<body>
+  <h1>Button</h1>
+  <p class="subtitle">Vanilla HTML/CSS — extracted from Stellar Design System</p>
+
+  <h2>Variants</h2>
+  <div class="demo">
+    <div class="demo-row">
+      <span class="demo-label">primary</span>
+      <button class="stellar-button stellar-button--primary">Label</button>
+      <button class="stellar-button stellar-button--primary stellar-button--small">Small</button>
+    </div>
+    <div class="demo-row">
+      <span class="demo-label">secondary</span>
+      <button class="stellar-button stellar-button--secondary">Label</button>
+      <button class="stellar-button stellar-button--secondary stellar-button--small">Small</button>
+    </div>
+    <div class="demo-row">
+      <span class="demo-label">tertiary</span>
+      <button class="stellar-button stellar-button--tertiary">Label</button>
+      <button class="stellar-button stellar-button--tertiary stellar-button--small">Small</button>
+    </div>
+    <div class="demo-row">
+      <span class="demo-label">critical</span>
+      <button class="stellar-button stellar-button--critical">Label</button>
+      <button class="stellar-button stellar-button--critical stellar-button--small">Small</button>
+    </div>
+  </div>
+
+  <h2>Disabled States</h2>
+  <div class="demo">
+    <div class="demo-row">
+      <button class="stellar-button stellar-button--primary" disabled>Primary</button>
+      <button class="stellar-button stellar-button--secondary" disabled>Secondary</button>
+      <button class="stellar-button stellar-button--tertiary" disabled>Tertiary</button>
+      <button class="stellar-button stellar-button--critical" disabled>Critical</button>
+    </div>
+  </div>
+
+  <h2>With Icons</h2>
+  <div class="demo">
+    <div class="demo-row">
+      <button class="stellar-button stellar-button--primary"><svg class="stellar-button__icon" viewBox="0 0 16 16" aria-hidden="true" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M8 7h6.005v1H8v6H7V8H1.005V7H7V1h1z"/></svg>Create</button>
+      <button class="stellar-button stellar-button--secondary"><svg class="stellar-button__icon" viewBox="0 0 16 16" aria-hidden="true" fill="none" xmlns="http://www.w3.org/2000/svg"><g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"><path d="M8.393 5.264a2.625 2.625 0 0 1 2.356 2.611l-.014.268a2.624 2.624 0 0 1-2.61 2.356l-.269-.014a2.625 2.625 0 0 1-2.342-2.342L5.5 7.875A2.625 2.625 0 0 1 8.125 5.25zm-.268.986a1.625 1.625 0 1 0 0 3.25 1.625 1.625 0 0 0 0-3.25"/><path d="M8.89 1c.437 0 .824.285.955.702l.482 1.546q.402.19.763.441l1.583-.354c.426-.095.866.097 1.085.476l.796 1.378c.218.38.165.857-.131 1.178l-1.1 1.193q.019.216.02.439-.001.222-.02.44l1.1 1.194c.296.322.348.799.13 1.178l-.796 1.377a1 1 0 0 1-1.085.477l-1.582-.356q-.36.251-.763.441l-.482 1.547c-.13.417-.518.702-.955.702H7.298a1 1 0 0 1-.954-.702l-.485-1.547a5 5 0 0 1-.761-.441l-1.582.355a1 1 0 0 1-1.086-.476l-.795-1.378a1 1 0 0 1 .13-1.177l1.1-1.195A5 5 0 0 1 2.844 8q0-.222.02-.438l-1.1-1.194a1 1 0 0 1-.131-1.178l.796-1.377a1 1 0 0 1 1.085-.477l1.583.354q.36-.251.761-.44l.485-1.547A1 1 0 0 1 7.298 1zM7.298 2.001l-.615 1.965-.397.186a4 4 0 0 0-.617.358l-.36.252-.43-.097-1.583-.354L2.5 5.689l1.397 1.517-.036.437a4 4 0 0 0-.016.356q0 .171.016.356l.036.438L2.5 10.311l.796 1.377 2.013-.452.36.252q.22.153.457.278l.16.08.397.186.615 1.966 1.593.001.613-1.967.397-.186a4 4 0 0 0 .617-.358l.362-.252 2.01.452.797-1.378-1.397-1.516.037-.438q.016-.191.017-.357 0-.165-.017-.356l-.037-.439.298-.322 1.1-1.193-.796-1.378-1.583.354-.43.097-.36-.252a4 4 0 0 0-.618-.358l-.397-.186L8.89 2z"/></g></svg>Settings</button>
+      <button class="stellar-button stellar-button--critical"><svg class="stellar-button__icon" viewBox="0 0 16 16" aria-hidden="true" fill="none" xmlns="http://www.w3.org/2000/svg"><g fill="currentColor"><path d="M7 11H6V7h1zm3 0H9V7h1z"/><path fill-rule="evenodd" d="M9.5 2A1.5 1.5 0 0 1 11 3.5V4h3v1h-1.027l-.421 7.583A1.5 1.5 0 0 1 11.054 14H4.946a1.5 1.5 0 0 1-1.498-1.417L3.028 5H2V4h3v-.5A1.5 1.5 0 0 1 6.5 2zM4.446 12.527a.5.5 0 0 0 .5.473h6.108a.5.5 0 0 0 .5-.473L11.972 5H4.028zM6.5 3a.5.5 0 0 0-.5.5V4h4v-.5a.5.5 0 0 0-.5-.5z" clip-rule="evenodd"/></g></svg>Delete</button>
+    </div>
+  </div>
+
+  <h2>Selected States</h2>
+  <div class="demo">
+    <div class="demo-row">
+      <button class="stellar-button stellar-button--primary stellar-button--selected" aria-pressed="true">Primary</button>
+      <button class="stellar-button stellar-button--secondary stellar-button--selected" aria-pressed="true">Secondary</button>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="code-section">
+    <h2>HTML</h2>
+    <button class="copy-btn" onclick="copyCode('html-code')">Copy</button>
+    <pre id="html-code"><code>&lt;!-- Primary --&gt;
+&lt;button class="stellar-button stellar-button--primary"&gt;Label&lt;/button&gt;
+
+&lt;!-- Secondary --&gt;
+&lt;button class="stellar-button stellar-button--secondary"&gt;Label&lt;/button&gt;
+
+&lt;!-- Tertiary --&gt;
+&lt;button class="stellar-button stellar-button--tertiary"&gt;Label&lt;/button&gt;
+
+&lt;!-- Critical --&gt;
+&lt;button class="stellar-button stellar-button--critical"&gt;Label&lt;/button&gt;
+
+&lt;!-- Small size (add --small modifier) --&gt;
+&lt;button class="stellar-button stellar-button--primary stellar-button--small"&gt;Label&lt;/button&gt;
+
+&lt;!-- Disabled --&gt;
+&lt;button class="stellar-button stellar-button--primary" disabled&gt;Label&lt;/button&gt;
+
+&lt;!-- With icon --&gt;
+&lt;button class="stellar-button stellar-button--primary"&gt;
+  &lt;svg class="stellar-button__icon" viewBox="0 0 16 16" aria-hidden="true" fill="none"&gt;
+    &lt;path fill="currentColor" d="M8 7h6.005v1H8v6H7V8H1.005V7H7V1h1z"/&gt;
+  &lt;/svg&gt;
+  Create
+&lt;/button&gt;
+
+&lt;!-- Selected --&gt;
+&lt;button class="stellar-button stellar-button--primary stellar-button--selected" aria-pressed="true"&gt;Label&lt;/button&gt;</code></pre>
+  </div>
+
+  <div class="code-section">
+    <h2>CSS Classes</h2>
+    <pre><code>/* Base */         .stellar-button
+/* Variants */     .stellar-button--primary | --secondary | --tertiary | --critical
+/* Size */         .stellar-button--small
+/* States */       .stellar-button--selected
+/* Icon */         .stellar-button__icon (on SVG element)</code></pre>
+  </div>
+
+  <div class="links">
+    <a href="reference.html">Reference (React)</a>
+    <a href="test.html">Test (Vanilla)</a>
+  </div>
+
+  <script>
+    function copyCode(id) {
+      const code = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(code);
+    }
+  </script>
+</body>
+</html>

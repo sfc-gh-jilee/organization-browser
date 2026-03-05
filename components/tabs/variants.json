@@ -1,0 +1,26 @@
+{
+  "component": "Tabs",
+  "tarball": "snowflake-stellar-components-0.25.2.tgz",
+  "props": {
+    "displayName": {
+      "default": "Tabs.Trigger",
+      "values": [
+        "Tabs.Content",
+        "Tabs.List",
+        "Tabs.Root",
+        "Tabs.Trigger"
+      ]
+    }
+  },
+  "booleanStates": [
+    "disabled"
+  ],
+  "contextDependencies": [],
+  "styleKeys": [
+    "content",
+    "grow",
+    "list",
+    "trigger",
+    "border"
+  ]
+}

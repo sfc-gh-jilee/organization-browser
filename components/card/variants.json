@@ -1,0 +1,77 @@
+{
+  "component": "Card",
+  "tarball": "snowflake-stellar-components-0.25.2.tgz",
+  "props": {
+    "displayName": {
+      "default": "DataCardSelectable",
+      "values": [
+        "Card.Body",
+        "Card.Footer",
+        "Card.Header",
+        "Card.Root",
+        "DataCard",
+        "DataCardSelectable"
+      ]
+    },
+    "interactionType": {
+      "default": null,
+      "values": [
+        "button",
+        "link"
+      ]
+    },
+    "size": {
+      "default": "regular",
+      "values": [
+        "regular",
+        "small"
+      ]
+    },
+    "subHeadingPlacement": {
+      "default": null,
+      "values": [
+        "info-tooltip"
+      ]
+    }
+  },
+  "booleanStates": [
+    "disabled",
+    "selected"
+  ],
+  "contextDependencies": [
+    "SizeContext (inheritable size prop)"
+  ],
+  "styleKeys": [
+    "headingContainer",
+    "heading",
+    "info"
+  ],
+  "combinations": [
+    {
+      "props": {
+        "size": "regular"
+      },
+      "label": "regular"
+    },
+    {
+      "props": {
+        "size": "small"
+      },
+      "label": "small"
+    },
+    {
+      "props": {
+        "disabled": true
+      },
+      "label": "disabled",
+      "isState": true
+    },
+    {
+      "props": {
+        "selected": true
+      },
+      "label": "selected",
+      "isState": true
+    }
+  ]
+}

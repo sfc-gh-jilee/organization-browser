@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" class="lightMode">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Switch Test</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../tokens/stellar-tokens.css">
+  <link rel="stylesheet" href="switch.css">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html {
+      line-height: 1.15;
+      font-size: 14px;
+      -webkit-text-size-adjust: 100%;
+      font-family: Inter, Roboto, "Helvetica Neue", "Arial Nova", "Nimbus Sans", Arial, sans-serif;
+    }
+    body {
+      background: var(--themed-surface-level-1-background);
+      color: var(--themed-reusable-text-primary);
+      -webkit-font-smoothing: antialiased;
+    }
+    .reference-container {
+      min-height: 100vh;
+    }
+  </style>
+  <script>
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('mode') === 'dark') {
+        document.documentElement.classList.replace('lightMode', 'darkMode');
+      }
+    })();
+  </script>
+</head>
+<body>
+  <div class="reference-container">
+    <div data-component="switch" style="padding: 40px; display: flex; flex-direction: column; gap: 24px; min-height: 100vh; align-items: flex-start;">
+
+      <!-- unchecked -->
+      <div style="display: flex; gap: 16px; align-items: center;">
+        <span style="min-width: 180px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">unchecked</span>
+        <label class="stellar-switch" role="switch" tabindex="0" aria-label="Unchecked switch" aria-checked="false">
+          <input class="stellar-switch__input" type="checkbox" tabindex="-1" aria-hidden="true">
+          <div class="stellar-switch__knob"></div>
+        </label>
+      </div>
+
+      <!-- unchecked + disabled -->
+      <div style="display: flex; gap: 16px; align-items: center;">
+        <span style="min-width: 180px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">unchecked + disabled</span>
+        <label class="stellar-switch" data-disabled="true" role="switch" aria-label="Disabled unchecked switch" aria-disabled="true" aria-checked="false">
+          <input class="stellar-switch__input" type="checkbox" disabled tabindex="-1" aria-hidden="true">
+          <div class="stellar-switch__knob"></div>
+        </label>
+      </div>
+
+      <!-- checked -->
+      <div style="display: flex; gap: 16px; align-items: center;">
+        <span style="min-width: 180px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">checked</span>
+        <label class="stellar-switch" data-selected="true" role="switch" tabindex="0" aria-label="Checked switch" aria-checked="true">
+          <input class="stellar-switch__input" type="checkbox" checked tabindex="-1" aria-hidden="true">
+          <div class="stellar-switch__knob"></div>
+        </label>
+      </div>
+
+      <!-- checked + disabled -->
+      <div style="display: flex; gap: 16px; align-items: center;">
+        <span style="min-width: 180px; font-size: 11px; color: rgb(136, 136, 136); font-family: monospace;">checked + disabled</span>
+        <label class="stellar-switch" data-selected="true" data-disabled="true" role="switch" aria-label="Disabled checked switch" aria-disabled="true" aria-checked="true">
+          <input class="stellar-switch__input" type="checkbox" checked disabled tabindex="-1" aria-hidden="true">
+          <div class="stellar-switch__knob"></div>
+        </label>
+      </div>
+
+    </div>
+  </div>
+  <script src="switch.js"></script>
+</body>
+</html>

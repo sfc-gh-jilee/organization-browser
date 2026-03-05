@@ -1,0 +1,134 @@
+/* Menu — Vanilla CSS from Stellar Design System
+ * Uses --themed-* token variables from tokens/stellar-tokens.css.
+ */
+
+/* Popover container (the dropdown panel) */
+.stellar-menu {
+  position: absolute;
+  z-index: 100000;
+  min-width: max-content;
+  overflow: auto;
+  background-color: var(--themed-surface-level-3-background);
+  border: 1px solid var(--themed-surface-level-3-border);
+  border-radius: var(--stellar-radius-sm);
+  box-shadow: var(--themed-elevation-3-box-shadow);
+  outline: none;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-4px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.stellar-menu--open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+/* Menu list */
+.stellar-menu__list {
+  padding: var(--stellar-space-vertical-xs) 0;
+  min-width: 77px;
+  max-width: 600px;
+  outline: none;
+  list-style: none;
+  margin: 0;
+}
+
+/* Menu item wrapper */
+.stellar-menu__item {
+  display: block;
+  cursor: pointer;
+  list-style: none;
+  outline: none;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.stellar-menu__item:focus {
+  outline: none;
+}
+
+/* Item inner label area */
+.stellar-menu__item-label {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  gap: var(--stellar-space-gap-2xs);
+  min-width: 0;
+  padding: var(--stellar-space-vertical-sm) var(--stellar-space-horizontal-md);
+  align-items: center;
+  background-color: transparent;
+  color: var(--themed-reusable-text-primary);
+  cursor: pointer;
+}
+
+.stellar-menu__item:hover .stellar-menu__item-label,
+.stellar-menu__item--focused .stellar-menu__item-label {
+  background-color: var(--themed-reusable-background-row-hover);
+}
+
+.stellar-menu__item:active .stellar-menu__item-label {
+  background-color: var(--themed-reusable-border-default);
+}
+
+/* Label text */
+.stellar-menu__item-text {
+  display: block;
+  flex-grow: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--themed-font-family-body);
+  font-size: var(--themed-font-size-regular);
+  font-weight: var(--themed-font-weight-medium);
+  line-height: var(--themed-line-height-regular-single-line);
+}
+
+/* Icon inside menu item */
+.stellar-menu__item-icon {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  color: currentColor;
+}
+
+/* Divider */
+.stellar-menu__divider {
+  height: 1px;
+  background-color: var(--themed-reusable-border-default);
+  margin: var(--stellar-space-vertical-xs) 0;
+}
+
+/* Section header */
+.stellar-menu__section-header {
+  padding: var(--stellar-space-vertical-md) var(--stellar-space-horizontal-md) var(--stellar-space-vertical-sm);
+  color: var(--themed-reusable-text-secondary);
+  font-family: var(--themed-font-family-body);
+  font-size: var(--themed-font-size-small);
+  font-weight: var(--themed-font-weight-medium);
+  line-height: var(--themed-line-height-regular-single-line);
+}
+
+/* Disabled state */
+.stellar-menu__item--disabled {
+  cursor: not-allowed;
+}
+
+.stellar-menu__item--disabled .stellar-menu__item-label {
+  color: var(--themed-reusable-disabled-text);
+  cursor: not-allowed;
+}
+
+.stellar-menu__item--disabled:hover .stellar-menu__item-label,
+.stellar-menu__item--disabled.stellar-menu__item--focused .stellar-menu__item-label {
+  background-color: transparent;
+}
+
+/* Trigger wrapper (for positioning) */
+.stellar-menu-trigger {
+  display: inline-block;
+  position: relative;
+}

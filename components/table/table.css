@@ -1,0 +1,145 @@
+/* Table — Vanilla CSS from Stellar Design System
+ * Uses --themed-* token variables from tokens/stellar-tokens.css.
+ */
+
+/* Root wrapper */
+.stellar-table {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Grid container (role="grid") */
+.stellar-table__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  position: relative;
+  outline-offset: 1px;
+  border-spacing: 0;
+  box-sizing: border-box;
+  font-family: var(--themed-font-family-body);
+}
+
+.stellar-table__grid:focus {
+  outline: none;
+}
+
+/* Header rowgroup */
+.stellar-table__header-group {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  grid-template-rows: subgrid;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color: var(--themed-surface-level-1-background);
+  box-sizing: border-box;
+}
+
+/* Header row */
+.stellar-table__header-row {
+  display: contents;
+}
+
+/* Column header */
+.stellar-table__column-header {
+  display: flex;
+  align-items: center;
+  height: var(--stellar-size-lg);
+  border-bottom: 1px solid var(--themed-reusable-border-default);
+  box-sizing: content-box;
+}
+
+/* Column header inner wrapper */
+.stellar-table__column-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: var(--stellar-size-lg);
+  color: var(--themed-reusable-text-secondary);
+  box-sizing: border-box;
+}
+
+/* Column header label container */
+.stellar-table__column-label-container {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: var(--stellar-space-gap-2xs);
+  padding: var(--stellar-space-vertical-xs) var(--stellar-space-horizontal-md);
+  overflow: hidden;
+  color: var(--themed-reusable-text-secondary);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Column header label text */
+.stellar-table__column-label {
+  display: block;
+  font-family: var(--themed-font-family-body);
+  font-size: var(--themed-font-size-small);
+  font-weight: var(--themed-font-weight-medium);
+  line-height: var(--themed-line-height-regular-single-line);
+  color: var(--themed-reusable-text-secondary);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* Body rowgroup */
+.stellar-table__body-group {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  box-sizing: border-box;
+}
+
+/* Data row */
+.stellar-table__row {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  grid-template-rows: subgrid;
+  position: relative;
+  min-height: var(--stellar-size-lg);
+  color: var(--themed-reusable-text-primary);
+  box-sizing: border-box;
+}
+
+/* Data cell */
+.stellar-table__cell {
+  display: flex;
+  align-items: center;
+  min-height: var(--stellar-size-lg);
+  border-bottom: 1px solid var(--themed-reusable-border-default);
+  overflow: hidden;
+  font-family: var(--themed-font-family-body);
+  font-size: var(--themed-font-size-small);
+  font-weight: var(--themed-font-weight-regular);
+  line-height: var(--themed-line-height-small-body);
+  color: var(--themed-reusable-text-primary);
+  box-sizing: content-box;
+}
+
+/* Last row cells should not have bottom border */
+.stellar-table__row:last-child .stellar-table__cell {
+  border-bottom: 0px solid var(--themed-reusable-border-default);
+}
+
+/* Cell content wrapper */
+.stellar-table__cell-content {
+  display: block;
+  padding: var(--stellar-space-vertical-xs) var(--stellar-space-horizontal-md);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-family: var(--themed-font-family-body);
+  font-size: var(--themed-font-size-small);
+  font-weight: var(--themed-font-weight-regular);
+  line-height: var(--themed-line-height-small-body);
+  color: var(--themed-reusable-text-primary);
+  box-sizing: border-box;
+  width: 100%;
+}

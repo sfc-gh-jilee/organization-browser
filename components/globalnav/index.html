@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GlobalNav — Stellar Vanilla Component</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../tokens/stellar-tokens.css">
+  <link rel="stylesheet" href="globalnav.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      font-family: Inter, system-ui, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: var(--themed-reusable-text-primary);
+      background: var(--themed-surface-level-1-background);
+    }
+    h1 { margin-bottom: 8px; }
+    .subtitle { color: var(--themed-reusable-text-secondary); margin-bottom: 32px; }
+
+    /* Page layout: sidebar + content */
+    .page-layout {
+      display: flex;
+      min-height: 100vh;
+    }
+    .page-content {
+      flex: 1;
+      padding: 40px;
+      max-width: 900px;
+    }
+    h2 { margin-bottom: 16px; margin-top: 48px; font-size: 20px; }
+
+    /* Demo area showing the component inline */
+    .demo-standalone {
+      border: 1px solid var(--themed-reusable-border-default);
+      border-radius: 8px;
+      overflow: hidden;
+      height: 640px;
+      display: flex;
+      margin-bottom: 16px;
+    }
+    .demo-standalone .stellar-globalnav {
+      position: relative;
+    }
+    .demo-standalone__content {
+      flex: 1;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: var(--themed-surface-level-1-background);
+    }
+    .demo-standalone__content h3 {
+      margin: 0;
+      color: var(--themed-reusable-text-primary);
+    }
+    .demo-standalone__content p {
+      margin: 0;
+      color: var(--themed-reusable-text-secondary);
+      font-size: 14px;
+    }
+
+    /* Code blocks */
+    .code-section { margin-bottom: 32px; }
+    .code-section h3 { margin-bottom: 8px; font-size: 16px; }
+    pre {
+      background: #1e1e1e; color: #d4d4d4; padding: 16px; border-radius: 8px;
+      overflow-x: auto; font-size: 13px; line-height: 1.5;
+    }
+    .copy-btn {
+      float: right; background: #333; color: #fff; border: none; padding: 4px 12px;
+      border-radius: 4px; cursor: pointer; font-size: 12px;
+    }
+    .copy-btn:hover { background: #555; }
+    .links { display: flex; gap: 16px; margin-top: 32px; }
+    .links a { color: var(--themed-reusable-selected-text); }
+
+    /* Active item display */
+    #active-display {
+      font-family: var(--themed-font-family-mono);
+      color: var(--themed-reusable-selected-text);
+      font-size: 14px;
+    }
+
+    /* Dark mode toggle */
+    .theme-toggle {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      z-index: 300;
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--themed-reusable-border-default);
+      background: var(--themed-surface-level-2-background);
+      color: var(--themed-reusable-text-primary);
+      font-family: inherit;
+      font-size: 12px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" onclick="toggleTheme()">Toggle Dark Mode</button>
+
+  <div class="page-layout">
+    <!-- Live GlobalNav Demo (acts as page sidebar) -->
+    <aside
+      class="stellar-globalnav"
+      data-component="globalnav"
+      data-active="ai-ml"
+      data-user='{"name":"Danny Banks","role":"PUBLIC","hasNotifications":true}'
+    ></aside>
+
+    <!-- Documentation Content -->
+    <div class="page-content">
+      <h1>GlobalNav</h1>
+      <p class="subtitle">Vanilla HTML/CSS/JS — extracted from Stellar Design System</p>
+
+      <p>
+        This is a live demo — the sidebar on the left <strong>is</strong> the component.
+        Click nav items to change the active state. Click the collapse arrow to toggle between
+        expanded and collapsed views.
+      </p>
+
+      <p>Active item: <span id="active-display">ai-ml</span></p>
+
+      <h2>Standalone Demo (contained)</h2>
+      <div class="demo-standalone">
+        <aside
+          class="stellar-globalnav"
+          data-component="globalnav"
+          data-active="projects"
+          data-user='{"name":"Jane Smith","role":"ACCOUNTADMIN","hasNotifications":false}'
+        ></aside>
+        <div class="demo-standalone__content">
+          <h3>Page Content Area</h3>
+          <p>The nav sits beside your main content in a flex layout.</p>
+        </div>
+      </div>
+
+      <div class="code-section">
+        <h2>HTML</h2>
+        <button class="copy-btn" onclick="copyCode('html-code')">Copy</button>
+        <pre id="html-code"><code>&lt;!-- Include tokens + component CSS --&gt;
+&lt;link rel="stylesheet" href="tokens/stellar-tokens.css"&gt;
+&lt;link rel="stylesheet" href="components/globalnav/globalnav.css"&gt;
+
+&lt;!-- Page layout --&gt;
+&lt;div style="display:flex; min-height:100vh"&gt;
+
+  &lt;!-- GlobalNav (auto-initialized via data-component) --&gt;
+  &lt;aside
+    data-component="globalnav"
+    data-active="projects"
+    data-user='{"name":"Danny Banks","role":"PUBLIC","hasNotifications":true}'
+  &gt;&lt;/aside&gt;
+
+  &lt;main style="flex:1; padding:24px"&gt;
+    &lt;h1&gt;Your Content Here&lt;/h1&gt;
+  &lt;/main&gt;
+
+&lt;/div&gt;
+
+&lt;script src="components/globalnav/globalnav.js"&gt;&lt;/script&gt;</code></pre>
+      </div>
+
+      <div class="code-section">
+        <h3>JavaScript API</h3>
+        <button class="copy-btn" onclick="copyCode('js-code')">Copy</button>
+        <pre id="js-code"><code>// Auto-init: any element with data-component="globalnav"
+// is initialized on DOMContentLoaded.
+
+// Manual init:
+const el = document.querySelector('[data-component="globalnav"]');
+const nav = new StellarGlobalNav(el);
+
+// Listen for active item changes:
+el.addEventListener('globalnav-change', (e) =&gt; {
+  console.log('Active:', e.detail.activeItem);
+});
+
+// Programmatic control:
+nav.setActive('monitoring');
+nav.toggleCollapse();</code></pre>
+      </div>
+
+      <div class="code-section">
+        <h3>Custom Sections</h3>
+        <button class="copy-btn" onclick="copyCode('sections-code')">Copy</button>
+        <pre id="sections-code"><code>&lt;aside
+  data-component="globalnav"
+  data-active="my-item"
+  data-sections='[
+    {
+      "title": "My Section",
+      "items": [
+        { "id": "my-item", "label": "Custom Item", "icon": "projects" },
+        { "id": "other", "label": "Another", "icon": "ai-ml" }
+      ]
+    }
+  ]'
+&gt;&lt;/aside&gt;</code></pre>
+      </div>
+
+      <div class="code-section">
+        <h3>Available Icon Keys</h3>
+        <pre><code>projects      → ProjectsIcon
+ingestion     → UploadCloudIcon
+transformation → DataPipelinesIcon
+ai-ml         → AiIcon
+monitoring    → ActivityIcon
+marketplace   → MarketplaceIcon
+catalog       → DatabaseIcon
+data-sharing  → DataSharingIcon
+governance    → ShieldIcon
+compute       → ComputeIcon
+postgres      → PostgresIcon
+admin         → ToolIcon
+home          → HomeIcon
+create        → PlusIcon
+search        → SearchIcon</code></pre>
+      </div>
+
+      <div class="code-section">
+        <h3>Data Attributes</h3>
+        <pre><code>data-component="globalnav"   Required. Enables auto-init.
+data-active="projects"       Initial active nav item ID.
+data-user='{...}'            JSON: { name, role, initials?, hasNotifications? }
+data-sections='[...]'        JSON: custom sections array (optional).</code></pre>
+      </div>
+
+      <div class="links">
+        <a href="../card/index.html">Card Component</a>
+        <a href="../button/index.html">Button Component</a>
+        <a href="../tabs/index.html">Tabs Component</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="globalnav.js"></script>
+  <script>
+    function toggleTheme() {
+      const root = document.documentElement;
+      const isDark = root.classList.contains('darkMode') ||
+        (!root.classList.contains('lightMode') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      root.classList.toggle('lightMode', isDark);
+      root.classList.toggle('darkMode', !isDark);
+    }
+
+    function copyCode(id) {
+      const code = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(code);
+    }
+
+    document.addEventListener('globalnav-change', (e) => {
+      const display = document.getElementById('active-display');
+      if (display) display.textContent = e.detail.activeItem;
+    });
+  </script>
+</body>
+</html>

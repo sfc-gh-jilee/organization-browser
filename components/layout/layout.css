@@ -1,0 +1,349 @@
+/* Layout — Vanilla CSS from Stellar Design System
+ *
+ * Covers: Page, Layout, Flex, Grid, Divider
+ * Maps Stellar React props to CSS modifier classes.
+ *
+ * Gap scale (Stellar multiplier → token):
+ *   0x=0  0.25x=2px  0.5x=4px  0.75x=6px  1x=8px
+ *   1.5x=12px  2x=16px  3x=24px  4x=32px  5x=40px
+ */
+
+/* ============================================================
+   DIVIDER
+   Stellar: <Divider direction="horizontal|vertical" />
+   ============================================================ */
+
+.stellar-divider {
+  border: none;
+  border-top: 1px solid var(--themed-reusable-border-default);
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.stellar-divider--vertical {
+  border-top: none;
+  border-left: 1px solid var(--themed-reusable-border-default);
+  align-self: stretch;
+  width: 0;
+  height: auto;
+}
+
+/* ============================================================
+   FLEX
+   Stellar: <Flex direction gap align justify wrap grow shrink inline />
+   ============================================================ */
+
+.stellar-flex {
+  display: flex;
+  gap: var(--stellar-space-gap-xs); /* default 0.75x = 6px */
+}
+
+/* Inline */
+.stellar-flex--inline {
+  display: inline-flex;
+}
+
+/* Direction */
+.stellar-flex--column         { flex-direction: column; }
+.stellar-flex--row-reverse    { flex-direction: row-reverse; }
+.stellar-flex--column-reverse { flex-direction: column-reverse; }
+
+/* Align (cross-axis) */
+.stellar-flex--align-start    { align-items: flex-start; }
+.stellar-flex--align-center   { align-items: center; }
+.stellar-flex--align-end      { align-items: flex-end; }
+.stellar-flex--align-baseline { align-items: baseline; }
+.stellar-flex--align-stretch  { align-items: stretch; }
+
+/* Justify (main-axis) */
+.stellar-flex--justify-start   { justify-content: flex-start; }
+.stellar-flex--justify-center  { justify-content: center; }
+.stellar-flex--justify-end     { justify-content: flex-end; }
+.stellar-flex--justify-between { justify-content: space-between; }
+
+/* Wrap */
+.stellar-flex--wrap         { flex-wrap: wrap; }
+.stellar-flex--wrap-reverse { flex-wrap: wrap-reverse; }
+.stellar-flex--nowrap       { flex-wrap: nowrap; }
+
+/* Grow / Shrink */
+.stellar-flex--grow   { flex-grow: 1; }
+.stellar-flex--shrink { flex-shrink: 1; }
+.stellar-flex--no-grow   { flex-grow: 0; }
+.stellar-flex--no-shrink { flex-shrink: 0; }
+
+/* Gap scale — maps Stellar multiplier names to tokens */
+.stellar-flex--gap-0    { gap: 0; }
+.stellar-flex--gap-3xs  { gap: var(--stellar-space-gap-3xs); }  /* 0.25x = 2px */
+.stellar-flex--gap-2xs  { gap: var(--stellar-space-gap-2xs); }  /* 0.5x  = 4px */
+.stellar-flex--gap-xs   { gap: var(--stellar-space-gap-xs); }   /* 0.75x = 6px (default) */
+.stellar-flex--gap-sm   { gap: var(--stellar-space-gap-sm); }   /* 1x    = 8px */
+.stellar-flex--gap-md   { gap: var(--stellar-space-gap-md); }   /* 1.5x  = 12px */
+.stellar-flex--gap-lg   { gap: var(--stellar-space-gap-lg); }   /* 2x    = 16px */
+.stellar-flex--gap-xl   { gap: var(--stellar-space-gap-xl); }   /* 2.5x  = 20px */
+.stellar-flex--gap-2xl  { gap: var(--stellar-space-gap-2xl); }  /* 3x    = 24px */
+.stellar-flex--gap-3xl  { gap: var(--stellar-space-gap-3xl); }  /* 4x    = 32px */
+.stellar-flex--gap-4xl  { gap: var(--stellar-space-gap-4xl); }  /* 5x    = 40px */
+
+/* ============================================================
+   GRID  (12-column system)
+   Stellar: <Grid> + <Grid.Item size={1..12} />
+   ============================================================ */
+
+.stellar-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--stellar-space-gap-lg); /* 16px default */
+  margin-inline: var(--stellar-space-horizontal-2xl); /* 24px default margin */
+}
+
+.stellar-grid--no-margin {
+  margin-inline: 0;
+}
+
+.stellar-grid--grow {
+  flex-grow: 1;
+}
+
+/* Grid gap overrides */
+.stellar-grid--gap-0   { gap: 0; }
+.stellar-grid--gap-sm  { gap: var(--stellar-space-gap-sm); }
+.stellar-grid--gap-md  { gap: var(--stellar-space-gap-md); }
+.stellar-grid--gap-lg  { gap: var(--stellar-space-gap-lg); }
+.stellar-grid--gap-xl  { gap: var(--stellar-space-gap-xl); }
+.stellar-grid--gap-2xl { gap: var(--stellar-space-gap-2xl); }
+.stellar-grid--gap-3xl { gap: var(--stellar-space-gap-3xl); }
+
+/* Grid item — spans N of 12 columns */
+.stellar-grid__item--1  { grid-column: span 1; }
+.stellar-grid__item--2  { grid-column: span 2; }
+.stellar-grid__item--3  { grid-column: span 3; }
+.stellar-grid__item--4  { grid-column: span 4; }
+.stellar-grid__item--5  { grid-column: span 5; }
+.stellar-grid__item--6  { grid-column: span 6; }
+.stellar-grid__item--7  { grid-column: span 7; }
+.stellar-grid__item--8  { grid-column: span 8; }
+.stellar-grid__item--9  { grid-column: span 9; }
+.stellar-grid__item--10 { grid-column: span 10; }
+.stellar-grid__item--11 { grid-column: span 11; }
+.stellar-grid__item--12 { grid-column: span 12; }
+
+.stellar-grid__item--grow { grid-column: 1 / -1; } /* full width */
+.stellar-grid__item--auto { grid-column: auto; }
+
+/* Convenience: simple N-column grids (non-12-col) */
+.stellar-grid--cols-1  { grid-template-columns: 1fr; }
+.stellar-grid--cols-2  { grid-template-columns: repeat(2, 1fr); }
+.stellar-grid--cols-3  { grid-template-columns: repeat(3, 1fr); }
+.stellar-grid--cols-4  { grid-template-columns: repeat(4, 1fr); }
+.stellar-grid--cols-5  { grid-template-columns: repeat(5, 1fr); }
+.stellar-grid--cols-6  { grid-template-columns: repeat(6, 1fr); }
+
+/* ============================================================
+   LAYOUT
+   Stellar: <Layout.Root> + .Header + .Sidebar + .Content + .Footer
+   Generic layout shell (no page-level assumptions).
+   ============================================================ */
+
+.stellar-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1;
+}
+
+.stellar-layout--with-sidebar {
+  flex-direction: row;
+}
+
+.stellar-layout--scrollable {
+  overflow-y: auto;
+}
+
+/* Layout Header */
+.stellar-layout__header {
+  flex-shrink: 0;
+}
+
+.stellar-layout__header--sticky {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--themed-surface-level-1-background);
+}
+
+/* Layout Sidebar */
+.stellar-layout__sidebar {
+  flex-shrink: 0;
+  overflow-y: auto;
+  width: var(--stellar-sidebar-width, 240px);
+}
+
+/* Layout Content */
+.stellar-layout__content {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+.stellar-layout__content--scrollable {
+  overflow-y: auto;
+}
+
+/* Layout Footer */
+.stellar-layout__footer {
+  flex-shrink: 0;
+}
+
+.stellar-layout__footer--sticky {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  background: var(--themed-surface-level-1-background);
+}
+
+/* ============================================================
+   PAGE
+   Stellar: <Page.Root> + .NavigationBar + .SideNav + children
+   Full-page shell: 100vh, sidebar + nav bar + scrollable content.
+   ============================================================ */
+
+.stellar-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: var(--themed-surface-level-1-background);
+  color: var(--themed-reusable-text-primary);
+  font-family: var(--themed-font-family-body);
+}
+
+/* Page variants */
+.stellar-page--centered .stellar-page__content {
+  max-width: 1200px;
+  margin-inline: auto;
+  width: 100%;
+}
+
+.stellar-page--full .stellar-page__content {
+  max-width: none;
+}
+
+/* Page inner wrapper: holds sidebar + content column */
+.stellar-page__body {
+  display: flex;
+  flex: 1;
+  min-height: 0; /* allow flex children to shrink below content size */
+}
+
+/* Page Navigation Bar (top/bottom) */
+.stellar-page__nav-bar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding: var(--stellar-space-vertical-md) var(--stellar-space-horizontal-2xl);
+  border-bottom: 1px solid var(--themed-reusable-border-default);
+  background: var(--themed-surface-level-1-background);
+  min-height: var(--stellar-size-xl); /* 48px */
+}
+
+.stellar-page__nav-bar--bottom {
+  border-bottom: none;
+  border-top: 1px solid var(--themed-reusable-border-default);
+}
+
+.stellar-page__nav-bar--sticky {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* Page Side Navigation */
+.stellar-page__sidenav {
+  flex-shrink: 0;
+  width: var(--stellar-sidebar-width, 240px);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  background: var(--stellar-sidebar-bg, var(--app-navigation-sidebar-background-default));
+  color: var(--stellar-sidebar-text, var(--themed-reusable-text-primary));
+  padding: var(--stellar-space-vertical-lg) var(--stellar-space-horizontal-md);
+}
+
+.stellar-page__sidenav--after {
+  order: 1; /* places sidebar after content */
+}
+
+/* Page Content (scrollable area next to sidebar) */
+.stellar-page__content {
+  flex: 1;
+  min-width: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Page Content Header (toolbar row inside content area) */
+.stellar-page__content-header {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--stellar-space-vertical-md) var(--stellar-space-horizontal-2xl);
+  border-bottom: 1px solid var(--themed-reusable-border-default);
+  min-height: var(--stellar-size-xl);
+}
+
+/* Page Content Body (main scrollable area) */
+.stellar-page__content-body {
+  flex: 1;
+  padding: var(--stellar-space-vertical-2xl) var(--stellar-space-horizontal-2xl);
+}
+
+/* ============================================================
+   SIDEBAR NAV ITEMS
+   Common pattern for dark sidebar navigation links.
+   ============================================================ */
+
+.stellar-sidenav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--stellar-space-gap-sm);
+  padding: var(--stellar-space-vertical-sm) var(--stellar-space-horizontal-md);
+  border-radius: var(--stellar-radius-sm);
+  color: inherit;
+  text-decoration: none;
+  font-size: var(--themed-font-size-regular);
+  line-height: var(--themed-line-height-regular-body, 20px);
+  cursor: pointer;
+  transition: background-color 0.1s ease;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: start;
+}
+
+.stellar-sidenav-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.stellar-sidenav-item--active {
+  background: rgba(255, 255, 255, 0.15);
+  font-weight: var(--themed-font-weight-medium, 500);
+}
+
+.stellar-sidenav-item__icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   UTILITY: padding presets for content areas
+   ============================================================ */
+
+.stellar-padding-sm  { padding: var(--stellar-space-vertical-sm) var(--stellar-space-horizontal-sm); }
+.stellar-padding-md  { padding: var(--stellar-space-vertical-md) var(--stellar-space-horizontal-md); }
+.stellar-padding-lg  { padding: var(--stellar-space-vertical-lg) var(--stellar-space-horizontal-lg); }
+.stellar-padding-xl  { padding: var(--stellar-space-vertical-xl) var(--stellar-space-horizontal-xl); }
+.stellar-padding-2xl { padding: var(--stellar-space-vertical-2xl) var(--stellar-space-horizontal-2xl); }
+.stellar-padding-3xl { padding: var(--stellar-space-vertical-3xl) var(--stellar-space-horizontal-3xl); }

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Text — Stellar Vanilla Components</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../tokens/stellar-tokens.css">
+  <link rel="stylesheet" href="text.css">
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 960px; margin: 0 auto; padding: 40px 40px 80px; color: #1e252f; }
+    h1 { margin-bottom: 4px; }
+    .subtitle { color: #666; margin-bottom: 40px; font-size: 15px; }
+    h2 { margin: 48px 0 16px; font-size: 18px; border-bottom: 1px solid #e5e7eb; padding-bottom: 8px; }
+    .demo { background: #f8f9fb; padding: 32px 40px; border-radius: 8px; margin-bottom: 24px; display: flex; flex-direction: column; gap: 20px; align-items: flex-start; }
+    .demo-row { display: flex; gap: 16px; align-items: baseline; width: 100%; }
+    .demo-label { min-width: 200px; font-size: 11px; color: #888; font-family: monospace; flex-shrink: 0; }
+    .code-section { margin-bottom: 24px; }
+    .code-section h3 { font-size: 14px; margin-bottom: 8px; }
+    pre.code { background: #1e1e1e; color: #d4d4d4; padding: 16px; border-radius: 8px; overflow-x: auto; font-size: 13px; line-height: 1.5; white-space: pre; }
+    .copy-btn { float: right; background: #333; color: #fff; border: none; padding: 4px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+    .copy-btn:hover { background: #555; }
+    .links { display: flex; gap: 16px; margin-top: 40px; padding-top: 20px; border-top: 1px solid #e5e7eb; }
+    .links a { color: #0066cc; font-size: 14px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 24px; }
+    th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid #e5e7eb; }
+    th { font-weight: 600; background: #f8f9fb; }
+    td code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <h1>Text</h1>
+  <p class="subtitle">Vanilla HTML/CSS — Stellar Design System typography components (Editorial, Heading, Paragraph, Span, Label, SingleLine, Pre)</p>
+
+  <!-- ===== Editorial ===== -->
+  <h2>Editorial</h2>
+  <div class="demo">
+    <div class="demo-row">
+      <span class="demo-label">larger (default)</span>
+      <div class="stellar-editorial stellar-type-larger-editorial">Editorial Larger</div>
+    </div>
+    <div class="demo-row">
+      <span class="demo-label">large</span>
+      <div class="stellar-editorial stellar-type-large-editorial">Editorial Large</div>
+    </div>
+  </div>
+
+  <!-- ===== Heading ===== -->
+  <h2>Heading</h2>
+  <div class="demo">
+    <div class="demo-row">
+      <span class="demo-label">pageHeader</span>
+      <h1 class="stellar-heading stellar-type-page-header">Page Header</h1>
+    </div>
+    <div class="demo-row">
+      <span class="demo-label">subHeader (default)</span>
+      <h2 class="stellar-heading stellar-type-sub-header" style="border: none; padding: 0; margin: 0;">Sub Header</h2>
+    </div>
+  </div>
+
+  <!-- ===== Paragraph ===== -->
+  <h2>Paragraph</h2>
+  <div class="demo">
+    <div class="demo-row">
+      <span class="demo-label">primary</span>
+      <p class="stellar-paragraph stellar-type-paragraph stellar-text--primary">Primary paragraph text for reading.</p>
+    </div>
+    <div class="demo-row">
+      <span class="demo-label">secondary</span>
+      <p class="stellar-paragraph stellar-type-paragraph stellar-text--secondary">Secondary paragraph text.</p>
+    </div>
+    <div class="demo-row">
+      <span class="demo-label">critical</span>
+      <p class="stellar-paragraph stellar-type-paragraph stellar-text--critical">Critical paragraph text.</p>
+    </div>
+    <div class="demo-row">
+      <span class="demo-label">caution</span>
+      <p class="stellar-paragraph stellar-type-paragraph stellar-text--caution">Caution paragraph text.</p>
+    </div>
+    <div class="demo-row">
+      <span class="demo-label">small</span>
+      <p class="stellar-paragraph stellar-type-small-paragraph stellar-text--primary">Small paragraph text.</p>
+    </div>
+    <div class="demo-row">
+      <span class="demo-label">bold</span>
+      <p class="stellar-paragraph stellar-type-paragraph-bold stellar-text--primary">Bold paragraph text.</p>
+    </div>
+    <div class="demo-row">
+      <span class="demo-label">caps</span>
+      <p class="stellar-paragraph stellar-type-all-caps stellar-text--primary">Caps paragraph text.</p>
+    </div>
+    <div class="demo-row">
+      <span class="demo-label">with Span</span>
+      <p class="stellar-paragraph stellar-type-paragraph stellar-text--primary">Normal with <span class="stellar-span stellar-type-paragraph-bold stellar-text--primary">bold span</span> and <span class="stellar-span stellar-type-paragraph stellar-text--secondary">secondary span</span>.</p>
+    </div>
+  </div>
+
+  <!-- ===== Label ===== -->
+  <h2>Label</h2>
+  <div class="demo">
+    <div class="demo-row">
+      <span class="demo-label">primary</span>
+      <label class="stellar-label stellar-type-label stellar-text--primary">Primary Label</label>
+    </div>
+    <div class="demo-row">
+      <span class="demo-label">secondary</span>
+      <label class="stellar-label stellar-type-label stellar-text--secondary">Secondary Label</label>
+    </div>
+    <div class="demo-row">
+      <span class="demo-label">small</span>
+      <label class="stellar-label stellar-type-label-small">Small Label</label>
+    </div>
+    <div class="demo-row">
+      <span class="demo-label">caps</span>
+      <label class="stellar-label stellar-type-all-caps">CAPS LABEL</label>
+    </div>
+  </div>
+
+  <!-- ===== SingleLine ===== -->
+  <h2>SingleLine</h2>
+  <div class="demo">
+    <div class="demo-row">
+      <span class="demo-label">primary (truncated)</span>
+      <p class="stellar-singleline stellar-type-single-line stellar-text--primary" style="max-width: 280px;">Single line text that truncates when it gets too long.</p>
+    </div>
+    <div class="demo-row">
+      <span class="demo-label">bold</span>
+      <p class="stellar-singleline stellar-type-single-line-bold stellar-text--primary">Bold single line text.</p>
+    </div>
+    <div class="demo-row">
+      <span class="demo-label">small</span>
+      <p class="stellar-singleline stellar-type-small-single-line stellar-text--primary">Small single line text.</p>
+    </div>
+  </div>
+
+  <!-- ===== Pre ===== -->
+  <h2>Pre</h2>
+  <div class="demo">
+    <div class="demo-row">
+      <span class="demo-label">primary</span>
+      <pre class="stellar-pre stellar-type-paragraph stellar-text--primary">const x = 42;</pre>
+    </div>
+    <div class="demo-row">
+      <span class="demo-label">secondary</span>
+      <pre class="stellar-pre stellar-type-paragraph stellar-text--secondary">// comment text</pre>
+    </div>
+    <div class="demo-row">
+      <span class="demo-label">critical</span>
+      <pre class="stellar-pre stellar-type-paragraph stellar-text--critical">Error: undefined</pre>
+    </div>
+    <div class="demo-row">
+      <span class="demo-label">bold</span>
+      <pre class="stellar-pre stellar-type-paragraph-bold">function main()</pre>
+    </div>
+  </div>
+
+  <!-- ===== Type Ramp Reference ===== -->
+  <h2>Type Ramp Reference</h2>
+  <table>
+    <thead>
+      <tr><th>Class</th><th>Size</th><th>Weight</th><th>Line Height</th><th>Transform</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>.stellar-type-larger-editorial</code></td><td>40px</td><td>700</td><td>48px</td><td>—</td></tr>
+      <tr><td><code>.stellar-type-large-editorial</code></td><td>28px</td><td>700</td><td>34px</td><td>—</td></tr>
+      <tr><td><code>.stellar-type-page-header</code></td><td>20px</td><td>700</td><td>24px</td><td>—</td></tr>
+      <tr><td><code>.stellar-type-sub-header</code></td><td>16px</td><td>600</td><td>20px</td><td>—</td></tr>
+      <tr><td><code>.stellar-type-paragraph</code></td><td>14px</td><td>400</td><td>20px</td><td>—</td></tr>
+      <tr><td><code>.stellar-type-paragraph-bold</code></td><td>14px</td><td>600</td><td>20px</td><td>—</td></tr>
+      <tr><td><code>.stellar-type-small-paragraph</code></td><td>12px</td><td>400</td><td>18px</td><td>—</td></tr>
+      <tr><td><code>.stellar-type-small-paragraph-bold</code></td><td>12px</td><td>600</td><td>18px</td><td>—</td></tr>
+      <tr><td><code>.stellar-type-label</code></td><td>14px</td><td>500</td><td>16px</td><td>—</td></tr>
+      <tr><td><code>.stellar-type-label-small</code></td><td>12px</td><td>500</td><td>16px</td><td>—</td></tr>
+      <tr><td><code>.stellar-type-single-line</code></td><td>14px</td><td>400</td><td>16px</td><td>—</td></tr>
+      <tr><td><code>.stellar-type-single-line-bold</code></td><td>14px</td><td>600</td><td>16px</td><td>—</td></tr>
+      <tr><td><code>.stellar-type-small-single-line</code></td><td>12px</td><td>400</td><td>14px</td><td>—</td></tr>
+      <tr><td><code>.stellar-type-all-caps</code></td><td>13px</td><td>500</td><td>20px</td><td>uppercase</td></tr>
+      <tr><td><code>.stellar-type-all-caps-small</code></td><td>11px</td><td>500</td><td>16px</td><td>uppercase</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ===== Usage ===== -->
+  <h2>Usage</h2>
+
+  <div class="code-section">
+    <h3>HTML</h3>
+    <button class="copy-btn" onclick="copyCode('html-code')">Copy</button>
+    <pre class="code" id="html-code"><code>&lt;!-- Editorial --&gt;
+&lt;div class="stellar-editorial stellar-type-larger-editorial"&gt;Big Title&lt;/div&gt;
+&lt;div class="stellar-editorial stellar-type-large-editorial"&gt;Title&lt;/div&gt;
+
+&lt;!-- Heading --&gt;
+&lt;h1 class="stellar-heading stellar-type-page-header"&gt;Page Header&lt;/h1&gt;
+&lt;h2 class="stellar-heading stellar-type-sub-header"&gt;Sub Header&lt;/h2&gt;
+
+&lt;!-- Paragraph --&gt;
+&lt;p class="stellar-paragraph stellar-type-paragraph stellar-text--primary"&gt;Body text&lt;/p&gt;
+&lt;p class="stellar-paragraph stellar-type-paragraph stellar-text--secondary"&gt;Muted text&lt;/p&gt;
+&lt;p class="stellar-paragraph stellar-type-small-paragraph stellar-text--primary"&gt;Small text&lt;/p&gt;
+&lt;p class="stellar-paragraph stellar-type-paragraph-bold stellar-text--primary"&gt;Bold text&lt;/p&gt;
+&lt;p class="stellar-paragraph stellar-type-all-caps stellar-text--primary"&gt;Caps text&lt;/p&gt;
+
+&lt;!-- Paragraph with Spans --&gt;
+&lt;p class="stellar-paragraph stellar-type-paragraph stellar-text--primary"&gt;
+  Regular text with &lt;span class="stellar-span stellar-type-paragraph-bold"&gt;bold&lt;/span&gt;
+  and &lt;span class="stellar-span stellar-text--secondary"&gt;muted&lt;/span&gt; spans.
+&lt;/p&gt;
+
+&lt;!-- Label --&gt;
+&lt;label class="stellar-label stellar-type-label stellar-text--primary"&gt;Field Label&lt;/label&gt;
+&lt;label class="stellar-label stellar-type-label-small"&gt;Small Label&lt;/label&gt;
+&lt;label class="stellar-label stellar-type-all-caps"&gt;Caps Label&lt;/label&gt;
+
+&lt;!-- SingleLine (truncates) --&gt;
+&lt;p class="stellar-singleline stellar-type-single-line stellar-text--primary"
+   style="max-width: 200px;"&gt;Long text that truncates...&lt;/p&gt;
+
+&lt;!-- Pre (monospace) --&gt;
+&lt;pre class="stellar-pre stellar-type-paragraph stellar-text--primary"&gt;const x = 42;&lt;/pre&gt;
+&lt;pre class="stellar-pre stellar-type-paragraph stellar-text--critical"&gt;Error: failed&lt;/pre&gt;</code></pre>
+  </div>
+
+  <div class="code-section">
+    <h3>CSS (include text.css)</h3>
+    <button class="copy-btn" onclick="copyCode('css-code')">Copy</button>
+    <pre class="code" id="css-code"><code>&lt;link rel="stylesheet" href="text.css"&gt;
+
+/* Pattern: component class + type ramp class + color variant class */
+/* .stellar-{component} .stellar-type-{ramp} .stellar-text--{variant} */
+
+/* Color variants: --primary, --secondary, --critical, --caution, --disabled */
+/* Type ramp classes set font-size, font-weight, line-height */
+/* Component classes set component-specific reset (margin, padding, overflow, etc.) */</code></pre>
+  </div>
+
+  <div class="links">
+    <a href="reference.html">Reference (React)</a>
+    <a href="test.html">Test (Vanilla)</a>
+  </div>
+
+  <script>
+    function copyCode(id) {
+      const code = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(code);
+    }
+  </script>
+</body>
+</html>

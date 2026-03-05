@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabs — Stellar Vanilla Component</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../tokens/stellar-tokens.css">
+  <link rel="stylesheet" href="tabs.css">
+  <style>
+    body { font-family: Inter, system-ui, sans-serif; max-width: 900px; margin: 0 auto; padding: 40px; color: #1e252f; }
+    h1 { margin-bottom: 8px; }
+    .subtitle { color: #666; margin-bottom: 32px; }
+    .demo { background: #f8f8f8; padding: 40px; border-radius: 8px; margin-bottom: 32px;
+            display: flex; align-items: center; justify-content: center; }
+    .code-section { margin-bottom: 32px; }
+    .code-section h2 { margin-bottom: 8px; }
+    pre { background: #1e1e1e; color: #d4d4d4; padding: 16px; border-radius: 8px;
+          overflow-x: auto; font-size: 14px; line-height: 1.5; }
+    .copy-btn { float: right; background: #333; color: #fff; border: none; padding: 4px 12px;
+                border-radius: 4px; cursor: pointer; font-size: 12px; }
+    .copy-btn:hover { background: #555; }
+    .links { display: flex; gap: 16px; margin-top: 32px; }
+    .links a { color: #0066cc; }
+  </style>
+</head>
+<body>
+  <h1>Tabs</h1>
+  <p class="subtitle">Vanilla HTML/CSS/JS — extracted from Stellar Design System</p>
+
+  <div class="demo">
+    <div data-component="tabs">
+      <div class="stellar-tabs">
+        <div class="stellar-tabs__list" role="tablist" aria-label="Demo tabs" aria-orientation="horizontal">
+          <div class="stellar-tabs__trigger" role="tab" aria-selected="true" tabindex="0">
+            <div class="stellar-tabs__content">First Tab<div class="stellar-tabs__indicator"></div></div>
+          </div>
+          <div class="stellar-tabs__trigger" role="tab" aria-selected="false" tabindex="-1">
+            <div class="stellar-tabs__content">Second Tab<div class="stellar-tabs__indicator"></div></div>
+          </div>
+          <div class="stellar-tabs__trigger" role="tab" aria-selected="false" tabindex="-1">
+            <div class="stellar-tabs__content">Third Tab<div class="stellar-tabs__indicator"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="code-section">
+    <h2>HTML</h2>
+    <button class="copy-btn" onclick="copyCode('html-code')">Copy</button>
+    <pre id="html-code"><code>&lt;div data-component="tabs"&gt;
+  &lt;div class="stellar-tabs"&gt;
+    &lt;div class="stellar-tabs__list" role="tablist" aria-label="Example tabs"&gt;
+      &lt;div class="stellar-tabs__trigger" role="tab" aria-selected="true" tabindex="0"&gt;
+        &lt;div class="stellar-tabs__content"&gt;First Tab
+          &lt;div class="stellar-tabs__indicator"&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class="stellar-tabs__trigger" role="tab" aria-selected="false" tabindex="-1"&gt;
+        &lt;div class="stellar-tabs__content"&gt;Second Tab
+          &lt;div class="stellar-tabs__indicator"&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class="stellar-tabs__trigger" role="tab" aria-selected="false" tabindex="-1"&gt;
+        &lt;div class="stellar-tabs__content"&gt;Third Tab
+          &lt;div class="stellar-tabs__indicator"&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+
+  <div class="code-section">
+    <h2>CSS</h2>
+    <button class="copy-btn" onclick="copyCode('css-code')">Copy</button>
+    <pre id="css-code"><code>/* Tabs — Vanilla CSS from Stellar Design System */
+
+.stellar-tabs {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.stellar-tabs__list {
+  display: flex;
+  gap: 24px;
+  height: 40px;
+  position: relative;
+  overflow-x: auto;
+}
+
+.stellar-tabs__list::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-bottom: 1px solid #d5dae4;
+  pointer-events: none;
+}
+
+.stellar-tabs__trigger {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  height: 40px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: Inter, Roboto, "Helvetica Neue", "Arial Nova", "Nimbus Sans", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  color: rgb(93, 106, 133);
+  transition: color 0.15s ease-in-out;
+}
+
+.stellar-tabs__trigger:hover { color: rgb(30, 37, 47); }
+.stellar-tabs__trigger:focus-visible { outline: 1px auto rgb(0, 95, 204); }
+.stellar-tabs__trigger[aria-selected="true"] { color: rgb(8, 91, 215); }
+.stellar-tabs__trigger[aria-selected="true"]:hover { color: rgb(8, 91, 215); }
+
+.stellar-tabs__content {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.stellar-tabs__indicator {
+  position: absolute;
+  height: 2px;
+  top: 38px;
+  left: 0;
+  right: 0;
+  background-color: transparent;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.stellar-tabs__trigger[aria-selected="true"] .stellar-tabs__indicator {
+  background-color: rgb(8, 91, 215);
+}
+
+.stellar-tabs__trigger:hover .stellar-tabs__indicator { background-color: #d5dae4; }
+.stellar-tabs__trigger[aria-selected="true"]:hover .stellar-tabs__indicator { background-color: rgb(8, 91, 215); }</code></pre>
+  </div>
+
+  <div class="code-section">
+    <h2>JavaScript</h2>
+    <button class="copy-btn" onclick="copyCode('js-code')">Copy</button>
+    <pre id="js-code"><code>class StellarTabs {
+  constructor(element) {
+    this.root = element;
+    this.tablist = element.querySelector('[role="tablist"]');
+    this.triggers = Array.from(this.tablist.querySelectorAll('[role="tab"]'));
+    this.init();
+  }
+
+  init() {
+    this.triggers.forEach(trigger =&gt; {
+      trigger.addEventListener('click', () =&gt; this.selectTab(trigger));
+      trigger.addEventListener('keydown', e =&gt; this.handleKeydown(e, trigger));
+    });
+  }
+
+  selectTab(trigger) {
+    this.triggers.forEach(t =&gt; {
+      const isSelected = t === trigger;
+      t.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+      t.setAttribute('tabindex', isSelected ? '0' : '-1');
+    });
+    trigger.focus();
+  }
+
+  handleKeydown(e, currentTrigger) {
+    const currentIndex = this.triggers.indexOf(currentTrigger);
+    let nextIndex;
+    switch (e.key) {
+      case 'ArrowRight': nextIndex = (currentIndex + 1) % this.triggers.length; break;
+      case 'ArrowLeft': nextIndex = (currentIndex - 1 + this.triggers.length) % this.triggers.length; break;
+      case 'Home': nextIndex = 0; break;
+      case 'End': nextIndex = this.triggers.length - 1; break;
+      default: return;
+    }
+    e.preventDefault();
+    this.selectTab(this.triggers[nextIndex]);
+  }
+}
+
+document.querySelectorAll('[data-component="tabs"]').forEach(el =&gt; {
+  new StellarTabs(el);
+});</code></pre>
+  </div>
+
+  <div class="links">
+    <a href="reference.html">Reference (React)</a>
+    <a href="test.html">Test (Vanilla)</a>
+  </div>
+
+  <script src="tabs.js"></script>
+  <script>
+    function copyCode(id) {
+      const code = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(code);
+    }
+  </script>
+</body>
+</html>

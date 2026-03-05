@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TextInput — Stellar Vanilla Component</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../tokens/stellar-tokens.css">
+  <link rel="stylesheet" href="textinput.css">
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 900px; margin: 0 auto; padding: 40px; }
+    h1 { margin-bottom: 8px; }
+    .subtitle { color: #666; margin-bottom: 32px; }
+    .demo { background: #f8f8f8; padding: 40px; border-radius: 8px; margin-bottom: 32px;
+            display: flex; flex-direction: column; gap: 24px; align-items: flex-start; }
+    .demo-row { display: flex; gap: 16px; align-items: center; }
+    .demo-label { min-width: 180px; font-size: 12px; color: #888; font-family: monospace; }
+    .code-section { margin-bottom: 32px; }
+    .code-section h2 { margin-bottom: 8px; }
+    pre { background: #1e1e1e; color: #d4d4d4; padding: 16px; border-radius: 8px;
+          overflow-x: auto; font-size: 14px; line-height: 1.5; }
+    .copy-btn { float: right; background: #333; color: #fff; border: none; padding: 4px 12px;
+                border-radius: 4px; cursor: pointer; font-size: 12px; }
+    .copy-btn:hover { background: #555; }
+    .links { display: flex; gap: 16px; margin-top: 32px; }
+    .links a { color: #0066cc; }
+  </style>
+</head>
+<body>
+  <h1>TextInput</h1>
+  <p class="subtitle">Vanilla HTML/CSS/JS — extracted from Stellar Design System</p>
+
+  <div class="demo">
+    <div class="demo-row">
+      <span class="demo-label">Default (regular)</span>
+      <div class="stellar-textinput stellar-textinput--regular" data-stellar-field="true" data-focus-visible="false">
+        <input class="stellar-textinput__input" type="text" placeholder="Placeholder text">
+      </div>
+    </div>
+
+    <div class="demo-row">
+      <span class="demo-label">Small</span>
+      <div class="stellar-textinput stellar-textinput--small" data-stellar-field="true" data-focus-visible="false">
+        <input class="stellar-textinput__input" type="text" placeholder="Placeholder text">
+      </div>
+    </div>
+
+    <div class="demo-row">
+      <span class="demo-label">With prefix icon</span>
+      <div class="stellar-textinput stellar-textinput--regular" data-stellar-field="true" data-focus-visible="false">
+        <svg class="stellar-textinput__icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><g><path fill="currentColor" fill-rule="evenodd" d="M7 2a5 5 0 0 1 3.871 8.164l3.983 3.983-.707.707-3.983-3.983A5 5 0 1 1 7 2m0 1a4 4 0 1 0 0 8 4 4 0 0 0 0-8" clip-rule="evenodd"></path></g></svg>
+        <input class="stellar-textinput__input" type="text" placeholder="Search...">
+      </div>
+    </div>
+
+    <div class="demo-row">
+      <span class="demo-label">Disabled</span>
+      <div class="stellar-textinput stellar-textinput--regular stellar-textinput--disabled" disabled data-stellar-field="true" data-focus-visible="false">
+        <input class="stellar-textinput__input" type="text" placeholder="Disabled" disabled>
+      </div>
+    </div>
+
+    <div class="demo-row">
+      <span class="demo-label">With Field + error</span>
+      <div class="stellar-field">
+        <div class="stellar-field__label-area"><label class="stellar-field__label">Label</label></div>
+        <div class="stellar-field__control-area">
+          <div class="stellar-textinput stellar-textinput--regular stellar-textinput--fullwidth stellar-textinput--critical" data-variant="critical" data-stellar-field="true" data-focus-visible="false">
+            <input class="stellar-textinput__input" type="text" placeholder="Placeholder text">
+            <span class="stellar-textinput__status-icon"><svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><g><path fill="rgb(211, 19, 47)" fill-rule="evenodd" d="M8 1a7 7 0 1 1 0 14A7 7 0 0 1 8 1m0 6.293L5.354 4.646l-.708.708L7.293 8l-2.647 2.646.708.707L8 8.708l2.646 2.646.707-.707L8.708 8l2.646-2.646-.707-.708z" clip-rule="evenodd"></path></g></svg></span>
+          </div>
+          <p class="stellar-field__description stellar-field__description--critical">This field is required</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="code-section">
+    <h2>HTML</h2>
+    <button class="copy-btn" onclick="copyCode('html-code')">Copy</button>
+    <pre id="html-code"><code>&lt;!-- Basic TextInput --&gt;
+&lt;div class="stellar-textinput stellar-textinput--regular"
+     data-stellar-field="true" data-focus-visible="false"&gt;
+  &lt;input class="stellar-textinput__input" type="text"
+         placeholder="Placeholder text"&gt;
+&lt;/div&gt;
+
+&lt;!-- Small size --&gt;
+&lt;div class="stellar-textinput stellar-textinput--small"
+     data-stellar-field="true" data-focus-visible="false"&gt;
+  &lt;input class="stellar-textinput__input" type="text"
+         placeholder="Placeholder text"&gt;
+&lt;/div&gt;
+
+&lt;!-- With prefix icon --&gt;
+&lt;div class="stellar-textinput stellar-textinput--regular"
+     data-stellar-field="true" data-focus-visible="false"&gt;
+  &lt;svg class="stellar-textinput__icon" viewBox="0 0 16 16"&gt;...&lt;/svg&gt;
+  &lt;input class="stellar-textinput__input" type="text"
+         placeholder="Search..."&gt;
+&lt;/div&gt;
+
+&lt;!-- Disabled --&gt;
+&lt;div class="stellar-textinput stellar-textinput--regular stellar-textinput--disabled"
+     disabled data-stellar-field="true" data-focus-visible="false"&gt;
+  &lt;input class="stellar-textinput__input" type="text"
+         placeholder="Disabled" disabled&gt;
+&lt;/div&gt;
+
+&lt;!-- With Field wrapper + error --&gt;
+&lt;div class="stellar-field"&gt;
+  &lt;div class="stellar-field__label-area"&gt;
+    &lt;label class="stellar-field__label"&gt;Label&lt;/label&gt;
+  &lt;/div&gt;
+  &lt;div class="stellar-field__control-area"&gt;
+    &lt;div class="stellar-textinput stellar-textinput--regular
+                stellar-textinput--fullwidth stellar-textinput--critical"
+         data-variant="critical" data-stellar-field="true"&gt;
+      &lt;input class="stellar-textinput__input" type="text"
+             placeholder="Placeholder text"&gt;
+      &lt;span class="stellar-textinput__status-icon"&gt;
+        &lt;svg&gt;...&lt;/svg&gt;
+      &lt;/span&gt;
+    &lt;/div&gt;
+    &lt;p class="stellar-field__description stellar-field__description--critical"&gt;
+      This field is required
+    &lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+
+  <div class="code-section">
+    <h2>CSS Classes</h2>
+    <pre><code>/* Sizes */
+.stellar-textinput--regular    /* 32px height, 14px font */
+.stellar-textinput--small      /* 24px height, 12px font */
+
+/* States */
+.stellar-textinput--disabled   /* Greyed out, not-allowed cursor */
+.stellar-textinput--readonly   /* Greyed background, not editable */
+.stellar-textinput--fullwidth  /* Expands to fill container */
+
+/* Validation variants */
+.stellar-textinput--critical   /* Red border (error) */
+.stellar-textinput--caution    /* Yellow border (warning) */
+.stellar-textinput--success    /* Green border (success) */
+
+/* Field wrapper */
+.stellar-field                 /* Label + input layout */
+.stellar-field__label          /* Field label (500 weight) */
+.stellar-field__description    /* Helper/error text */
+.stellar-field__description--critical  /* Red error text */
+.stellar-field__description--caution   /* Brown warning text */</code></pre>
+  </div>
+
+  <div class="links">
+    <a href="reference.html">Reference (React)</a>
+    <a href="test.html">Test (Vanilla)</a>
+  </div>
+
+  <script src="textinput.js"></script>
+  <script>
+    function copyCode(id) {
+      const code = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(code);
+    }
+  </script>
+</body>
+</html>

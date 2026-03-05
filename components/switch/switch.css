@@ -1,0 +1,89 @@
+/* Switch — Vanilla CSS from Stellar Design System */
+
+/* Track (outer container / label) */
+.stellar-switch {
+  display: inline-block;
+  position: relative;
+  width: var(--stellar-size-md);
+  height: var(--stellar-size-2xs);
+  border-radius: var(--stellar-radius-md);
+  border-width: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  background-color: var(--themed-component-form-control-background-unselected);
+  transition: background-color 0.15s ease-in-out;
+  outline: none;
+}
+
+/* Track: checked */
+.stellar-switch[data-selected] {
+  background-color: var(--themed-component-form-control-background-selected-default);
+}
+
+/* Track: checked + hover */
+.stellar-switch[data-selected]:not([data-disabled]):hover {
+  background-color: var(--themed-component-form-control-background-selected-hover);
+}
+
+/* Track: disabled */
+.stellar-switch[data-disabled] {
+  background-color: var(--themed-component-form-control-background-disabled);
+  cursor: not-allowed;
+}
+
+/* Track: disabled + checked */
+.stellar-switch[data-disabled][data-selected] {
+  background-color: var(--themed-component-form-control-background-selected-disabled);
+}
+
+/* Track: focus-visible */
+.stellar-switch:not([data-disabled]):focus-visible,
+.stellar-switch:not([data-disabled])[data-focus-visible] {
+  outline: 2px solid var(--themed-reusable-border-focused-active-item);
+}
+
+/* Knob (inner circle) */
+.stellar-switch__knob {
+  display: inline-block;
+  position: absolute;
+  width: var(--stellar-size-3xs);
+  height: var(--stellar-size-3xs);
+  border-radius: var(--stellar-radius-md);
+  border-width: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  left: var(--stellar-space-horizontal-3xs);
+  background-color: var(--themed-component-form-control-knob-default);
+  transition: left 0.1s ease-in-out;
+  pointer-events: none;
+}
+
+/* Knob: checked position */
+.stellar-switch[data-selected] .stellar-switch__knob {
+  left: calc(var(--stellar-size-md) - var(--stellar-space-horizontal-3xs) - var(--stellar-size-3xs));
+}
+
+/* Knob: disabled */
+.stellar-switch[data-disabled] .stellar-switch__knob {
+  background-color: var(--themed-component-form-control-knob-disabled);
+}
+
+/* Knob: disabled + checked */
+.stellar-switch[data-disabled][data-selected] .stellar-switch__knob {
+  background-color: var(--themed-component-form-control-knob-selected-disabled);
+}
+
+/* Visually hidden input (accessibility) */
+.stellar-switch__input {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
+}

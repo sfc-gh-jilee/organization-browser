@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" class="lightMode">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Organization Browser</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="dist/stellar.css">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <div style="display:flex; height:100vh;">
+    <!-- GlobalNav sidebar -->
+    <aside
+      data-component="globalnav"
+      data-active="admin"
+      data-collapsed="true"
+      data-user='{"name":"Admin User","role":"ORGADMIN","hasNotifications":false}'
+    ></aside>
+
+    <!-- Main content -->
+    <div class="main-content">
+      <!-- Breadcrumb -->
+      <div class="breadcrumb">
+        <span class="stellar-span stellar-type-small-paragraph stellar-text--secondary">London Stock Exchange Group</span>
+        <svg viewBox="0 0 16 16" width="12" height="12" fill="none" aria-hidden="true" style="color:var(--themed-reusable-text-secondary);">
+          <path fill="currentColor" d="m5.854 2.646 5 5a.5.5 0 0 1 0 .708l-5 5-.708-.707L9.793 8 5.146 3.354z"/>
+        </svg>
+        <span class="stellar-span stellar-type-small-paragraph" style="color:var(--themed-reusable-text-primary); font-weight:500;">Org Users and User Groups</span>
+      </div>
+
+      <!-- Page header -->
+      <div class="page-header">
+        <h1 class="stellar-heading stellar-type-page-header" style="margin:0;">Organization users and user groups</h1>
+
+      </div>
+
+      <!-- Control bar -->
+      <div class="control-bar" id="controlBar">
+        <div class="control-bar__left">
+          <div class="stellar-textinput">
+            <svg class="stellar-textinput__icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path fill="currentColor" fill-rule="evenodd" d="M7 2a5 5 0 0 1 3.871 8.164l3.983 3.983-.707.707-3.983-3.983A5 5 0 1 1 7 2m0 1a4 4 0 1 0 0 8 4 4 0 0 0 0-8" clip-rule="evenodd"/>
+            </svg>
+            <input class="stellar-textinput__input" type="text" placeholder="Search" id="globalSearch">
+          </div>
+        </div>
+        <div class="control-bar__center" id="selectionActions" style="display:none;">
+          <button class="selection-pill" id="selectionPill">
+            <span id="selectionCount">0</span> selected
+            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true" class="selection-pill__clear">
+              <path fill="currentColor" d="m13.354 3.366-4.642 4.64 4.634 4.635-.708.707-4.633-4.633-4.633 4.633-.707-.707 4.633-4.633-4.642-4.642.707-.707L8.005 7.3l4.641-4.64z"/>
+            </svg>
+          </button>
+          <span class="relation-counts" id="relationCounts"></span>
+        </div>
+        <div class="control-bar__right">
+          <div class="stellar-splitbutton stellar-splitbutton--primary" id="createButton" style="position:relative;">
+            <button class="stellar-splitbutton__action">
+              Create Org user
+            </button>
+            <button class="stellar-splitbutton__trigger" data-menu-trigger>
+              <svg class="stellar-splitbutton__trigger-icon" viewBox="0 0 16 16" aria-hidden="true" fill="none">
+                <path fill="currentColor" d="m8 10.5-4-5h8z"/>
+              </svg>
+            </button>
+            <div class="stellar-menu" role="dialog">
+              <div class="stellar-menu__list" role="menu" tabindex="0">
+                <div class="stellar-menu__item" role="menuitem" data-key="create-user">
+                  <div class="stellar-menu__item-label" tabindex="0">
+                    <div style="flex-grow:1; min-width:0; display:flex; flex-direction:column; gap:2px">
+                      <span class="stellar-menu__item-text">Create Org user</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="stellar-menu__item" role="menuitem" data-key="create-group">
+                  <div class="stellar-menu__item-label" tabindex="0">
+                    <div style="flex-grow:1; min-width:0; display:flex; flex-direction:column; gap:2px">
+                      <span class="stellar-menu__item-text">Create User group</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="actionButtons" style="display:none;">
+          <button class="stellar-button stellar-button--secondary" id="actionEdit">
+            <svg class="stellar-button__icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path fill="currentColor" fill-rule="evenodd" d="M9.916 2.378a1.5 1.5 0 0 1 2.156.038l1.634 1.749a1.5 1.5 0 0 1-.035 2.084l-6.595 6.594a1.5 1.5 0 0 1-.796.416l-3.523.633a.502.502 0 0 1-.578-.596l.771-3.61a1.5 1.5 0 0 1 .407-.748zM4.064 9.645a.5.5 0 0 0-.136.25l-.615 2.88 2.79-.5a.5.5 0 0 0 .266-.139l4.636-4.635-2.398-2.399zm7.278-6.547a.5.5 0 0 0-.719-.013l-1.31 1.31 2.4 2.399 1.251-1.252a.5.5 0 0 0 .012-.695z" clip-rule="evenodd"/>
+            </svg>
+            Edit
+          </button>
+          <button class="stellar-button stellar-button--secondary" id="actionPassword">
+            <svg class="stellar-button__icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path fill="currentColor" fill-rule="evenodd" d="M8 2a3 3 0 0 1 3 3v2h.5A1.5 1.5 0 0 1 13 8.5v4a1.5 1.5 0 0 1-1.5 1.5h-7a1.5 1.5 0 0 1-1.492-1.347L3 12.5v-4A1.5 1.5 0 0 1 4.5 7H5V5a3 3 0 0 1 3-3M4.5 8a.5.5 0 0 0-.5.5v4l.01.1a.5.5 0 0 0 .49.4h7a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 0-.5-.5zM8 3a2 2 0 0 0-2 2v2h4V5a2 2 0 0 0-2-2" clip-rule="evenodd"/>
+            </svg>
+            Password
+          </button>
+          <div class="stellar-menu-trigger">
+            <button class="stellar-button stellar-button--secondary" data-menu-trigger>
+              <svg class="stellar-button__icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path fill="currentColor" d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+              </svg>
+            </button>
+            <div class="stellar-menu" role="dialog">
+              <div class="stellar-menu__list" role="menu" tabindex="0">
+                <div class="stellar-menu__item" role="menuitem" data-key="disable">
+                  <div class="stellar-menu__item-label" tabindex="0">
+                    <div style="flex-grow:1; min-width:0; display:flex; flex-direction:column; gap:2px">
+                      <span class="stellar-menu__item-text">Disable users</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="stellar-menu__item" role="menuitem" data-key="remove">
+                  <div class="stellar-menu__item-label" tabindex="0">
+                    <div style="flex-grow:1; min-width:0; display:flex; flex-direction:column; gap:2px">
+                      <span class="stellar-menu__item-text">Remove from group</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="stellar-menu__divider" role="separator"></div>
+                <div class="stellar-menu__item" role="menuitem" data-key="delete">
+                  <div class="stellar-menu__item-label" tabindex="0">
+                    <div style="flex-grow:1; min-width:0; display:flex; flex-direction:column; gap:2px">
+                      <span class="stellar-menu__item-text" style="color:var(--themed-status-critical-ui);">Delete</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Three-column layout -->
+      <div class="columns-container">
+        <!-- Accounts column -->
+        <div class="column" id="col-accounts" data-column="accounts">
+          <div class="column__header">
+            <div class="column__header-left">
+              <span class="stellar-span stellar-type-label-small stellar-text--secondary">Accounts</span>
+              <span class="stellar-span stellar-type-label-small stellar-text--secondary column__count" id="accounts-count">(0)</span>
+            </div>
+            <div class="column__header-right">
+              <div class="filter-trigger">
+                <button class="column__icon-btn" title="Filter" aria-label="Filter" id="accounts-filter-btn">
+                  <svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true">
+                    <path fill="currentColor" fill-rule="evenodd" d="M1.5 3h13v1.003L10 8.838V14l-4-2.5V8.838L1.5 4.003zm1.134 1L7 7.662v3.338l2 1.25V7.662L13.366 4z" clip-rule="evenodd"/>
+                  </svg>
+                </button>
+                <div class="filter-menu" id="accounts-filter-menu"></div>
+              </div>
+            </div>
+          </div>
+          <div class="column__body" id="accounts-scroll">
+            <div class="virtual-spacer" id="accounts-spacer"></div>
+            <div class="virtual-content" id="accounts-content"></div>
+          </div>
+        </div>
+
+        <!-- User Groups column -->
+        <div class="column" id="col-usergroups" data-column="userGroups">
+          <div class="column__header">
+            <div class="column__header-left">
+              <span class="stellar-span stellar-type-label-small stellar-text--secondary">Org user groups</span>
+              <span class="stellar-span stellar-type-label-small stellar-text--secondary column__count" id="usergroups-count">(0)</span>
+            </div>
+            <div class="column__header-right">
+              <button class="column__select-btn" id="usergroups-select-btn">Select unassigned</button>
+              <div class="filter-trigger">
+                <button class="column__icon-btn" title="Filter" aria-label="Filter" id="usergroups-filter-btn">
+                  <svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true">
+                    <path fill="currentColor" fill-rule="evenodd" d="M1.5 3h13v1.003L10 8.838V14l-4-2.5V8.838L1.5 4.003zm1.134 1L7 7.662v3.338l2 1.25V7.662L13.366 4z" clip-rule="evenodd"/>
+                  </svg>
+                </button>
+                <div class="filter-menu" id="usergroups-filter-menu"></div>
+              </div>
+            </div>
+          </div>
+          <div class="column__body" id="usergroups-scroll">
+            <div class="virtual-spacer" id="usergroups-spacer"></div>
+            <div class="virtual-content" id="usergroups-content"></div>
+          </div>
+        </div>
+
+        <!-- Users column -->
+        <div class="column column--active" id="col-users" data-column="users">
+          <div class="column__header">
+            <div class="column__header-left">
+              <span class="stellar-span stellar-type-label-small stellar-text--secondary">Org users</span>
+              <span class="stellar-span stellar-type-label-small stellar-text--secondary column__count" id="users-count">(0)</span>
+            </div>
+            <div class="column__header-right">
+              <button class="column__select-btn" id="users-select-btn">Select unassigned</button>
+              <div class="filter-trigger">
+                <button class="column__icon-btn" title="Filter" aria-label="Filter" id="users-filter-btn">
+                  <svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true">
+                    <path fill="currentColor" fill-rule="evenodd" d="M1.5 3h13v1.003L10 8.838V14l-4-2.5V8.838L1.5 4.003zm1.134 1L7 7.662v3.338l2 1.25V7.662L13.366 4z" clip-rule="evenodd"/>
+                  </svg>
+                </button>
+                <div class="filter-menu" id="users-filter-menu"></div>
+              </div>
+            </div>
+          </div>
+          <div class="column__body" id="users-scroll">
+            <div class="virtual-spacer" id="users-spacer"></div>
+            <div class="virtual-content" id="users-content"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Drag ghost template (hidden) -->
+  <div id="dragGhost" class="drag-ghost" style="display:none;">
+    <span class="drag-ghost__count"></span>
+    <span class="drag-ghost__label"></span>
+  </div>
+
+  <script src="dist/stellar.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

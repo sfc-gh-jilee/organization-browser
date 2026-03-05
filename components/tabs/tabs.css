@@ -1,0 +1,114 @@
+/* Tabs — Vanilla CSS from Stellar Design System
+ * Uses --themed-* token variables from tokens/stellar-tokens.css.
+ */
+
+/* Root wrapper */
+.stellar-tabs {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* Tab list container */
+.stellar-tabs__list {
+  display: flex;
+  flex-direction: row;
+  gap: var(--stellar-space-gap-2xl);
+  height: var(--stellar-size-lg);
+  position: relative;
+  overflow-x: auto;
+  box-sizing: border-box;
+}
+
+/* Bottom border line via ::before pseudo-element */
+.stellar-tabs__list::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-bottom: 1px solid var(--themed-reusable-border-default);
+  pointer-events: none;
+}
+
+/* Individual tab trigger */
+.stellar-tabs__trigger {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  height: var(--stellar-size-lg);
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--themed-font-family-body);
+  font-size: var(--themed-font-size-small);
+  font-weight: var(--themed-font-weight-medium);
+  line-height: var(--themed-line-height-regular-single-line);
+  color: var(--themed-reusable-text-secondary);
+  transition: color 0.15s ease-in-out;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+.stellar-tabs__trigger:hover {
+  color: var(--themed-reusable-text-primary);
+}
+
+.stellar-tabs__trigger:focus-visible {
+  outline: 1px auto rgb(0, 95, 204);
+  outline-offset: 0px;
+}
+
+.stellar-tabs__trigger:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Selected tab */
+.stellar-tabs__trigger[aria-selected="true"] {
+  color: var(--themed-reusable-selected-text);
+}
+
+.stellar-tabs__trigger[aria-selected="true"]:hover {
+  color: var(--themed-reusable-selected-text);
+}
+
+/* Content wrapper inside trigger */
+.stellar-tabs__content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--stellar-space-gap-2xs);
+  box-sizing: border-box;
+}
+
+/* Indicator bar (bottom underline) */
+.stellar-tabs__indicator {
+  display: block;
+  position: absolute;
+  height: 2px;
+  top: 38px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  transition: background-color 0.15s ease-in-out;
+  box-sizing: border-box;
+}
+
+/* Selected indicator */
+.stellar-tabs__trigger[aria-selected="true"] .stellar-tabs__indicator {
+  background-color: var(--themed-reusable-selected-text);
+}
+
+/* Hover indicator for unselected tabs */
+.stellar-tabs__trigger:hover .stellar-tabs__indicator {
+  background-color: var(--themed-reusable-border-default);
+}
+
+/* Selected hover keeps blue */
+.stellar-tabs__trigger[aria-selected="true"]:hover .stellar-tabs__indicator {
+  background-color: var(--themed-reusable-selected-text);
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" class="lightMode">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabs Test</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../tokens/stellar-tokens.css">
+  <link rel="stylesheet" href="tabs.css">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html {
+      line-height: 1.15;
+      -webkit-text-size-adjust: 100%;
+      font-family: Inter, Roboto, "Helvetica Neue", "Arial Nova", "Nimbus Sans", Arial, sans-serif;
+    }
+    body { background: var(--themed-surface-level-1-background); color: var(--themed-reusable-text-primary); -webkit-font-smoothing: antialiased; }
+    .reference-container {
+      padding: 40px;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+  <script>
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('mode') === 'dark') {
+        document.documentElement.classList.replace('lightMode', 'darkMode');
+      }
+    })();
+  </script>
+</head>
+<body>
+  <div class="reference-container">
+    <div data-component="tabs">
+      <div class="stellar-tabs">
+        <div class="stellar-tabs__list" role="tablist" aria-label="Example tabs" aria-orientation="horizontal">
+          <div class="stellar-tabs__trigger" role="tab" aria-selected="true" tabindex="0">
+            <div class="stellar-tabs__content">First Tab<div class="stellar-tabs__indicator"></div></div>
+          </div>
+          <div class="stellar-tabs__trigger" role="tab" aria-selected="false" tabindex="-1">
+            <div class="stellar-tabs__content">Second Tab<div class="stellar-tabs__indicator"></div></div>
+          </div>
+          <div class="stellar-tabs__trigger" role="tab" aria-selected="false" tabindex="-1">
+            <div class="stellar-tabs__content">Third Tab<div class="stellar-tabs__indicator"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="tabs.js"></script>
+</body>
+</html>

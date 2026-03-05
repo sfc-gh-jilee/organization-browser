@@ -1,0 +1,171 @@
+{
+  "component": "Button",
+  "tarball": "snowflake-stellar-components-0.25.2.tgz",
+  "props": {
+    "children": {
+      "default": null,
+      "values": [
+        "string"
+      ]
+    },
+    "displayName": {
+      "default": "IconButton",
+      "values": [
+        "Button",
+        "IconButton"
+      ]
+    },
+    "expanded": {
+      "default": "true",
+      "values": [
+        "true"
+      ]
+    },
+    "size": {
+      "default": "regular",
+      "values": [
+        "regular",
+        "small"
+      ]
+    },
+    "state": {
+      "default": "open",
+      "values": [
+        "open"
+      ]
+    },
+    "variant": {
+      "default": "primary",
+      "values": [
+        "primary",
+        "primary-critical",
+        "secondary",
+        "tertiary"
+      ]
+    }
+  },
+  "booleanStates": [
+    "selected",
+    "fullWidth",
+    "isLoading"
+  ],
+  "contextDependencies": [
+    "IsIconOnlyContext (icon-only detection)",
+    "SizeContext (inheritable size prop)"
+  ],
+  "styleKeys": [
+    "dot",
+    "smallDot",
+    "primaryDot",
+    "secondaryDot",
+    "tertiaryDot",
+    "primaryCriticalDot",
+    "label",
+    "spinner",
+    "spinnerPrimary",
+    "spinnerSecondary",
+    "spinnerTertiary",
+    "spinnerPrimaryCritical",
+    "button",
+    "buttonSmall",
+    "buttonFullWidth",
+    "buttonDisabled",
+    "iconOnly",
+    "iconOnlySmall",
+    "primary",
+    "primaryDisabled",
+    "primarySelected",
+    "primaryCritical",
+    "primaryCriticalDisabled",
+    "primaryCriticalSelected",
+    "secondary",
+    "secondaryDisabled",
+    "secondarySelected",
+    "tertiary",
+    "tertiaryDisabled",
+    "tertiarySelected",
+    "hoverShadow"
+  ],
+  "combinations": [
+    {
+      "props": {
+        "variant": "primary",
+        "size": "regular"
+      },
+      "label": "primary / regular"
+    },
+    {
+      "props": {
+        "variant": "primary",
+        "size": "small"
+      },
+      "label": "primary / small"
+    },
+    {
+      "props": {
+        "variant": "primary-critical",
+        "size": "regular"
+      },
+      "label": "primary-critical / regular"
+    },
+    {
+      "props": {
+        "variant": "primary-critical",
+        "size": "small"
+      },
+      "label": "primary-critical / small"
+    },
+    {
+      "props": {
+        "variant": "secondary",
+        "size": "regular"
+      },
+      "label": "secondary / regular"
+    },
+    {
+      "props": {
+        "variant": "secondary",
+        "size": "small"
+      },
+      "label": "secondary / small"
+    },
+    {
+      "props": {
+        "variant": "tertiary",
+        "size": "regular"
+      },
+      "label": "tertiary / regular"
+    },
+    {
+      "props": {
+        "variant": "tertiary",
+        "size": "small"
+      },
+      "label": "tertiary / small"
+    },
+    {
+      "props": {
+        "selected": true,
+        "variant": "primary"
+      },
+      "label": "primary + selected",
+      "isState": true
+    },
+    {
+      "props": {
+        "fullWidth": true,
+        "variant": "primary"
+      },
+      "label": "primary + fullWidth",
+      "isState": true
+    },
+    {
+      "props": {
+        "isLoading": true,
+        "variant": "primary"
+      },
+      "label": "primary + isLoading",
+      "isState": true
+    }
+  ]
+}

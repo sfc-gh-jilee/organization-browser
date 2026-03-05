@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layout — Stellar Vanilla Components</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../tokens/stellar-tokens.css">
+  <link rel="stylesheet" href="layout.css">
+  <link rel="stylesheet" href="../text/text.css">
+  <link rel="stylesheet" href="../button/button.css">
+  <style>
+    body { font-family: Inter, system-ui, sans-serif; margin: 0; color: #1e252f; }
+    .docs { max-width: 960px; margin: 0 auto; padding: 40px; }
+    h1 { margin-bottom: 8px; }
+    .subtitle { color: #666; margin-bottom: 40px; }
+    h2 { margin-bottom: 12px; margin-top: 48px; font-size: 20px; }
+    h3 { margin-bottom: 8px; margin-top: 32px; font-size: 16px; }
+    .demo-frame { border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; margin-bottom: 16px; }
+    .demo-frame--tall { height: 400px; }
+    .demo-frame--short { height: 200px; }
+    .demo-box {
+      background: var(--themed-status-info-background, #d6e6ff);
+      border: 1px solid var(--themed-status-info-ui, #1a6ce7);
+      border-radius: var(--stellar-radius-xs, 4px);
+      padding: 8px 12px;
+      font-size: 12px;
+      color: var(--themed-status-info-text, #003e9a);
+      white-space: nowrap;
+    }
+    pre { background: #1e1e1e; color: #d4d4d4; padding: 16px; border-radius: 8px;
+          overflow-x: auto; font-size: 13px; line-height: 1.5; }
+    .copy-btn { float: right; background: #333; color: #fff; border: none; padding: 4px 12px;
+                border-radius: 4px; cursor: pointer; font-size: 12px; }
+    .copy-btn:hover { background: #555; }
+    .nav-placeholder {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 12px; border-radius: 6px; font-size: 14px;
+      cursor: default;
+    }
+    .nav-placeholder:hover { background: rgba(255,255,255,0.1); }
+  </style>
+</head>
+<body>
+<div class="docs">
+
+  <h1>Layout Components</h1>
+  <p class="subtitle">Vanilla HTML/CSS — Page, Layout, Flex, Grid, Divider from Stellar Design System</p>
+
+  <!-- ===== DIVIDER ===== -->
+  <h2>Divider</h2>
+  <p>Horizontal or vertical separator line.</p>
+
+  <h3>Horizontal (default)</h3>
+  <div style="padding: 16px; background: #fafafa; border-radius: 8px;">
+    <p style="margin: 0 0 8px;">Content above</p>
+    <hr class="stellar-divider">
+    <p style="margin: 8px 0 0;">Content below</p>
+  </div>
+
+  <h3>Vertical</h3>
+  <div class="stellar-flex stellar-flex--align-center stellar-flex--gap-lg" style="padding: 16px; background: #fafafa; border-radius: 8px; height: 60px;">
+    <span>Left</span>
+    <hr class="stellar-divider stellar-divider--vertical">
+    <span>Right</span>
+  </div>
+
+  <!-- ===== FLEX ===== -->
+  <h2>Flex</h2>
+  <p>Flexbox utility with direction, alignment, gap, and wrap modifiers.</p>
+
+  <h3>Row (default) with gap-sm</h3>
+  <div class="stellar-flex stellar-flex--gap-sm" style="padding: 16px; background: #fafafa; border-radius: 8px;">
+    <div class="demo-box">Item 1</div>
+    <div class="demo-box">Item 2</div>
+    <div class="demo-box">Item 3</div>
+  </div>
+
+  <h3>Column with gap-lg</h3>
+  <div class="stellar-flex stellar-flex--column stellar-flex--gap-lg" style="padding: 16px; background: #fafafa; border-radius: 8px;">
+    <div class="demo-box">Item 1</div>
+    <div class="demo-box">Item 2</div>
+    <div class="demo-box">Item 3</div>
+  </div>
+
+  <h3>Row with align-center + justify-between</h3>
+  <div class="stellar-flex stellar-flex--align-center stellar-flex--justify-between" style="padding: 16px; background: #fafafa; border-radius: 8px;">
+    <h2 class="stellar-heading stellar-type-sub-header" style="margin:0;">Title</h2>
+    <div class="stellar-flex stellar-flex--gap-sm">
+      <button class="stellar-button stellar-button--secondary">Cancel</button>
+      <button class="stellar-button stellar-button--primary">Save</button>
+    </div>
+  </div>
+
+  <h3>Wrap with gap-md</h3>
+  <div class="stellar-flex stellar-flex--wrap stellar-flex--gap-md" style="padding: 16px; background: #fafafa; border-radius: 8px; max-width: 300px;">
+    <div class="demo-box">Tag 1</div>
+    <div class="demo-box">Tag 2</div>
+    <div class="demo-box">Tag 3</div>
+    <div class="demo-box">Tag 4</div>
+    <div class="demo-box">Tag 5</div>
+    <div class="demo-box">Tag 6</div>
+  </div>
+
+  <!-- ===== GRID ===== -->
+  <h2>Grid</h2>
+  <p>12-column grid system with item sizing.</p>
+
+  <h3>12-column items (6+6, 4+8, 3+3+3+3)</h3>
+  <div class="stellar-grid stellar-grid--no-margin" style="background: #fafafa; padding: 16px; border-radius: 8px;">
+    <div class="stellar-grid__item--6"><div class="demo-box">span 6</div></div>
+    <div class="stellar-grid__item--6"><div class="demo-box">span 6</div></div>
+    <div class="stellar-grid__item--4"><div class="demo-box">span 4</div></div>
+    <div class="stellar-grid__item--8"><div class="demo-box">span 8</div></div>
+    <div class="stellar-grid__item--3"><div class="demo-box">span 3</div></div>
+    <div class="stellar-grid__item--3"><div class="demo-box">span 3</div></div>
+    <div class="stellar-grid__item--3"><div class="demo-box">span 3</div></div>
+    <div class="stellar-grid__item--3"><div class="demo-box">span 3</div></div>
+  </div>
+
+  <h3>Simple 3-column grid</h3>
+  <div class="stellar-grid stellar-grid--cols-3 stellar-grid--no-margin" style="background: #fafafa; padding: 16px; border-radius: 8px;">
+    <div class="demo-box">Card 1</div>
+    <div class="demo-box">Card 2</div>
+    <div class="demo-box">Card 3</div>
+  </div>
+
+  <!-- ===== PAGE ===== -->
+  <h2>Page</h2>
+  <p>Full-page shell with sidebar, nav bar, and scrollable content.</p>
+
+  <h3>With sidebar + nav bar</h3>
+  <div class="demo-frame demo-frame--tall">
+    <div class="stellar-page" style="height: 100%;">
+      <div class="stellar-page__body">
+        <!-- Sidebar -->
+        <nav class="stellar-page__sidenav" aria-label="Navigation">
+          <div style="padding: 8px 12px; margin-bottom: 16px;">
+            <span class="stellar-type-sub-header" style="color: inherit;">Snowsight</span>
+          </div>
+          <div class="nav-placeholder" style="color:rgba(255,255,255,0.9)">
+            <span>📊</span> Dashboards
+          </div>
+          <div class="nav-placeholder" style="color:rgba(255,255,255,0.7)">
+            <span>📋</span> Worksheets
+          </div>
+          <div class="nav-placeholder" style="color:rgba(255,255,255,0.7)">
+            <span>🗄️</span> Data
+          </div>
+        </nav>
+
+        <!-- Content -->
+        <div class="stellar-page__content">
+          <header class="stellar-page__content-header">
+            <h1 class="stellar-heading stellar-type-page-header" style="margin:0;">Warehouses</h1>
+            <div class="stellar-flex stellar-flex--gap-sm">
+              <button class="stellar-button stellar-button--secondary">Filter</button>
+              <button class="stellar-button stellar-button--primary">+ Create</button>
+            </div>
+          </header>
+          <div class="stellar-page__content-body">
+            <p class="stellar-paragraph stellar-type-paragraph stellar-text--secondary">
+              Page content goes here. The sidebar uses <code>--stellar-sidebar-bg</code> and
+              <code>--stellar-sidebar-text</code> custom properties so you can override the colors.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Custom sidebar colors</h3>
+  <div class="demo-frame demo-frame--short">
+    <div class="stellar-page" style="height:100%; --stellar-sidebar-bg: var(--themed-surface-level-2-background, #fbfbfb); --stellar-sidebar-text: var(--themed-reusable-text-primary, #1e252f);">
+      <div class="stellar-page__body">
+        <nav class="stellar-page__sidenav" aria-label="Navigation" style="border-right: 1px solid var(--themed-reusable-border-default);">
+          <div style="padding: 8px 12px; margin-bottom: 12px;">
+            <span class="stellar-type-sub-header" style="color: inherit;">Light Sidebar</span>
+          </div>
+          <div class="nav-placeholder" style="color:inherit; background:var(--themed-reusable-selected-background, #d6e6ff);">
+            <span>📊</span> Active Item
+          </div>
+          <div class="nav-placeholder" style="color:inherit;">
+            <span>📋</span> Other Item
+          </div>
+        </nav>
+        <div class="stellar-page__content">
+          <div class="stellar-page__content-body">
+            <p class="stellar-paragraph stellar-type-paragraph">
+              Override <code>--stellar-sidebar-bg</code> to change sidebar color.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== LAYOUT ===== -->
+  <h2>Layout</h2>
+  <p>Generic layout shell (no page assumptions). Useful for nested sections.</p>
+
+  <div class="demo-frame demo-frame--short">
+    <div class="stellar-layout stellar-layout--with-sidebar" style="height:100%;">
+      <aside class="stellar-layout__sidebar" style="background:#f0f2f5; border-right:1px solid var(--themed-reusable-border-default);">
+        <div style="padding:16px; font-size:13px; color:#5d6a85;">Sidebar content</div>
+      </aside>
+      <div class="stellar-layout__content stellar-layout__content--scrollable">
+        <header class="stellar-layout__header stellar-layout__header--sticky" style="padding:12px 24px; border-bottom:1px solid var(--themed-reusable-border-default);">
+          <h3 class="stellar-heading stellar-type-sub-header" style="margin:0;">Layout Header (sticky)</h3>
+        </header>
+        <div style="padding:24px;">
+          <p class="stellar-paragraph stellar-type-paragraph">Main content area.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CODE REFERENCE ===== -->
+  <h2>Code</h2>
+
+  <h3>Divider</h3>
+  <button class="copy-btn" onclick="copyCode('code-divider')">Copy</button>
+  <pre id="code-divider"><code>&lt;hr class="stellar-divider"&gt;
+&lt;hr class="stellar-divider stellar-divider--vertical"&gt;</code></pre>
+
+  <h3>Flex</h3>
+  <button class="copy-btn" onclick="copyCode('code-flex')">Copy</button>
+  <pre id="code-flex"><code>&lt;!-- Row with 8px gap, vertically centered --&gt;
+&lt;div class="stellar-flex stellar-flex--gap-sm stellar-flex--align-center"&gt;
+  &lt;span&gt;Left&lt;/span&gt;
+  &lt;span&gt;Right&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Column layout --&gt;
+&lt;div class="stellar-flex stellar-flex--column stellar-flex--gap-lg"&gt;
+  &lt;div&gt;Top&lt;/div&gt;
+  &lt;div&gt;Bottom&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Toolbar: title left, buttons right --&gt;
+&lt;div class="stellar-flex stellar-flex--align-center stellar-flex--justify-between"&gt;
+  &lt;h2 class="stellar-heading stellar-type-sub-header"&gt;Title&lt;/h2&gt;
+  &lt;div class="stellar-flex stellar-flex--gap-sm"&gt;
+    &lt;button class="stellar-button stellar-button--secondary"&gt;Cancel&lt;/button&gt;
+    &lt;button class="stellar-button stellar-button--primary"&gt;Save&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+  <h3>Grid</h3>
+  <button class="copy-btn" onclick="copyCode('code-grid')">Copy</button>
+  <pre id="code-grid"><code>&lt;!-- 12-column grid with items --&gt;
+&lt;div class="stellar-grid stellar-grid--no-margin"&gt;
+  &lt;div class="stellar-grid__item--4"&gt;Sidebar&lt;/div&gt;
+  &lt;div class="stellar-grid__item--8"&gt;Main content&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Simple 3-column card grid --&gt;
+&lt;div class="stellar-grid stellar-grid--cols-3 stellar-grid--no-margin"&gt;
+  &lt;section class="stellar-card"&gt;...&lt;/section&gt;
+  &lt;section class="stellar-card"&gt;...&lt;/section&gt;
+  &lt;section class="stellar-card"&gt;...&lt;/section&gt;
+&lt;/div&gt;</code></pre>
+
+  <h3>Page (full structure)</h3>
+  <button class="copy-btn" onclick="copyCode('code-page')">Copy</button>
+  <pre id="code-page"><code>&lt;div class="stellar-page"&gt;
+  &lt;div class="stellar-page__body"&gt;
+    &lt;!-- Sidebar (optional) --&gt;
+    &lt;nav class="stellar-page__sidenav" aria-label="Navigation"&gt;
+      &lt;!-- Nav items --&gt;
+    &lt;/nav&gt;
+
+    &lt;!-- Content --&gt;
+    &lt;div class="stellar-page__content"&gt;
+      &lt;header class="stellar-page__content-header"&gt;
+        &lt;h1 class="stellar-heading stellar-type-page-header"&gt;Title&lt;/h1&gt;
+        &lt;div class="stellar-flex stellar-flex--gap-sm"&gt;
+          &lt;button class="stellar-button stellar-button--primary"&gt;Action&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/header&gt;
+      &lt;div class="stellar-page__content-body"&gt;
+        &lt;!-- Page content --&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Custom sidebar colors via CSS custom properties --&gt;
+&lt;div class="stellar-page" style="
+  --stellar-sidebar-bg: var(--themed-surface-level-2-background);
+  --stellar-sidebar-text: var(--themed-reusable-text-primary);
+"&gt;
+  ...
+&lt;/div&gt;</code></pre>
+
+</div>
+
+<script>
+  function copyCode(id) {
+    const code = document.getElementById(id).textContent;
+    navigator.clipboard.writeText(code);
+  }
+</script>
+</body>
+</html>

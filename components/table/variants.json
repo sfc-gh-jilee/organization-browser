@@ -1,0 +1,250 @@
+{
+  "component": "Table",
+  "tarball": "snowflake-stellar-components-0.25.2.tgz",
+  "props": {
+    "align": {
+      "default": "left",
+      "values": [
+        "left"
+      ]
+    },
+    "ariaLabel": {
+      "default": "Open overflow menu",
+      "values": [
+        "Open overflow menu"
+      ]
+    },
+    "aValue": {
+      "default": null,
+      "values": [
+        "string"
+      ]
+    },
+    "bValue": {
+      "default": null,
+      "values": [
+        "string"
+      ]
+    },
+    "cell": {
+      "default": "${column.id}",
+      "values": [
+        "${column.id}"
+      ]
+    },
+    "children": {
+      "default": null,
+      "values": [
+        "function",
+        "string"
+      ]
+    },
+    "clientWidth": {
+      "default": "clientWidth",
+      "values": [
+        "clientWidth"
+      ]
+    },
+    "cursor": {
+      "default": "ew-resize",
+      "values": [
+        "default",
+        "e-resize",
+        "ew-resize",
+        "w-resize"
+      ]
+    },
+    "direction": {
+      "default": null,
+      "values": [
+        "ascending"
+      ]
+    },
+    "displayName": {
+      "default": "Table.Row",
+      "values": [
+        "DataTable",
+        "Table.Body",
+        "Table.Cell",
+        "Table.CellOverflowMenu",
+        "Table.Column",
+        "Table.Empty",
+        "Table.Header",
+        "Table.Root",
+        "Table.Row"
+      ]
+    },
+    "document": {
+      "default": null,
+      "values": [
+        "undefined"
+      ]
+    },
+    "height": {
+      "default": null,
+      "values": [
+        "stretch"
+      ]
+    },
+    "href": {
+      "default": null,
+      "values": [
+        "string"
+      ]
+    },
+    "id": {
+      "default": "${columnDefinition == null ? void 0 : columnDefinition.id}",
+      "values": [
+        "${columnDefinition == null ? void 0 : columnDefinition.id}",
+        "load-more-row"
+      ]
+    },
+    "modality": {
+      "default": null,
+      "values": [
+        "keyboard",
+        "pointer"
+      ]
+    },
+    "nextKey": {
+      "default": "body",
+      "values": [
+        "body"
+      ]
+    },
+    "overflow": {
+      "default": "scroll",
+      "values": [
+        "auto",
+        "scroll"
+      ]
+    },
+    "overflowY": {
+      "default": null,
+      "values": [
+        "auto",
+        "scroll"
+      ]
+    },
+    "parentKey": {
+      "default": "body",
+      "values": [
+        "body",
+        "header"
+      ]
+    },
+    "pin": {
+      "default": null,
+      "values": [
+        "left",
+        "right"
+      ]
+    },
+    "prevKey": {
+      "default": "header",
+      "values": [
+        "header"
+      ]
+    },
+    "role": {
+      "default": "row",
+      "values": [
+        "columnheader",
+        "row",
+        "rowgroup"
+      ]
+    },
+    "scrollLeft": {
+      "default": "scrollLeft",
+      "values": [
+        "scrollLeft"
+      ]
+    },
+    "scrollWidth": {
+      "default": "scrollWidth",
+      "values": [
+        "scrollWidth"
+      ]
+    },
+    "selectionMode": {
+      "default": null,
+      "values": [
+        "multiple"
+      ]
+    },
+    "sortDirection": {
+      "default": null,
+      "values": [
+        "ascending",
+        "descending"
+      ]
+    },
+    "status": {
+      "default": null,
+      "values": [
+        "Active"
+      ]
+    },
+    "value": {
+      "default": null,
+      "values": [
+        "number",
+        "string"
+      ]
+    },
+    "visibility": {
+      "default": "hidden",
+      "values": [
+        "hidden"
+      ]
+    }
+  },
+  "booleanStates": [],
+  "contextDependencies": [],
+  "styleKeys": [
+    "row",
+    "focusReveal",
+    "selectedRow",
+    "cell",
+    "cellPinnedLeft",
+    "cellPinnedRight",
+    "cellContent",
+    "cellContentText",
+    "revealOnRowInteraction",
+    "virtualRow",
+    "virtualRoot",
+    "virtualBody",
+    "overflow",
+    "overflowY",
+    "tableBody",
+    "focusRing",
+    "focusRingPinned",
+    "textEllipsis",
+    "cellOverflowMenuTrigger",
+    "resizer",
+    "resizerMobile",
+    "column",
+    "sortableColumn",
+    "columnHeader",
+    "columnHeaderHovered",
+    "columnSorted",
+    "columnSortedHovered",
+    "columnHeaderContent",
+    "fullWidth",
+    "emptyCell",
+    "tableHeader",
+    "stickyHeader",
+    "tableHeaderRow",
+    "table",
+    "gridTemplateColumns",
+    "staticTable",
+    "tableAlign",
+    "tablePinnedLeft",
+    "tablePinnedRight",
+    "rowLink",
+    "rowActionableHovered",
+    "rowActionable",
+    "rowFocusRing",
+    "selectedRowHovered"
+  ]
+}

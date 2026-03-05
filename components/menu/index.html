@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu — Stellar Vanilla Component</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../tokens/stellar-tokens.css">
+  <link rel="stylesheet" href="menu.css">
+  <link rel="stylesheet" href="../button/button.css">
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 900px; margin: 0 auto; padding: 40px; }
+    h1 { margin-bottom: 8px; }
+    .subtitle { color: #666; margin-bottom: 32px; }
+    .section { margin-bottom: 40px; }
+    .section h2 { margin-bottom: 16px; font-size: 18px; }
+    .demo { background: #f8f8f8; padding: 32px; border-radius: 8px; margin-bottom: 16px;
+            display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; min-height: 100px; }
+    .demo-tall { min-height: 280px; }
+    .demo-label { font-size: 13px; color: #888; margin-bottom: 8px; }
+    .code-section { margin-bottom: 32px; }
+    .code-section h2 { margin-bottom: 8px; }
+    pre { background: #1e1e1e; color: #d4d4d4; padding: 16px; border-radius: 8px;
+          overflow-x: auto; font-size: 14px; line-height: 1.5; position: relative; }
+    .copy-btn { position: absolute; top: 8px; right: 8px; background: #333; color: #fff; border: none;
+                padding: 4px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+    .copy-btn:hover { background: #555; }
+    .links { display: flex; gap: 16px; margin-top: 32px; }
+    .links a { color: #0066cc; }
+  </style>
+</head>
+<body>
+  <h1>Menu</h1>
+  <p class="subtitle">Vanilla HTML/CSS/JS — extracted from Stellar Design System</p>
+
+  <div class="section">
+    <h2>Basic Menu</h2>
+    <p class="demo-label">Click the button to open/close the menu. Try keyboard navigation (Arrow keys, Enter, Escape).</p>
+    <div class="demo demo-tall">
+      <div class="stellar-menu-trigger">
+        <button role="button" class="stellar-button stellar-button--secondary" data-menu-trigger>Actions</button>
+        <div class="stellar-menu" role="dialog">
+          <div class="stellar-menu__list" role="menu" tabindex="0">
+            <div class="stellar-menu__item" role="menuitem" data-key="edit">
+              <div class="stellar-menu__item-label" tabindex="0">
+                <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
+                  <span class="stellar-menu__item-text">Edit</span>
+                </div>
+              </div>
+            </div>
+            <div class="stellar-menu__item" role="menuitem" data-key="duplicate">
+              <div class="stellar-menu__item-label" tabindex="0">
+                <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
+                  <span class="stellar-menu__item-text">Duplicate</span>
+                </div>
+              </div>
+            </div>
+            <div class="stellar-menu__item" role="menuitem" data-key="delete">
+              <div class="stellar-menu__item-label" tabindex="0">
+                <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
+                  <span class="stellar-menu__item-text">Delete</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>With Icons &amp; Divider</h2>
+    <div class="demo demo-tall">
+      <div class="stellar-menu-trigger">
+        <button role="button" class="stellar-button stellar-button--secondary" data-menu-trigger>More Options</button>
+        <div class="stellar-menu" role="dialog">
+          <div class="stellar-menu__list" role="menu" tabindex="0">
+            <div class="stellar-menu__item" role="menuitem" data-key="edit">
+              <div class="stellar-menu__item-label" tabindex="0">
+                <svg class="stellar-menu__item-icon" viewBox="0 0 16 16" role="presentation" aria-hidden="true" fill="none" stroke="none" xmlns="http://www.w3.org/2000/svg"><g><path fill="currentColor" fill-rule="evenodd" d="M9.916 2.378a1.5 1.5 0 0 1 2.156.038l1.634 1.749a1.5 1.5 0 0 1-.035 2.084l-6.595 6.594a1.5 1.5 0 0 1-.796.416l-3.523.633a.502.502 0 0 1-.578-.596l.771-3.61a1.5 1.5 0 0 1 .407-.748zM4.064 9.645a.5.5 0 0 0-.136.25l-.615 2.88 2.79-.5a.5.5 0 0 0 .266-.139l4.636-4.635-2.398-2.399zm7.278-6.547a.5.5 0 0 0-.719-.013l-1.31 1.31 2.4 2.399 1.251-1.252a.5.5 0 0 0 .012-.695z" clip-rule="evenodd"></path></g></svg>
+                <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
+                  <span class="stellar-menu__item-text">Edit</span>
+                </div>
+              </div>
+            </div>
+            <div class="stellar-menu__item" role="menuitem" data-key="copy">
+              <div class="stellar-menu__item-label" tabindex="0">
+                <svg class="stellar-menu__item-icon" viewBox="0 0 16 16" role="presentation" aria-hidden="true" fill="none" stroke="none" xmlns="http://www.w3.org/2000/svg"><g><path fill="currentColor" fill-rule="evenodd" d="M10.5 2A1.5 1.5 0 0 1 12 3.5V5h.5A1.5 1.5 0 0 1 14 6.5v6a1.5 1.5 0 0 1-1.5 1.5h-6A1.5 1.5 0 0 1 5 12.5V12H3.5A1.5 1.5 0 0 1 2 10.5v-7A1.5 1.5 0 0 1 3.5 2zm-4 4a.5.5 0 0 0-.5.5v6a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5v-6a.5.5 0 0 0-.5-.5zm-3-3a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5H5V6.5A1.5 1.5 0 0 1 6.5 5H11V3.5a.5.5 0 0 0-.5-.5z" clip-rule="evenodd"></path></g></svg>
+                <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
+                  <span class="stellar-menu__item-text">Copy</span>
+                </div>
+              </div>
+            </div>
+            <div class="stellar-menu__divider" role="separator"></div>
+            <div class="stellar-menu__item" role="menuitem" data-key="delete">
+              <div class="stellar-menu__item-label" tabindex="0">
+                <svg class="stellar-menu__item-icon" viewBox="0 0 16 16" role="presentation" aria-hidden="true" fill="none" stroke="none" xmlns="http://www.w3.org/2000/svg"><g><g fill="currentColor"><path d="M7 11H6V7h1zm3 0H9V7h1z"></path><path fill-rule="evenodd" d="M9.5 2A1.5 1.5 0 0 1 11 3.5V4h3v1h-1.027l-.421 7.583A1.5 1.5 0 0 1 11.054 14H4.946a1.5 1.5 0 0 1-1.498-1.417L3.028 5H2V4h3v-.5A1.5 1.5 0 0 1 6.5 2zM4.446 12.527a.5.5 0 0 0 .5.473h6.108a.5.5 0 0 0 .5-.473L11.972 5H4.028zM6.5 3a.5.5 0 0 0-.5.5V4h4v-.5a.5.5 0 0 0-.5-.5z" clip-rule="evenodd"></path></g></g></svg>
+                <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
+                  <span class="stellar-menu__item-text">Delete</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>With Sections</h2>
+    <div class="demo demo-tall">
+      <div class="stellar-menu-trigger">
+        <button role="button" class="stellar-button stellar-button--secondary" data-menu-trigger>Sections</button>
+        <div class="stellar-menu" role="dialog">
+          <div class="stellar-menu__list" role="menu" tabindex="0">
+            <div class="stellar-menu__section" role="group">
+              <div class="stellar-menu__section-header">Actions</div>
+              <div class="stellar-menu__item" role="menuitem" data-key="edit">
+                <div class="stellar-menu__item-label" tabindex="0">
+                  <svg class="stellar-menu__item-icon" viewBox="0 0 16 16" role="presentation" aria-hidden="true" fill="none" stroke="none" xmlns="http://www.w3.org/2000/svg"><g><path fill="currentColor" fill-rule="evenodd" d="M9.916 2.378a1.5 1.5 0 0 1 2.156.038l1.634 1.749a1.5 1.5 0 0 1-.035 2.084l-6.595 6.594a1.5 1.5 0 0 1-.796.416l-3.523.633a.502.502 0 0 1-.578-.596l.771-3.61a1.5 1.5 0 0 1 .407-.748zM4.064 9.645a.5.5 0 0 0-.136.25l-.615 2.88 2.79-.5a.5.5 0 0 0 .266-.139l4.636-4.635-2.398-2.399zm7.278-6.547a.5.5 0 0 0-.719-.013l-1.31 1.31 2.4 2.399 1.251-1.252a.5.5 0 0 0 .012-.695z" clip-rule="evenodd"></path></g></svg>
+                  <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
+                    <span class="stellar-menu__item-text">Edit</span>
+                  </div>
+                </div>
+              </div>
+              <div class="stellar-menu__item" role="menuitem" data-key="copy">
+                <div class="stellar-menu__item-label" tabindex="0">
+                  <svg class="stellar-menu__item-icon" viewBox="0 0 16 16" role="presentation" aria-hidden="true" fill="none" stroke="none" xmlns="http://www.w3.org/2000/svg"><g><path fill="currentColor" fill-rule="evenodd" d="M10.5 2A1.5 1.5 0 0 1 12 3.5V5h.5A1.5 1.5 0 0 1 14 6.5v6a1.5 1.5 0 0 1-1.5 1.5h-6A1.5 1.5 0 0 1 5 12.5V12H3.5A1.5 1.5 0 0 1 2 10.5v-7A1.5 1.5 0 0 1 3.5 2zm-4 4a.5.5 0 0 0-.5.5v6a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5v-6a.5.5 0 0 0-.5-.5zm-3-3a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5H5V6.5A1.5 1.5 0 0 1 6.5 5H11V3.5a.5.5 0 0 0-.5-.5z" clip-rule="evenodd"></path></g></svg>
+                  <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
+                    <span class="stellar-menu__item-text">Copy</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="stellar-menu__section" role="group">
+              <div class="stellar-menu__section-header">Danger zone</div>
+              <div class="stellar-menu__item" role="menuitem" data-key="delete">
+                <div class="stellar-menu__item-label" tabindex="0">
+                  <svg class="stellar-menu__item-icon" viewBox="0 0 16 16" role="presentation" aria-hidden="true" fill="none" stroke="none" xmlns="http://www.w3.org/2000/svg"><g><g fill="currentColor"><path d="M7 11H6V7h1zm3 0H9V7h1z"></path><path fill-rule="evenodd" d="M9.5 2A1.5 1.5 0 0 1 11 3.5V4h3v1h-1.027l-.421 7.583A1.5 1.5 0 0 1 11.054 14H4.946a1.5 1.5 0 0 1-1.498-1.417L3.028 5H2V4h3v-.5A1.5 1.5 0 0 1 6.5 2zM4.446 12.527a.5.5 0 0 0 .5.473h6.108a.5.5 0 0 0 .5-.473L11.972 5H4.028zM6.5 3a.5.5 0 0 0-.5.5V4h4v-.5a.5.5 0 0 0-.5-.5z" clip-rule="evenodd"></path></g></g></svg>
+                  <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
+                    <span class="stellar-menu__item-text">Delete</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Disabled Items</h2>
+    <div class="demo demo-tall">
+      <div class="stellar-menu-trigger">
+        <button role="button" class="stellar-button stellar-button--secondary" data-menu-trigger>Disabled Items</button>
+        <div class="stellar-menu" role="dialog">
+          <div class="stellar-menu__list" role="menu" tabindex="0">
+            <div class="stellar-menu__item" role="menuitem" data-key="edit">
+              <div class="stellar-menu__item-label" tabindex="0">
+                <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
+                  <span class="stellar-menu__item-text">Edit</span>
+                </div>
+              </div>
+            </div>
+            <div class="stellar-menu__item stellar-menu__item--disabled" role="menuitem" aria-disabled="true" data-key="copy">
+              <div class="stellar-menu__item-label" tabindex="-1">
+                <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
+                  <span class="stellar-menu__item-text">Copy</span>
+                </div>
+              </div>
+            </div>
+            <div class="stellar-menu__item stellar-menu__item--disabled" role="menuitem" aria-disabled="true" data-key="delete">
+              <div class="stellar-menu__item-label" tabindex="-1">
+                <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
+                  <span class="stellar-menu__item-text">Delete</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="code-section">
+    <h2>HTML</h2>
+    <pre id="html-code"><button class="copy-btn" onclick="copyCode('html-code')">Copy</button><code>&lt;!-- Basic Menu --&gt;
+&lt;div class="stellar-menu-trigger"&gt;
+  &lt;button class="stellar-button stellar-button--secondary" data-menu-trigger&gt;Actions&lt;/button&gt;
+  &lt;div class="stellar-menu" role="dialog"&gt;
+    &lt;div class="stellar-menu__list" role="menu" tabindex="0"&gt;
+      &lt;div class="stellar-menu__item" role="menuitem" data-key="edit"&gt;
+        &lt;div class="stellar-menu__item-label" tabindex="0"&gt;
+          &lt;div style="flex-grow:1; min-width:0; display:flex; flex-direction:column; gap:2px"&gt;
+            &lt;span class="stellar-menu__item-text"&gt;Edit&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class="stellar-menu__item" role="menuitem" data-key="copy"&gt;...&lt;/div&gt;
+      &lt;div class="stellar-menu__item" role="menuitem" data-key="delete"&gt;...&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- With icon --&gt;
+&lt;div class="stellar-menu__item" role="menuitem" data-key="edit"&gt;
+  &lt;div class="stellar-menu__item-label" tabindex="0"&gt;
+    &lt;svg class="stellar-menu__item-icon" viewBox="0 0 16 16"&gt;...&lt;/svg&gt;
+    &lt;div style="flex-grow:1; min-width:0; display:flex; flex-direction:column; gap:2px"&gt;
+      &lt;span class="stellar-menu__item-text"&gt;Edit&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Divider --&gt;
+&lt;div class="stellar-menu__divider" role="separator"&gt;&lt;/div&gt;
+
+&lt;!-- Section with header --&gt;
+&lt;div class="stellar-menu__section" role="group"&gt;
+  &lt;div class="stellar-menu__section-header"&gt;Actions&lt;/div&gt;
+  &lt;div class="stellar-menu__item" role="menuitem"&gt;...&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Disabled item --&gt;
+&lt;div class="stellar-menu__item stellar-menu__item--disabled" role="menuitem" aria-disabled="true"&gt;
+  &lt;div class="stellar-menu__item-label" tabindex="-1"&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+
+  <div class="code-section">
+    <h2>CSS</h2>
+    <pre id="css-code"><button class="copy-btn" onclick="copyCode('css-code')">Copy</button><code>.stellar-menu {
+  position: absolute;
+  z-index: 100000;
+  min-width: max-content;
+  overflow: auto;
+  background-color: rgb(251, 251, 251);
+  border: 1px solid rgb(189, 196, 213);
+  border-radius: 6px;
+  box-shadow: rgba(25, 30, 36, 0.2) 0px 4px 16px 0px;
+  opacity: 0; pointer-events: none;
+  transform: translateY(-4px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.stellar-menu--open { opacity: 1; pointer-events: auto; transform: translateY(0); }
+
+.stellar-menu__list { padding: 6px 0; min-width: 77px; max-width: 600px; outline: none; }
+.stellar-menu__item { display: block; cursor: pointer; list-style: none; outline: none; }
+.stellar-menu__item-label {
+  display: flex; gap: 4px; padding: 8px 12px; align-items: center;
+  color: rgb(30, 37, 47); cursor: pointer;
+}
+.stellar-menu__item:hover .stellar-menu__item-label { background-color: rgb(237, 239, 244); }
+.stellar-menu__item-text {
+  font-family: Inter, sans-serif; font-size: 14px; font-weight: 500; line-height: 16px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.stellar-menu__item-icon { width: 16px; height: 16px; flex-shrink: 0; }
+.stellar-menu__divider { height: 1px; background: rgb(213, 218, 228); margin: 6px 0; }
+.stellar-menu__section-header {
+  padding: 12px 12px 8px; color: rgb(93, 106, 133);
+  font-size: 12px; font-weight: 500; line-height: 16px;
+}
+.stellar-menu__item--disabled .stellar-menu__item-label {
+  color: rgb(159, 171, 193); cursor: not-allowed;
+}</code></pre>
+  </div>
+
+  <div class="code-section">
+    <h2>JavaScript</h2>
+    <pre id="js-code"><button class="copy-btn" onclick="copyCode('js-code')">Copy</button><code>// Include menu.js — auto-initializes all [data-menu-trigger] elements
+// Handles: click to toggle, outside click to close, keyboard navigation,
+// Arrow keys, Enter/Space to select, Escape to close
+&lt;script src="menu.js"&gt;&lt;/script&gt;</code></pre>
+  </div>
+
+  <div class="links">
+    <a href="reference.html">Reference (React)</a>
+    <a href="test.html">Test (Vanilla)</a>
+  </div>
+
+  <script src="menu.js"></script>
+  <script>
+    function copyCode(id) {
+      const el = document.getElementById(id);
+      const code = el.querySelector('code').textContent;
+      navigator.clipboard.writeText(code);
+      const btn = el.querySelector('.copy-btn');
+      btn.textContent = 'Copied!';
+      setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
+    }
+  </script>
+</body>
+</html>

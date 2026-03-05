@@ -1,0 +1,437 @@
+/* GlobalNav — Vanilla CSS from Stellar Design System
+ * Uses --themed-* and --stellar-* token variables from tokens/stellar-tokens.css.
+ *
+ * Replicates the Snowflake production sidebar navigation with
+ * expanded (220px) and collapsed (56px) states.
+ */
+
+/* ==========================================
+   SIDEBAR ROOT
+   ========================================== */
+
+.stellar-globalnav {
+  display: flex;
+  flex-direction: column;
+  width: 248px;
+  height: 100vh;
+  background-color: var(--themed-reusable-background-additional-info);
+  border-right: 1px solid var(--themed-reusable-border-default);
+  transition: width 0.2s ease;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-sizing: border-box;
+  font-family: var(--themed-font-family-body);
+  overflow: hidden;
+}
+
+.stellar-globalnav--collapsed {
+  width: 64px;
+}
+
+/* ==========================================
+   HEADER (Logo + Collapse)
+   ========================================== */
+
+.stellar-globalnav__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 24px 16px;
+}
+
+.stellar-globalnav--collapsed .stellar-globalnav__header {
+  justify-content: center;
+  padding: 20px 16px 16px;
+}
+
+.stellar-globalnav__logo {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-shrink: 0;
+}
+
+.stellar-globalnav--collapsed .stellar-globalnav__logo {
+  justify-content: center;
+}
+
+.stellar-globalnav__logo-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.stellar-globalnav__logo-wordmark {
+  display: block;
+  margin-left: -16px;
+  height: 24px;
+}
+
+.stellar-globalnav--collapsed .stellar-globalnav__logo {
+  width: 32px;
+  height: 32px;
+  overflow: hidden;
+}
+
+.stellar-globalnav--collapsed .stellar-globalnav__logo-wordmark {
+  display: none;
+}
+
+/* ==========================================
+   ICON BUTTONS (shared)
+   ========================================== */
+
+.stellar-globalnav__icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--stellar-radius-sm);
+  background-color: transparent;
+  border: 0;
+  color: var(--themed-reusable-text-secondary);
+  cursor: pointer;
+  transition: background-color 0.15s;
+  padding: 0;
+}
+
+.stellar-globalnav__icon-btn:hover {
+  background-color: var(--themed-reusable-background-row-hover);
+}
+
+.stellar-globalnav__icon-btn svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* ==========================================
+   QUICK ACTIONS (Home / Create / Search)
+   ========================================== */
+
+.stellar-globalnav__actions {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 8px 8px 0 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.stellar-globalnav__action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  height: 28px;
+  border-radius: var(--stellar-radius-sm);
+  background-color: transparent;
+  border: 0;
+  color: var(--themed-reusable-text-primary);
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+  padding: 0;
+}
+
+.stellar-globalnav__action-btn:hover {
+  background-color: var(--themed-reusable-background-row-hover);
+}
+
+.stellar-globalnav__action-btn svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* Collapsed: stack actions vertically */
+.stellar-globalnav__actions--collapsed {
+  flex-direction: column;
+  align-items: center;
+  padding: 0 8px;
+  margin-top: 4px;
+}
+
+.stellar-globalnav__actions--collapsed .stellar-globalnav__action-btn {
+  flex: none;
+  width: 40px;
+  height: 32px;
+}
+
+/* ==========================================
+   DIVIDER
+   ========================================== */
+
+.stellar-globalnav__divider {
+  height: 1px;
+  background-color: var(--themed-reusable-border-default);
+  margin: 8px 12px;
+}
+
+.stellar-globalnav__divider--compact {
+  margin: 8px 0;
+}
+
+/* ==========================================
+   NAV SECTIONS
+   ========================================== */
+
+.stellar-globalnav__nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 16px;
+}
+
+.stellar-globalnav__section {
+  margin-bottom: 0;
+  margin-top: 8px;
+}
+
+.stellar-globalnav__section-title {
+  font-size: var(--themed-font-size-small);
+  font-weight: var(--themed-font-weight-semi-bold);
+  color: var(--themed-reusable-text-secondary);
+  letter-spacing: 0;
+  padding: 8px 8px 8px 8px;
+  margin: 0;
+  line-height: var(--themed-line-height-small-single-line);
+}
+
+/* ==========================================
+   NAV ITEMS
+   ========================================== */
+
+.stellar-globalnav__nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.stellar-globalnav__nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 6px 8px;
+  border-radius: var(--stellar-radius-sm);
+  background-color: transparent;
+  border: 0;
+  color: var(--themed-reusable-text-primary);
+  font-size: var(--themed-font-size-regular);
+  font-family: var(--themed-font-family-body);
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+  text-align: left;
+  height: 30px;
+  box-sizing: border-box;
+}
+
+.stellar-globalnav__nav-item:hover {
+  background-color: var(--themed-reusable-background-row-hover);
+}
+
+.stellar-globalnav__nav-item--active {
+  background-color: var(--themed-reusable-selected-background);
+  color: var(--themed-reusable-selected-text);
+}
+
+.stellar-globalnav__nav-item--active:hover {
+  background-color: var(--themed-reusable-selected-background);
+  color: var(--themed-reusable-selected-text);
+}
+
+.stellar-globalnav__nav-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+}
+
+.stellar-globalnav__nav-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.stellar-globalnav__nav-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Collapsed nav items */
+.stellar-globalnav__nav-item--collapsed {
+  justify-content: center;
+  padding: 6px;
+  width: 32px;
+  height: 32px;
+  gap: 0;
+}
+
+.stellar-globalnav__nav-item--collapsed .stellar-globalnav__nav-label {
+  display: none;
+}
+
+/* ==========================================
+   TOOLTIP (CSS-only, for collapsed mode)
+   ========================================== */
+
+.stellar-globalnav__tooltip-wrap {
+  position: relative;
+}
+
+/* Tooltips only appear in collapsed mode */
+.stellar-globalnav--collapsed .stellar-globalnav__tooltip-wrap::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--themed-reusable-text-primary);
+  color: var(--themed-surface-level-1-background);
+  font-size: var(--themed-font-size-small);
+  font-family: var(--themed-font-family-body);
+  padding: 4px 8px;
+  border-radius: var(--stellar-radius-xs);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 200;
+}
+
+.stellar-globalnav--collapsed .stellar-globalnav__tooltip-wrap:hover::after {
+  opacity: 1;
+}
+
+/* ==========================================
+   FOOTER (User Profile)
+   ========================================== */
+
+.stellar-globalnav__footer {
+  margin-top: auto;
+  padding: 12px 8px;
+}
+
+.stellar-globalnav__profile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 4px;
+  border-radius: var(--stellar-radius-md);
+}
+
+.stellar-globalnav__profile-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  min-width: 0;
+}
+
+.stellar-globalnav__avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: var(--themed-surface-level-1-background);
+  border: 1px solid var(--themed-reusable-border-default);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: var(--themed-font-weight-regular);
+  color: var(--themed-reusable-text-secondary);
+  font-family: var(--themed-font-family-body);
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.stellar-globalnav__user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 0;
+}
+
+.stellar-globalnav__user-name {
+  display: block;
+  color: var(--themed-reusable-text-secondary);
+  font-size: var(--themed-font-size-small);
+  font-weight: var(--themed-font-weight-medium);
+  white-space: nowrap;
+  font-family: var(--themed-font-family-body);
+  line-height: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stellar-globalnav__user-role {
+  display: block;
+  color: var(--themed-reusable-text-secondary);
+  font-size: 11px;
+  font-weight: var(--themed-font-weight-regular);
+  white-space: nowrap;
+  font-family: var(--themed-font-family-body);
+  line-height: 14px;
+}
+
+.stellar-globalnav__profile-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.stellar-globalnav__profile-divider {
+  width: 1px;
+  height: 28px;
+  background-color: var(--themed-reusable-border-default);
+}
+
+/* Notification button */
+.stellar-globalnav__notification-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--stellar-radius-sm);
+  background-color: transparent;
+  border: 0;
+  color: var(--themed-reusable-text-secondary);
+  cursor: pointer;
+  padding: 4px;
+}
+
+.stellar-globalnav__notification-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.stellar-globalnav__notification-badge {
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--themed-status-critical-ui);
+}
+
+/* Collapsed footer */
+.stellar-globalnav__footer--collapsed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 0;
+}
+
+.stellar-globalnav__footer--collapsed .stellar-globalnav__profile {
+  display: none;
+}

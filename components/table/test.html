@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" class="lightMode">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Table Test</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../tokens/stellar-tokens.css">
+  <link rel="stylesheet" href="table.css">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html {
+      line-height: 1.15;
+      -webkit-text-size-adjust: 100%;
+      font-family: Inter, Roboto, "Helvetica Neue", "Arial Nova", "Nimbus Sans", Arial, sans-serif;
+    }
+    body { background: var(--themed-surface-level-1-background); color: var(--themed-reusable-text-primary); -webkit-font-smoothing: antialiased; }
+    .reference-container {
+      padding: 40px;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+  </style>
+  <script>
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('mode') === 'dark') {
+        document.documentElement.classList.replace('lightMode', 'darkMode');
+      }
+    })();
+  </script>
+</head>
+<body>
+  <div class="reference-container">
+    <div data-component="table" class="stellar-table">
+      <div class="stellar-table__grid" role="grid" tabindex="0">
+        <div class="stellar-table__header-group" role="rowgroup" data-table-header="true">
+          <div class="stellar-table__header-row" role="row">
+            <div class="stellar-table__column-header" role="columnheader" tabindex="-1" data-key="name">
+              <div class="stellar-table__column-header-inner">
+                <div class="stellar-table__column-label-container">
+                  <span class="stellar-table__column-label">Name</span>
+                </div>
+              </div>
+            </div>
+            <div class="stellar-table__column-header" role="columnheader" tabindex="-1" data-key="role">
+              <div class="stellar-table__column-header-inner">
+                <div class="stellar-table__column-label-container">
+                  <span class="stellar-table__column-label">Role</span>
+                </div>
+              </div>
+            </div>
+            <div class="stellar-table__column-header" role="columnheader" tabindex="-1" data-key="status">
+              <div class="stellar-table__column-header-inner">
+                <div class="stellar-table__column-label-container">
+                  <span class="stellar-table__column-label">Status</span>
+                </div>
+              </div>
+            </div>
+            <div class="stellar-table__column-header" role="columnheader" tabindex="-1" data-key="email">
+              <div class="stellar-table__column-header-inner">
+                <div class="stellar-table__column-label-container">
+                  <span class="stellar-table__column-label">Email</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="stellar-table__body-group" role="rowgroup" data-table-body="true">
+          <div class="stellar-table__row" role="row" tabindex="-1" data-key="1">
+            <div class="stellar-table__cell" role="gridcell" tabindex="-1" data-key="1-name">
+              <div class="stellar-table__cell-content">Alice Johnson</div>
+            </div>
+            <div class="stellar-table__cell" role="gridcell" tabindex="-1" data-key="1-role">
+              <div class="stellar-table__cell-content">Engineer</div>
+            </div>
+            <div class="stellar-table__cell" role="gridcell" tabindex="-1" data-key="1-status">
+              <div class="stellar-table__cell-content">Active</div>
+            </div>
+            <div class="stellar-table__cell" role="gridcell" tabindex="-1" data-key="1-email">
+              <div class="stellar-table__cell-content">alice@example.com</div>
+            </div>
+          </div>
+          <div class="stellar-table__row" role="row" tabindex="-1" data-key="2">
+            <div class="stellar-table__cell" role="gridcell" tabindex="-1" data-key="2-name">
+              <div class="stellar-table__cell-content">Bob Smith</div>
+            </div>
+            <div class="stellar-table__cell" role="gridcell" tabindex="-1" data-key="2-role">
+              <div class="stellar-table__cell-content">Designer</div>
+            </div>
+            <div class="stellar-table__cell" role="gridcell" tabindex="-1" data-key="2-status">
+              <div class="stellar-table__cell-content">Active</div>
+            </div>
+            <div class="stellar-table__cell" role="gridcell" tabindex="-1" data-key="2-email">
+              <div class="stellar-table__cell-content">bob@example.com</div>
+            </div>
+          </div>
+          <div class="stellar-table__row" role="row" tabindex="-1" data-key="3">
+            <div class="stellar-table__cell" role="gridcell" tabindex="-1" data-key="3-name">
+              <div class="stellar-table__cell-content">Carol Davis</div>
+            </div>
+            <div class="stellar-table__cell" role="gridcell" tabindex="-1" data-key="3-role">
+              <div class="stellar-table__cell-content">Manager</div>
+            </div>
+            <div class="stellar-table__cell" role="gridcell" tabindex="-1" data-key="3-status">
+              <div class="stellar-table__cell-content">Away</div>
+            </div>
+            <div class="stellar-table__cell" role="gridcell" tabindex="-1" data-key="3-email">
+              <div class="stellar-table__cell-content">carol@example.com</div>
+            </div>
+          </div>
+          <div class="stellar-table__row" role="row" tabindex="-1" data-key="4">
+            <div class="stellar-table__cell" role="gridcell" tabindex="-1" data-key="4-name">
+              <div class="stellar-table__cell-content">Dan Wilson</div>
+            </div>
+            <div class="stellar-table__cell" role="gridcell" tabindex="-1" data-key="4-role">
+              <div class="stellar-table__cell-content">Engineer</div>
+            </div>
+            <div class="stellar-table__cell" role="gridcell" tabindex="-1" data-key="4-status">
+              <div class="stellar-table__cell-content">Active</div>
+            </div>
+            <div class="stellar-table__cell" role="gridcell" tabindex="-1" data-key="4-email">
+              <div class="stellar-table__cell-content">dan@example.com</div>
+            </div>
+          </div>
+          <div class="stellar-table__row" role="row" tabindex="-1" data-key="5">
+            <div class="stellar-table__cell" role="gridcell" tabindex="-1" data-key="5-name">
+              <div class="stellar-table__cell-content">Eve Martinez</div>
+            </div>
+            <div class="stellar-table__cell" role="gridcell" tabindex="-1" data-key="5-role">
+              <div class="stellar-table__cell-content">Analyst</div>
+            </div>
+            <div class="stellar-table__cell" role="gridcell" tabindex="-1" data-key="5-status">
+              <div class="stellar-table__cell-content">Offline</div>
+            </div>
+            <div class="stellar-table__cell" role="gridcell" tabindex="-1" data-key="5-email">
+              <div class="stellar-table__cell-content">eve@example.com</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="table.js"></script>
+</body>
+</html>

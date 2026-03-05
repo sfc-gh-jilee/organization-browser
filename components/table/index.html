@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Table — Stellar Vanilla Component</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../tokens/stellar-tokens.css">
+  <link rel="stylesheet" href="table.css">
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 900px; margin: 0 auto; padding: 40px; }
+    h1 { margin-bottom: 8px; }
+    .subtitle { color: #666; margin-bottom: 32px; }
+    .demo { background: #f8f8f8; padding: 40px; border-radius: 8px; margin-bottom: 32px;
+            display: flex; align-items: flex-start; justify-content: center; }
+    .code-section { margin-bottom: 32px; }
+    .code-section h2 { margin-bottom: 8px; }
+    pre { background: #1e1e1e; color: #d4d4d4; padding: 16px; border-radius: 8px;
+          overflow-x: auto; font-size: 14px; line-height: 1.5; }
+    .copy-btn { float: right; background: #333; color: #fff; border: none; padding: 4px 12px;
+                border-radius: 4px; cursor: pointer; font-size: 12px; }
+    .copy-btn:hover { background: #555; }
+    .links { display: flex; gap: 16px; margin-top: 32px; }
+    .links a { color: #0066cc; }
+  </style>
+</head>
+<body>
+  <h1>Table</h1>
+  <p class="subtitle">Vanilla HTML/CSS/JS — extracted from Stellar Design System</p>
+
+  <div class="demo">
+    <div data-component="table" class="stellar-table">
+      <div class="stellar-table__grid" role="grid" tabindex="0">
+        <div class="stellar-table__header-group" role="rowgroup" data-table-header="true">
+          <div class="stellar-table__header-row" role="row">
+            <div class="stellar-table__column-header" role="columnheader" tabindex="-1" data-key="name">
+              <div class="stellar-table__column-header-inner">
+                <div class="stellar-table__column-label-container">
+                  <span class="stellar-table__column-label">Name</span>
+                </div>
+              </div>
+            </div>
+            <div class="stellar-table__column-header" role="columnheader" tabindex="-1" data-key="role">
+              <div class="stellar-table__column-header-inner">
+                <div class="stellar-table__column-label-container">
+                  <span class="stellar-table__column-label">Role</span>
+                </div>
+              </div>
+            </div>
+            <div class="stellar-table__column-header" role="columnheader" tabindex="-1" data-key="status">
+              <div class="stellar-table__column-header-inner">
+                <div class="stellar-table__column-label-container">
+                  <span class="stellar-table__column-label">Status</span>
+                </div>
+              </div>
+            </div>
+            <div class="stellar-table__column-header" role="columnheader" tabindex="-1" data-key="email">
+              <div class="stellar-table__column-header-inner">
+                <div class="stellar-table__column-label-container">
+                  <span class="stellar-table__column-label">Email</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="stellar-table__body-group" role="rowgroup" data-table-body="true">
+          <div class="stellar-table__row" role="row" tabindex="-1" data-key="1">
+            <div class="stellar-table__cell" role="gridcell" tabindex="-1"><div class="stellar-table__cell-content">Alice Johnson</div></div>
+            <div class="stellar-table__cell" role="gridcell" tabindex="-1"><div class="stellar-table__cell-content">Engineer</div></div>
+            <div class="stellar-table__cell" role="gridcell" tabindex="-1"><div class="stellar-table__cell-content">Active</div></div>
+            <div class="stellar-table__cell" role="gridcell" tabindex="-1"><div class="stellar-table__cell-content">alice@example.com</div></div>
+          </div>
+          <div class="stellar-table__row" role="row" tabindex="-1" data-key="2">
+            <div class="stellar-table__cell" role="gridcell" tabindex="-1"><div class="stellar-table__cell-content">Bob Smith</div></div>
+            <div class="stellar-table__cell" role="gridcell" tabindex="-1"><div class="stellar-table__cell-content">Designer</div></div>
+            <div class="stellar-table__cell" role="gridcell" tabindex="-1"><div class="stellar-table__cell-content">Active</div></div>
+            <div class="stellar-table__cell" role="gridcell" tabindex="-1"><div class="stellar-table__cell-content">bob@example.com</div></div>
+          </div>
+          <div class="stellar-table__row" role="row" tabindex="-1" data-key="3">
+            <div class="stellar-table__cell" role="gridcell" tabindex="-1"><div class="stellar-table__cell-content">Carol Davis</div></div>
+            <div class="stellar-table__cell" role="gridcell" tabindex="-1"><div class="stellar-table__cell-content">Manager</div></div>
+            <div class="stellar-table__cell" role="gridcell" tabindex="-1"><div class="stellar-table__cell-content">Away</div></div>
+            <div class="stellar-table__cell" role="gridcell" tabindex="-1"><div class="stellar-table__cell-content">carol@example.com</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="code-section">
+    <h2>HTML</h2>
+    <button class="copy-btn" onclick="copyCode('html-code')">Copy</button>
+    <pre id="html-code"><code>&lt;div data-component="table" class="stellar-table"&gt;
+  &lt;div class="stellar-table__grid" role="grid" tabindex="0"&gt;
+    &lt;div class="stellar-table__header-group" role="rowgroup"&gt;
+      &lt;div class="stellar-table__header-row" role="row"&gt;
+        &lt;div class="stellar-table__column-header" role="columnheader" tabindex="-1"&gt;
+          &lt;div class="stellar-table__column-header-inner"&gt;
+            &lt;div class="stellar-table__column-label-container"&gt;
+              &lt;span class="stellar-table__column-label"&gt;Name&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;!-- More column headers... --&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="stellar-table__body-group" role="rowgroup"&gt;
+      &lt;div class="stellar-table__row" role="row" tabindex="-1"&gt;
+        &lt;div class="stellar-table__cell" role="gridcell" tabindex="-1"&gt;
+          &lt;div class="stellar-table__cell-content"&gt;Alice Johnson&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;!-- More cells... --&gt;
+      &lt;/div&gt;
+      &lt;!-- More rows... --&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+
+  <div class="code-section">
+    <h2>CSS</h2>
+    <button class="copy-btn" onclick="copyCode('css-code')">Copy</button>
+    <pre id="css-code"><code>.stellar-table__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  position: relative;
+  font-family: Inter, Roboto, "Helvetica Neue", "Arial Nova", "Nimbus Sans", Arial, sans-serif;
+}
+
+.stellar-table__header-group {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color: rgb(255, 255, 255);
+}
+
+.stellar-table__column-label {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  color: rgb(93, 106, 133);
+}
+
+.stellar-table__cell {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  border-bottom: 1px solid rgb(213, 218, 228);
+  font-size: 12px;
+  color: rgb(30, 37, 47);
+}
+
+.stellar-table__cell-content {
+  padding: 6px 12px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}</code></pre>
+  </div>
+
+  <div class="links">
+    <a href="reference.html">Reference (React)</a>
+    <a href="test.html">Test (Vanilla)</a>
+  </div>
+
+  <script src="table.js"></script>
+  <script>
+    function copyCode(id) {
+      const code = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(code);
+    }
+  </script>
+</body>
+</html>

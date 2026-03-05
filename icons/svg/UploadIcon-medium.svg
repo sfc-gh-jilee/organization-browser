@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+ width="20" height="20" fill="none"
+ role="presentation" aria-hidden="true">
+<path fill="currentColor" d="M10 5.625c.166 0 .325.066.442.183l5.625 5.625-.884.884-4.558-4.558V17.5h-1.25V7.759l-4.558 4.558-.884-.884 5.625-5.625A.63.63 0 0 1 10 5.625m7.5-1.875h-15V2.5h15z"/>
+</svg>

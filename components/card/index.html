@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card — Stellar Vanilla Component</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../tokens/stellar-tokens.css">
+  <link rel="stylesheet" href="card.css">
+  <link rel="stylesheet" href="../button/button.css">
+  <style>
+    body { font-family: Inter, system-ui, sans-serif; max-width: 900px; margin: 0 auto; padding: 40px; color: #1e252f; }
+    h1 { margin-bottom: 8px; }
+    .subtitle { color: #666; margin-bottom: 32px; }
+    h2 { margin-bottom: 16px; margin-top: 48px; font-size: 20px; }
+    .demo { background: #f8f8f8; padding: 40px; border-radius: 8px; margin-bottom: 16px; }
+    .demo-row { margin-bottom: 24px; }
+    .demo-row:last-child { margin-bottom: 0; }
+    .demo-label { font-size: 11px; color: #888; font-family: monospace; margin-bottom: 8px; display: block; }
+    .demo-card-wrapper { width: 400px; }
+    .code-section { margin-bottom: 32px; }
+    .code-section h3 { margin-bottom: 8px; font-size: 16px; }
+    pre { background: #1e1e1e; color: #d4d4d4; padding: 16px; border-radius: 8px;
+          overflow-x: auto; font-size: 13px; line-height: 1.5; }
+    .copy-btn { float: right; background: #333; color: #fff; border: none; padding: 4px 12px;
+                border-radius: 4px; cursor: pointer; font-size: 12px; }
+    .copy-btn:hover { background: #555; }
+    .links { display: flex; gap: 16px; margin-top: 32px; }
+    .links a { color: #1a6ce7; }
+  </style>
+</head>
+<body>
+  <h1>Card</h1>
+  <p class="subtitle">Vanilla HTML/CSS — extracted from Stellar Design System</p>
+
+  <h2>Default Card</h2>
+  <div class="demo">
+    <div class="demo-row">
+      <div class="demo-card-wrapper">
+        <section class="stellar-card">
+          <header class="stellar-card__header">
+            <div class="stellar-card__header-content">
+              <div class="stellar-card__heading-row">
+                <h1 class="stellar-card__heading">Card Title</h1>
+              </div>
+              <p class="stellar-card__subtitle">A short description of the card content</p>
+            </div>
+          </header>
+          <div class="stellar-card__body">
+            <p style="margin: 0;">This is the body content of the card.</p>
+          </div>
+          <footer class="stellar-card__footer">
+            <button class="stellar-button stellar-button--secondary" type="button">Cancel</button>
+            <button class="stellar-button stellar-button--primary" type="button">Submit</button>
+          </footer>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <h2>Interactive Card (Button)</h2>
+  <div class="demo">
+    <div class="demo-row">
+      <div class="demo-card-wrapper">
+        <button type="button" class="stellar-card stellar-card--interactive">
+          <header class="stellar-card__header">
+            <div class="stellar-card__header-content">
+              <div class="stellar-card__heading-row">
+                <h1 class="stellar-card__heading">Clickable Card</h1>
+              </div>
+              <p class="stellar-card__subtitle">Click anywhere on this card</p>
+            </div>
+          </header>
+          <div class="stellar-card__body">
+            <p style="margin: 0;">This entire card is a button. Hover to see the shadow.</p>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <h2>Interactive Card (Link)</h2>
+  <div class="demo">
+    <div class="demo-row">
+      <div class="demo-card-wrapper">
+        <a href="#" class="stellar-card stellar-card--interactive">
+          <header class="stellar-card__header">
+            <div class="stellar-card__header-content">
+              <div class="stellar-card__heading-row">
+                <h1 class="stellar-card__heading">Link Card</h1>
+              </div>
+              <p class="stellar-card__subtitle">This card is a link</p>
+            </div>
+          </header>
+          <div class="stellar-card__body">
+            <p style="margin: 0;">Clicking navigates to a URL.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="code-section">
+    <h2>HTML</h2>
+    <button class="copy-btn" onclick="copyCode('html-code')">Copy</button>
+    <pre id="html-code"><code>&lt;!-- Default Card --&gt;
+&lt;section class="stellar-card"&gt;
+  &lt;header class="stellar-card__header"&gt;
+    &lt;div class="stellar-card__header-content"&gt;
+      &lt;div class="stellar-card__heading-row"&gt;
+        &lt;h1 class="stellar-card__heading"&gt;Card Title&lt;/h1&gt;
+      &lt;/div&gt;
+      &lt;p class="stellar-card__subtitle"&gt;Subtitle text&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/header&gt;
+  &lt;div class="stellar-card__body"&gt;
+    &lt;p&gt;Body content here.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;footer class="stellar-card__footer"&gt;
+    &lt;button class="stellar-button stellar-button--secondary"&gt;Cancel&lt;/button&gt;
+    &lt;button class="stellar-button stellar-button--primary"&gt;Submit&lt;/button&gt;
+  &lt;/footer&gt;
+&lt;/section&gt;
+
+&lt;!-- Interactive Card (Button) --&gt;
+&lt;button type="button" class="stellar-card stellar-card--interactive"&gt;
+  &lt;header class="stellar-card__header"&gt;
+    &lt;div class="stellar-card__header-content"&gt;
+      &lt;div class="stellar-card__heading-row"&gt;
+        &lt;h1 class="stellar-card__heading"&gt;Clickable Card&lt;/h1&gt;
+      &lt;/div&gt;
+      &lt;p class="stellar-card__subtitle"&gt;Click anywhere&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/header&gt;
+  &lt;div class="stellar-card__body"&gt;
+    &lt;p&gt;Card content.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/button&gt;
+
+&lt;!-- Interactive Card (Link) --&gt;
+&lt;a href="/page" class="stellar-card stellar-card--interactive"&gt;
+  ...
+&lt;/a&gt;
+
+&lt;!-- Disabled Interactive Card --&gt;
+&lt;button class="stellar-card stellar-card--interactive stellar-card--disabled" disabled&gt;
+  ...
+&lt;/button&gt;</code></pre>
+  </div>
+
+  <div class="code-section">
+    <h3>CSS</h3>
+    <button class="copy-btn" onclick="copyCode('css-code')">Copy</button>
+    <pre id="css-code"><code>.stellar-card {
+  background-color: rgb(251, 251, 251);
+  border: 1px solid rgb(213, 218, 228);
+  border-radius: 8px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: start;
+  min-width: 0;
+}
+
+.stellar-card--interactive {
+  cursor: pointer;
+  text-decoration: none;
+  transition: box-shadow 0.1s ease-in-out;
+  width: 100%;
+}
+
+.stellar-card--interactive:hover {
+  box-shadow: 0px 2px 8px rgba(25, 30, 36, 0.15);
+  border-color: rgb(189, 196, 213);
+}
+
+.stellar-card--interactive:focus-visible {
+  outline: 2px solid rgb(214, 230, 255);
+  outline-offset: 0;
+}
+
+.stellar-card--disabled {
+  cursor: not-allowed;
+  border-color: rgb(222, 227, 234);
+}</code></pre>
+  </div>
+
+  <div class="links">
+    <a href="reference.html">Reference (React)</a>
+    <a href="test.html">Test (Vanilla)</a>
+  </div>
+
+  <script>
+    function copyCode(id) {
+      const code = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(code);
+    }
+  </script>
+</body>
+</html>

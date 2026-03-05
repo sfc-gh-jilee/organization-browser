@@ -1,0 +1,214 @@
+/* Text — Vanilla CSS from Stellar Design System
+ * Components: Editorial, Heading, Paragraph, Span, Label, SingleLine, Pre
+ * All share the same type ramp; no JS needed.
+ *
+ * Color and font tokens reference --themed-* and --base-* variables
+ * defined in tokens/stellar-tokens.css.
+ */
+
+/* ===================================================================
+   Shared font-family stacks (aliases for themed tokens)
+   =================================================================== */
+:root {
+  --stellar-font-body: var(--themed-font-family-body);
+  --stellar-font-heading: var(--themed-font-family-heading);
+  --stellar-font-editorial: var(--themed-font-family-editorial);
+  --stellar-font-mono: var(--themed-font-family-mono);
+
+  /* Semantic colors (aliases for themed tokens) */
+  --stellar-color-header: var(--themed-reusable-text-header);
+  --stellar-color-primary: var(--themed-reusable-text-primary);
+  --stellar-color-secondary: var(--themed-reusable-text-secondary);
+  --stellar-color-critical: var(--themed-status-critical-ui);
+  --stellar-color-caution: var(--themed-status-caution-text);
+  --stellar-color-disabled: var(--themed-reusable-disabled-text);
+}
+
+/* ===================================================================
+   TYPE RAMP
+   Each class maps to one entry in the Stellar useTypeRamp() hook.
+   =================================================================== */
+
+.stellar-type-larger-editorial {
+  font-family: var(--stellar-font-editorial);
+  font-size: var(--themed-font-size-xxxlarge);
+  font-weight: var(--themed-font-weight-bold);
+  line-height: var(--themed-line-height-larger-editorial);
+}
+
+.stellar-type-large-editorial {
+  font-family: var(--stellar-font-editorial);
+  font-size: var(--themed-font-size-xxlarge);
+  font-weight: var(--themed-font-weight-bold);
+  line-height: var(--themed-line-height-large-editorial);
+}
+
+.stellar-type-page-header {
+  font-family: var(--stellar-font-heading);
+  font-size: var(--themed-font-size-xlarge);
+  font-weight: var(--themed-font-weight-bold);
+  line-height: var(--themed-line-height-page-header);
+}
+
+.stellar-type-sub-header {
+  font-family: var(--stellar-font-heading);
+  font-size: var(--themed-font-size-large);
+  font-weight: var(--themed-font-weight-semi-bold);
+  line-height: var(--themed-line-height-sub-header);
+}
+
+.stellar-type-paragraph {
+  font-family: var(--stellar-font-body);
+  font-size: var(--themed-font-size-regular);
+  font-weight: var(--themed-font-weight-regular);
+  line-height: var(--themed-line-height-regular-body);
+}
+
+.stellar-type-paragraph-bold {
+  font-family: var(--stellar-font-body);
+  font-size: var(--themed-font-size-regular);
+  font-weight: var(--themed-font-weight-semi-bold);
+  line-height: var(--themed-line-height-regular-body);
+}
+
+.stellar-type-small-paragraph {
+  font-family: var(--stellar-font-body);
+  font-size: var(--themed-font-size-small);
+  font-weight: var(--themed-font-weight-regular);
+  line-height: var(--themed-line-height-small-body);
+}
+
+.stellar-type-small-paragraph-bold {
+  font-family: var(--stellar-font-body);
+  font-size: var(--themed-font-size-small);
+  font-weight: var(--themed-font-weight-semi-bold);
+  line-height: var(--themed-line-height-small-body);
+}
+
+.stellar-type-label {
+  font-family: var(--stellar-font-body);
+  font-size: var(--themed-font-size-regular);
+  font-weight: var(--themed-font-weight-medium);
+  line-height: var(--themed-line-height-regular-single-line);
+}
+
+.stellar-type-label-small {
+  font-family: var(--stellar-font-body);
+  font-size: var(--themed-font-size-small);
+  font-weight: var(--themed-font-weight-medium);
+  line-height: var(--themed-line-height-regular-single-line);
+}
+
+.stellar-type-single-line {
+  font-family: var(--stellar-font-body);
+  font-size: var(--themed-font-size-regular);
+  font-weight: var(--themed-font-weight-regular);
+  line-height: var(--themed-line-height-regular-single-line);
+}
+
+.stellar-type-single-line-bold {
+  font-family: var(--stellar-font-body);
+  font-size: var(--themed-font-size-regular);
+  font-weight: var(--themed-font-weight-semi-bold);
+  line-height: var(--themed-line-height-regular-single-line);
+}
+
+.stellar-type-small-single-line {
+  font-family: var(--stellar-font-body);
+  font-size: var(--themed-font-size-small);
+  font-weight: var(--themed-font-weight-regular);
+  line-height: var(--themed-line-height-small-single-line);
+}
+
+.stellar-type-all-caps {
+  font-family: var(--stellar-font-body);
+  font-size: 13px;
+  font-weight: var(--themed-font-weight-medium);
+  line-height: var(--themed-line-height-regular-body);
+  text-transform: uppercase;
+}
+
+.stellar-type-all-caps-small {
+  font-family: var(--stellar-font-body);
+  font-size: 11px;
+  font-weight: var(--themed-font-weight-medium);
+  line-height: var(--themed-line-height-regular-single-line);
+  text-transform: uppercase;
+}
+
+/* ===================================================================
+   COMPONENT BASE STYLES
+   =================================================================== */
+
+.stellar-editorial {
+  color: var(--stellar-color-header);
+  margin: 0;
+  padding: 0;
+  text-wrap: balance;
+  word-break: break-word;
+}
+
+.stellar-heading {
+  color: var(--stellar-color-header);
+  margin: 0;
+  padding: 0;
+  text-wrap: balance;
+}
+
+.stellar-heading--disabled {
+  color: var(--stellar-color-disabled);
+}
+
+.stellar-paragraph {
+  margin: 0;
+  padding: 0;
+  white-space-collapse: collapse;
+  max-width: 70em;
+}
+
+.stellar-span {
+  margin: 0;
+  padding: 0;
+}
+
+.stellar-span--truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.stellar-label {
+  margin: 0;
+  padding: 0;
+  display: block;
+  cursor: default;
+}
+
+.stellar-singleline {
+  margin: 0;
+  padding: 0;
+  display: block;
+  cursor: text;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-wrap: nowrap;
+  white-space-collapse: collapse;
+}
+
+.stellar-pre {
+  font-family: var(--stellar-font-mono);
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+}
+
+/* ===================================================================
+   VARIANT MODIFIERS (color)
+   =================================================================== */
+
+.stellar-text--primary   { color: var(--stellar-color-primary); }
+.stellar-text--secondary { color: var(--stellar-color-secondary); }
+.stellar-text--critical  { color: var(--stellar-color-critical); }
+.stellar-text--caution   { color: var(--stellar-color-caution); }
+.stellar-text--disabled  { color: var(--stellar-color-disabled); }

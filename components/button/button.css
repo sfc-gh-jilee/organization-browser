@@ -1,0 +1,195 @@
+/* Button — Vanilla CSS from Stellar Design System
+ * Uses --button-* component tokens and --themed-* / --stellar-* tokens
+ * from tokens/stellar-tokens.css for automatic light/dark mode support.
+ */
+
+/* Base button (regular size) */
+.stellar-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--stellar-space-gap-2xs);
+  height: var(--stellar-size-md);
+  padding: 0 var(--stellar-space-horizontal-md);
+  margin: 0;
+  max-width: fit-content;
+  border-radius: var(--button-border-radius-default);
+  font-family: var(--themed-font-family-body);
+  font-size: var(--themed-font-size-regular);
+  font-weight: var(--themed-font-weight-medium);
+  line-height: var(--themed-line-height-regular-single-line);
+  cursor: pointer;
+  appearance: none;
+  user-select: none;
+  white-space: nowrap;
+  text-decoration: none;
+  text-align: center;
+  position: relative;
+  outline: none;
+  touch-action: manipulation;
+  box-sizing: border-box;
+  border-style: solid;
+  transition: background-color 0.1s, color 0.1s, border-color 0.1s;
+}
+
+.stellar-button::before {
+  content: "";
+  position: absolute;
+  border-radius: var(--button-border-radius-default);
+  inset: 0;
+  pointer-events: none;
+}
+
+.stellar-button:focus-visible {
+  outline: 2px solid var(--themed-reusable-border-focused-active-item);
+  outline-offset: 0px;
+}
+
+/* Size: small */
+.stellar-button--small {
+  height: var(--stellar-size-sm);
+  padding: var(--stellar-space-vertical-2xs) var(--stellar-space-horizontal-md);
+  font-size: var(--themed-font-size-small);
+}
+
+/* ========================
+   Primary variant
+   ======================== */
+.stellar-button--primary {
+  background-color: var(--button-primary-background-default);
+  color: var(--button-primary-text-default);
+  border-width: var(--button-primary-border-width-default);
+  border-color: var(--button-primary-border-default);
+}
+
+.stellar-button--primary:hover:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--button-primary-background-hover);
+  color: var(--button-primary-text-hover);
+}
+
+.stellar-button--primary:active:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--button-primary-background-press);
+  color: var(--button-primary-text-press);
+}
+
+.stellar-button--primary:disabled,
+.stellar-button--primary[aria-disabled="true"] {
+  background-color: var(--button-primary-background-disabled);
+  color: var(--button-primary-text-disabled);
+  cursor: not-allowed;
+  border-width: 0;
+}
+
+/* ========================
+   Secondary variant
+   ======================== */
+.stellar-button--secondary {
+  background-color: var(--button-secondary-background-default);
+  color: var(--button-secondary-text-default);
+  border-width: var(--button-secondary-border-width-default);
+  border-color: var(--button-secondary-border-default);
+}
+
+.stellar-button--secondary:hover:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--button-secondary-background-hover);
+  color: var(--button-secondary-text-hover);
+  border-color: var(--button-secondary-border-hover);
+}
+
+.stellar-button--secondary:active:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--button-secondary-background-press);
+  color: var(--button-secondary-text-press);
+  border-color: var(--button-secondary-border-press);
+}
+
+.stellar-button--secondary:disabled,
+.stellar-button--secondary[aria-disabled="true"] {
+  background-color: var(--button-secondary-background-disabled);
+  color: var(--button-secondary-text-disabled);
+  border-width: var(--button-secondary-border-width-default);
+  border-color: var(--button-secondary-border-disabled);
+  cursor: not-allowed;
+}
+
+/* ========================
+   Tertiary variant
+   ======================== */
+.stellar-button--tertiary {
+  background-color: var(--button-tertiary-background-default);
+  color: var(--button-tertiary-text-default);
+  border-width: var(--button-tertiary-border-width-default);
+  border-color: var(--button-tertiary-border-default);
+}
+
+.stellar-button--tertiary:hover:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--button-tertiary-background-hover);
+  color: var(--button-tertiary-text-hover);
+}
+
+.stellar-button--tertiary:active:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--button-tertiary-background-press);
+  color: var(--button-tertiary-text-press);
+}
+
+.stellar-button--tertiary:disabled,
+.stellar-button--tertiary[aria-disabled="true"] {
+  background-color: var(--button-tertiary-background-disabled);
+  color: var(--button-tertiary-text-disabled);
+  cursor: not-allowed;
+  border-width: 0;
+}
+
+/* ========================
+   Primary-critical variant
+   ======================== */
+.stellar-button--critical {
+  background-color: var(--button-primary-critical-background-default);
+  color: var(--button-primary-critical-text-default);
+  border-width: var(--button-primary-critical-border-width-default);
+  border-color: var(--button-primary-critical-border-default);
+}
+
+.stellar-button--critical:hover:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--button-primary-critical-background-hover);
+  color: var(--button-primary-critical-text-hover);
+}
+
+.stellar-button--critical:active:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--button-primary-critical-background-press);
+  color: var(--button-primary-critical-text-press);
+}
+
+.stellar-button--critical:disabled,
+.stellar-button--critical[aria-disabled="true"] {
+  background-color: var(--button-primary-critical-background-disabled);
+  color: var(--button-primary-critical-text-disabled);
+  cursor: not-allowed;
+  border-width: 0;
+}
+
+/* ========================
+   Selected states
+   ======================== */
+.stellar-button--selected.stellar-button--primary {
+  background-color: var(--button-primary-background-press);
+  color: var(--button-primary-text-press);
+  border-width: 0;
+  border-color: transparent;
+}
+
+.stellar-button--selected.stellar-button--secondary {
+  background-color: var(--button-secondary-background-press);
+  color: var(--button-secondary-text-press);
+  border-width: var(--button-secondary-border-width-default);
+  border-color: var(--button-secondary-border-default);
+}
+
+/* ========================
+   Icon inside button
+   ======================== */
+.stellar-button__icon {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}

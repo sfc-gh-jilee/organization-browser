@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 48"
+ width="48" height="48" fill="none"
+ role="presentation" aria-hidden="true">
+<rect width="36" height="30" x="6.999" y="16" stroke="currentColor" stroke-width="2" rx="5"/><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M34 15.997V10c0-4.418-4.03-8-9-8-4.971 0-9 3.582-9 8v5.997"/><path fill="currentColor" d="M25.188 30.747A2.996 2.996 0 0 0 23.998 25a2.996 2.996 0 0 0-1.141 5.766l-1.43 4.956a1 1 0 0 0 .96 1.277l3.283-.002a1 1 0 0 0 .96-1.279z"/>
+</svg>

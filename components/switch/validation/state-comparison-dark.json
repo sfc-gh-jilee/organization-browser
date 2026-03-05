@@ -1,0 +1,141 @@
+{
+  "component": "switch",
+  "timestamp": "2026-02-23T17:25:17.888Z",
+  "summary": {
+    "totalChecks": 4,
+    "passChecks": 4,
+    "failChecks": 0,
+    "allPass": true,
+    "byState": {
+      "focus": {
+        "checks": 4,
+        "averageMatch": 100,
+        "minMatch": 100,
+        "failing": 0
+      }
+    }
+  },
+  "refElements": [
+    {
+      "index": 0,
+      "role": "switch",
+      "tag": "input",
+      "text": "",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 1,
+      "role": "switch",
+      "tag": "input",
+      "text": "",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 2,
+      "role": "switch",
+      "tag": "input",
+      "text": "",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 3,
+      "role": "switch",
+      "tag": "input",
+      "text": "",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    }
+  ],
+  "testElements": [
+    {
+      "index": 0,
+      "role": "switch",
+      "tag": "label",
+      "text": "",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 1,
+      "role": "switch",
+      "tag": "label",
+      "text": "",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 2,
+      "role": "switch",
+      "tag": "label",
+      "text": "",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    },
+    {
+      "index": 3,
+      "role": "switch",
+      "tag": "label",
+      "text": "",
+      "ariaSelected": null,
+      "ariaExpanded": null
+    }
+  ],
+  "roleMismatches": [],
+  "results": [
+    {
+      "state": "focus",
+      "element": "switch[0] \"\"",
+      "role": "switch",
+      "index": 0,
+      "matchPct": 100,
+      "mismatchPixels": 0,
+      "files": {
+        "ref": "focus-switch-0-ref.png",
+        "test": "focus-switch-0-test.png",
+        "diff": "focus-switch-0-diff.png"
+      }
+    },
+    {
+      "state": "focus",
+      "element": "switch[1] \"\"",
+      "role": "switch",
+      "index": 1,
+      "matchPct": 100,
+      "mismatchPixels": 0,
+      "files": {
+        "ref": "focus-switch-1-ref.png",
+        "test": "focus-switch-1-test.png",
+        "diff": "focus-switch-1-diff.png"
+      }
+    },
+    {
+      "state": "focus",
+      "element": "switch[2] \"\"",
+      "role": "switch",
+      "index": 2,
+      "matchPct": 100,
+      "mismatchPixels": 0,
+      "files": {
+        "ref": "focus-switch-2-ref.png",
+        "test": "focus-switch-2-test.png",
+        "diff": "focus-switch-2-diff.png"
+      }
+    },
+    {
+      "state": "focus",
+      "element": "switch[3] \"\"",
+      "role": "switch",
+      "index": 3,
+      "matchPct": 100,
+      "mismatchPixels": 0,
+      "files": {
+        "ref": "focus-switch-3-ref.png",
+        "test": "focus-switch-3-test.png",
+        "diff": "focus-switch-3-diff.png"
+      }
+    }
+  ]
+}

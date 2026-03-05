@@ -1,0 +1,4567 @@
+{
+  "icons": [
+    {
+      "name": "AccountTeamIcon",
+      "file": "svg/AccountTeamIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ActiveFilledIcon",
+      "file": "svg/ActiveFilledIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ActivityIcon",
+      "file": "svg/ActivityIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "AgentIcon",
+      "file": "svg/AgentIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "AiFillIcon",
+      "file": "svg/AiFillIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "AiReadyIcon",
+      "file": "svg/AiReadyIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "AiIcon",
+      "file": "svg/AiIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "AmpersatIcon",
+      "file": "svg/AmpersatIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "AnomalyIcon",
+      "file": "svg/AnomalyIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "AnswerIcon",
+      "file": "svg/AnswerIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ApiIcon",
+      "file": "svg/ApiIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ApplicationContainerServiceIcon",
+      "file": "svg/ApplicationContainerServiceIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ApplicationDatabaseIcon",
+      "file": "svg/ApplicationDatabaseIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ApplicationLinkIcon",
+      "file": "svg/ApplicationLinkIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ApplicationManagedIcon",
+      "file": "svg/ApplicationManagedIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ApplicationPackageIcon",
+      "file": "svg/ApplicationPackageIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ApplicationIcon",
+      "file": "svg/ApplicationIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ApprovalIcon",
+      "file": "svg/ApprovalIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ArrayIcon",
+      "file": "svg/ArrayIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ArrowDownIcon",
+      "file": "svg/ArrowDownIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ArrowLeftIcon",
+      "file": "svg/ArrowLeftIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ArrowRightCurvedIcon",
+      "file": "svg/ArrowRightCurvedIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ArrowRightIcon",
+      "file": "svg/ArrowRightIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ArrowSlideLeftIcon",
+      "file": "svg/ArrowSlideLeftIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ArrowSlideRightIcon",
+      "file": "svg/ArrowSlideRightIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ArrowUpCurvedIcon",
+      "file": "svg/ArrowUpCurvedIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ArrowUpIcon",
+      "file": "svg/ArrowUpIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ArrowsLeftRightIcon",
+      "file": "svg/ArrowsLeftRightIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ArrowsUpDownIcon",
+      "file": "svg/ArrowsUpDownIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "AwsIcon",
+      "file": "svg/AwsIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "AzureIcon",
+      "file": "svg/AzureIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "BackfillJobIcon",
+      "file": "svg/BackfillJobIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "BellIcon",
+      "file": "svg/BellIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "BillingAdjustmentsIcon",
+      "file": "svg/BillingAdjustmentsIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "BinaryIcon",
+      "file": "svg/BinaryIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "BookClosedIcon",
+      "file": "svg/BookClosedIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "BookOpenAiIcon",
+      "file": "svg/BookOpenAiIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "BookOpenIcon",
+      "file": "svg/BookOpenIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "BooleanIcon",
+      "file": "svg/BooleanIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "BoxIcon",
+      "file": "svg/BoxIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "BranchIcon",
+      "file": "svg/BranchIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "BriefcaseIcon",
+      "file": "svg/BriefcaseIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "BudgetIcon",
+      "file": "svg/BudgetIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "BugIcon",
+      "file": "svg/BugIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CalendarArrowLeftIcon",
+      "file": "svg/CalendarArrowLeftIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CalendarArrowRightIcon",
+      "file": "svg/CalendarArrowRightIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CalendarCheckmarkIcon",
+      "file": "svg/CalendarCheckmarkIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CalendarClockIcon",
+      "file": "svg/CalendarClockIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CalendarDateIcon",
+      "file": "svg/CalendarDateIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CalendarDotIcon",
+      "file": "svg/CalendarDotIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CalendarPlusIcon",
+      "file": "svg/CalendarPlusIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CalendarRecurringIcon",
+      "file": "svg/CalendarRecurringIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CalendarIcon",
+      "file": "svg/CalendarIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CellCollapseCodeIcon",
+      "file": "svg/CellCollapseCodeIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CellCollapseIcon",
+      "file": "svg/CellCollapseIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CellCollapseResultIcon",
+      "file": "svg/CellCollapseResultIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CellExpandIcon",
+      "file": "svg/CellExpandIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ChartAreaIcon",
+      "file": "svg/ChartAreaIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ChartColumnIcon",
+      "file": "svg/ChartColumnIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ChartHeatIcon",
+      "file": "svg/ChartHeatIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ChartLineIcon",
+      "file": "svg/ChartLineIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ChartPieIcon",
+      "file": "svg/ChartPieIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ChartPlotIcon",
+      "file": "svg/ChartPlotIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ChartIcon",
+      "file": "svg/ChartIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ChartStackedIcon",
+      "file": "svg/ChartStackedIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ChatHeartIcon",
+      "file": "svg/ChatHeartIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CheckCircleAutoIcon",
+      "file": "svg/CheckCircleAutoIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CheckCircleFillIcon",
+      "file": "svg/CheckCircleFillIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CheckCircleIcon",
+      "file": "svg/CheckCircleIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CheckDoubleIcon",
+      "file": "svg/CheckDoubleIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CheckIcon",
+      "file": "svg/CheckIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ChevronDownIcon",
+      "file": "svg/ChevronDownIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ChevronDownSmallIcon",
+      "file": "svg/ChevronDownSmallIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ChevronLeftIcon",
+      "file": "svg/ChevronLeftIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ChevronLeftSmallIcon",
+      "file": "svg/ChevronLeftSmallIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ChevronRightIcon",
+      "file": "svg/ChevronRightIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ChevronRightSmallIcon",
+      "file": "svg/ChevronRightSmallIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ChevronUpIcon",
+      "file": "svg/ChevronUpIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ChevronUpSmallIcon",
+      "file": "svg/ChevronUpSmallIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ChevronsCollapseIcon",
+      "file": "svg/ChevronsCollapseIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ChevronsExpandIcon",
+      "file": "svg/ChevronsExpandIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CircleEmptyIcon",
+      "file": "svg/CircleEmptyIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CircleFillIcon",
+      "file": "svg/CircleFillIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CircleLargeIcon",
+      "file": "svg/CircleLargeIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CircleIcon",
+      "file": "svg/CircleIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ClassicConsoleIcon",
+      "file": "svg/ClassicConsoleIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ClassificationIcon",
+      "file": "svg/ClassificationIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ClearAllIcon",
+      "file": "svg/ClearAllIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ClearIcon",
+      "file": "svg/ClearIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ClipboardIcon",
+      "file": "svg/ClipboardIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ClockFilledIcon",
+      "file": "svg/ClockFilledIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ClockIcon",
+      "file": "svg/ClockIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ClockTrialIcon",
+      "file": "svg/ClockTrialIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CloudDisabledIcon",
+      "file": "svg/CloudDisabledIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CloudExternalIcon",
+      "file": "svg/CloudExternalIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CloudHeartIcon",
+      "file": "svg/CloudHeartIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CloudIcon",
+      "file": "svg/CloudIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CloudSaasIcon",
+      "file": "svg/CloudSaasIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CloudSnowflakeIcon",
+      "file": "svg/CloudSnowflakeIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CodeCompareIcon",
+      "file": "svg/CodeCompareIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ColumnFilterIcon",
+      "file": "svg/ColumnFilterIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ColumnMultipleIcon",
+      "file": "svg/ColumnMultipleIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ColumnSingleIcon",
+      "file": "svg/ColumnSingleIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ColumnSlashIcon",
+      "file": "svg/ColumnSlashIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CommaIcon",
+      "file": "svg/CommaIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CommentIcon",
+      "file": "svg/CommentIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ComputePoolIcon",
+      "file": "svg/ComputePoolIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ComputeIcon",
+      "file": "svg/ComputeIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ConditionIcon",
+      "file": "svg/ConditionIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ConnectorIcon",
+      "file": "svg/ConnectorIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ContainerIcon",
+      "file": "svg/ContainerIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ContributionIcon",
+      "file": "svg/ContributionIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CopyIcon",
+      "file": "svg/CopyIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CreateIcon",
+      "file": "svg/CreateIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CreditCardIcon",
+      "file": "svg/CreditCardIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CreditMemoIcon",
+      "file": "svg/CreditMemoIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CriticalFillIcon",
+      "file": "svg/CriticalFillIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CriticalIcon",
+      "file": "svg/CriticalIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "DashboardsIcon",
+      "file": "svg/DashboardsIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "DataExchangeIcon",
+      "file": "svg/DataExchangeIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "DataPipelinesIcon",
+      "file": "svg/DataPipelinesIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "DataIcon",
+      "file": "svg/DataIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "DataSemanticIcon",
+      "file": "svg/DataSemanticIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "DataSharingIcon",
+      "file": "svg/DataSharingIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "DatabaseAppIcon",
+      "file": "svg/DatabaseAppIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "DatabaseLinkReadOnlyIcon",
+      "file": "svg/DatabaseLinkReadOnlyIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "DatabaseLinkIcon",
+      "file": "svg/DatabaseLinkIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "DatabaseReadOnlyIcon",
+      "file": "svg/DatabaseReadOnlyIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "DatabaseIcon",
+      "file": "svg/DatabaseIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "DatabaseSharedIcon",
+      "file": "svg/DatabaseSharedIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "DatabaseSnowflakeIcon",
+      "file": "svg/DatabaseSnowflakeIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "DatabricksIcon",
+      "file": "svg/DatabricksIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "DatasetIcon",
+      "file": "svg/DatasetIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "DecimalDecreaseIcon",
+      "file": "svg/DecimalDecreaseIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "DecimalIncreaseIcon",
+      "file": "svg/DecimalIncreaseIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "DeleteIcon",
+      "file": "svg/DeleteIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "DeploymentIcon",
+      "file": "svg/DeploymentIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "DiamondIcon",
+      "file": "svg/DiamondIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "DocAiModelBuildIcon",
+      "file": "svg/DocAiModelBuildIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "DollarSignIcon",
+      "file": "svg/DollarSignIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "DownloadCloudIcon",
+      "file": "svg/DownloadCloudIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "DownloadFilledIcon",
+      "file": "svg/DownloadFilledIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "DownloadIcon",
+      "file": "svg/DownloadIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "DragHandleIcon",
+      "file": "svg/DragHandleIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "DuplicateIcon",
+      "file": "svg/DuplicateIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "EditDisabledIcon",
+      "file": "svg/EditDisabledIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "EditIcon",
+      "file": "svg/EditIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "EllipsisHorizontalIcon",
+      "file": "svg/EllipsisHorizontalIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "EllipsisVerticalIcon",
+      "file": "svg/EllipsisVerticalIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "EmailIcon",
+      "file": "svg/EmailIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ErrorCircleFillIcon",
+      "file": "svg/ErrorCircleFillIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ErrorCircleIcon",
+      "file": "svg/ErrorCircleIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "FeatureIcon",
+      "file": "svg/FeatureIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "FeatureViewIcon",
+      "file": "svg/FeatureViewIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "FetchIcon",
+      "file": "svg/FetchIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "FileFormatIcon",
+      "file": "svg/FileFormatIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "FileMarkdownIcon",
+      "file": "svg/FileMarkdownIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "FileIcon",
+      "file": "svg/FileIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "FilterIcon",
+      "file": "svg/FilterIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "FlagIcon",
+      "file": "svg/FlagIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "FolderIcon",
+      "file": "svg/FolderIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "FolderSharedIcon",
+      "file": "svg/FolderSharedIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ForecastIcon",
+      "file": "svg/ForecastIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "FormatAttachmentIcon",
+      "file": "svg/FormatAttachmentIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "FormatBoldIcon",
+      "file": "svg/FormatBoldIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "FormatClearIcon",
+      "file": "svg/FormatClearIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "FormatCodeBlockIcon",
+      "file": "svg/FormatCodeBlockIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "FormatCodeIcon",
+      "file": "svg/FormatCodeIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "FormatH1Icon",
+      "file": "svg/FormatH1Icon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "FormatH2Icon",
+      "file": "svg/FormatH2Icon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "FormatH3Icon",
+      "file": "svg/FormatH3Icon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "FormatH4Icon",
+      "file": "svg/FormatH4Icon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "FormatH5Icon",
+      "file": "svg/FormatH5Icon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "FormatH6Icon",
+      "file": "svg/FormatH6Icon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "FormatHorizontalRuleIcon",
+      "file": "svg/FormatHorizontalRuleIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "FormatItalicIcon",
+      "file": "svg/FormatItalicIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "FormatLinkIcon",
+      "file": "svg/FormatLinkIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "FormatOrderedListIcon",
+      "file": "svg/FormatOrderedListIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "FormatParagraphIcon",
+      "file": "svg/FormatParagraphIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "FormatQuoteIcon",
+      "file": "svg/FormatQuoteIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "FormatStrikethroughIcon",
+      "file": "svg/FormatStrikethroughIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "FormatUnderlineIcon",
+      "file": "svg/FormatUnderlineIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "FormatUnorderedListIcon",
+      "file": "svg/FormatUnorderedListIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "FunctionIcon",
+      "file": "svg/FunctionIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "GcpIcon",
+      "file": "svg/GcpIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "GearIcon",
+      "file": "svg/GearIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "GeometryIcon",
+      "file": "svg/GeometryIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "GettingStartedIcon",
+      "file": "svg/GettingStartedIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "GiftIcon",
+      "file": "svg/GiftIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "GitIcon",
+      "file": "svg/GitIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "GitRepositoryIcon",
+      "file": "svg/GitRepositoryIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "GithubIcon",
+      "file": "svg/GithubIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "GlobeIcon",
+      "file": "svg/GlobeIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "GotoIcon",
+      "file": "svg/GotoIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "GradCapIcon",
+      "file": "svg/GradCapIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "GrantOptionIcon",
+      "file": "svg/GrantOptionIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "GraphDirectionLeftRightIcon",
+      "file": "svg/GraphDirectionLeftRightIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "GraphDirectionTopBottomIcon",
+      "file": "svg/GraphDirectionTopBottomIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "GridIcon",
+      "file": "svg/GridIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "GuidesIcon",
+      "file": "svg/GuidesIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "HelpCircleIcon",
+      "file": "svg/HelpCircleIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "HideIcon",
+      "file": "svg/HideIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "HierarchyIcon",
+      "file": "svg/HierarchyIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "HomeIcon",
+      "file": "svg/HomeIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "IconIcon",
+      "file": "svg/IconIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "InProgressCircleIcon",
+      "file": "svg/InProgressCircleIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "InfoCircleFillIcon",
+      "file": "svg/InfoCircleFillIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "InfoCircleIcon",
+      "file": "svg/InfoCircleIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "InheritIcon",
+      "file": "svg/InheritIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "InsertAtCursorIcon",
+      "file": "svg/InsertAtCursorIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "IntegrationApiIcon",
+      "file": "svg/IntegrationApiIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "IntegrationExternalAccessIcon",
+      "file": "svg/IntegrationExternalAccessIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "IntegrationSecurityIcon",
+      "file": "svg/IntegrationSecurityIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "InvoiceIcon",
+      "file": "svg/InvoiceIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "JoinIcon",
+      "file": "svg/JoinIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "KafkaIcon",
+      "file": "svg/KafkaIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "LanguageIcon",
+      "file": "svg/LanguageIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "LayoutIcon",
+      "file": "svg/LayoutIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "LifesaverIcon",
+      "file": "svg/LifesaverIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "LightbulbOffIcon",
+      "file": "svg/LightbulbOffIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "LightbulbIcon",
+      "file": "svg/LightbulbIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "LightningIcon",
+      "file": "svg/LightningIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ListIcon",
+      "file": "svg/ListIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ListingCompareIcon",
+      "file": "svg/ListingCompareIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ListingExampleIcon",
+      "file": "svg/ListingExampleIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ListingIcon",
+      "file": "svg/ListingIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "LlmIcon",
+      "file": "svg/LlmIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "LocationIcon",
+      "file": "svg/LocationIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "LockFilledIcon",
+      "file": "svg/LockFilledIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "LockIcon",
+      "file": "svg/LockIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "LoudspeakerIcon",
+      "file": "svg/LoudspeakerIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "MachineLearningModelIcon",
+      "file": "svg/MachineLearningModelIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "MapIcon",
+      "file": "svg/MapIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "MarketplaceInternalIcon",
+      "file": "svg/MarketplaceInternalIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "MarketplaceIcon",
+      "file": "svg/MarketplaceIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "MatchCaseIcon",
+      "file": "svg/MatchCaseIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "MaximizeIcon",
+      "file": "svg/MaximizeIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "McpIcon",
+      "file": "svg/McpIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "MenuIcon",
+      "file": "svg/MenuIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "MeterIcon",
+      "file": "svg/MeterIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "MinimizeIcon",
+      "file": "svg/MinimizeIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "MinusCircleIcon",
+      "file": "svg/MinusCircleIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "MinusIcon",
+      "file": "svg/MinusIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "MoneyNullIcon",
+      "file": "svg/MoneyNullIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "MoneyIcon",
+      "file": "svg/MoneyIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "NodeCollapseIcon",
+      "file": "svg/NodeCollapseIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "NodeExpandIcon",
+      "file": "svg/NodeExpandIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "NotebookIcon",
+      "file": "svg/NotebookIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "NullIcon",
+      "file": "svg/NullIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "NumberIcon",
+      "file": "svg/NumberIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ObjectIcon",
+      "file": "svg/ObjectIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "OpenDetailsIcon",
+      "file": "svg/OpenDetailsIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "OpenInWorksheetIcon",
+      "file": "svg/OpenInWorksheetIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "OrganizationIcon",
+      "file": "svg/OrganizationIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "OwnershipIcon",
+      "file": "svg/OwnershipIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "PageFirstIcon",
+      "file": "svg/PageFirstIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "PageLastIcon",
+      "file": "svg/PageLastIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "PaneBottomIcon",
+      "file": "svg/PaneBottomIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "PaneLeftIcon",
+      "file": "svg/PaneLeftIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "PaneMiddleIcon",
+      "file": "svg/PaneMiddleIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "PaneRightIcon",
+      "file": "svg/PaneRightIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "PaneTopIcon",
+      "file": "svg/PaneTopIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ParameterIcon",
+      "file": "svg/ParameterIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "PauseIcon",
+      "file": "svg/PauseIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "PdfIcon",
+      "file": "svg/PdfIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "PendingCircleIcon",
+      "file": "svg/PendingCircleIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "PendingFilledIcon",
+      "file": "svg/PendingFilledIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "PeopleIcon",
+      "file": "svg/PeopleIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "PercentIcon",
+      "file": "svg/PercentIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "PersonIcon",
+      "file": "svg/PersonIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "PinFillIcon",
+      "file": "svg/PinFillIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "PinIcon",
+      "file": "svg/PinIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "PipeIcon",
+      "file": "svg/PipeIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "PlaceholderIcon",
+      "file": "svg/PlaceholderIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "PlusCircleIcon",
+      "file": "svg/PlusCircleIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "PlusIcon",
+      "file": "svg/PlusIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "PlusSquareIcon",
+      "file": "svg/PlusSquareIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "PolicyIcon",
+      "file": "svg/PolicyIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "PostgresIcon",
+      "file": "svg/PostgresIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "PrivacyNoticeIcon",
+      "file": "svg/PrivacyNoticeIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ProcedureIcon",
+      "file": "svg/ProcedureIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ProjectsIcon",
+      "file": "svg/ProjectsIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ProspectsIcon",
+      "file": "svg/ProspectsIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "PublishFilledIcon",
+      "file": "svg/PublishFilledIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "PythonIcon",
+      "file": "svg/PythonIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "QueryIcon",
+      "file": "svg/QueryIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "QuestionMarkIcon",
+      "file": "svg/QuestionMarkIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "RedoIcon",
+      "file": "svg/RedoIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "RefreshAutoIcon",
+      "file": "svg/RefreshAutoIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "RefreshManualIcon",
+      "file": "svg/RefreshManualIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "RefreshIcon",
+      "file": "svg/RefreshIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "RegularExpressionIcon",
+      "file": "svg/RegularExpressionIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "RequestNotificationIcon",
+      "file": "svg/RequestNotificationIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ResourceGroupIcon",
+      "file": "svg/ResourceGroupIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ResourceTypeIcon",
+      "file": "svg/ResourceTypeIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "RibbonIcon",
+      "file": "svg/RibbonIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "RingIcon",
+      "file": "svg/RingIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "RobotIcon",
+      "file": "svg/RobotIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "RoleDatabaseIcon",
+      "file": "svg/RoleDatabaseIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "RoleIcon",
+      "file": "svg/RoleIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "RowsIcon",
+      "file": "svg/RowsIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "RunAllIcon",
+      "file": "svg/RunAllIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "RunArrowDownIcon",
+      "file": "svg/RunArrowDownIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "RunArrowUpIcon",
+      "file": "svg/RunArrowUpIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "RunIntelliIcon",
+      "file": "svg/RunIntelliIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "RunIcon",
+      "file": "svg/RunIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ScaleIcon",
+      "file": "svg/ScaleIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "SchemaLinkReadOnlyIcon",
+      "file": "svg/SchemaLinkReadOnlyIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "SchemaLinkIcon",
+      "file": "svg/SchemaLinkIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "SchemaReadOnlyIcon",
+      "file": "svg/SchemaReadOnlyIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "SchemaIcon",
+      "file": "svg/SchemaIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ScissorsIcon",
+      "file": "svg/ScissorsIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ScoreCardIcon",
+      "file": "svg/ScoreCardIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "SearchIndexIcon",
+      "file": "svg/SearchIndexIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "SearchIcon",
+      "file": "svg/SearchIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "SendIcon",
+      "file": "svg/SendIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "SentimentIcon",
+      "file": "svg/SentimentIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "SequenceIcon",
+      "file": "svg/SequenceIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ServiceUsageTypeIcon",
+      "file": "svg/ServiceUsageTypeIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "SessionIcon",
+      "file": "svg/SessionIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ShareObjectIcon",
+      "file": "svg/ShareObjectIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ShareObjectSecureIcon",
+      "file": "svg/ShareObjectSecureIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ShareIcon",
+      "file": "svg/ShareIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ShieldAdminIcon",
+      "file": "svg/ShieldAdminIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ShieldCheckIcon",
+      "file": "svg/ShieldCheckIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ShieldFilledIcon",
+      "file": "svg/ShieldFilledIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ShieldLockIcon",
+      "file": "svg/ShieldLockIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ShieldIcon",
+      "file": "svg/ShieldIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ShowIcon",
+      "file": "svg/ShowIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "SignInIcon",
+      "file": "svg/SignInIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "SignOutIcon",
+      "file": "svg/SignOutIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "SlideLeftIcon",
+      "file": "svg/SlideLeftIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "SlideRightIcon",
+      "file": "svg/SlideRightIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "SnowflakeIcon",
+      "file": "svg/SnowflakeIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "SourceIcon",
+      "file": "svg/SourceIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "SqlIcon",
+      "file": "svg/SqlIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "StageExternalIcon",
+      "file": "svg/StageExternalIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "StageInternalIcon",
+      "file": "svg/StageInternalIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "StageIcon",
+      "file": "svg/StageIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "StageTableIcon",
+      "file": "svg/StageTableIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "StageUserIcon",
+      "file": "svg/StageUserIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "StopIcon",
+      "file": "svg/StopIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "StreamIcon",
+      "file": "svg/StreamIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "StreamlitIcon",
+      "file": "svg/StreamlitIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "SummaryIcon",
+      "file": "svg/SummaryIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "SuspendedIcon",
+      "file": "svg/SuspendedIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "TableApacheIcebergIcon",
+      "file": "svg/TableApacheIcebergIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "TableDynamicIcon",
+      "file": "svg/TableDynamicIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "TableExternalIcon",
+      "file": "svg/TableExternalIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "TableLinkReadOnlyIcon",
+      "file": "svg/TableLinkReadOnlyIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "TableLinkIcon",
+      "file": "svg/TableLinkIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "TableLogicalIcon",
+      "file": "svg/TableLogicalIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "TablePreviewIcon",
+      "file": "svg/TablePreviewIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "TableReadOnlyIcon",
+      "file": "svg/TableReadOnlyIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "TableIcon",
+      "file": "svg/TableIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "TableSizeIcon",
+      "file": "svg/TableSizeIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "TagBasedPolicyIcon",
+      "file": "svg/TagBasedPolicyIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "TagGenericFilledIcon",
+      "file": "svg/TagGenericFilledIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "TagGenericIcon",
+      "file": "svg/TagGenericIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "TagGovernanceIcon",
+      "file": "svg/TagGovernanceIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "TagSystemIcon",
+      "file": "svg/TagSystemIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "TaskFinalizerIcon",
+      "file": "svg/TaskFinalizerIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "TaskIcon",
+      "file": "svg/TaskIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "TaskRootIcon",
+      "file": "svg/TaskRootIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "TermsIcon",
+      "file": "svg/TermsIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "TextIcon",
+      "file": "svg/TextIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ThemeIcon",
+      "file": "svg/ThemeIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ThumbsDownFillIcon",
+      "file": "svg/ThumbsDownFillIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ThumbsDownIcon",
+      "file": "svg/ThumbsDownIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ThumbsUpDownIcon",
+      "file": "svg/ThumbsUpDownIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ThumbsUpFillIcon",
+      "file": "svg/ThumbsUpFillIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ThumbsUpIcon",
+      "file": "svg/ThumbsUpIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "TicketIcon",
+      "file": "svg/TicketIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "TomlIcon",
+      "file": "svg/TomlIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ToolIcon",
+      "file": "svg/ToolIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "TrendDownIcon",
+      "file": "svg/TrendDownIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "TrendUpIcon",
+      "file": "svg/TrendUpIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "UndoIcon",
+      "file": "svg/UndoIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "UnknownIcon",
+      "file": "svg/UnknownIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "UploadCloudIcon",
+      "file": "svg/UploadCloudIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "UploadFilledIcon",
+      "file": "svg/UploadFilledIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "UploadIcon",
+      "file": "svg/UploadIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "UserAccountIcon",
+      "file": "svg/UserAccountIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "UserIcon",
+      "file": "svg/UserIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "VectorIcon",
+      "file": "svg/VectorIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ViewMaterializedIcon",
+      "file": "svg/ViewMaterializedIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ViewIcon",
+      "file": "svg/ViewIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ViewSecuredMaterializedIcon",
+      "file": "svg/ViewSecuredMaterializedIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ViewSecuredIcon",
+      "file": "svg/ViewSecuredIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "VisibilityOffIcon",
+      "file": "svg/VisibilityOffIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "WaitActionCircleIcon",
+      "file": "svg/WaitActionCircleIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "WarehouseAdaptiveIcon",
+      "file": "svg/WarehouseAdaptiveIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "WarehouseInteractiveIcon",
+      "file": "svg/WarehouseInteractiveIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "WarehouseIcon",
+      "file": "svg/WarehouseIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "WarehouseSnowflakeIcon",
+      "file": "svg/WarehouseSnowflakeIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "WarehouseSnowparkIcon",
+      "file": "svg/WarehouseSnowparkIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "WarningTriangleFillIcon",
+      "file": "svg/WarningTriangleFillIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "WarningTriangleIcon",
+      "file": "svg/WarningTriangleIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "WorksheetIcon",
+      "file": "svg/WorksheetIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "WorkspacesGitIcon",
+      "file": "svg/WorkspacesGitIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "WorkspacesPrivateIcon",
+      "file": "svg/WorkspacesPrivateIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "WorkspacesIcon",
+      "file": "svg/WorkspacesIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "WorkspacesSharedIcon",
+      "file": "svg/WorkspacesSharedIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "WritingHandIcon",
+      "file": "svg/WritingHandIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "YamlIcon",
+      "file": "svg/YamlIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "ZoomResetIcon",
+      "file": "svg/ZoomResetIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular",
+        "medium"
+      ]
+    },
+    {
+      "name": "CheckCircleEmptyIcon",
+      "file": "svg/CheckCircleEmptyIcon-medium.svg",
+      "viewBox": "0 0 20 20",
+      "sizes": [
+        "medium"
+      ]
+    },
+    {
+      "name": "ArrowDownBoldIcon",
+      "file": "svg/ArrowDownBoldIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular"
+      ]
+    },
+    {
+      "name": "ArrowLeftBoldIcon",
+      "file": "svg/ArrowLeftBoldIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular"
+      ]
+    },
+    {
+      "name": "ArrowRightBoldIcon",
+      "file": "svg/ArrowRightBoldIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular"
+      ]
+    },
+    {
+      "name": "ArrowUpBoldIcon",
+      "file": "svg/ArrowUpBoldIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular"
+      ]
+    },
+    {
+      "name": "BankIcon",
+      "file": "svg/BankIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular"
+      ]
+    },
+    {
+      "name": "CheckBoldIcon",
+      "file": "svg/CheckBoldIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular"
+      ]
+    },
+    {
+      "name": "CheckCircleEmptySmallIcon",
+      "file": "svg/CheckCircleEmptySmallIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular"
+      ]
+    },
+    {
+      "name": "ChevronDownBoldIcon",
+      "file": "svg/ChevronDownBoldIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular"
+      ]
+    },
+    {
+      "name": "ChevronLeftBoldIcon",
+      "file": "svg/ChevronLeftBoldIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular"
+      ]
+    },
+    {
+      "name": "ChevronRightBoldIcon",
+      "file": "svg/ChevronRightBoldIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular"
+      ]
+    },
+    {
+      "name": "ChevronUpBoldIcon",
+      "file": "svg/ChevronUpBoldIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular"
+      ]
+    },
+    {
+      "name": "ClearBoldIcon",
+      "file": "svg/ClearBoldIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular"
+      ]
+    },
+    {
+      "name": "ClearSmallIcon",
+      "file": "svg/ClearSmallIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular"
+      ]
+    },
+    {
+      "name": "ForecastingIcon",
+      "file": "svg/ForecastingIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular"
+      ]
+    },
+    {
+      "name": "GearLargeIcon",
+      "file": "svg/GearLargeIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular"
+      ]
+    },
+    {
+      "name": "HelpCircleSmallIcon",
+      "file": "svg/HelpCircleSmallIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular"
+      ]
+    },
+    {
+      "name": "IcDataTypeDatetimeIcon",
+      "file": "svg/IcDataTypeDatetimeIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular"
+      ]
+    },
+    {
+      "name": "IconSmallIcon",
+      "file": "svg/IconSmallIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular"
+      ]
+    },
+    {
+      "name": "InfoCircleSmallIcon",
+      "file": "svg/InfoCircleSmallIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular"
+      ]
+    },
+    {
+      "name": "KeyboardIcon",
+      "file": "svg/KeyboardIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular"
+      ]
+    },
+    {
+      "name": "LinkIcon",
+      "file": "svg/LinkIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular"
+      ]
+    },
+    {
+      "name": "MinusBoldIcon",
+      "file": "svg/MinusBoldIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular"
+      ]
+    },
+    {
+      "name": "PlusBoldIcon",
+      "file": "svg/PlusBoldIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular"
+      ]
+    },
+    {
+      "name": "PlusLargeIcon",
+      "file": "svg/PlusLargeIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular"
+      ]
+    },
+    {
+      "name": "SelectIcon",
+      "file": "svg/SelectIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular"
+      ]
+    },
+    {
+      "name": "TableIcebergIcon",
+      "file": "svg/TableIcebergIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular"
+      ]
+    },
+    {
+      "name": "UnlinkIcon",
+      "file": "svg/UnlinkIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular"
+      ]
+    },
+    {
+      "name": "UserProfileIcon",
+      "file": "svg/UserProfileIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular"
+      ]
+    },
+    {
+      "name": "WarningTriangleSmallIcon",
+      "file": "svg/WarningTriangleSmallIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular"
+      ]
+    },
+    {
+      "name": "XSmallIcon",
+      "file": "svg/XSmallIcon.svg",
+      "viewBox": "0 0 16 16",
+      "sizes": [
+        "regular"
+      ]
+    }
+  ],
+  "pictograms": [
+    {
+      "name": "AccountPictogram",
+      "file": "pictograms/AccountPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "AdvertisingOptimizationPictogram",
+      "file": "pictograms/AdvertisingOptimizationPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "AiModelPictogram",
+      "file": "pictograms/AiModelPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "AiPictogram",
+      "file": "pictograms/AiPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "AlertCirclePictogram",
+      "file": "pictograms/AlertCirclePictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "AnomalyPictogram",
+      "file": "pictograms/AnomalyPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "AnswerPictogram",
+      "file": "pictograms/AnswerPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "ApplicationPictogram",
+      "file": "pictograms/ApplicationPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "BlocksPictogram",
+      "file": "pictograms/BlocksPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "BookPictogram",
+      "file": "pictograms/BookPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "BooleanPictogram",
+      "file": "pictograms/BooleanPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "BoxPictogram",
+      "file": "pictograms/BoxPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "CalendarPictogram",
+      "file": "pictograms/CalendarPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "ChartCircleAnalysisPictogram",
+      "file": "pictograms/ChartCircleAnalysisPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "ChartFinancialPictogram",
+      "file": "pictograms/ChartFinancialPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "ChartPictogram",
+      "file": "pictograms/ChartPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "ClassificationPictogram",
+      "file": "pictograms/ClassificationPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "CodePictogram",
+      "file": "pictograms/CodePictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "ComputePictogram",
+      "file": "pictograms/ComputePictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "ConnectorPictogram",
+      "file": "pictograms/ConnectorPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "ContributionPictogram",
+      "file": "pictograms/ContributionPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "CortexSearchPictogram",
+      "file": "pictograms/CortexSearchPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "DashboardPictogram",
+      "file": "pictograms/DashboardPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "DataCleanRoomPictogram",
+      "file": "pictograms/DataCleanRoomPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "DataEngineeringPictogram",
+      "file": "pictograms/DataEngineeringPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "DataPictogram",
+      "file": "pictograms/DataPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "DataPreviewPictogram",
+      "file": "pictograms/DataPreviewPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "DatabasePictogram",
+      "file": "pictograms/DatabasePictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "DiamondPictogram",
+      "file": "pictograms/DiamondPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "EconomicImpactPictogram",
+      "file": "pictograms/EconomicImpactPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "EditAiPictogram",
+      "file": "pictograms/EditAiPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "EditCreatePictogram",
+      "file": "pictograms/EditCreatePictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "EmptyFolderPictogram",
+      "file": "pictograms/EmptyFolderPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "EnergyPictogram",
+      "file": "pictograms/EnergyPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "EnvironmentPictogram",
+      "file": "pictograms/EnvironmentPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "FileFormatPictogram",
+      "file": "pictograms/FileFormatPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "FilePictogram",
+      "file": "pictograms/FilePictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "FiltersPictogram",
+      "file": "pictograms/FiltersPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "FingerprintCheckmarkPictogram",
+      "file": "pictograms/FingerprintCheckmarkPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "FingerprintPictogram",
+      "file": "pictograms/FingerprintPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "FolderPictogram",
+      "file": "pictograms/FolderPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "ForecastingPictogram",
+      "file": "pictograms/ForecastingPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "GearPictogram",
+      "file": "pictograms/GearPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "GeneralEmptyStatePictogram",
+      "file": "pictograms/GeneralEmptyStatePictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "GeneralErrorPictogram",
+      "file": "pictograms/GeneralErrorPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "GovernmentPictogram",
+      "file": "pictograms/GovernmentPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "HealthCommercialPictogram",
+      "file": "pictograms/HealthCommercialPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "HealthMedicinePictogram",
+      "file": "pictograms/HealthMedicinePictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "HealthSciencePictogram",
+      "file": "pictograms/HealthSciencePictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "LanguagePictogram",
+      "file": "pictograms/LanguagePictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "LegalPictogram",
+      "file": "pictograms/LegalPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "ListingDraftPictogram",
+      "file": "pictograms/ListingDraftPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "ListingExamplePictogram",
+      "file": "pictograms/ListingExamplePictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "ListingPictogram",
+      "file": "pictograms/ListingPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "LlmPictogram",
+      "file": "pictograms/LlmPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "LocationPictogram",
+      "file": "pictograms/LocationPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "LockClosedPictogram",
+      "file": "pictograms/LockClosedPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "LookupTablePictogram",
+      "file": "pictograms/LookupTablePictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "LoudspeakerPictogram",
+      "file": "pictograms/LoudspeakerPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "MachineLearningPictogram",
+      "file": "pictograms/MachineLearningPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "MagnetPictogram",
+      "file": "pictograms/MagnetPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "MarketAnalysisPictogram",
+      "file": "pictograms/MarketAnalysisPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "MarketplaceInternalPictogram",
+      "file": "pictograms/MarketplaceInternalPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "MarketplacePictogram",
+      "file": "pictograms/MarketplacePictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "MediaPictogram",
+      "file": "pictograms/MediaPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "ObjectPictogram",
+      "file": "pictograms/ObjectPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "OnboardingPictogram",
+      "file": "pictograms/OnboardingPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "OrganizationPictogram",
+      "file": "pictograms/OrganizationPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "PackagePictogram",
+      "file": "pictograms/PackagePictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "PersonalInfoPictogram",
+      "file": "pictograms/PersonalInfoPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "PinBuildingPictogram",
+      "file": "pictograms/PinBuildingPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "PinDataPictogram",
+      "file": "pictograms/PinDataPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "PinGlobePictogram",
+      "file": "pictograms/PinGlobePictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "PinMapPictogram",
+      "file": "pictograms/PinMapPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "PinPictogram",
+      "file": "pictograms/PinPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "PlusSquarePictogram",
+      "file": "pictograms/PlusSquarePictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "PricingAnalysisPictogram",
+      "file": "pictograms/PricingAnalysisPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "PublicPictogram",
+      "file": "pictograms/PublicPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "QuantitativeAnalysisPictogram",
+      "file": "pictograms/QuantitativeAnalysisPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "QueryPreviewPictogram",
+      "file": "pictograms/QueryPreviewPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "RiskAnalysisPictogram",
+      "file": "pictograms/RiskAnalysisPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "RolePictogram",
+      "file": "pictograms/RolePictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "ScalePictogram",
+      "file": "pictograms/ScalePictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "SchemaPictogram",
+      "file": "pictograms/SchemaPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "ScriptFilePictogram",
+      "file": "pictograms/ScriptFilePictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "SearchPictogram",
+      "file": "pictograms/SearchPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "SentimentPictogram",
+      "file": "pictograms/SentimentPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "ShieldCheckmarkPictogram",
+      "file": "pictograms/ShieldCheckmarkPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "ShieldLockPictogram",
+      "file": "pictograms/ShieldLockPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "SportPictogram",
+      "file": "pictograms/SportPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "SqlPictogram",
+      "file": "pictograms/SqlPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "StreamlitAppsPictogram",
+      "file": "pictograms/StreamlitAppsPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "SubscriberPictogram",
+      "file": "pictograms/SubscriberPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "SummaryPictogram",
+      "file": "pictograms/SummaryPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "TablePictogram",
+      "file": "pictograms/TablePictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "TeamPictogram",
+      "file": "pictograms/TeamPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "TransportationPictogram",
+      "file": "pictograms/TransportationPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "TravelPictogram",
+      "file": "pictograms/TravelPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "UploadPictogram",
+      "file": "pictograms/UploadPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "WarehousePictogram",
+      "file": "pictograms/WarehousePictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "WarningTrianglePictogram",
+      "file": "pictograms/WarningTrianglePictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "WeatherPictogram",
+      "file": "pictograms/WeatherPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "WorksheetPictogram",
+      "file": "pictograms/WorksheetPictogram.svg",
+      "viewBox": "0 0 50 48"
+    },
+    {
+      "name": "WritingHandPictogram",
+      "file": "pictograms/WritingHandPictogram.svg",
+      "viewBox": "0 0 50 48"
+    }
+  ],
+  "illustrations": [
+    {
+      "name": "AddTilesIllustration",
+      "file": "illustrations/AddTilesIllustration.svg",
+      "viewBox": "0 0 142 126"
+    },
+    {
+      "name": "ApplicationPackagesIllustration",
+      "file": "illustrations/ApplicationPackagesIllustration.svg",
+      "viewBox": "0 0 142 126"
+    },
+    {
+      "name": "BudgetsIllustration",
+      "file": "illustrations/BudgetsIllustration.svg",
+      "viewBox": "0 0 142 126"
+    },
+    {
+      "name": "CleanRoomIllustration",
+      "file": "illustrations/CleanRoomIllustration.svg",
+      "viewBox": "0 0 142 126"
+    },
+    {
+      "name": "ConnectorsIllustration",
+      "file": "illustrations/ConnectorsIllustration.svg",
+      "viewBox": "0 0 142 126"
+    },
+    {
+      "name": "DataPreviewIllustration",
+      "file": "illustrations/DataPreviewIllustration.svg",
+      "viewBox": "0 0 142 126"
+    },
+    {
+      "name": "DataPrivacyIllustration",
+      "file": "illustrations/DataPrivacyIllustration.svg",
+      "viewBox": "0 0 142 126"
+    },
+    {
+      "name": "DataSharingIllustration",
+      "file": "illustrations/DataSharingIllustration.svg",
+      "viewBox": "0 0 142 126"
+    },
+    {
+      "name": "DocumentAiDefineValuesIllustration",
+      "file": "illustrations/DocumentAiDefineValuesIllustration.svg",
+      "viewBox": "0 0 142 126"
+    },
+    {
+      "name": "DocumentAiIllustration",
+      "file": "illustrations/DocumentAiIllustration.svg",
+      "viewBox": "0 0 142 126"
+    },
+    {
+      "name": "DynamicTablesIllustration",
+      "file": "illustrations/DynamicTablesIllustration.svg",
+      "viewBox": "0 0 142 126"
+    },
+    {
+      "name": "EmptyFolderIllustration",
+      "file": "illustrations/EmptyFolderIllustration.svg",
+      "viewBox": "0 0 142 126"
+    },
+    {
+      "name": "Error404Illustration",
+      "file": "illustrations/Error404Illustration.svg",
+      "viewBox": "0 0 142 126"
+    },
+    {
+      "name": "HelpSupportIllustration",
+      "file": "illustrations/HelpSupportIllustration.svg",
+      "viewBox": "0 0 142 126"
+    },
+    {
+      "name": "ListingsIllustration",
+      "file": "illustrations/ListingsIllustration.svg",
+      "viewBox": "0 0 142 126"
+    },
+    {
+      "name": "NoFoldersIllustration",
+      "file": "illustrations/NoFoldersIllustration.svg",
+      "viewBox": "0 0 142 126"
+    },
+    {
+      "name": "NoNetworkPoliciesIllustration",
+      "file": "illustrations/NoNetworkPoliciesIllustration.svg",
+      "viewBox": "0 0 142 126"
+    },
+    {
+      "name": "ProviderProfileIllustration",
+      "file": "illustrations/ProviderProfileIllustration.svg",
+      "viewBox": "0 0 142 126"
+    },
+    {
+      "name": "ReaderAccountsIllustration",
+      "file": "illustrations/ReaderAccountsIllustration.svg",
+      "viewBox": "0 0 142 126"
+    },
+    {
+      "name": "ReportsIllustration",
+      "file": "illustrations/ReportsIllustration.svg",
+      "viewBox": "0 0 142 126"
+    },
+    {
+      "name": "RepositoriesIllustration",
+      "file": "illustrations/RepositoriesIllustration.svg",
+      "viewBox": "0 0 142 126"
+    },
+    {
+      "name": "RolesIllustration",
+      "file": "illustrations/RolesIllustration.svg",
+      "viewBox": "0 0 142 126"
+    },
+    {
+      "name": "StreamlitAppsIllustration",
+      "file": "illustrations/StreamlitAppsIllustration.svg",
+      "viewBox": "0 0 142 126"
+    },
+    {
+      "name": "WelcomeToAppsIllustration",
+      "file": "illustrations/WelcomeToAppsIllustration.svg",
+      "viewBox": "0 0 142 126"
+    },
+    {
+      "name": "WelcomeToDashboardsIllustration",
+      "file": "illustrations/WelcomeToDashboardsIllustration.svg",
+      "viewBox": "0 0 142 126"
+    },
+    {
+      "name": "WelcomeToWorksheetsIllustration",
+      "file": "illustrations/WelcomeToWorksheetsIllustration.svg",
+      "viewBox": "0 0 142 126"
+    }
+  ],
+  "meta": {
+    "source": "@snowflake/stellar-icons@0.25.2",
+    "extractedAt": "2026-02-20T22:13:55.500Z",
+    "totalIcons": 437,
+    "totalPictograms": 104,
+    "totalIllustrations": 26
+  }
+}

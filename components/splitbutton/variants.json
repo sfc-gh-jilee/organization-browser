@@ -1,0 +1,49 @@
+{
+  "component": "SplitButton",
+  "tarball": "snowflake-stellar-components-0.25.2.tgz",
+  "props": {
+    "displayName": {
+      "default": "SplitButton.Trigger",
+      "values": [
+        "SplitButton.Action",
+        "SplitButton.Root",
+        "SplitButton.Trigger",
+        "SplitButtonContext"
+      ]
+    },
+    "variant": {
+      "default": "primary",
+      "values": [
+        "primary"
+      ]
+    }
+  },
+  "booleanStates": [
+    "disabled"
+  ],
+  "contextDependencies": [
+    "SizeContext (inheritable size prop)"
+  ],
+  "styleKeys": [
+    "container",
+    "action",
+    "actionWithDivider",
+    "trigger"
+  ],
+  "combinations": [
+    {
+      "props": {
+        "variant": "primary"
+      },
+      "label": "primary"
+    },
+    {
+      "props": {
+        "disabled": true,
+        "variant": "primary"
+      },
+      "label": "primary + disabled",
+      "isState": true
+    }
+  ]
+}

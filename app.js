@@ -55,22 +55,31 @@
   };
 
   // ─── DOM refs ───────────────────────────────────────────
+  const COL_LABELS = {
+    accounts: 'Accounts',
+    userGroups: 'Org user groups',
+    users: 'Org users',
+  };
+
   function initDomRefs() {
     const c = state.columns;
     c.accounts.scrollEl = document.getElementById('accounts-scroll');
     c.accounts.spacerEl = document.getElementById('accounts-spacer');
     c.accounts.contentEl = document.getElementById('accounts-content');
     c.accounts.countEl = document.getElementById('accounts-count');
+    c.accounts.searchEl = document.getElementById('accounts-search');
 
     c.userGroups.scrollEl = document.getElementById('usergroups-scroll');
     c.userGroups.spacerEl = document.getElementById('usergroups-spacer');
     c.userGroups.contentEl = document.getElementById('usergroups-content');
     c.userGroups.countEl = document.getElementById('usergroups-count');
+    c.userGroups.searchEl = document.getElementById('usergroups-search');
 
     c.users.scrollEl = document.getElementById('users-scroll');
     c.users.spacerEl = document.getElementById('users-spacer');
     c.users.contentEl = document.getElementById('users-content');
     c.users.countEl = document.getElementById('users-count');
+    c.users.searchEl = document.getElementById('users-search');
   }
 
   // ─── Renderers ──────────────────────────────────────────
@@ -185,7 +194,8 @@
     col.contentEl.style.transform = `translateY(${startIdx * ITEM_HEIGHT}px)`;
     col.contentEl.innerHTML = html;
 
-    col.countEl.textContent = `(${items.length.toLocaleString()})`;
+    const label = COL_LABELS[colKey] || colKey;
+    col.searchEl.placeholder = `${label} (${items.length.toLocaleString()})`;
   }
 
   function initVirtualScroll() {
@@ -238,9 +248,14 @@
       }
       col.lastClickIndex = idx;
     } else {
-      col.selected.clear();
-      col.selected.add(itemId);
-      col.lastClickIndex = idx;
+      if (col.selected.size === 1 && col.selected.has(itemId)) {
+        col.selected.clear();
+        col.lastClickIndex = -1;
+      } else {
+        col.selected.clear();
+        col.selected.add(itemId);
+        col.lastClickIndex = idx;
+      }
     }
 
     updateControlBar();
@@ -259,10 +274,25 @@
     }
   }
 
+  function getColumnSearchQuery(colKey) {
+    const col = state.columns[colKey];
+    return col.searchEl ? col.searchEl.value.trim().toLowerCase() : '';
+  }
+
   function getBaseFilteredItems(col, query, colKey) {
     let items = col.items;
 
-    // Apply search filter
+    // Apply per-column search
+    const colQuery = getColumnSearchQuery(colKey);
+    if (colQuery) {
+      items = items.filter(item => {
+        const name = item.name || '';
+        const display = item.displayName || '';
+        return name.toLowerCase().includes(colQuery) || display.toLowerCase().includes(colQuery);
+      });
+    }
+
+    // Apply global search
     if (query) {
       items = items.filter(item => {
         const name = item.name || '';
@@ -280,6 +310,12 @@
           items = items.filter(item => active.has(def.accessor(item)));
         }
       }
+    }
+
+    // Apply sort
+    if (colKey && activeSort[colKey]) {
+      const { key, dir } = activeSort[colKey];
+      items = [...items].sort((a, b) => compareFn(a, b, key, dir));
     }
 
     return items;
@@ -387,6 +423,14 @@
   function isListFiltered(colKey) {
     const query = document.getElementById('globalSearch').value.trim();
     if (query.length > 0) return true;
+    if (colKey && getColumnSearchQuery(colKey).length > 0) return true;
+    if (colKey && activeFilters[colKey]) {
+      return Object.values(activeFilters[colKey]).some(s => s && s.size > 0);
+    }
+    return false;
+  }
+
+  function hasActiveColumnFilter(colKey) {
     if (colKey && activeFilters[colKey]) {
       return Object.values(activeFilters[colKey]).some(s => s && s.size > 0);
     }
@@ -394,11 +438,10 @@
   }
 
   function updateSelectButtonLabels() {
-    const filtered = isListFiltered('userGroups') || isListFiltered('users');
     const ugBtn = document.getElementById('usergroups-select-btn');
     const usrBtn = document.getElementById('users-select-btn');
-    if (ugBtn) ugBtn.textContent = filtered ? 'Select all' : 'Select unassigned';
-    if (usrBtn) usrBtn.textContent = filtered ? 'Select all' : 'Select unassigned';
+    if (ugBtn) ugBtn.textContent = hasActiveColumnFilter('userGroups') ? 'Select all' : 'Select unassigned';
+    if (usrBtn) usrBtn.textContent = hasActiveColumnFilter('users') ? 'Select all' : 'Select unassigned';
   }
 
   function initColumnSelectButtons() {
@@ -413,7 +456,7 @@
         const col = state.columns[colKey];
         let targetItems;
 
-        if (isListFiltered(colKey)) {
+        if (hasActiveColumnFilter(colKey)) {
           targetItems = col.filteredItems;
         } else {
           targetItems = getUnassignedItems(colKey);
@@ -494,6 +537,12 @@
     if (!config) return '';
 
     let html = '';
+
+    const parentAction = getParentContext(colKey);
+    if (parentAction) {
+      html += `<button class="stellar-button stellar-button--secondary" data-bar-action="${parentAction.key}">${parentAction.label}</button>`;
+    }
+
     for (const btn of config.buttons) {
       html += `<button class="stellar-button stellar-button--secondary">${ACTION_ICONS[btn.icon] || ''}${btn.label}</button>`;
     }
@@ -538,7 +587,7 @@
       menuEl.style.top = 'auto';
       menuEl.style.bottom = '100%';
     }
-    if (rect.right > window.innerWidth - 8) {
+    if (rect.right > getMainContentRight() - 8) {
       menuEl.style.right = '0';
       menuEl.style.left = 'auto';
     }
@@ -572,11 +621,10 @@
       searchEl.style.display = 'none';
       createBtn.style.display = 'none';
 
-      if (currentActionCol !== activeColKey) {
-        actionBtnsEl.innerHTML = buildActionButtons(activeColKey);
-        currentActionCol = activeColKey;
-        initOverflowToggle(actionBtnsEl);
-      }
+      actionBtnsEl.innerHTML = buildActionButtons(activeColKey);
+      currentActionCol = activeColKey;
+      initOverflowToggle(actionBtnsEl);
+      initBarActions(actionBtnsEl, activeColKey);
       actionBtnsEl.style.display = 'flex';
       actionBtnsEl.style.gap = 'var(--stellar-space-gap-sm)';
       actionBtnsEl.style.alignItems = 'center';
@@ -650,6 +698,18 @@
     });
   }
 
+  function initBarActions(container, colKey) {
+    container.querySelectorAll('[data-bar-action]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const action = btn.dataset.barAction;
+        const selectedIds = [...state.columns[colKey].selected];
+        if (selectedIds.length === 0) return;
+        handleUnassignAction(action, selectedIds, colKey);
+      });
+    });
+  }
+
   document.addEventListener('click', () => {
     document.querySelectorAll('.action-overflow-menu').forEach(m => m.classList.remove('stellar-menu--open'));
   });
@@ -670,30 +730,42 @@
 
   // ─── Search / Filter ───────────────────────────────────
 
+  function applyColumnSearch(colKey) {
+    const col = state.columns[colKey];
+    const globalQuery = document.getElementById('globalSearch').value.trim().toLowerCase();
+    col.filteredItems = getBaseFilteredItems(col, globalQuery, colKey);
+    col.scrollEl.scrollTop = 0;
+    updateVirtualScroll(colKey);
+  }
+
+  function applyAllColumnSearches() {
+    for (const colKey of Object.keys(state.columns)) {
+      applyColumnSearch(colKey);
+    }
+    updateSelectButtonLabels();
+  }
+
   function initSearch() {
-    const input = document.getElementById('globalSearch');
-    let debounceTimer;
-    input.addEventListener('input', () => {
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(() => {
-        const query = input.value.trim().toLowerCase();
-        for (const colKey of Object.keys(state.columns)) {
-          const col = state.columns[colKey];
-          if (!query) {
-            col.filteredItems = col.items;
-          } else {
-            col.filteredItems = col.items.filter(item => {
-              const name = item.name || '';
-              const display = item.displayName || '';
-              return name.toLowerCase().includes(query) || display.toLowerCase().includes(query);
-            });
-          }
-          col.scrollEl.scrollTop = 0;
-          updateVirtualScroll(colKey);
-        }
-        updateSelectButtonLabels();
+    const globalInput = document.getElementById('globalSearch');
+    let globalDebounce;
+    globalInput.addEventListener('input', () => {
+      clearTimeout(globalDebounce);
+      globalDebounce = setTimeout(() => {
+        applyAllColumnSearches();
       }, 150);
     });
+
+    for (const colKey of Object.keys(state.columns)) {
+      const col = state.columns[colKey];
+      let colDebounce;
+      col.searchEl.addEventListener('input', () => {
+        clearTimeout(colDebounce);
+        colDebounce = setTimeout(() => {
+          applyColumnSearch(colKey);
+          updateSelectButtonLabels();
+        }, 150);
+      });
+    }
   }
 
   // ─── Drag and Drop ─────────────────────────────────────
@@ -715,19 +787,18 @@
 
         const itemId = itemEl.dataset.id;
 
-        if (!col.selected.has(itemId)) {
-          clearSelectionInOtherColumns(colKey);
-          col.selected.clear();
-          col.selected.add(itemId);
-          col.lastClickIndex = getItemIndex(colKey, itemId);
-          state.activeColumn = colKey;
-          updateVirtualScroll(colKey);
-          updateControlBar();
-          updateColumnActiveState();
-        }
+        // Dismiss popovers and menus
+        if (popoverVisible) hidePopover();
+        if (inlineMenuOpen) closeInlineMenu();
+        document.querySelectorAll('.filter-menu--open').forEach(m => m.classList.remove('filter-menu--open'));
+        document.querySelectorAll('.action-overflow-menu').forEach(m => m.classList.remove('stellar-menu--open'));
 
         state.dragSourceColumn = colKey;
-        state.dragItems = [...col.selected];
+        if (col.selected.has(itemId)) {
+          state.dragItems = [...col.selected];
+        } else {
+          state.dragItems = [itemId];
+        }
 
         const count = state.dragItems.length;
         const labelMap = { accounts: 'account', userGroups: 'user group', users: 'user' };
@@ -742,9 +813,10 @@
         e.dataTransfer.effectAllowed = 'move';
         e.dataTransfer.setData('text/plain', JSON.stringify({ colKey, ids: state.dragItems }));
 
+        const dragSet = new Set(state.dragItems);
         requestAnimationFrame(() => {
           col.contentEl.querySelectorAll('.list-item').forEach(el => {
-            if (col.selected.has(el.dataset.id)) {
+            if (dragSet.has(el.dataset.id)) {
               el.classList.add('list-item--dragging');
             }
           });
@@ -866,30 +938,136 @@
       }
     }
 
-    // Re-render all columns to reflect updated data
-    for (const colKey of Object.keys(state.columns)) {
-      updateVirtualScroll(colKey);
+    // Recalculate highlights and re-render all columns
+    updateRelationshipHighlights();
+    updateControlBar();
+  }
+
+  function removeFromArray(arr, val) {
+    const idx = arr.indexOf(val);
+    if (idx !== -1) arr.splice(idx, 1);
+  }
+
+  function unassignFromGroup(userIds, groupIds) {
+    let count = 0;
+    for (const userId of userIds) {
+      for (const gId of groupIds) {
+        if (userToGroups[userId] && userToGroups[userId].includes(gId)) {
+          removeFromArray(userToGroups[userId], gId);
+          if (groupToUsers[gId]) removeFromArray(groupToUsers[gId], userId);
+          const grp = userGroups.find(g => g.id === gId);
+          if (grp) grp.userCount = (groupToUsers[gId] || []).length;
+          count++;
+        }
+      }
     }
+    return count;
+  }
+
+  function unassignFromAccount(itemIds, accountIds, colKey) {
+    let count = 0;
+    if (colKey === 'userGroups') {
+      for (const gId of itemIds) {
+        for (const aId of accountIds) {
+          if (groupToAccounts[gId] && groupToAccounts[gId].includes(aId)) {
+            removeFromArray(groupToAccounts[gId], aId);
+            if (accountToGroups[aId]) removeFromArray(accountToGroups[aId], gId);
+            const grp = userGroups.find(g => g.id === gId);
+            if (grp) grp.accountCount = (groupToAccounts[gId] || []).length;
+            count++;
+          }
+        }
+      }
+    } else if (colKey === 'users') {
+      for (const userId of itemIds) {
+        const userGroupIds = [...(userToGroups[userId] || [])];
+        for (const gId of userGroupIds) {
+          const grpAccounts = groupToAccounts[gId] || [];
+          for (const aId of accountIds) {
+            if (grpAccounts.includes(aId)) {
+              removeFromArray(userToGroups[userId], gId);
+              if (groupToUsers[gId]) removeFromArray(groupToUsers[gId], userId);
+              const grp = userGroups.find(g => g.id === gId);
+              if (grp) grp.userCount = (groupToUsers[gId] || []).length;
+              count++;
+            }
+          }
+        }
+      }
+    }
+    return count;
+  }
+
+  function handleUnassignAction(actionKey, itemIds, colKey) {
+    let count = 0;
+    let targetLabel = '';
+
+    if (actionKey === 'unassignFromGroup') {
+      const groupIds = [...state.columns.userGroups.selected];
+      count = unassignFromGroup(itemIds, groupIds);
+      const grpNames = groupIds.map(id => userGroups.find(g => g.id === id)?.name || id);
+      targetLabel = grpNames.length === 1 ? grpNames[0] : `${grpNames.length} groups`;
+    } else if (actionKey === 'unassignFromAccount') {
+      const accountIds = [...state.columns.accounts.selected];
+      count = unassignFromAccount(itemIds, accountIds, colKey);
+      const accNames = accountIds.map(id => accounts.find(a => a.id === id)?.name || id);
+      targetLabel = accNames.length === 1 ? accNames[0] : `${accNames.length} accounts`;
+    }
+
+    if (count > 0) {
+      const labelMap = { accounts: 'account', userGroups: 'user group', users: 'user' };
+      const typeLabel = labelMap[colKey] || 'item';
+      showUnassignToast(itemIds.length, typeLabel, targetLabel);
+    }
+
+    ['accounts', 'userGroups', 'users'].forEach(k => applyFilters(k));
+    updateRelationshipHighlights();
+    updateControlBar();
+  }
+
+  function showUnassignToast(count, typeLabel, targetLabel) {
+    const text = `Unassigned ${count} ${typeLabel}${count > 1 ? 's' : ''} from ${targetLabel}`;
+    showToast(text);
+  }
+
+  function showToast(text) {
+    const checkSvg = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink:0;"><circle cx="10" cy="10" r="10" fill="#22a861"/><path d="M8.5 13.2 5.3 10l-.9.9 4.1 4.1 8-8-.9-.9z" fill="#fff"/></svg>';
+    const closeSvg = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="cursor:pointer;color:var(--themed-reusable-text-secondary);flex-shrink:0;"><path fill="currentColor" d="m8.708 8 3.646-3.646-.707-.708L8 7.293 4.354 3.646l-.708.708L7.293 8l-3.647 3.646.708.708L8 8.707l3.646 3.647.708-.708z"/></svg>';
+    const toast = document.createElement('div');
+    toast.style.cssText = `
+      position: fixed; top: 24px; left: 50%; transform: translateX(-50%) translateY(-8px);
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 16px; border-radius: var(--stellar-radius-sm);
+      background: var(--themed-surface-level-1-background, #fff);
+      color: var(--themed-reusable-text-primary);
+      font-family: var(--themed-font-family-body); font-size: 14px; font-weight: 500;
+      box-shadow: 0 4px 24px rgba(0,0,0,.12), 0 1px 4px rgba(0,0,0,.08);
+      border: 1px solid var(--themed-reusable-border-default, #e5e7eb);
+      z-index: 10000; opacity: 0; transition: opacity 0.2s, transform 0.2s;
+      white-space: nowrap;
+    `;
+    toast.innerHTML = `${checkSvg}<span>${text}</span><span class="toast-close">${closeSvg}</span>`;
+    document.body.appendChild(toast);
+    toast.querySelector('.toast-close').addEventListener('click', () => {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateX(-50%) translateY(-8px)';
+      setTimeout(() => toast.remove(), 200);
+    });
+    requestAnimationFrame(() => {
+      toast.style.opacity = '1';
+      toast.style.transform = 'translateX(-50%) translateY(0)';
+    });
+    setTimeout(() => {
+      if (toast.parentNode) {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(-50%) translateY(-8px)';
+        setTimeout(() => toast.remove(), 300);
+      }
+    }, 4000);
   }
 
   function showDropToast(count, sourceLabel, targetName) {
-    const toast = document.createElement('div');
-    toast.style.cssText = `
-      position: fixed; top: 24px; left: 50%; transform: translateX(-50%);
-      padding: 10px 20px; border-radius: var(--stellar-radius-sm);
-      background: var(--themed-reusable-text-primary);
-      color: var(--themed-surface-level-1-background);
-      font-family: var(--themed-font-family-body); font-size: 13px; font-weight: 500;
-      box-shadow: var(--themed-elevation-3-box-shadow);
-      z-index: 10000; opacity: 0; transition: opacity 0.2s;
-    `;
-    toast.textContent = `Added ${count} ${sourceLabel}${count > 1 ? 's' : ''} to ${targetName}`;
-    document.body.appendChild(toast);
-    requestAnimationFrame(() => { toast.style.opacity = '1'; });
-    setTimeout(() => {
-      toast.style.opacity = '0';
-      setTimeout(() => toast.remove(), 300);
-    }, 2500);
+    showToast(`Assigned ${count} ${sourceLabel}${count > 1 ? 's' : ''} to ${targetName}`);
   }
 
   // ─── Column Filters ────────────────────────────────────
@@ -917,6 +1095,50 @@
     ],
   };
 
+  const SORT_DEFS = {
+    accounts: [
+      { key: 'name', label: 'Name' },
+      { key: 'edition', label: 'Edition' },
+      { key: 'cloud', label: 'Cloud' },
+      { key: 'created', label: 'Created' },
+    ],
+    userGroups: [
+      { key: 'name', label: 'Name' },
+      { key: 'userCount', label: 'User count' },
+      { key: 'accountCount', label: 'Account count' },
+      { key: 'created', label: 'Created' },
+    ],
+    users: [
+      { key: 'name', label: 'Name' },
+      { key: 'status', label: 'Status' },
+      { key: 'userType', label: 'Type' },
+      { key: 'authMethod', label: 'Auth method' },
+      { key: 'created', label: 'Created' },
+    ],
+  };
+
+  const activeSort = {
+    accounts: { key: 'name', dir: 'asc' },
+    userGroups: { key: 'name', dir: 'asc' },
+    users: { key: 'name', dir: 'asc' },
+  };
+
+  function compareFn(a, b, key, dir) {
+    let va = a[key], vb = b[key];
+    if (va == null) va = '';
+    if (vb == null) vb = '';
+    if (typeof va === 'number' && typeof vb === 'number') {
+      return dir === 'asc' ? va - vb : vb - va;
+    }
+    if (key === 'created') {
+      const da = new Date(va), db = new Date(vb);
+      return dir === 'asc' ? da - db : db - da;
+    }
+    const sa = String(va).toLowerCase(), sb = String(vb).toLowerCase();
+    const cmp = sa.localeCompare(sb);
+    return dir === 'asc' ? cmp : -cmp;
+  }
+
   const activeFilters = {
     accounts: {},
     userGroups: {},
@@ -943,7 +1165,35 @@
     const chevronSvg = '<svg class="filter-menu__item-chevron" viewBox="0 0 16 16" fill="none"><path fill="currentColor" d="m5.854 2.646 5 5a.5.5 0 0 1 0 .708l-5 5-.708-.707L9.793 8 5.146 3.354z"/></svg>';
     const checkSvg = '<svg class="filter-submenu__check-icon" viewBox="0 0 16 16" fill="none"><path fill="currentColor" d="m13.86 4.847-7.214 7.5a.5.5 0 0 1-.702.018l-4.285-4 .682-.73 3.926 3.663 6.873-7.145z"/></svg>';
 
+    const sortDefs = SORT_DEFS[colKey] || [];
+    const currentSort = activeSort[colKey];
+    const radioSvg = '<svg class="filter-submenu__check-icon" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="3" fill="currentColor"/></svg>';
+
     let html = '';
+
+    // Sort section
+    if (sortDefs.length > 0) {
+      const sortChevron = '<svg class="filter-menu__item-chevron" viewBox="0 0 16 16" fill="none"><path fill="currentColor" d="m5.854 2.646 5 5a.5.5 0 0 1 0 .708l-5 5-.708-.707L9.793 8 5.146 3.354z"/></svg>';
+      const sortLabel = currentSort ? `Sort by ${sortDefs.find(s => s.key === currentSort.key)?.label || 'Name'}` : 'Sort by';
+      html += `<div class="filter-menu__item filter-menu__item--sort" data-sort-menu>
+        <span>${sortLabel}</span>${sortChevron}
+        <div class="filter-submenu">`;
+      for (const sd of sortDefs) {
+        const isAsc = currentSort && currentSort.key === sd.key && currentSort.dir === 'asc';
+        const isDesc = currentSort && currentSort.key === sd.key && currentSort.dir === 'desc';
+        html += `<div class="filter-submenu__item sort-submenu__item${isAsc ? ' sort-submenu__item--active' : ''}" data-sort-key="${sd.key}" data-sort-dir="asc">
+          <span class="sort-submenu__radio"></span>
+          <span>${sd.label} ↑</span>
+        </div>`;
+        html += `<div class="filter-submenu__item sort-submenu__item${isDesc ? ' sort-submenu__item--active' : ''}" data-sort-key="${sd.key}" data-sort-dir="desc">
+          <span class="sort-submenu__radio"></span>
+          <span>${sd.label} ↓</span>
+        </div>`;
+      }
+      html += '</div></div>';
+      html += '<div class="filter-menu__divider"></div>';
+    }
+
     for (const def of defs) {
       const options = getFilterOptions(colKey, def.key);
       const active = activeFilters[colKey][def.key] || new Set();
@@ -977,29 +1227,9 @@
 
   function applyFilters(colKey) {
     const col = state.columns[colKey];
-    const defs = FILTER_DEFS[colKey];
-    const query = document.getElementById('globalSearch').value.trim().toLowerCase();
+    const globalQuery = document.getElementById('globalSearch').value.trim().toLowerCase();
 
-    let items = col.items;
-
-    // Apply search
-    if (query) {
-      items = items.filter(item => {
-        const name = item.name || '';
-        const display = item.displayName || '';
-        return name.toLowerCase().includes(query) || display.toLowerCase().includes(query);
-      });
-    }
-
-    // Apply each active filter
-    for (const def of defs) {
-      const active = activeFilters[colKey][def.key];
-      if (active && active.size > 0) {
-        items = items.filter(item => active.has(def.accessor(item)));
-      }
-    }
-
-    col.filteredItems = items;
+    col.filteredItems = getBaseFilteredItems(col, globalQuery, colKey);
     col.scrollEl.scrollTop = 0;
     updateVirtualScroll(colKey);
     updateSelectButtonLabels();
@@ -1020,28 +1250,42 @@
     }
   }
 
+  function getMainContentRight() {
+    const mc = document.querySelector('.main-content');
+    return mc ? mc.getBoundingClientRect().right : window.innerWidth;
+  }
+
   function positionFilterMenu(menuEl) {
     const rect = menuEl.getBoundingClientRect();
-    const vw = window.innerWidth;
+    const vw = getMainContentRight();
     const vh = window.innerHeight;
 
-    // If overflows right, align to right edge of trigger
     if (rect.right > vw) {
       menuEl.style.right = '0';
       menuEl.style.left = 'auto';
     }
-    // If overflows left
     if (rect.left < 0) {
       menuEl.style.left = '0';
       menuEl.style.right = 'auto';
     }
-    // If overflows bottom, open upward
     if (rect.bottom > vh) {
       menuEl.style.top = 'auto';
       menuEl.style.bottom = '100%';
       menuEl.style.marginTop = '';
       menuEl.style.marginBottom = '4px';
     }
+
+    // Flip submenus left if they'd overflow the right edge
+    const menuRight = menuEl.getBoundingClientRect().right;
+    const submenus = menuEl.querySelectorAll('.filter-submenu');
+    const needsFlip = menuRight + 170 > vw;
+    submenus.forEach(sub => {
+      if (needsFlip) {
+        sub.classList.add('filter-submenu--flip-left');
+      } else {
+        sub.classList.remove('filter-submenu--flip-left');
+      }
+    });
 
     // Position submenus
     menuEl.querySelectorAll('.filter-menu__item').forEach(item => {
@@ -1112,6 +1356,16 @@
           return;
         }
 
+        // Sort item click
+        const sortItem = e.target.closest('[data-sort-key]');
+        if (sortItem) {
+          activeSort[colKey] = { key: sortItem.dataset.sortKey, dir: sortItem.dataset.sortDir };
+          applyFilters(colKey);
+          buildFilterMenu(colKey);
+          positionFilterMenu(menuEl);
+          return;
+        }
+
         const subItem = e.target.closest('.filter-submenu__item');
         if (!subItem) return;
 
@@ -1132,6 +1386,7 @@
 
         applyFilters(colKey);
         buildFilterMenu(colKey);
+        positionFilterMenu(menuEl);
       });
     }
 
@@ -1304,7 +1559,7 @@
     const popH = popoverEl.offsetHeight || 250;
 
     let left = rect.right + 8;
-    if (left + pw > window.innerWidth - 12) {
+    if (left + pw > getMainContentRight() - 12) {
       left = rect.left - pw - 8;
     }
     if (left < 4) left = 4;
@@ -1435,7 +1690,7 @@
     }
     if (top < 4) top = 4;
 
-    if (left + menuRect.width > window.innerWidth - 8) {
+    if (left + menuRect.width > getMainContentRight() - 8) {
       left = rect.right - menuRect.width;
     }
     if (left < 4) left = 4;
@@ -1489,6 +1744,23 @@
       }, { passive: true });
     });
 
+    inlineMenuEl.addEventListener('click', (e) => {
+      const actionEl = e.target.closest('[data-action]');
+      if (!actionEl) return;
+      const action = actionEl.dataset.action;
+      const itemId = actionEl.dataset.itemId;
+      if (!action || !itemId) return;
+
+      const itemEl = document.querySelector(`.list-item[data-id="${itemId}"]`);
+      const colKey = itemEl ? getColKeyForItem(itemEl) : null;
+
+      if (action === 'unassignFromAccount' || action === 'unassignFromGroup') {
+        handleUnassignAction(action, [itemId], colKey);
+      }
+
+      closeInlineMenu();
+    });
+
     document.addEventListener('click', (e) => {
       if (inlineMenuOpen && !e.target.closest('.item-inline-menu') && !e.target.closest('[data-item-menu]')) {
         closeInlineMenu();
@@ -1508,7 +1780,47 @@
     initFilters();
     initPopover();
     initItemMenus();
+    initSidePanel();
     updateColumnActiveState();
+  }
+
+  // ─── Side Panel (resize & collapse) ────────────────────
+
+  function initSidePanel() {
+    const panel = document.getElementById('sidePanel');
+    const handle = document.getElementById('sidePanelResize');
+    const closeBtn = document.getElementById('sidePanelClose');
+    if (!panel || !handle) return;
+
+    let dragging = false;
+    let startX = 0;
+    let startWidth = 0;
+
+    handle.addEventListener('mousedown', (e) => {
+      e.preventDefault();
+      dragging = true;
+      startX = e.clientX;
+      startWidth = panel.offsetWidth;
+      handle.classList.add('side-panel__resize-handle--active');
+      document.body.style.cursor = 'col-resize';
+      document.body.style.userSelect = 'none';
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!dragging) return;
+      const delta = startX - e.clientX;
+      const newWidth = Math.min(Math.max(startWidth + delta, 280), window.innerWidth * 0.6);
+      panel.style.width = newWidth + 'px';
+    });
+
+    document.addEventListener('mouseup', () => {
+      if (!dragging) return;
+      dragging = false;
+      handle.classList.remove('side-panel__resize-handle--active');
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
+    });
+
   }
 
   if (document.readyState === 'loading') {

@@ -98,17 +98,31 @@
     <svg viewBox="0 0 16 16" width="16" height="16" fill="none"><path fill="currentColor" d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/></svg>
   </button>`;
 
+  function getSortMetadata(item, colKey) {
+    const sort = activeSort[colKey];
+    if (!sort || sort.key === 'name') return null;
+    const def = (SORT_DEFS[colKey] || []).find(d => d.key === sort.key);
+    if (!def) return null;
+    let val = item[sort.key];
+    if (val instanceof Date || (typeof val === 'string' && /^\d{4}-\d{2}/.test(val))) {
+      val = new Date(val).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+    }
+    return `${def.label}: ${val}`;
+  }
+
   function renderAccountItem(item, isSelected, isHighlighted) {
     const initials = item.name.split('_').slice(0, 2).map(w => w[0]).join('');
     const editionClass = item.edition === 'Business Critical' ? 'Business critical' : item.edition;
     const cloudIcon = item.tenantType === 'External' ? CLOUD_EXTERNAL_ICON : CLOUD_ICON;
+    const sortMeta = getSortMetadata(item, 'accounts');
+    const subtitle = sortMeta || `${editionClass} · ${item.cloud} ${item.region}`;
     return `
       <div class="${itemClasses(isSelected, isHighlighted)}"
            data-id="${item.id}" data-col="accounts" draggable="true" tabindex="-1">
         ${cloudIcon}
         <div class="list-item__text">
           <div class="list-item__name">${item.name}</div>
-          <div class="list-item__subtitle">${editionClass} · ${item.cloud} ${item.region}</div>
+          <div class="list-item__subtitle">${subtitle}</div>
         </div>
         ${ITEM_MENU_BTN}
         <svg class="list-item__chevron" viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true">
@@ -122,6 +136,8 @@
     const accountLabel = item.accountCount === 0
       ? '<span class="list-item__subtitle-tag">Account unassigned</span>'
       : `${item.accountCount} accounts`;
+    const sortMeta = getSortMetadata(item, 'userGroups');
+    const subtitle = sortMeta || `${item.userCount} users · ${accountLabel}`;
     return `
       <div class="${itemClasses(isSelected, isHighlighted)}"
            data-id="${item.id}" data-col="userGroups" draggable="true" tabindex="-1">
@@ -130,7 +146,7 @@
         </svg>
         <div class="list-item__text">
           <div class="list-item__name">${item.name}</div>
-          <div class="list-item__subtitle">${item.userCount} users · ${accountLabel}</div>
+          <div class="list-item__subtitle">${subtitle}</div>
         </div>
         ${ITEM_MENU_BTN}
         <svg class="list-item__chevron" viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true">
@@ -147,6 +163,8 @@
     const groupLabel = groupCount === 0
       ? '<span class="list-item__subtitle-tag">Group unassigned</span>'
       : `${groupCount} group${groupCount > 1 ? 's' : ''}`;
+    const sortMeta = getSortMetadata(item, 'users');
+    const subtitle = sortMeta || `MFA: ${mfaLabel} · ${groupLabel}`;
     return `
       <div class="${itemClasses(isSelected, isHighlighted)}"
            data-id="${item.id}" data-col="users" draggable="true" tabindex="-1">
@@ -154,7 +172,7 @@
         ${item.userType === 'Person' ? `<div class="list-item__avatar">${initials}</div>` : ''}
         <div class="list-item__text">
           <div class="list-item__name">${item.name}</div>
-          <div class="list-item__subtitle">MFA: ${mfaLabel} · ${groupLabel}</div>
+          <div class="list-item__subtitle">${subtitle}</div>
         </div>
         ${ITEM_MENU_BTN}
       </div>`;

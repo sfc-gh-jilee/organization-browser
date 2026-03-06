@@ -165,8 +165,8 @@ html, body { height: 100%; overflow: hidden; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   border: none;
   border-radius: var(--stellar-radius-sm);
   background: transparent;
@@ -475,6 +475,7 @@ html, body { height: 100%; overflow: hidden; }
   font-weight: 500;
   cursor: pointer;
   white-space: nowrap;
+  height: 24px;
 }
 .column__select-btn:hover {
   background: var(--themed-reusable-background-row-hover);

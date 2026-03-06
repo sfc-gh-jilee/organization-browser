@@ -279,6 +279,21 @@
     return col.searchEl ? col.searchEl.value.trim().toLowerCase() : '';
   }
 
+  function applyHighlightOrder(items, col) {
+    const hl = col.highlighted;
+    const sel = col.selected;
+    if (sel.size === 0 && hl.size === 0) return items;
+    const selected = [];
+    const highlighted = [];
+    const rest = [];
+    for (const item of items) {
+      if (sel.has(item.id)) selected.push(item);
+      else if (hl.has(item.id)) highlighted.push(item);
+      else rest.push(item);
+    }
+    return selected.concat(highlighted, rest);
+  }
+
   function getBaseFilteredItems(col, query, colKey) {
     let items = col.items;
 
@@ -369,29 +384,11 @@
     state.columns.userGroups.highlighted = grpHL;
     state.columns.users.highlighted = usrHL;
 
-    // Reorder all columns: selected first, then highlighted, then rest
     const searchQuery = document.getElementById('globalSearch').value.trim().toLowerCase();
     for (const colKey of Object.keys(state.columns)) {
       const col = state.columns[colKey];
-      const hl = col.highlighted;
-      const sel = col.selected;
-
-      if (sel.size > 0 || hl.size > 0) {
-        const baseItems = getBaseFilteredItems(col, searchQuery, colKey);
-        const selected = [];
-        const highlighted = [];
-        const rest = [];
-        for (const item of baseItems) {
-          if (sel.has(item.id)) selected.push(item);
-          else if (hl.has(item.id)) highlighted.push(item);
-          else rest.push(item);
-        }
-        col.filteredItems = selected.concat(highlighted, rest);
-        col.scrollEl.scrollTop = 0;
-      } else {
-        col.filteredItems = getBaseFilteredItems(col, searchQuery, colKey);
-      }
-
+      col.filteredItems = applyHighlightOrder(getBaseFilteredItems(col, searchQuery, colKey), col);
+      col.scrollEl.scrollTop = 0;
       updateVirtualScroll(colKey);
     }
   }
@@ -733,7 +730,7 @@
   function applyColumnSearch(colKey) {
     const col = state.columns[colKey];
     const globalQuery = document.getElementById('globalSearch').value.trim().toLowerCase();
-    col.filteredItems = getBaseFilteredItems(col, globalQuery, colKey);
+    col.filteredItems = applyHighlightOrder(getBaseFilteredItems(col, globalQuery, colKey), col);
     col.scrollEl.scrollTop = 0;
     updateVirtualScroll(colKey);
   }
@@ -1229,7 +1226,7 @@
     const col = state.columns[colKey];
     const globalQuery = document.getElementById('globalSearch').value.trim().toLowerCase();
 
-    col.filteredItems = getBaseFilteredItems(col, globalQuery, colKey);
+    col.filteredItems = applyHighlightOrder(getBaseFilteredItems(col, globalQuery, colKey), col);
     col.scrollEl.scrollTop = 0;
     updateVirtualScroll(colKey);
     updateSelectButtonLabels();

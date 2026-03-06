@@ -87,6 +87,7 @@ function generateAccounts(count) {
       region,
       created: randomDate(2018, 2025),
       locator: randomLocator(region),
+      tenantType: rand() < 0.2 ? 'External' : 'Internal',
     });
   }
   return accounts.sort((a, b) => a.name.localeCompare(b.name));
@@ -152,6 +153,8 @@ function generateUserGroups(count) {
       comment: GROUP_COMMENTS[i % GROUP_COMMENTS.length],
       userCount: Math.floor(rand() * 400) + 10,
       accountCount: Math.floor(rand() * 8) + 1,
+      owner: pick(['GLOBALORGADMIN', 'SECURITYADMIN', 'USERADMIN']),
+      created: randomDate(2019, 2025),
     });
   }
   return groups.sort((a, b) => a.name.localeCompare(b.name));
@@ -255,13 +258,24 @@ function generateUsers(count) {
 
     usedNames.add(name);
 
+    const emailName = isService
+      ? name.toLowerCase().replace(/_/g, '.')
+      : `${displayName.split(' ')[0].toLowerCase()}.${displayName.split(' ')[1]?.toLowerCase() || 'user'}`;
+    const emailDomain = pick(['@lseg.c.com', '@company.com', '@snowflake.com', '@analytics.io']);
+    const owners = ['GLOBALORGADMIN', 'SECURITYADMIN', 'USERADMIN', 'SYSADMIN', 'ACCOUNTADMIN'];
+    const statuses = ['Enabled', 'Enabled', 'Enabled', 'Enabled', 'Disabled'];
+
     users.push({
       id: `usr-${i}`,
       name,
       displayName,
+      email: emailName + emailDomain,
       authMethod,
       mfaEnabled: !isService && rand() > 0.3,
       userType: isService ? 'Service' : 'Person',
+      owner: pick(owners),
+      created: randomDate(2019, 2025),
+      status: pick(statuses),
     });
   }
   return users.sort((a, b) => a.name.localeCompare(b.name));

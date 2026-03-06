@@ -82,12 +82,17 @@
     return cls;
   }
 
+  const CLOUD_ICON = '<svg class="list-item__icon" viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path fill="currentColor" d="M14 9.5c0-1.312-.997-2.39-2.274-2.52l-.26-.013q-.13 0-.253.012l-.479.047-.066-.475a2.97 2.97 0 0 0-2.66-2.538L7.732 4a2.967 2.967 0 0 0-2.966 2.967l.004.163q.004.08.012.158l.064.594-.596-.041a2 2 0 0 0-.15-.008 2.1 2.1 0 0 0-2.1 2.1l.01.215a2.1 2.1 0 0 0 2.09 1.885h7.354l.151-.004a2.53 2.53 0 0 0 2.382-2.278zm.996.176a3.534 3.534 0 0 1-3.348 3.352l-.012.001-.156.004H4.1a3.1 3.1 0 0 1-3.096-2.94L1 9.933a3.1 3.1 0 0 1 2.767-3.082A3.967 3.967 0 0 1 7.73 3l.187.004a3.97 3.97 0 0 1 3.651 2.965A3.533 3.533 0 0 1 15 9.5z"/></svg>';
+  const CLOUD_EXTERNAL_ICON = '<svg class="list-item__icon" viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><g fill="currentColor"><path d="M7.918 3.004 8 3.011v1L7.731 4a2.967 2.967 0 0 0-2.966 2.967l.004.163q.004.08.012.158l.064.594-.596-.041a2 2 0 0 0-.15-.008A2.1 2.1 0 0 0 2 9.933l.01.215a2.1 2.1 0 0 0 2.09 1.885h7.354l.151-.004a2.53 2.53 0 0 0 2.382-2.278L14 9.5a2.52 2.52 0 0 0-.493-1.5h1.159c.214.455.334.964.334 1.5l-.004.176a3.534 3.534 0 0 1-3.348 3.352l-.012.001-.156.004H4.1a3.1 3.1 0 0 1-3.096-2.94L1 9.933a3.1 3.1 0 0 1 2.767-3.082A3.967 3.967 0 0 1 7.73 3z"/><path d="M13.5 2a.5.5 0 0 1 .5.5V7h-1V3.707L7.854 8.854l-.708-.708L12.293 3H9V2z"/></g></svg>';
+
   function renderAccountItem(item, isSelected, isHighlighted) {
     const initials = item.name.split('_').slice(0, 2).map(w => w[0]).join('');
     const editionClass = item.edition === 'Business Critical' ? 'Business critical' : item.edition;
+    const cloudIcon = item.tenantType === 'External' ? CLOUD_EXTERNAL_ICON : CLOUD_ICON;
     return `
       <div class="${itemClasses(isSelected, isHighlighted)}"
            data-id="${item.id}" draggable="true" tabindex="-1">
+        ${cloudIcon}
         <div class="list-item__text">
           <div class="list-item__name">${item.name}</div>
           <div class="list-item__subtitle">${editionClass} · ${item.cloud} ${item.region}</div>
@@ -106,6 +111,9 @@
     return `
       <div class="${itemClasses(isSelected, isHighlighted)}"
            data-id="${item.id}" draggable="true" tabindex="-1">
+        <svg class="list-item__icon" viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true">
+          <g fill="currentColor"><path d="M8.5 11a1.5 1.5 0 0 1 1.5 1.5V14H9v-1.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0-.5.5V14H1v-1.5A1.5 1.5 0 0 1 2.5 11zm5-2a1.5 1.5 0 0 1 1.5 1.5V12h-1v-1.5a.5.5 0 0 0-.5-.5H11V9z"/><path fill-rule="evenodd" d="M5.5 3a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7m0 1a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5" clip-rule="evenodd"/><path d="M11 2a3 3 0 1 1-1.005 5.824L9.992 7h.012l-.001-.269a2 2 0 1 0-.352-3.206l-.603-.8A3 3 0 0 1 11 2"/></g>
+        </svg>
         <div class="list-item__text">
           <div class="list-item__name">${item.name}</div>
           <div class="list-item__subtitle">${item.userCount} users · ${accountLabel}</div>
@@ -127,8 +135,8 @@
     return `
       <div class="${itemClasses(isSelected, isHighlighted)}"
            data-id="${item.id}" draggable="true" tabindex="-1">
-        <div class="list-item__status list-item__status--enabled"></div>
-        <div class="list-item__avatar">${initials}</div>
+        <div class="list-item__status list-item__status--${item.status === 'Disabled' ? 'disabled' : 'enabled'}"></div>
+        ${item.userType === 'Person' ? `<div class="list-item__avatar">${initials}</div>` : ''}
         <div class="list-item__text">
           <div class="list-item__name">${item.name}</div>
           <div class="list-item__subtitle">MFA: ${mfaLabel} · ${groupLabel}</div>
@@ -423,6 +431,118 @@
 
   // ─── Control Bar ────────────────────────────────────────
 
+  // SVG icons for action buttons
+  const ACTION_ICONS = {
+    edit: '<svg class="stellar-button__icon" viewBox="0 0 16 16" fill="none"><path fill="currentColor" fill-rule="evenodd" d="M9.916 2.378a1.5 1.5 0 0 1 2.156.038l1.634 1.749a1.5 1.5 0 0 1-.035 2.084l-6.595 6.594a1.5 1.5 0 0 1-.796.416l-3.523.633a.502.502 0 0 1-.578-.596l.771-3.61a1.5 1.5 0 0 1 .407-.748zM4.064 9.645a.5.5 0 0 0-.136.25l-.615 2.88 2.79-.5a.5.5 0 0 0 .266-.139l4.636-4.635-2.398-2.399zm7.278-6.547a.5.5 0 0 0-.719-.013l-1.31 1.31 2.4 2.399 1.251-1.252a.5.5 0 0 0 .012-.695z" clip-rule="evenodd"/></svg>',
+    reset: '<svg class="stellar-button__icon" viewBox="0 0 16 16" fill="none"><path fill="currentColor" d="M8 2a6 6 0 1 0 6 6h-1a5 5 0 1 1-1.465-3.535L9.5 6.5H14V2l-1.88 1.88A5.98 5.98 0 0 0 8 2"/></svg>',
+    addMember: '<svg class="stellar-button__icon" viewBox="0 0 16 16" fill="none"><path fill="currentColor" d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6M6 4a2 2 0 1 1 4 0 2 2 0 0 1-4 0m-2.5 6A1.5 1.5 0 0 0 2 11.5V14h1v-2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 .5.5V14h1v-2.5A1.5 1.5 0 0 0 9.5 10zM14 10v2h2v1h-2v2h-1v-2h-2v-1h2v-2z"/></svg>',
+    importGroups: '<svg class="stellar-button__icon" viewBox="0 0 16 16" fill="none"><path fill="currentColor" d="M8.5 1.5v6h6v1h-6v6h-1v-6h-6v-1h6v-6z"/></svg>',
+    overflow: '<svg class="stellar-button__icon" viewBox="0 0 16 16" fill="none"><path fill="currentColor" d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/></svg>',
+  };
+
+  const CONTEXTUAL_ACTIONS = {
+    users: {
+      buttons: [
+        { key: 'edit', label: 'Edit', icon: 'edit' },
+        { key: 'resetPassword', label: 'Reset password', icon: 'reset' },
+      ],
+      overflow: [
+        { key: 'disable', label: 'Disable' },
+        { key: 'removeFromGroup', label: 'Remove from group' },
+        { key: 'transferOwnership', label: 'Transfer ownership' },
+        { divider: true },
+        { key: 'delete', label: 'Delete', critical: true },
+      ],
+    },
+    userGroups: {
+      buttons: [
+        { key: 'edit', label: 'Edit', icon: 'edit' },
+        { key: 'addMember', label: 'Add member', icon: 'importGroups' },
+      ],
+      overflow: [
+        { key: 'assignToAccount', label: 'Assign to account' },
+        { key: 'removeFromAccount', label: 'Remove from account' },
+        { key: 'duplicate', label: 'Duplicate group' },
+        { divider: true },
+        { key: 'delete', label: 'Delete', critical: true },
+      ],
+    },
+    accounts: {
+      buttons: [
+        { key: 'edit', label: 'Edit', icon: 'edit' },
+        { key: 'importGroups', label: 'Import user groups', icon: 'importGroups' },
+      ],
+      overflow: [
+        { key: 'manageResourceMonitor', label: 'Manage resource monitor' },
+        { key: 'enableReplication', label: 'Enable replication' },
+        { key: 'viewUsage', label: 'View usage' },
+        { divider: true },
+        { key: 'drop', label: 'Drop', critical: true },
+      ],
+    },
+  };
+
+  function buildActionButtons(colKey) {
+    const config = CONTEXTUAL_ACTIONS[colKey];
+    if (!config) return '';
+
+    let html = '';
+    for (const btn of config.buttons) {
+      html += `<button class="stellar-button stellar-button--secondary">${ACTION_ICONS[btn.icon] || ''}${btn.label}</button>`;
+    }
+
+    let overflowItems = '';
+    for (const item of config.overflow) {
+      if (item.divider) {
+        overflowItems += '<div class="stellar-menu__divider" role="separator"></div>';
+        continue;
+      }
+      const textStyle = item.critical ? ' style="color:var(--themed-status-critical-ui);"' : '';
+      overflowItems += `<div class="stellar-menu__item" role="menuitem" data-key="${item.key}">
+        <div class="stellar-menu__item-label" tabindex="0">
+          <div style="flex-grow:1; min-width:0; display:flex; flex-direction:column; gap:2px">
+            <span class="stellar-menu__item-text"${textStyle}>${item.label}</span>
+          </div>
+        </div>
+      </div>`;
+    }
+
+    html += `<div class="stellar-menu-trigger">
+      <button class="stellar-button stellar-button--secondary" data-overflow-trigger>
+        ${ACTION_ICONS.overflow}
+      </button>
+      <div class="stellar-menu action-overflow-menu" role="dialog">
+        <div class="stellar-menu__list" role="menu" tabindex="0">
+          ${overflowItems}
+        </div>
+      </div>
+    </div>`;
+
+    return html;
+  }
+
+  function positionOverflowMenu(menuEl) {
+    menuEl.style.top = '';
+    menuEl.style.bottom = '';
+    menuEl.style.left = '';
+    menuEl.style.right = '0';
+    const rect = menuEl.getBoundingClientRect();
+    if (rect.bottom > window.innerHeight - 8) {
+      menuEl.style.top = 'auto';
+      menuEl.style.bottom = '100%';
+    }
+    if (rect.right > window.innerWidth - 8) {
+      menuEl.style.right = '0';
+      menuEl.style.left = 'auto';
+    }
+    if (rect.left < 8) {
+      menuEl.style.left = '0';
+      menuEl.style.right = 'auto';
+    }
+  }
+
+  let currentActionCol = null;
+
   function updateControlBar() {
     let totalSelected = 0;
     let activeColKey = null;
@@ -442,16 +562,23 @@
 
     if (totalSelected > 0) {
       actionsEl.style.display = 'flex';
-      actionBtnsEl.style.display = 'flex'; actionBtnsEl.style.gap = 'var(--stellar-space-gap-sm)'; actionBtnsEl.style.alignItems = 'center';
       searchEl.style.display = 'none';
       createBtn.style.display = 'none';
+
+      if (currentActionCol !== activeColKey) {
+        actionBtnsEl.innerHTML = buildActionButtons(activeColKey);
+        currentActionCol = activeColKey;
+        initOverflowToggle(actionBtnsEl);
+      }
+      actionBtnsEl.style.display = 'flex';
+      actionBtnsEl.style.gap = 'var(--stellar-space-gap-sm)';
+      actionBtnsEl.style.alignItems = 'center';
 
       const labelMap = { accounts: 'Account', userGroups: 'User group', users: 'Org user' };
       const label = labelMap[activeColKey] || 'item';
       const pillLabel = `${totalSelected} ${label}${totalSelected > 1 ? 's' : ''} selected`;
       pillEl.innerHTML = `${pillLabel} <svg viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true" class="selection-pill__clear"><path fill="currentColor" d="m13.354 3.366-4.642 4.64 4.634 4.635-.708.707-4.633-4.633-4.633 4.633-.707-.707 4.633-4.633-4.642-4.642.707-.707L8.005 7.3l4.641-4.64z"/></svg>`;
 
-      // Compute relationship counts
       const countsEl = document.getElementById('relationCounts');
       const parts = [];
       const sel = state.columns[activeColKey].selected;
@@ -492,10 +619,33 @@
     } else {
       actionsEl.style.display = 'none';
       actionBtnsEl.style.display = 'none';
+      actionBtnsEl.innerHTML = '';
+      currentActionCol = null;
       searchEl.style.display = '';
       createBtn.style.display = '';
     }
   }
+
+  function initOverflowToggle(container) {
+    const trigger = container.querySelector('[data-overflow-trigger]');
+    if (!trigger) return;
+    const menuEl = container.querySelector('.action-overflow-menu');
+    if (!menuEl) return;
+
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = menuEl.classList.contains('stellar-menu--open');
+      document.querySelectorAll('.action-overflow-menu').forEach(m => m.classList.remove('stellar-menu--open'));
+      if (!isOpen) {
+        menuEl.classList.add('stellar-menu--open');
+        positionOverflowMenu(menuEl);
+      }
+    });
+  }
+
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.action-overflow-menu').forEach(m => m.classList.remove('stellar-menu--open'));
+  });
 
   function initControlBar() {
     const pillEl = document.getElementById('selectionPill');
@@ -742,6 +892,7 @@
       { key: 'edition', label: 'Edition', accessor: item => item.edition },
       { key: 'cloud', label: 'Cloud', accessor: item => item.cloud },
       { key: 'region', label: 'Region', accessor: item => item.region },
+      { key: 'tenantType', label: 'Tenant type', accessor: item => item.tenantType },
     ],
     userGroups: [
       { key: 'assignment', label: 'Assignment', accessor: item => {
@@ -749,6 +900,7 @@
       }},
     ],
     users: [
+      { key: 'status', label: 'Status', accessor: item => item.status || 'Enabled' },
       { key: 'userType', label: 'Type', accessor: item => item.userType },
       { key: 'authMethod', label: 'Auth method', accessor: item => item.authMethod },
       { key: 'mfaEnabled', label: 'MFA', accessor: item => item.mfaEnabled ? 'Enabled' : 'Disabled' },
@@ -982,6 +1134,233 @@
     });
   }
 
+  // ─── Hover Popover ─────────────────────────────────────
+
+  const popoverEl = document.getElementById('itemPopover');
+  let popoverTimer = null;
+  let popoverVisible = false;
+  let popoverCurrentId = null;
+
+  function findItemById(id) {
+    for (const colKey of ['accounts', 'userGroups', 'users']) {
+      const found = state.columns[colKey].items.find(i => i.id === id);
+      if (found) return { item: found, colKey };
+    }
+    return null;
+  }
+
+  function formatRelativeDate(dateStr) {
+    const d = new Date(dateStr);
+    const now = new Date();
+    const diffMs = now - d;
+    const days = Math.floor(diffMs / 86400000);
+    if (days < 30) return `${days} day${days !== 1 ? 's' : ''} ago`;
+    const months = Math.floor(days / 30);
+    if (months < 12) return `${months} month${months !== 1 ? 's' : ''} ago`;
+    const years = Math.floor(months / 12);
+    const rem = months % 12;
+    if (rem === 0) return `${years} year${years !== 1 ? 's' : ''} ago`;
+    return `${years}y ${rem}m ago`;
+  }
+
+  function buildPopoverHTML(item, colKey) {
+    const xSvg = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path fill="currentColor" d="m8.708 8 3.646-3.646-.707-.708L8 7.293 4.354 3.646l-.708.708L7.293 8l-3.647 3.646.708.708L8 8.707l3.646 3.647.708-.708z"/></svg>';
+
+    const ownerSvg = '<svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path fill="currentColor" d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6M6 4a2 2 0 1 1 4 0 2 2 0 0 1-4 0m-2.5 6A1.5 1.5 0 0 0 2 11.5V14h1v-2.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5V14h1v-2.5A1.5 1.5 0 0 0 12.5 10z"/></svg>';
+    const peopleIconSvg = '<svg viewBox="0 0 16 16" width="20" height="20" fill="none"><g fill="currentColor"><path d="M8.5 11a1.5 1.5 0 0 1 1.5 1.5V14H9v-1.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0-.5.5V14H1v-1.5A1.5 1.5 0 0 1 2.5 11zm5-2a1.5 1.5 0 0 1 1.5 1.5V12h-1v-1.5a.5.5 0 0 0-.5-.5H11V9z"/><path fill-rule="evenodd" d="M5.5 3a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7m0 1a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5" clip-rule="evenodd"/><path d="M11 2a3 3 0 1 1-1.005 5.824L9.992 7h.012l-.001-.269a2 2 0 1 0-.352-3.206l-.603-.8A3 3 0 0 1 11 2"/></g></svg>';
+    const cloudIconSvg = '<svg viewBox="0 0 16 16" width="20" height="20" fill="none"><path fill="currentColor" d="M14 9.5c0-1.312-.997-2.39-2.274-2.52l-.26-.013q-.13 0-.253.012l-.479.047-.066-.475a2.97 2.97 0 0 0-2.66-2.538L7.732 4a2.967 2.967 0 0 0-2.966 2.967l.004.163q.004.08.012.158l.064.594-.596-.041a2 2 0 0 0-.15-.008 2.1 2.1 0 0 0-2.1 2.1l.01.215a2.1 2.1 0 0 0 2.09 1.885h7.354l.151-.004a2.53 2.53 0 0 0 2.382-2.278zm.996.176a3.534 3.534 0 0 1-3.348 3.352l-.012.001-.156.004H4.1a3.1 3.1 0 0 1-3.096-2.94L1 9.933a3.1 3.1 0 0 1 2.767-3.082A3.967 3.967 0 0 1 7.73 3l.187.004a3.97 3.97 0 0 1 3.651 2.965A3.533 3.533 0 0 1 15 9.5z"/></svg>';
+    const cloudExternalIconSvg = '<svg viewBox="0 0 16 16" width="20" height="20" fill="none"><g fill="currentColor"><path d="M7.918 3.004 8 3.011v1L7.731 4a2.967 2.967 0 0 0-2.966 2.967l.004.163q.004.08.012.158l.064.594-.596-.041a2 2 0 0 0-.15-.008A2.1 2.1 0 0 0 2 9.933l.01.215a2.1 2.1 0 0 0 2.09 1.885h7.354l.151-.004a2.53 2.53 0 0 0 2.382-2.278L14 9.5a2.52 2.52 0 0 0-.493-1.5h1.159c.214.455.334.964.334 1.5l-.004.176a3.534 3.534 0 0 1-3.348 3.352l-.012.001-.156.004H4.1a3.1 3.1 0 0 1-3.096-2.94L1 9.933a3.1 3.1 0 0 1 2.767-3.082A3.967 3.967 0 0 1 7.73 3z"/><path d="M13.5 2a.5.5 0 0 1 .5.5V7h-1V3.707L7.854 8.854l-.708-.708L12.293 3H9V2z"/></g></svg>';
+
+    if (colKey === 'users') {
+      const initials = item.displayName.split(' ').map(w => w[0]).join('').slice(0, 2);
+      const statusDotClass = item.status === 'Enabled' ? 'item-popover__status-dot--enabled' : 'item-popover__status-dot--disabled';
+      const avatarHtml = item.userType === 'Person' ? `<div class="item-popover__avatar">${initials}</div>` : '';
+      return `
+        <div class="item-popover__header">
+          ${avatarHtml}
+          <div class="item-popover__name">${item.name}</div>
+          <div class="item-popover__close">${xSvg}</div>
+        </div>
+        <div class="item-popover__body">
+          <div class="item-popover__row">
+            <div class="item-popover__label">Display name</div>
+            <div class="item-popover__value">${item.displayName || '—'}</div>
+          </div>
+          <div class="item-popover__row">
+            <div class="item-popover__label">Email</div>
+            <div class="item-popover__value">${item.email || '—'}</div>
+          </div>
+          <div class="item-popover__row">
+            <div class="item-popover__label">Status</div>
+            <div class="item-popover__value">
+              <span class="item-popover__status">
+                <span class="item-popover__status-dot ${statusDotClass}"></span>
+                ${item.status || 'Enabled'}
+              </span>
+            </div>
+          </div>
+          <div class="item-popover__row">
+            <div class="item-popover__label">MFA</div>
+            <div class="item-popover__value">${item.mfaEnabled ? 'Yes' : 'No'}</div>
+          </div>
+          <div class="item-popover__row">
+            <div class="item-popover__label">Authentication</div>
+            <div class="item-popover__value">${item.authMethod}</div>
+          </div>
+          <div class="item-popover__row">
+            <div class="item-popover__label">User type</div>
+            <div class="item-popover__value">${item.userType}</div>
+          </div>
+          <div class="item-popover__row">
+            <div class="item-popover__label">Owner</div>
+            <div class="item-popover__value">
+              <span class="item-popover__owner-icon">${ownerSvg} ${item.owner || 'GLOBALORGADMIN'}</span>
+            </div>
+          </div>
+          <div class="item-popover__row">
+            <div class="item-popover__label">Created</div>
+            <div class="item-popover__value">${item.created ? formatRelativeDate(item.created) : '—'}</div>
+          </div>
+        </div>`;
+    }
+
+    if (colKey === 'accounts') {
+      const headerIcon = item.tenantType === 'External' ? cloudExternalIconSvg : cloudIconSvg;
+      return `
+        <div class="item-popover__header">
+          <div class="item-popover__header-icon">${headerIcon}</div>
+          <div class="item-popover__name">${item.name}</div>
+          <div class="item-popover__close">${xSvg}</div>
+        </div>
+        <div class="item-popover__body">
+          <div class="item-popover__row">
+            <div class="item-popover__label">Edition</div>
+            <div class="item-popover__value">${item.edition}</div>
+          </div>
+          <div class="item-popover__row">
+            <div class="item-popover__label">Cloud</div>
+            <div class="item-popover__value">${item.cloud} ${item.region}</div>
+          </div>
+          <div class="item-popover__row">
+            <div class="item-popover__label">Locator</div>
+            <div class="item-popover__value">${item.locator}</div>
+          </div>
+          <div class="item-popover__row">
+            <div class="item-popover__label">Tenant type</div>
+            <div class="item-popover__value">${item.tenantType || 'Internal'}</div>
+          </div>
+          <div class="item-popover__row">
+            <div class="item-popover__label">Created</div>
+            <div class="item-popover__value">${item.created ? formatRelativeDate(item.created) : '—'}</div>
+          </div>
+        </div>`;
+    }
+
+    if (colKey === 'userGroups') {
+      const groups = groupToAccounts[item.id] || [];
+      return `
+        <div class="item-popover__header">
+          <div class="item-popover__header-icon">${peopleIconSvg}</div>
+          <div class="item-popover__name">${item.name}</div>
+          <div class="item-popover__close">${xSvg}</div>
+        </div>
+        <div class="item-popover__body">
+          <div class="item-popover__row">
+            <div class="item-popover__label">Comment</div>
+            <div class="item-popover__value">${item.comment || '—'}</div>
+          </div>
+          <div class="item-popover__row">
+            <div class="item-popover__label">Users</div>
+            <div class="item-popover__value">${item.userCount}</div>
+          </div>
+          <div class="item-popover__row">
+            <div class="item-popover__label">Accounts</div>
+            <div class="item-popover__value">${groups.length}</div>
+          </div>
+          <div class="item-popover__row">
+            <div class="item-popover__label">Owner</div>
+            <div class="item-popover__value">${item.owner || '—'}</div>
+          </div>
+          <div class="item-popover__row">
+            <div class="item-popover__label">Created</div>
+            <div class="item-popover__value">${item.created ? formatRelativeDate(item.created) : '—'}</div>
+          </div>
+        </div>`;
+    }
+
+    return '';
+  }
+
+  function positionPopover(triggerEl) {
+    const rect = triggerEl.getBoundingClientRect();
+    const pw = 320;
+    const popH = popoverEl.offsetHeight || 250;
+
+    let left = rect.right + 8;
+    if (left + pw > window.innerWidth - 12) {
+      left = rect.left - pw - 8;
+    }
+    if (left < 4) left = 4;
+
+    let top = rect.top;
+    if (top + popH > window.innerHeight - 12) {
+      top = window.innerHeight - 12 - popH;
+    }
+    if (top < 4) top = 4;
+
+    popoverEl.style.left = left + 'px';
+    popoverEl.style.top = top + 'px';
+  }
+
+  function showPopover(itemEl, id) {
+    const result = findItemById(id);
+    if (!result) return;
+    popoverCurrentId = id;
+    popoverEl.innerHTML = buildPopoverHTML(result.item, result.colKey);
+    popoverEl.style.display = 'block';
+    positionPopover(itemEl);
+    requestAnimationFrame(() => popoverEl.classList.add('item-popover--visible'));
+    popoverVisible = true;
+  }
+
+  function hidePopover() {
+    clearTimeout(popoverTimer);
+    popoverTimer = null;
+    popoverEl.classList.remove('item-popover--visible');
+    popoverVisible = false;
+    popoverCurrentId = null;
+    setTimeout(() => { popoverEl.style.display = 'none'; }, 150);
+  }
+
+  function initPopover() {
+    document.querySelectorAll('.column__body').forEach(bodyEl => {
+      bodyEl.addEventListener('mouseover', (e) => {
+        const itemEl = e.target.closest('.list-item');
+        if (!itemEl) return;
+        const id = itemEl.dataset.id;
+        if (!id || id === popoverCurrentId) return;
+
+        clearTimeout(popoverTimer);
+        if (popoverVisible) hidePopover();
+        popoverTimer = setTimeout(() => showPopover(itemEl, id), 400);
+      });
+
+      bodyEl.addEventListener('mouseout', (e) => {
+        const itemEl = e.target.closest('.list-item');
+        if (!itemEl) return;
+        const related = e.relatedTarget;
+        if (related && (related.closest('.list-item') === itemEl)) return;
+        clearTimeout(popoverTimer);
+        popoverTimer = null;
+        if (popoverVisible) hidePopover();
+      });
+
+      bodyEl.addEventListener('scroll', () => {
+        if (popoverVisible) hidePopover();
+      }, { passive: true });
+    });
+  }
+
   // ─── Initialize ─────────────────────────────────────────
 
   function init() {
@@ -992,6 +1371,7 @@
     initSearch();
     initDragDrop();
     initFilters();
+    initPopover();
     updateColumnActiveState();
   }
 

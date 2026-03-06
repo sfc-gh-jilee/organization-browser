@@ -85,18 +85,23 @@
   const CLOUD_ICON = '<svg class="list-item__icon" viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path fill="currentColor" d="M14 9.5c0-1.312-.997-2.39-2.274-2.52l-.26-.013q-.13 0-.253.012l-.479.047-.066-.475a2.97 2.97 0 0 0-2.66-2.538L7.732 4a2.967 2.967 0 0 0-2.966 2.967l.004.163q.004.08.012.158l.064.594-.596-.041a2 2 0 0 0-.15-.008 2.1 2.1 0 0 0-2.1 2.1l.01.215a2.1 2.1 0 0 0 2.09 1.885h7.354l.151-.004a2.53 2.53 0 0 0 2.382-2.278zm.996.176a3.534 3.534 0 0 1-3.348 3.352l-.012.001-.156.004H4.1a3.1 3.1 0 0 1-3.096-2.94L1 9.933a3.1 3.1 0 0 1 2.767-3.082A3.967 3.967 0 0 1 7.73 3l.187.004a3.97 3.97 0 0 1 3.651 2.965A3.533 3.533 0 0 1 15 9.5z"/></svg>';
   const CLOUD_EXTERNAL_ICON = '<svg class="list-item__icon" viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><g fill="currentColor"><path d="M7.918 3.004 8 3.011v1L7.731 4a2.967 2.967 0 0 0-2.966 2.967l.004.163q.004.08.012.158l.064.594-.596-.041a2 2 0 0 0-.15-.008A2.1 2.1 0 0 0 2 9.933l.01.215a2.1 2.1 0 0 0 2.09 1.885h7.354l.151-.004a2.53 2.53 0 0 0 2.382-2.278L14 9.5a2.52 2.52 0 0 0-.493-1.5h1.159c.214.455.334.964.334 1.5l-.004.176a3.534 3.534 0 0 1-3.348 3.352l-.012.001-.156.004H4.1a3.1 3.1 0 0 1-3.096-2.94L1 9.933a3.1 3.1 0 0 1 2.767-3.082A3.967 3.967 0 0 1 7.73 3z"/><path d="M13.5 2a.5.5 0 0 1 .5.5V7h-1V3.707L7.854 8.854l-.708-.708L12.293 3H9V2z"/></g></svg>';
 
+  const ITEM_MENU_BTN = `<button class="list-item__menu-btn" data-item-menu aria-label="More actions">
+    <svg viewBox="0 0 16 16" width="16" height="16" fill="none"><path fill="currentColor" d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/></svg>
+  </button>`;
+
   function renderAccountItem(item, isSelected, isHighlighted) {
     const initials = item.name.split('_').slice(0, 2).map(w => w[0]).join('');
     const editionClass = item.edition === 'Business Critical' ? 'Business critical' : item.edition;
     const cloudIcon = item.tenantType === 'External' ? CLOUD_EXTERNAL_ICON : CLOUD_ICON;
     return `
       <div class="${itemClasses(isSelected, isHighlighted)}"
-           data-id="${item.id}" draggable="true" tabindex="-1">
+           data-id="${item.id}" data-col="accounts" draggable="true" tabindex="-1">
         ${cloudIcon}
         <div class="list-item__text">
           <div class="list-item__name">${item.name}</div>
           <div class="list-item__subtitle">${editionClass} · ${item.cloud} ${item.region}</div>
         </div>
+        ${ITEM_MENU_BTN}
         <svg class="list-item__chevron" viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true">
           <path fill="currentColor" d="m5.854 2.646 5 5a.5.5 0 0 1 0 .708l-5 5-.708-.707L9.793 8 5.146 3.354z"/>
         </svg>
@@ -110,7 +115,7 @@
       : `${item.accountCount} accounts`;
     return `
       <div class="${itemClasses(isSelected, isHighlighted)}"
-           data-id="${item.id}" draggable="true" tabindex="-1">
+           data-id="${item.id}" data-col="userGroups" draggable="true" tabindex="-1">
         <svg class="list-item__icon" viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true">
           <g fill="currentColor"><path d="M8.5 11a1.5 1.5 0 0 1 1.5 1.5V14H9v-1.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0-.5.5V14H1v-1.5A1.5 1.5 0 0 1 2.5 11zm5-2a1.5 1.5 0 0 1 1.5 1.5V12h-1v-1.5a.5.5 0 0 0-.5-.5H11V9z"/><path fill-rule="evenodd" d="M5.5 3a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7m0 1a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5" clip-rule="evenodd"/><path d="M11 2a3 3 0 1 1-1.005 5.824L9.992 7h.012l-.001-.269a2 2 0 1 0-.352-3.206l-.603-.8A3 3 0 0 1 11 2"/></g>
         </svg>
@@ -118,6 +123,7 @@
           <div class="list-item__name">${item.name}</div>
           <div class="list-item__subtitle">${item.userCount} users · ${accountLabel}</div>
         </div>
+        ${ITEM_MENU_BTN}
         <svg class="list-item__chevron" viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true">
           <path fill="currentColor" d="m5.854 2.646 5 5a.5.5 0 0 1 0 .708l-5 5-.708-.707L9.793 8 5.146 3.354z"/>
         </svg>
@@ -134,13 +140,14 @@
       : `${groupCount} group${groupCount > 1 ? 's' : ''}`;
     return `
       <div class="${itemClasses(isSelected, isHighlighted)}"
-           data-id="${item.id}" draggable="true" tabindex="-1">
+           data-id="${item.id}" data-col="users" draggable="true" tabindex="-1">
         <div class="list-item__status list-item__status--${item.status === 'Disabled' ? 'disabled' : 'enabled'}"></div>
         ${item.userType === 'Person' ? `<div class="list-item__avatar">${initials}</div>` : ''}
         <div class="list-item__text">
           <div class="list-item__name">${item.name}</div>
           <div class="list-item__subtitle">MFA: ${mfaLabel} · ${groupLabel}</div>
         </div>
+        ${ITEM_MENU_BTN}
       </div>`;
   }
 
@@ -1361,6 +1368,134 @@
     });
   }
 
+  // ─── Inline Item Menu ──────────────────────────────────
+
+  const inlineMenuEl = document.getElementById('itemInlineMenu');
+  let inlineMenuOpen = false;
+  let inlineMenuBtnEl = null;
+
+  function getColKeyForItem(itemEl) {
+    return itemEl.dataset.col || null;
+  }
+
+  function getParentContext(colKey) {
+    if (colKey === 'userGroups' && state.columns.accounts.selected.size > 0) {
+      return { label: 'Unassign from account', key: 'unassignFromAccount' };
+    }
+    if (colKey === 'users' && state.columns.userGroups.selected.size > 0) {
+      return { label: 'Unassign from group', key: 'unassignFromGroup' };
+    }
+    if (colKey === 'users' && state.columns.accounts.selected.size > 0) {
+      return { label: 'Unassign from account', key: 'unassignFromAccount' };
+    }
+    return null;
+  }
+
+  function buildInlineMenuHTML(colKey, itemId) {
+    const config = CONTEXTUAL_ACTIONS[colKey];
+    if (!config) return '';
+
+    let html = '';
+
+    const parentAction = getParentContext(colKey);
+    if (parentAction) {
+      html += `<div class="item-inline-menu__item" data-action="${parentAction.key}" data-item-id="${itemId}">${parentAction.label}</div>`;
+      html += '<div class="item-inline-menu__divider"></div>';
+    }
+
+    for (const btn of config.buttons) {
+      html += `<div class="item-inline-menu__item" data-action="${btn.key}" data-item-id="${itemId}">${btn.label}</div>`;
+    }
+
+    for (const item of config.overflow) {
+      if (item.divider) {
+        html += '<div class="item-inline-menu__divider"></div>';
+        continue;
+      }
+      const cls = item.critical ? 'item-inline-menu__item item-inline-menu__item--critical' : 'item-inline-menu__item';
+      html += `<div class="${cls}" data-action="${item.key}" data-item-id="${itemId}">${item.label}</div>`;
+    }
+
+    return html;
+  }
+
+  function positionInlineMenu(triggerEl) {
+    const rect = triggerEl.getBoundingClientRect();
+    inlineMenuEl.style.left = '';
+    inlineMenuEl.style.top = '';
+
+    let top = rect.bottom + 4;
+    let left = rect.left;
+
+    inlineMenuEl.classList.add('item-inline-menu--open');
+    const menuRect = inlineMenuEl.getBoundingClientRect();
+
+    if (top + menuRect.height > window.innerHeight - 8) {
+      top = rect.top - menuRect.height - 4;
+    }
+    if (top < 4) top = 4;
+
+    if (left + menuRect.width > window.innerWidth - 8) {
+      left = rect.right - menuRect.width;
+    }
+    if (left < 4) left = 4;
+
+    inlineMenuEl.style.top = top + 'px';
+    inlineMenuEl.style.left = left + 'px';
+  }
+
+  function openInlineMenu(btnEl, colKey, itemId) {
+    closeInlineMenu();
+    inlineMenuBtnEl = btnEl;
+    btnEl.classList.add('list-item__menu-btn--active');
+    inlineMenuEl.innerHTML = buildInlineMenuHTML(colKey, itemId);
+    positionInlineMenu(btnEl);
+    inlineMenuOpen = true;
+  }
+
+  function closeInlineMenu() {
+    inlineMenuEl.classList.remove('item-inline-menu--open');
+    inlineMenuEl.innerHTML = '';
+    inlineMenuOpen = false;
+    if (inlineMenuBtnEl) {
+      inlineMenuBtnEl.classList.remove('list-item__menu-btn--active');
+      inlineMenuBtnEl = null;
+    }
+  }
+
+  function initItemMenus() {
+    document.querySelectorAll('.column__body').forEach(bodyEl => {
+      bodyEl.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-item-menu]');
+        if (!btn) return;
+        e.stopPropagation();
+        e.preventDefault();
+
+        const itemEl = btn.closest('.list-item');
+        if (!itemEl) return;
+        const colKey = getColKeyForItem(itemEl);
+        const itemId = itemEl.dataset.id;
+        if (!colKey || !itemId) return;
+
+        if (inlineMenuOpen && inlineMenuBtnEl === btn) {
+          closeInlineMenu();
+          return;
+        }
+        openInlineMenu(btn, colKey, itemId);
+      }, true);
+
+      bodyEl.addEventListener('scroll', () => {
+        if (inlineMenuOpen) closeInlineMenu();
+      }, { passive: true });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (inlineMenuOpen && !e.target.closest('.item-inline-menu') && !e.target.closest('[data-item-menu]')) {
+        closeInlineMenu();
+      }
+    });
+  }
+
   // ─── Initialize ─────────────────────────────────────────
 
   function init() {
@@ -1372,6 +1507,7 @@
     initDragDrop();
     initFilters();
     initPopover();
+    initItemMenus();
     updateColumnActiveState();
   }
 

@@ -278,6 +278,83 @@ html, body { height: 100%; overflow: hidden; }
   color: var(--themed-interaction-pressable-default-background);
 }
 
+/* Inline item menu button */
+.list-item__menu-btn {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  border-radius: var(--stellar-radius-sm);
+  color: var(--themed-reusable-text-secondary);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.12s ease, background 0.12s ease;
+  padding: 0;
+}
+
+.list-item:hover .list-item__menu-btn,
+.list-item__menu-btn:focus-visible {
+  opacity: 1;
+}
+
+.list-item__menu-btn--active {
+  opacity: 1 !important;
+  background: var(--themed-reusable-background-row-hover);
+}
+
+.list-item__menu-btn:hover {
+  background: var(--themed-reusable-border-default);
+}
+
+/* Inline item dropdown menu */
+.item-inline-menu {
+  position: fixed;
+  z-index: 10000;
+  min-width: 180px;
+  background-color: var(--themed-surface-level-3-background, #fff);
+  border: 1px solid var(--themed-surface-level-3-border, #d5d9e0);
+  border-radius: var(--stellar-radius-sm);
+  box-shadow: var(--themed-elevation-3-box-shadow, 0 8px 24px rgba(0,0,0,.12));
+  padding: var(--stellar-space-vertical-xs) 0;
+  display: none;
+}
+
+.item-inline-menu--open {
+  display: block;
+}
+
+.item-inline-menu__item {
+  display: flex;
+  align-items: center;
+  gap: var(--stellar-space-gap-2xs);
+  padding: var(--stellar-space-vertical-sm) var(--stellar-space-horizontal-md);
+  cursor: pointer;
+  font-family: var(--themed-font-family-body);
+  font-size: var(--themed-font-size-regular);
+  font-weight: var(--themed-font-weight-medium);
+  line-height: var(--themed-line-height-regular-single-line);
+  color: var(--themed-reusable-text-primary);
+  white-space: nowrap;
+}
+
+.item-inline-menu__item:hover {
+  background: var(--themed-reusable-background-row-hover);
+}
+
+.item-inline-menu__item--critical {
+  color: var(--themed-status-critical-ui);
+}
+
+.item-inline-menu__divider {
+  height: 1px;
+  background: var(--themed-reusable-border-default);
+  margin: var(--stellar-space-vertical-xs) 0;
+}
+
 /* Chevron on account items */
 .list-item__chevron {
   flex-shrink: 0;

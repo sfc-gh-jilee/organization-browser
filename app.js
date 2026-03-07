@@ -7,6 +7,7 @@
   'use strict';
 
   const ITEM_HEIGHT = 56;
+  const TABLE_ROW_HEIGHT = 40;
   const BUFFER_COUNT = 15;
 
   const { accounts, userGroups, users, relationships } = window.ORG_DATA;
@@ -312,18 +313,19 @@
   function updateVirtualScroll(colKey) {
     const col = state.columns[colKey];
     const items = col.filteredItems;
-    const totalHeight = items.length * ITEM_HEIGHT;
+    const isTable = expandedColumns.has(colKey);
+    const rowHeight = isTable ? TABLE_ROW_HEIGHT : ITEM_HEIGHT;
+    const totalHeight = items.length * rowHeight;
     col.spacerEl.style.height = totalHeight + 'px';
 
     const scrollTop = col.scrollEl.scrollTop;
     const viewHeight = col.scrollEl.clientHeight;
 
-    let startIdx = Math.floor(scrollTop / ITEM_HEIGHT) - BUFFER_COUNT;
-    let endIdx = Math.ceil((scrollTop + viewHeight) / ITEM_HEIGHT) + BUFFER_COUNT;
+    let startIdx = Math.floor(scrollTop / rowHeight) - BUFFER_COUNT;
+    let endIdx = Math.ceil((scrollTop + viewHeight) / rowHeight) + BUFFER_COUNT;
     startIdx = Math.max(0, startIdx);
     endIdx = Math.min(items.length, endIdx);
 
-    const isTable = expandedColumns.has(colKey);
     const renderer = isTable ? TABLE_RENDERERS[colKey] : RENDERERS[colKey];
     let html = '';
     for (let i = startIdx; i < endIdx; i++) {
@@ -333,7 +335,7 @@
       html += renderer(item, isSelected, isHighlighted);
     }
 
-    col.contentEl.style.transform = `translateY(${startIdx * ITEM_HEIGHT}px)`;
+    col.contentEl.style.transform = `translateY(${startIdx * rowHeight}px)`;
     col.contentEl.innerHTML = html;
 
     const tableHeaderEl = document.getElementById(`${colKey === 'userGroups' ? 'usergroups' : colKey}-table-header`);
@@ -2091,8 +2093,9 @@
       if (lastEl) lastEl.classList.add('column--last-visible');
     }
 
-    // Re-render visible columns
+    // Reset scroll and re-render visible columns
     for (const colKey of visibleKeys) {
+      state.columns[colKey].scrollEl.scrollTop = 0;
       updateVirtualScroll(colKey);
     }
   }

@@ -200,7 +200,6 @@
       { key: 'comment', label: 'COMMENT', flex: 2.5 },
       { key: 'userCount', label: 'USERS', flex: 0.6 },
       { key: 'accountCount', label: 'ACCOUNTS', flex: 0.7 },
-      { key: 'owner', label: 'OWNER', flex: 1.2 },
       { key: 'created', label: 'CREATED', flex: 1.2 },
     ],
     users: [

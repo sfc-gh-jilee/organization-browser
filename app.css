@@ -1053,7 +1053,7 @@ html, body { height: 100%; overflow: hidden; }
 }
 .side-panel__img--center {
   flex: 1;
-  background-size: 100% auto;
+  background-size: 400px auto;
   background-position: center center;
 }
 .side-panel__img--bottom {

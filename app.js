@@ -2093,6 +2093,17 @@
       if (lastEl) lastEl.classList.add('column--last-visible');
     }
 
+    // Update primary create button based on rightmost visible column
+    const createActionBtn = document.querySelector('#createButton .stellar-splitbutton__action');
+    if (createActionBtn) {
+      const CREATE_LABELS = {
+        accounts: 'Create Account',
+        userGroups: 'Create User group',
+        users: 'Create Org user',
+      };
+      createActionBtn.textContent = CREATE_LABELS[lastVisibleKey] || 'Create Org user';
+    }
+
     // Reset scroll and re-render visible columns
     for (const colKey of visibleKeys) {
       state.columns[colKey].scrollEl.scrollTop = 0;

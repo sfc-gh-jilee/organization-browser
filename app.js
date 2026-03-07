@@ -184,6 +184,130 @@
     users: renderUserItem,
   };
 
+  // ─── Table View (expanded columns) ────────────────────
+
+  const TABLE_COLS = {
+    accounts: [
+      { key: 'name', label: 'ACCOUNT', flex: 2 },
+      { key: 'edition', label: 'EDITION', flex: 1.2 },
+      { key: 'cloud', label: 'CLOUD', flex: 0.8 },
+      { key: 'region', label: 'REGION', flex: 1.4 },
+      { key: 'created', label: 'CREATED', flex: 1.2 },
+      { key: 'locator', label: 'LOCATOR', flex: 1 },
+    ],
+    userGroups: [
+      { key: 'name', label: 'GROUP', flex: 2 },
+      { key: 'comment', label: 'COMMENT', flex: 2.5 },
+      { key: 'userCount', label: 'USERS', flex: 0.6 },
+      { key: 'accountCount', label: 'ACCOUNTS', flex: 0.7 },
+      { key: 'owner', label: 'OWNER', flex: 1.2 },
+      { key: 'created', label: 'CREATED', flex: 1.2 },
+    ],
+    users: [
+      { key: 'avatar', label: '', flex: 0 },
+      { key: 'name', label: 'NAME', flex: 1.8 },
+      { key: 'displayName', label: 'DISPLAY NAME', flex: 1.5 },
+      { key: 'authMethod', label: 'AUTHENTICATION', flex: 1.2 },
+      { key: 'mfaEnabled', label: 'MFA', flex: 0.5 },
+      { key: 'status', label: 'STATUS', flex: 0.6 },
+    ],
+  };
+
+  const expandedColumns = new Set();
+
+  function renderTableHeader(colKey) {
+    const cols = TABLE_COLS[colKey];
+    if (!cols) return '';
+    const col = state.columns[colKey];
+    const total = col.filteredItems.length;
+    const selCount = col.selected.size;
+    const allSelected = total > 0 && selCount === total;
+    const someSelected = selCount > 0 && !allSelected;
+    let cbCls = 'table-checkbox table-checkbox--header-cb';
+    if (allSelected) cbCls += ' table-checkbox--checked';
+    else if (someSelected) cbCls += ' table-checkbox--indeterminate';
+
+    const currentSort = activeSort[colKey];
+    const arrowUp = '<svg class="table-sort-icon" viewBox="0 0 16 16" width="12" height="12" fill="none"><path fill="currentColor" d="m8 3.5 4 5H4z"/></svg>';
+    const arrowDown = '<svg class="table-sort-icon" viewBox="0 0 16 16" width="12" height="12" fill="none"><path fill="currentColor" d="m8 12.5-4-5h8z"/></svg>';
+
+    let html = '<div class="table-header-row">';
+    html += `<div class="table-cell table-cell--checkbox"><div class="${cbCls}" data-select-all="${colKey}"></div></div>`;
+    for (const c of cols) {
+      const style = c.flex === 0 ? 'width:40px;flex:none;' : `flex:${c.flex};`;
+      if (!c.label || c.flex === 0) {
+        html += `<div class="table-cell table-cell--header" style="${style}"></div>`;
+      } else {
+        const isActive = currentSort && currentSort.key === c.key;
+        const arrow = isActive ? (currentSort.dir === 'asc' ? arrowUp : arrowDown) : '';
+        const activeCls = isActive ? ' table-cell--sort-active' : '';
+        html += `<div class="table-cell table-cell--header table-cell--sortable${activeCls}" style="${style}" data-table-sort="${c.key}" data-table-sort-col="${colKey}">${c.label}${arrow}</div>`;
+      }
+    }
+    html += '</div>';
+    return html;
+  }
+
+  function formatTableCell(item, key, colKey) {
+    if (key === 'avatar') {
+      if (item.userType === 'Person') {
+        const initials = item.displayName.split(' ').map(w => w[0]).join('').slice(0, 2);
+        return `<div class="list-item__avatar" style="width:28px;height:28px;font-size:11px;line-height:28px;">${initials}</div>`;
+      }
+      return '';
+    }
+    if (key === 'mfaEnabled') {
+      return item.mfaEnabled
+        ? '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path fill="var(--themed-status-success-ui,#22a861)" d="M6.5 11.2 3.3 8l-.7.7 3.9 3.9 8-8-.7-.7z"/></svg>'
+        : '<span style="color:var(--themed-reusable-text-tertiary);">-</span>';
+    }
+    if (key === 'userType') {
+      return item.userType === 'Person'
+        ? '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path fill="currentColor" d="M8 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6M6 5a2 2 0 1 1 4 0 2 2 0 0 1-4 0m-2.5 9v-1.5A1.5 1.5 0 0 1 5 11h6a1.5 1.5 0 0 1 1.5 1.5V14h-1v-1.5a.5.5 0 0 0-.5-.5H5a.5.5 0 0 0-.5.5V14z"/></svg>'
+        : '<span style="color:var(--themed-reusable-text-tertiary);">-</span>';
+    }
+    if (key === 'created') {
+      const d = new Date(item[key]);
+      const now = new Date();
+      const diff = now - d;
+      const days = Math.floor(diff / 86400000);
+      if (days < 1) return 'Today';
+      if (days < 2) return 'Yesterday';
+      if (days < 7) return `${days} days ago`;
+      if (days < 14) return 'Last week';
+      if (days < 30) return `${Math.floor(days / 7)} weeks ago`;
+      if (days < 60) return 'Last month';
+      if (days < 365) return `${Math.floor(days / 30)} months ago`;
+      return `${Math.floor(days / 365)} years ago`;
+    }
+    if (key === 'edition') {
+      return item[key] === 'Business Critical' ? 'Business critical' : item[key];
+    }
+    const val = item[key];
+    return val != null ? String(val) : '-';
+  }
+
+  function renderTableRow(item, isSelected, isHighlighted, colKey) {
+    const cols = TABLE_COLS[colKey];
+    if (!cols) return '';
+    const cls = 'table-row' + (isSelected ? ' table-row--selected' : '') + (isHighlighted ? ' table-row--related' : '');
+    let html = `<div class="${cls}" data-id="${item.id}" data-col="${colKey}" draggable="true" tabindex="-1">`;
+    html += `<div class="table-cell table-cell--checkbox"><div class="table-checkbox${isSelected ? ' table-checkbox--checked' : ''}"></div></div>`;
+    for (const c of cols) {
+      const style = c.flex === 0 ? 'width:40px;flex:none;' : `flex:${c.flex};`;
+      const cellCls = c.key === 'name' ? 'table-cell table-cell--name' : 'table-cell';
+      html += `<div class="${cellCls}" style="${style}">${formatTableCell(item, c.key, colKey)}</div>`;
+    }
+    html += '</div>';
+    return html;
+  }
+
+  const TABLE_RENDERERS = {
+    accounts: (item, sel, hl) => renderTableRow(item, sel, hl, 'accounts'),
+    userGroups: (item, sel, hl) => renderTableRow(item, sel, hl, 'userGroups'),
+    users: (item, sel, hl) => renderTableRow(item, sel, hl, 'users'),
+  };
+
   // ─── Virtual Scroll ─────────────────────────────────────
 
   function updateVirtualScroll(colKey) {
@@ -200,7 +324,8 @@
     startIdx = Math.max(0, startIdx);
     endIdx = Math.min(items.length, endIdx);
 
-    const renderer = RENDERERS[colKey];
+    const isTable = expandedColumns.has(colKey);
+    const renderer = isTable ? TABLE_RENDERERS[colKey] : RENDERERS[colKey];
     let html = '';
     for (let i = startIdx; i < endIdx; i++) {
       const item = items[i];
@@ -211,6 +336,12 @@
 
     col.contentEl.style.transform = `translateY(${startIdx * ITEM_HEIGHT}px)`;
     col.contentEl.innerHTML = html;
+
+    const tableHeaderEl = document.getElementById(`${colKey === 'userGroups' ? 'usergroups' : colKey}-table-header`);
+    if (tableHeaderEl) {
+      tableHeaderEl.innerHTML = isTable ? renderTableHeader(colKey) : '';
+      tableHeaderEl.style.display = isTable ? 'block' : 'none';
+    }
 
     const label = COL_LABELS[colKey] || colKey;
     col.searchEl.placeholder = `${label} (${items.length.toLocaleString()})`;
@@ -273,6 +404,42 @@
         col.selected.clear();
         col.selected.add(itemId);
         col.lastClickIndex = idx;
+      }
+    }
+
+    updateControlBar();
+    updateColumnActiveState();
+    updateRelationshipHighlights();
+  }
+
+  function handleCheckboxClick(colKey, itemId) {
+    const col = state.columns[colKey];
+    clearSelectionInOtherColumns(colKey);
+    state.activeColumn = colKey;
+
+    if (col.selected.has(itemId)) {
+      col.selected.delete(itemId);
+    } else {
+      col.selected.add(itemId);
+    }
+
+    updateControlBar();
+    updateColumnActiveState();
+    updateRelationshipHighlights();
+  }
+
+  function handleSelectAll(colKey) {
+    const col = state.columns[colKey];
+    clearSelectionInOtherColumns(colKey);
+    state.activeColumn = colKey;
+
+    const allSelected = col.filteredItems.length > 0 && col.selected.size === col.filteredItems.length;
+    if (allSelected) {
+      col.selected.clear();
+    } else {
+      col.selected.clear();
+      for (const item of col.filteredItems) {
+        col.selected.add(item.id);
       }
     }
 
@@ -402,24 +569,61 @@
     state.columns.userGroups.highlighted = grpHL;
     state.columns.users.highlighted = usrHL;
 
+    const hlMap = { accounts: acctHL, userGroups: grpHL, users: usrHL };
     const searchQuery = document.getElementById('globalSearch').value.trim().toLowerCase();
     for (const colKey of Object.keys(state.columns)) {
       const col = state.columns[colKey];
+      if (hlMap[colKey] && hlMap[colKey].size > 0) {
+        activeSort[colKey] = null;
+      } else if (!activeSort[colKey]) {
+        activeSort[colKey] = { key: 'name', dir: 'asc' };
+      }
       col.filteredItems = applyHighlightOrder(getBaseFilteredItems(col, searchQuery, colKey), col);
       col.scrollEl.scrollTop = 0;
       updateVirtualScroll(colKey);
     }
   }
 
+  function closestItem(el) {
+    return el.closest('.list-item') || el.closest('.table-row');
+  }
+
   function initSelection() {
     for (const colKey of Object.keys(state.columns)) {
       const col = state.columns[colKey];
       col.contentEl.addEventListener('click', (e) => {
-        const itemEl = e.target.closest('.list-item');
+        const isCheckbox = e.target.closest('.table-checkbox');
+        const itemEl = closestItem(e.target);
         if (!itemEl) return;
-        handleItemClick(colKey, itemEl.dataset.id, e);
+        if (isCheckbox || itemEl.classList.contains('table-row')) {
+          handleCheckboxClick(colKey, itemEl.dataset.id);
+        } else {
+          handleItemClick(colKey, itemEl.dataset.id, e);
+        }
       });
     }
+
+    // Select-all checkbox in table headers
+    document.addEventListener('click', (e) => {
+      const selectAllEl = e.target.closest('[data-select-all]');
+      if (selectAllEl) {
+        handleSelectAll(selectAllEl.dataset.selectAll);
+        return;
+      }
+      const sortEl = e.target.closest('[data-table-sort]');
+      if (sortEl) {
+        const key = sortEl.dataset.tableSort;
+        const colKey = sortEl.dataset.tableSortCol;
+        const current = activeSort[colKey];
+        if (current && current.key === key) {
+          activeSort[colKey] = { key, dir: current.dir === 'asc' ? 'desc' : 'asc' };
+        } else {
+          activeSort[colKey] = { key, dir: 'asc' };
+        }
+        applyFilters(colKey);
+        return;
+      }
+    });
 
     // Select unassigned / Select all buttons for userGroups and users columns
     initColumnSelectButtons();
@@ -797,7 +1001,7 @@
       const col = state.columns[colKey];
 
       col.contentEl.addEventListener('dragstart', (e) => {
-        const itemEl = e.target.closest('.list-item');
+        const itemEl = closestItem(e.target);
         if (!itemEl) return;
 
         const itemId = itemEl.dataset.id;
@@ -830,9 +1034,9 @@
 
         const dragSet = new Set(state.dragItems);
         requestAnimationFrame(() => {
-          col.contentEl.querySelectorAll('.list-item').forEach(el => {
+          col.contentEl.querySelectorAll('.list-item, .table-row').forEach(el => {
             if (dragSet.has(el.dataset.id)) {
-              el.classList.add('list-item--dragging');
+              el.classList.add(el.classList.contains('table-row') ? 'table-row--dragging' : 'list-item--dragging');
             }
           });
         });
@@ -843,14 +1047,14 @@
         ghostEl.style.top = '-1000px';
         ghostEl.style.left = '-1000px';
 
-        col.contentEl.querySelectorAll('.list-item--dragging').forEach(el => {
-          el.classList.remove('list-item--dragging');
+        col.contentEl.querySelectorAll('.list-item--dragging, .table-row--dragging').forEach(el => {
+          el.classList.remove('list-item--dragging', 'table-row--dragging');
         });
 
         document.querySelectorAll('.column--drop-target').forEach(el => {
           el.classList.remove('column--drop-target');
         });
-        document.querySelectorAll('.list-item--drag-over').forEach(el => {
+        document.querySelectorAll('.list-item--drag-over, .table-row--drag-over').forEach(el => {
           el.classList.remove('list-item--drag-over');
         });
 
@@ -872,28 +1076,28 @@
         e.dataTransfer.dropEffect = 'move';
         colEl.classList.add('column--drop-target');
 
-        const itemEl = e.target.closest('.list-item');
-        colEl.querySelectorAll('.list-item--drag-over').forEach(el => el.classList.remove('list-item--drag-over'));
+        const itemEl = closestItem(e.target);
+        colEl.querySelectorAll('.list-item--drag-over, .table-row--drag-over').forEach(el => el.classList.remove('list-item--drag-over', 'table-row--drag-over'));
         if (itemEl) {
-          itemEl.classList.add('list-item--drag-over');
+          itemEl.classList.add(itemEl.classList.contains('table-row') ? 'table-row--drag-over' : 'list-item--drag-over');
         }
       });
 
       colEl.addEventListener('dragleave', (e) => {
         if (!colEl.contains(e.relatedTarget)) {
           colEl.classList.remove('column--drop-target');
-          colEl.querySelectorAll('.list-item--drag-over').forEach(el => el.classList.remove('list-item--drag-over'));
+          colEl.querySelectorAll('.list-item--drag-over, .table-row--drag-over').forEach(el => el.classList.remove('list-item--drag-over', 'table-row--drag-over'));
         }
       });
 
       colEl.addEventListener('drop', (e) => {
         e.preventDefault();
         colEl.classList.remove('column--drop-target');
-        colEl.querySelectorAll('.list-item--drag-over').forEach(el => el.classList.remove('list-item--drag-over'));
+        colEl.querySelectorAll('.list-item--drag-over, .table-row--drag-over').forEach(el => el.classList.remove('list-item--drag-over', 'table-row--drag-over'));
 
-        const targetItem = e.target.closest('.list-item');
+        const targetItem = closestItem(e.target);
         const targetName = targetItem
-          ? targetItem.querySelector('.list-item__name')?.textContent
+          ? (targetItem.querySelector('.list-item__name') || targetItem.querySelector('.table-cell--name'))?.textContent
           : targetColKey;
 
         let data;
@@ -1612,8 +1816,9 @@
   function initPopover() {
     document.querySelectorAll('.column__body').forEach(bodyEl => {
       bodyEl.addEventListener('mouseover', (e) => {
-        const itemEl = e.target.closest('.list-item');
+        const itemEl = closestItem(e.target);
         if (!itemEl) return;
+        if (itemEl.classList.contains('table-row')) return;
         const id = itemEl.dataset.id;
         if (!id || id === popoverCurrentId) return;
 
@@ -1623,10 +1828,10 @@
       });
 
       bodyEl.addEventListener('mouseout', (e) => {
-        const itemEl = e.target.closest('.list-item');
+        const itemEl = closestItem(e.target);
         if (!itemEl) return;
         const related = e.relatedTarget;
-        if (related && (related.closest('.list-item') === itemEl)) return;
+        if (related && closestItem(related) === itemEl) return;
         clearTimeout(popoverTimer);
         popoverTimer = null;
         if (popoverVisible) hidePopover();
@@ -1741,7 +1946,7 @@
         e.stopPropagation();
         e.preventDefault();
 
-        const itemEl = btn.closest('.list-item');
+        const itemEl = closestItem(btn);
         if (!itemEl) return;
         const colKey = getColKeyForItem(itemEl);
         const itemId = itemEl.dataset.id;
@@ -1766,7 +1971,7 @@
       const itemId = actionEl.dataset.itemId;
       if (!action || !itemId) return;
 
-      const itemEl = document.querySelector(`.list-item[data-id="${itemId}"]`);
+      const itemEl = document.querySelector(`.list-item[data-id="${itemId}"], .table-row[data-id="${itemId}"]`);
       const colKey = itemEl ? getColKeyForItem(itemEl) : null;
 
       if (action === 'unassignFromAccount' || action === 'unassignFromGroup') {
@@ -1796,7 +2001,101 @@
     initPopover();
     initItemMenus();
     initSidePanel();
+    initColumnVisibility();
     updateColumnActiveState();
+  }
+
+  // ─── Column Visibility Toggle ──────────────────────────
+
+  const COL_KEY_TO_EL_ID = { accounts: 'col-accounts', userGroups: 'col-usergroups', users: 'col-users' };
+  const columnVisibility = { accounts: true, userGroups: true, users: true };
+
+  function initColumnVisibility() {
+    const btn = document.getElementById('colVisibilityBtn');
+    const menu = document.getElementById('colVisibilityMenu');
+    if (!btn || !menu) return;
+
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      menu.classList.toggle('col-visibility-menu--open');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.col-visibility-trigger')) {
+        menu.classList.remove('col-visibility-menu--open');
+      }
+    });
+
+    menu.querySelectorAll('[data-col-toggle]').forEach(label => {
+      const colKey = label.dataset.colToggle;
+      const checkbox = label.querySelector('input[type="checkbox"]');
+
+      checkbox.addEventListener('change', () => {
+        columnVisibility[colKey] = checkbox.checked;
+        applyColumnVisibility();
+      });
+    });
+
+    applyColumnVisibility();
+  }
+
+  function applyColumnVisibility() {
+    const visibleKeys = Object.keys(columnVisibility).filter(k => columnVisibility[k]);
+
+    // Enforce minimum 1 visible
+    const menu = document.getElementById('colVisibilityMenu');
+    menu.querySelectorAll('[data-col-toggle]').forEach(label => {
+      const colKey = label.dataset.colToggle;
+      const checkbox = label.querySelector('input[type="checkbox"]');
+      const isLastVisible = visibleKeys.length === 1 && columnVisibility[colKey];
+      label.classList.toggle('col-visibility-menu__item--disabled', isLastVisible);
+      checkbox.disabled = isLastVisible;
+    });
+
+    // Determine which columns are expanded (table view)
+    expandedColumns.clear();
+    if (visibleKeys.length === 1) {
+      expandedColumns.add(visibleKeys[0]);
+    } else if (visibleKeys.length === 2) {
+      expandedColumns.add(visibleKeys[1]);
+    }
+
+    // Show/hide columns and apply sizing
+    for (const colKey of Object.keys(columnVisibility)) {
+      const colEl = document.getElementById(COL_KEY_TO_EL_ID[colKey]);
+      if (!colEl) continue;
+      colEl.classList.toggle('column--hidden', !columnVisibility[colKey]);
+      colEl.classList.toggle('column--expanded', expandedColumns.has(colKey));
+
+      if (visibleKeys.length === 2 && columnVisibility[colKey]) {
+        const idx = visibleKeys.indexOf(colKey);
+        colEl.classList.toggle('column--narrow', idx === 0);
+        if (idx !== 0) {
+          colEl.classList.remove('column--narrow');
+          colEl.style.flex = '1';
+        }
+      } else {
+        colEl.classList.remove('column--narrow');
+        colEl.style.flex = '';
+      }
+    }
+
+    // Mark last visible column
+    const allKeys = Object.keys(columnVisibility);
+    for (const colKey of allKeys) {
+      const colEl = document.getElementById(COL_KEY_TO_EL_ID[colKey]);
+      if (colEl) colEl.classList.remove('column--last-visible');
+    }
+    const lastVisibleKey = visibleKeys[visibleKeys.length - 1];
+    if (lastVisibleKey) {
+      const lastEl = document.getElementById(COL_KEY_TO_EL_ID[lastVisibleKey]);
+      if (lastEl) lastEl.classList.add('column--last-visible');
+    }
+
+    // Re-render visible columns
+    for (const colKey of visibleKeys) {
+      updateVirtualScroll(colKey);
+    }
   }
 
   // ─── Side Panel (resize & collapse) ────────────────────

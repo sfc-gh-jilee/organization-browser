@@ -57,6 +57,26 @@
           <span class="relation-counts" id="relationCounts"></span>
         </div>
         <div class="control-bar__right">
+          <div class="col-visibility-trigger" id="colVisibilityTrigger">
+            <button class="stellar-button stellar-button--secondary stellar-button--icon-only" title="Toggle columns" aria-label="Toggle columns" id="colVisibilityBtn">
+              <svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true">
+                <rect x="1" y="2" width="3.5" height="12" rx="1" stroke="currentColor" stroke-width="1" fill="none"/>
+                <rect x="6.25" y="2" width="3.5" height="12" rx="1" stroke="currentColor" stroke-width="1" fill="none"/>
+                <rect x="11.5" y="2" width="3.5" height="12" rx="1" stroke="currentColor" stroke-width="1" fill="none"/>
+              </svg>
+            </button>
+            <div class="col-visibility-menu" id="colVisibilityMenu">
+              <label class="col-visibility-menu__item" data-col-toggle="accounts">
+                <input type="checkbox" checked /> Accounts
+              </label>
+              <label class="col-visibility-menu__item" data-col-toggle="userGroups">
+                <input type="checkbox" checked /> Org user groups
+              </label>
+              <label class="col-visibility-menu__item" data-col-toggle="users">
+                <input type="checkbox" checked /> Org users
+              </label>
+            </div>
+          </div>
           <div class="stellar-splitbutton stellar-splitbutton--primary" id="createButton" style="position:relative;">
             <button class="stellar-splitbutton__action">
               Create Org user
@@ -112,9 +132,12 @@
               </div>
             </div>
           </div>
-          <div class="column__body" id="accounts-scroll">
-            <div class="virtual-spacer" id="accounts-spacer"></div>
-            <div class="virtual-content" id="accounts-content"></div>
+          <div class="column__table-wrap">
+            <div class="column__table-header" id="accounts-table-header"></div>
+            <div class="column__body" id="accounts-scroll">
+              <div class="virtual-spacer" id="accounts-spacer"></div>
+              <div class="virtual-content" id="accounts-content"></div>
+            </div>
           </div>
         </div>
 
@@ -140,9 +163,12 @@
               </div>
             </div>
           </div>
-          <div class="column__body" id="usergroups-scroll">
-            <div class="virtual-spacer" id="usergroups-spacer"></div>
-            <div class="virtual-content" id="usergroups-content"></div>
+          <div class="column__table-wrap">
+            <div class="column__table-header" id="usergroups-table-header"></div>
+            <div class="column__body" id="usergroups-scroll">
+              <div class="virtual-spacer" id="usergroups-spacer"></div>
+              <div class="virtual-content" id="usergroups-content"></div>
+            </div>
           </div>
         </div>
 
@@ -168,9 +194,12 @@
               </div>
             </div>
           </div>
-          <div class="column__body" id="users-scroll">
-            <div class="virtual-spacer" id="users-spacer"></div>
-            <div class="virtual-content" id="users-content"></div>
+          <div class="column__table-wrap">
+            <div class="column__table-header" id="users-table-header"></div>
+            <div class="column__body" id="users-scroll">
+              <div class="virtual-spacer" id="users-spacer"></div>
+              <div class="virtual-content" id="users-content"></div>
+            </div>
           </div>
         </div>
       </div>

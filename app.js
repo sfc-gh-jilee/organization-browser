@@ -228,8 +228,8 @@
     else if (someSelected) cbCls += ' table-checkbox--indeterminate';
 
     const currentSort = activeSort[colKey];
-    const arrowUp = '<svg class="table-sort-icon" viewBox="0 0 16 16" width="12" height="12" fill="none"><path fill="currentColor" d="m8 3.5 4 5H4z"/></svg>';
-    const arrowDown = '<svg class="table-sort-icon" viewBox="0 0 16 16" width="12" height="12" fill="none"><path fill="currentColor" d="m8 12.5-4-5h8z"/></svg>';
+    const arrowUp = '<svg class="table-sort-icon" viewBox="0 0 16 16" width="14" height="14" fill="none"><path fill="currentColor" d="M8 2a.5.5 0 0 1 .354.146l5 5-.707.708L8.5 3.707V14h-1V3.707L3.354 7.854l-.708-.708 5-5A.5.5 0 0 1 8 2"/></svg>';
+    const arrowDown = '<svg class="table-sort-icon" viewBox="0 0 16 16" width="14" height="14" fill="none"><path fill="currentColor" d="M8 14a.5.5 0 0 0 .354-.146l5-5-.707-.708L8.5 12.293V2h-1v10.293L3.354 8.146l-.708.708 5 5A.5.5 0 0 0 8 14"/></svg>';
 
     let html = '<div class="table-header-row">';
     html += `<div class="table-cell table-cell--checkbox"><div class="${cbCls}" data-select-all="${colKey}"></div></div>`;

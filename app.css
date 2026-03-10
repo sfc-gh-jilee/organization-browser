@@ -242,7 +242,7 @@ html, body { height: 100%; overflow: hidden; }
   background: var(--themed-interaction-pressable-hovered-background-secondary, #d2e3fc);
 }
 .table-row--related {
-  background: var(--themed-surface-level-2-background, #f5f6f8);
+  background: #ECEEF1;
 }
 
 .table-row--dragging { opacity: 0.4; }

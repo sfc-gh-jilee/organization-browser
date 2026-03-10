@@ -21,14 +21,7 @@ html, body { height: 100%; overflow: hidden; }
   padding-bottom: 0;
 }
 
-/* --- Page header --- */
-.page-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-/* --- Control bar --- */
+/* --- Control bar (includes page header) --- */
 .control-bar {
   display: flex;
   align-items: center;
@@ -47,32 +40,61 @@ html, body { height: 100%; overflow: hidden; }
 }
 .control-bar__right { margin-left: auto; display: flex; align-items: center; gap: var(--stellar-space-gap-sm); }
 
-/* Selection pill */
-.selection-pill {
+/* Selection title (matches .stellar-type-page-header exactly) */
+.selection-title {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 3px 10px;
-  background: #5D6A85;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
+  gap: 8px;
   font-family: var(--themed-font-family-body);
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  line-height: 18px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  color: var(--themed-reusable-text-primary);
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.selection-title__icon {
+  flex-shrink: 0;
+  color: var(--themed-reusable-text-secondary);
+}
+
+.selection-title__avatar {
+  width: 32px;
   height: 32px;
+  border-radius: var(--stellar-radius-circle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 400;
+  flex-shrink: 0;
+  color: var(--themed-reusable-text-primary);
+  background: var(--themed-reusable-background-additional-info);
+  border: 1px solid var(--themed-reusable-border-default);
+  font-family: Inter, sans-serif;
 }
-.selection-pill:hover {
-  background: var(--themed-interaction-pressable-hovered-background);
+
+/* Tertiary dismiss button */
+.selection-dismiss {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: var(--stellar-radius-sm);
+  background: transparent;
+  color: var(--themed-reusable-text-secondary);
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
 }
-.selection-pill__clear {
-  opacity: 0.8;
-}
-.selection-pill:hover .selection-pill__clear {
-  opacity: 1;
+.selection-dismiss:hover {
+  background: var(--themed-reusable-background-row-hover);
+  color: var(--themed-reusable-text-primary);
 }
 
 /* --- Columns container --- */

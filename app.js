@@ -819,6 +819,21 @@
 
   let currentActionCol = null;
 
+  function getSelectionIcon(colKey, item) {
+    const iconCls = 'selection-title__icon';
+    if (colKey === 'accounts') {
+      return `<svg class="${iconCls}" viewBox="0 0 16 16" width="20" height="20" fill="none"><path fill="currentColor" d="M14 9.5c0-1.312-.997-2.39-2.274-2.52l-.26-.013q-.13 0-.253.012l-.479.047-.066-.475a2.97 2.97 0 0 0-2.66-2.538L7.732 4a2.967 2.967 0 0 0-2.966 2.967l.004.163q.004.08.012.158l.064.594-.596-.041a2 2 0 0 0-.15-.008 2.1 2.1 0 0 0-2.1 2.1l.01.215a2.1 2.1 0 0 0 2.09 1.885h7.354l.151-.004a2.53 2.53 0 0 0 2.382-2.278zm.996.176a3.534 3.534 0 0 1-3.348 3.352l-.012.001-.156.004H4.1a3.1 3.1 0 0 1-3.096-2.94L1 9.933a3.1 3.1 0 0 1 2.767-3.082A3.967 3.967 0 0 1 7.73 3l.187.004a3.97 3.97 0 0 1 3.651 2.965A3.533 3.533 0 0 1 15 9.5z"/></svg>`;
+    }
+    if (colKey === 'userGroups') {
+      return `<svg class="${iconCls}" viewBox="0 0 16 16" width="20" height="20" fill="none"><g fill="currentColor"><path d="M8.5 11a1.5 1.5 0 0 1 1.5 1.5V14H9v-1.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0-.5.5V14H1v-1.5A1.5 1.5 0 0 1 2.5 11zm5-2a1.5 1.5 0 0 1 1.5 1.5V12h-1v-1.5a.5.5 0 0 0-.5-.5H11V9z"/><path fill-rule="evenodd" d="M5.5 3a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7m0 1a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5" clip-rule="evenodd"/><path d="M11 2a3 3 0 1 1-1.005 5.824L9.992 7h.012l-.001-.269a2 2 0 1 0-.352-3.206l-.603-.8A3 3 0 0 1 11 2"/></g></svg>`;
+    }
+    if (colKey === 'users' && item && item.userType === 'Person') {
+      const initials = (item.displayName || '').split(' ').map(w => w[0]).join('').slice(0, 2);
+      return `<div class="selection-title__avatar">${initials}</div>`;
+    }
+    return '';
+  }
+
   function updateControlBar() {
     let totalSelected = 0;
     let activeColKey = null;
@@ -832,14 +847,16 @@
 
     const actionsEl = document.getElementById('selectionActions');
     const actionBtnsEl = document.getElementById('actionButtons');
-    const searchEl = document.querySelector('.control-bar__left');
+    const headerEl = document.querySelector('.control-bar__left');
     const createBtn = document.getElementById('createButton');
+    const colVisBtn = document.getElementById('colVisibilityTrigger');
     const pillEl = document.getElementById('selectionPill');
 
     if (totalSelected > 0) {
       actionsEl.style.display = 'flex';
-      searchEl.style.display = 'none';
+      headerEl.style.display = 'none';
       createBtn.style.display = 'none';
+      colVisBtn.style.display = 'none';
 
       actionBtnsEl.innerHTML = buildActionButtons(activeColKey);
       currentActionCol = activeColKey;
@@ -851,8 +868,18 @@
 
       const labelMap = { accounts: 'Account', userGroups: 'User group', users: 'Org user' };
       const label = labelMap[activeColKey] || 'item';
-      const pillLabel = `${totalSelected} ${label}${totalSelected > 1 ? 's' : ''} selected`;
-      pillEl.innerHTML = `${pillLabel} <svg viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true" class="selection-pill__clear"><path fill="currentColor" d="m13.354 3.366-4.642 4.64 4.634 4.635-.708.707-4.633-4.633-4.633 4.633-.707-.707 4.633-4.633-4.642-4.642.707-.707L8.005 7.3l4.641-4.64z"/></svg>`;
+      let pillText;
+      let pillIcon = '';
+      if (totalSelected === 1) {
+        const selectedId = [...state.columns[activeColKey].selected][0];
+        const selectedItem = state.columns[activeColKey].items.find(i => i.id === selectedId);
+        pillText = selectedItem ? (selectedItem.name || selectedItem.displayName) : '';
+        pillIcon = getSelectionIcon(activeColKey, selectedItem);
+      } else {
+        pillText = `${totalSelected} ${label}${totalSelected > 1 ? 's' : ''}`;
+        pillIcon = getSelectionIcon(activeColKey, null);
+      }
+      pillEl.innerHTML = pillIcon + `<span>${pillText}</span>`;
 
       const countsEl = document.getElementById('relationCounts');
       const parts = [];
@@ -896,8 +923,9 @@
       actionBtnsEl.style.display = 'none';
       actionBtnsEl.innerHTML = '';
       currentActionCol = null;
-      searchEl.style.display = '';
+      headerEl.style.display = '';
       createBtn.style.display = '';
+      colVisBtn.style.display = '';
     }
   }
 
@@ -935,8 +963,8 @@
   });
 
   function initControlBar() {
-    const pillEl = document.getElementById('selectionPill');
-    pillEl.addEventListener('click', () => {
+    const dismissBtn = document.getElementById('selectionDismiss');
+    dismissBtn.addEventListener('click', () => {
       for (const colKey of Object.keys(state.columns)) {
         state.columns[colKey].selected.clear();
         state.columns[colKey].lastClickIndex = -1;

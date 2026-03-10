@@ -703,14 +703,84 @@ html, body { height: 100%; overflow: hidden; }
   height: 32px;
   padding: 0 12px;
 }
-/* Relation counts next to selection pill */
+/* Relation counts (inside highlight mode button) */
 .relation-counts {
+  color: inherit;
+  white-space: nowrap;
+}
+
+/* Highlight mode dropdown */
+.highlight-mode-trigger {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.highlight-mode-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 32px;
+  border: none;
+  border-radius: var(--stellar-radius-md, 6px);
+  background: transparent;
+  color: var(--themed-reusable-text-secondary);
+  cursor: pointer;
+  padding: 0 8px;
   font-family: var(--themed-font-family-body);
   font-size: 13px;
   font-weight: 400;
-  color: var(--themed-reusable-text-secondary);
   white-space: nowrap;
-  padding: 0 12px;
+}
+.highlight-mode-btn:hover {
+  background: var(--themed-reusable-background-hover, rgba(0,0,0,0.04));
+  color: var(--themed-reusable-text-secondary);
+}
+.highlight-mode-btn__chevron {
+  flex-shrink: 0;
+}
+
+.highlight-mode-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  background: var(--themed-reusable-background-surface, #fff);
+  border: 1px solid var(--themed-reusable-border-default, #d8dce2);
+  border-radius: var(--stellar-radius-md, 8px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  z-index: 200;
+  min-width: 190px;
+  padding: 4px;
+}
+.highlight-mode-menu--open {
+  display: block;
+}
+
+.highlight-mode-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  font-family: var(--themed-font-family-body);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--themed-reusable-text-primary);
+  border-radius: var(--stellar-radius-sm, 4px);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.highlight-mode-menu__item:hover {
+  background: var(--themed-interaction-pressable-hovered-background, rgba(0,0,0,0.06));
+}
+
+.highlight-mode-menu__check {
+  flex-shrink: 0;
+  visibility: hidden;
+}
+.highlight-mode-menu__item--active .highlight-mode-menu__check {
+  visibility: visible;
+  color: var(--themed-reusable-text-primary);
 }
 
 /* Column select button (Select unassigned / Select all) */

@@ -524,7 +524,16 @@
 
   // ─── Relationship Highlighting ──────────────────────────
 
-  function updateRelationshipHighlights() {
+  function intersect(sets) {
+    if (sets.length === 0) return new Set();
+    let result = new Set(sets[0]);
+    for (let i = 1; i < sets.length; i++) {
+      result = new Set([...result].filter(x => sets[i].has(x)));
+    }
+    return result;
+  }
+
+  function computeHighlightsUnion() {
     const acctHL = new Set();
     const grpHL = new Set();
     const usrHL = new Set();
@@ -533,7 +542,6 @@
     const grpSel = state.columns.userGroups.selected;
     const usrSel = state.columns.users.selected;
 
-    // Account selected → downstream: groups imported in that account → users in those groups
     for (const accId of acctSel) {
       const groups = accountToGroups[accId] || [];
       for (const gId of groups) {
@@ -543,7 +551,6 @@
       }
     }
 
-    // User group selected → upstream: accounts the group is in / downstream: users in the group
     for (const gId of grpSel) {
       const accs = groupToAccounts[gId] || [];
       for (const aId of accs) acctHL.add(aId);
@@ -551,7 +558,6 @@
       for (const uId of usrs) usrHL.add(uId);
     }
 
-    // User selected → upstream: groups the user belongs to → accounts those groups are in
     for (const uId of usrSel) {
       const groups = userToGroups[uId] || [];
       for (const gId of groups) {
@@ -560,6 +566,70 @@
         for (const aId of accs) acctHL.add(aId);
       }
     }
+
+    return { acctHL, grpHL, usrHL };
+  }
+
+  function computeHighlightsIntersection() {
+    const acctSel = state.columns.accounts.selected;
+    const grpSel = state.columns.userGroups.selected;
+    const usrSel = state.columns.users.selected;
+
+    // Per-item related sets for each selected column
+    const grpSets = [];
+    const usrSets = [];
+    const acctSets = [];
+
+    // Accounts selected → intersect downstream groups & users
+    for (const accId of acctSel) {
+      const perGrp = new Set();
+      const perUsr = new Set();
+      for (const gId of (accountToGroups[accId] || [])) {
+        perGrp.add(gId);
+        for (const uId of (groupToUsers[gId] || [])) perUsr.add(uId);
+      }
+      grpSets.push(perGrp);
+      usrSets.push(perUsr);
+    }
+
+    // User groups selected → intersect upstream accounts & downstream users
+    for (const gId of grpSel) {
+      const perAcct = new Set();
+      for (const aId of (groupToAccounts[gId] || [])) perAcct.add(aId);
+      acctSets.push(perAcct);
+      const perUsr = new Set();
+      for (const uId of (groupToUsers[gId] || [])) perUsr.add(uId);
+      usrSets.push(perUsr);
+    }
+
+    // Users selected → intersect upstream groups & accounts
+    for (const uId of usrSel) {
+      const perGrp = new Set();
+      const perAcct = new Set();
+      for (const gId of (userToGroups[uId] || [])) {
+        perGrp.add(gId);
+        for (const aId of (groupToAccounts[gId] || [])) perAcct.add(aId);
+      }
+      grpSets.push(perGrp);
+      acctSets.push(perAcct);
+    }
+
+    return {
+      acctHL: intersect(acctSets),
+      grpHL: intersect(grpSets),
+      usrHL: intersect(usrSets),
+    };
+  }
+
+  function updateRelationshipHighlights() {
+    const acctSel = state.columns.accounts.selected;
+    const grpSel = state.columns.userGroups.selected;
+    const usrSel = state.columns.users.selected;
+
+    const useIntersection = highlightMode === 'intersection';
+    const { acctHL, grpHL, usrHL } = useIntersection
+      ? computeHighlightsIntersection()
+      : computeHighlightsUnion();
 
     // Don't highlight items that are themselves selected
     for (const id of acctSel) acctHL.delete(id);
@@ -818,6 +888,7 @@
   }
 
   let currentActionCol = null;
+  let highlightMode = 'union'; // 'union' | 'intersection'
 
   function getSelectionIcon(colKey, item) {
     const iconCls = 'selection-title__icon';
@@ -882,42 +953,35 @@
       pillEl.innerHTML = pillIcon + `<span>${pillText}</span>`;
 
       const countsEl = document.getElementById('relationCounts');
+      const hlModeTrigger = document.getElementById('highlightModeTrigger');
       const parts = [];
-      const sel = state.columns[activeColKey].selected;
+
+      // Use the already-computed highlighted sets (they respect highlightMode)
+      const acctHL = state.columns.accounts.highlighted;
+      const grpHL = state.columns.userGroups.highlighted;
+      const usrHL = state.columns.users.highlighted;
 
       if (activeColKey === 'accounts') {
-        const grpSet = new Set();
-        const usrSet = new Set();
-        for (const accId of sel) {
-          for (const gId of (accountToGroups[accId] || [])) {
-            grpSet.add(gId);
-            for (const uId of (groupToUsers[gId] || [])) usrSet.add(uId);
-          }
-        }
-        parts.push(`${grpSet.size} group${grpSet.size !== 1 ? 's' : ''}`);
-        parts.push(`${usrSet.size} user${usrSet.size !== 1 ? 's' : ''}`);
+        parts.push(`${grpHL.size} group${grpHL.size !== 1 ? 's' : ''}`);
+        parts.push(`${usrHL.size} user${usrHL.size !== 1 ? 's' : ''}`);
       } else if (activeColKey === 'userGroups') {
-        const acctSet = new Set();
-        const usrSet = new Set();
-        for (const gId of sel) {
-          for (const aId of (groupToAccounts[gId] || [])) acctSet.add(aId);
-          for (const uId of (groupToUsers[gId] || [])) usrSet.add(uId);
-        }
-        parts.push(`In ${acctSet.size} account${acctSet.size !== 1 ? 's' : ''}`);
-        parts.push(`${usrSet.size} user${usrSet.size !== 1 ? 's' : ''}`);
+        parts.push(`In ${acctHL.size} account${acctHL.size !== 1 ? 's' : ''}`);
+        parts.push(`${usrHL.size} user${usrHL.size !== 1 ? 's' : ''}`);
       } else if (activeColKey === 'users') {
-        const grpSet = new Set();
-        const acctSet = new Set();
-        for (const uId of sel) {
-          for (const gId of (userToGroups[uId] || [])) {
-            grpSet.add(gId);
-            for (const aId of (groupToAccounts[gId] || [])) acctSet.add(aId);
-          }
-        }
-        parts.push(`In ${grpSet.size} group${grpSet.size !== 1 ? 's' : ''}`);
-        parts.push(`In ${acctSet.size} account${acctSet.size !== 1 ? 's' : ''}`);
+        parts.push(`In ${grpHL.size} group${grpHL.size !== 1 ? 's' : ''}`);
+        parts.push(`In ${acctHL.size} account${acctHL.size !== 1 ? 's' : ''}`);
       }
       countsEl.textContent = parts.join(' · ');
+
+      // Show chevron only for multi-select (dropdown available)
+      const chevron = hlModeTrigger.querySelector('.highlight-mode-btn__chevron');
+      if (totalSelected >= 2) {
+        chevron.style.display = '';
+        hlModeTrigger.querySelector('.highlight-mode-btn').style.cursor = 'pointer';
+      } else {
+        chevron.style.display = 'none';
+        hlModeTrigger.querySelector('.highlight-mode-btn').style.cursor = 'default';
+      }
     } else {
       actionsEl.style.display = 'none';
       actionBtnsEl.style.display = 'none';
@@ -970,9 +1034,43 @@
         state.columns[colKey].lastClickIndex = -1;
       }
       state.activeColumn = null;
+      highlightMode = 'union';
       updateControlBar();
       updateColumnActiveState();
       updateRelationshipHighlights();
+    });
+
+    // Highlight mode dropdown
+    const hlModeBtn = document.getElementById('highlightModeBtn');
+    const hlModeMenu = document.getElementById('highlightModeMenu');
+
+    hlModeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      let totalSel = 0;
+      for (const colKey of Object.keys(state.columns)) totalSel += state.columns[colKey].selected.size;
+      if (totalSel < 2) return;
+      hlModeMenu.classList.toggle('highlight-mode-menu--open');
+    });
+
+    hlModeMenu.addEventListener('click', (e) => {
+      const item = e.target.closest('.highlight-mode-menu__item');
+      if (!item) return;
+      const mode = item.dataset.mode;
+      if (mode === highlightMode) {
+        hlModeMenu.classList.remove('highlight-mode-menu--open');
+        return;
+      }
+      highlightMode = mode;
+      hlModeMenu.querySelectorAll('.highlight-mode-menu__item').forEach(el => {
+        el.classList.toggle('highlight-mode-menu__item--active', el.dataset.mode === mode);
+      });
+      hlModeMenu.classList.remove('highlight-mode-menu--open');
+      updateRelationshipHighlights();
+      updateControlBar();
+    });
+
+    document.addEventListener('click', () => {
+      hlModeMenu.classList.remove('highlight-mode-menu--open');
     });
   }
 

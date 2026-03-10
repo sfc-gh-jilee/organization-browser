@@ -965,6 +965,14 @@
     updateSelectButtonLabels();
   }
 
+  function updateSearchWrapState(colKey) {
+    const col = state.columns[colKey];
+    const wrap = col.searchEl.closest('.column__search-wrap');
+    if (!wrap) return;
+    const hasValue = col.searchEl.value.trim().length > 0;
+    wrap.classList.toggle('column__search-wrap--has-value', hasValue);
+  }
+
   function initSearch() {
     const globalInput = document.getElementById('globalSearch');
     let globalDebounce;
@@ -977,15 +985,40 @@
 
     for (const colKey of Object.keys(state.columns)) {
       const col = state.columns[colKey];
+      const wrap = col.searchEl.closest('.column__search-wrap');
       let colDebounce;
+
       col.searchEl.addEventListener('input', () => {
+        updateSearchWrapState(colKey);
         clearTimeout(colDebounce);
         colDebounce = setTimeout(() => {
           applyColumnSearch(colKey);
           updateSelectButtonLabels();
         }, 150);
       });
+
+      col.searchEl.addEventListener('focus', () => {
+        if (wrap) wrap.classList.add('column__search-wrap--focused');
+      });
+
+      col.searchEl.addEventListener('blur', () => {
+        if (wrap) wrap.classList.remove('column__search-wrap--focused');
+      });
     }
+
+    document.querySelectorAll('[data-search-clear]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const colKey = btn.dataset.searchClear;
+        const col = state.columns[colKey];
+        if (!col) return;
+        col.searchEl.value = '';
+        updateSearchWrapState(colKey);
+        applyColumnSearch(colKey);
+        updateSelectButtonLabels();
+        col.searchEl.focus();
+      });
+    });
   }
 
   // ─── Drag and Drop ─────────────────────────────────────
@@ -1007,7 +1040,9 @@
 
         const itemId = itemEl.dataset.id;
 
-        // Dismiss popovers and menus
+        // Dismiss popovers (including pending timer) and menus
+        clearTimeout(popoverTimer);
+        popoverTimer = null;
         if (popoverVisible) hidePopover();
         if (inlineMenuOpen) closeInlineMenu();
         document.querySelectorAll('.filter-menu--open').forEach(m => m.classList.remove('filter-menu--open'));
@@ -1817,6 +1852,7 @@
   function initPopover() {
     document.querySelectorAll('.column__body').forEach(bodyEl => {
       bodyEl.addEventListener('mouseover', (e) => {
+        if (state.dragSourceColumn) return;
         const itemEl = closestItem(e.target);
         if (!itemEl) return;
         if (itemEl.classList.contains('table-row')) return;

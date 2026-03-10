@@ -281,6 +281,7 @@ html, body { height: 100%; overflow: hidden; }
   padding: var(--stellar-space-vertical-sm) var(--stellar-space-horizontal-md);
   flex-shrink: 0;
   background: var(--themed-surface-level-1-background);
+  gap: 8px;
 }
 
 .column__header-left {
@@ -297,11 +298,41 @@ html, body { height: 100%; overflow: hidden; }
   gap: 6px;
   flex: 1;
   min-width: 0;
+  padding: 4px 8px;
+  border-radius: var(--stellar-radius-sm);
+  border: 2px solid transparent;
+  transition: border-color 0.15s, background 0.15s;
+  box-sizing: border-box;
+  height: 24px;
+}
+
+.column__search-wrap--focused {
+  /* border-color: var(--themed-reusable-border-active); */
+  border-color: #5999F8;
+  border-width: 2px;
+  background: var(--themed-surface-level-1-background);
+}
+
+.column__search-wrap--has-value {
+  background: var(--themed-reusable-background-additional-info);
+  border-color: var(--themed-reusable-border-default);
+  border-width: 1px;
+}
+
+.column__search-wrap--focused.column__search-wrap--has-value {
+  /* border-color: var(--themed-reusable-border-active); */
+  border-color: #5999F8;
+  background: var(--themed-surface-level-1-background);
+  border-width: 2px; 
 }
 
 .column__search-icon {
   flex-shrink: 0;
   color: var(--themed-reusable-text-secondary);
+}
+
+.column__search-wrap--focused .column__search-icon {
+  color: var(--themed-reusable-text-primary);
 }
 
 .column__search {
@@ -321,6 +352,28 @@ html, body { height: 100%; overflow: hidden; }
 .column__search::placeholder {
   color: var(--themed-reusable-text-secondary);
   font-weight: var(--themed-font-weight-medium);
+}
+
+.column__search-clear {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background: transparent;
+  border-radius: var(--stellar-radius-sm);
+  color: var(--themed-reusable-text-secondary);
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+.column__search-clear:hover {
+  color: var(--themed-reusable-text-primary);
+  background: var(--themed-reusable-background-row-hover);
+}
+.column__search-wrap--has-value .column__search-clear {
+  display: flex;
 }
 
 .column__header-right {

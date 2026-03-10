@@ -771,7 +771,7 @@ html, body { height: 100%; overflow: hidden; }
   white-space: nowrap;
 }
 .highlight-mode-menu__item:hover {
-  background: var(--themed-interaction-pressable-hovered-background, rgba(0,0,0,0.06));
+  background: var(--themed-surface-level-2-background, #f3f4f6);
 }
 
 .highlight-mode-menu__check {

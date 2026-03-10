@@ -666,7 +666,7 @@
         const isCheckbox = e.target.closest('.table-checkbox');
         const itemEl = closestItem(e.target);
         if (!itemEl) return;
-        if (isCheckbox || itemEl.classList.contains('table-row')) {
+        if (isCheckbox) {
           handleCheckboxClick(colKey, itemEl.dataset.id);
         } else {
           handleItemClick(colKey, itemEl.dataset.id, e);
@@ -971,7 +971,8 @@
         parts.push(`In ${grpHL.size} group${grpHL.size !== 1 ? 's' : ''}`);
         parts.push(`In ${acctHL.size} account${acctHL.size !== 1 ? 's' : ''}`);
       }
-      countsEl.textContent = parts.join(' · ');
+      const suffix = highlightMode === 'intersection' ? ' in common' : '';
+      countsEl.textContent = parts.join(' · ') + suffix;
 
       // Show chevron only for multi-select (dropdown available)
       const chevron = hlModeTrigger.querySelector('.highlight-mode-btn__chevron');

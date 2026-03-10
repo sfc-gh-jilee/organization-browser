@@ -971,7 +971,9 @@
         parts.push(`In ${grpHL.size} group${grpHL.size !== 1 ? 's' : ''}`);
         parts.push(`In ${acctHL.size} account${acctHL.size !== 1 ? 's' : ''}`);
       }
-      const suffix = highlightMode === 'intersection' ? ' in common' : '';
+      const suffix = totalSelected >= 2
+        ? (highlightMode === 'intersection' ? ' in common' : ' combined')
+        : '';
       countsEl.textContent = parts.join(' · ') + suffix;
 
       // Show chevron only for multi-select (dropdown available)

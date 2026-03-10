@@ -956,20 +956,21 @@
       const hlModeTrigger = document.getElementById('highlightModeTrigger');
       const parts = [];
 
-      // Use the already-computed highlighted sets (they respect highlightMode)
-      const acctHL = state.columns.accounts.highlighted;
-      const grpHL = state.columns.userGroups.highlighted;
-      const usrHL = state.columns.users.highlighted;
+      // Compute counts from raw relationships (before selected-item removal)
+      const useIntersection = highlightMode === 'intersection' && totalSelected >= 2;
+      const { acctHL: acctCounts, grpHL: grpCounts, usrHL: usrCounts } = useIntersection
+        ? computeHighlightsIntersection()
+        : computeHighlightsUnion();
 
       if (activeColKey === 'accounts') {
-        parts.push(`${grpHL.size} group${grpHL.size !== 1 ? 's' : ''}`);
-        parts.push(`${usrHL.size} user${usrHL.size !== 1 ? 's' : ''}`);
+        parts.push(`${grpCounts.size} group${grpCounts.size !== 1 ? 's' : ''}`);
+        parts.push(`${usrCounts.size} user${usrCounts.size !== 1 ? 's' : ''}`);
       } else if (activeColKey === 'userGroups') {
-        parts.push(`In ${acctHL.size} account${acctHL.size !== 1 ? 's' : ''}`);
-        parts.push(`${usrHL.size} user${usrHL.size !== 1 ? 's' : ''}`);
+        parts.push(`In ${acctCounts.size} account${acctCounts.size !== 1 ? 's' : ''}`);
+        parts.push(`${usrCounts.size} user${usrCounts.size !== 1 ? 's' : ''}`);
       } else if (activeColKey === 'users') {
-        parts.push(`In ${grpHL.size} group${grpHL.size !== 1 ? 's' : ''}`);
-        parts.push(`In ${acctHL.size} account${acctHL.size !== 1 ? 's' : ''}`);
+        parts.push(`In ${grpCounts.size} group${grpCounts.size !== 1 ? 's' : ''}`);
+        parts.push(`In ${acctCounts.size} account${acctCounts.size !== 1 ? 's' : ''}`);
       }
       const suffix = totalSelected >= 2
         ? (highlightMode === 'intersection' ? ' in common' : ' combined')

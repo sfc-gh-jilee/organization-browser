@@ -21,6 +21,7 @@
         filteredItems: accounts,
         selected: new Set(),
         highlighted: new Set(),
+        stickyOrder: null,
         lastClickIndex: -1,
         scrollEl: null,
         spacerEl: null,
@@ -32,6 +33,7 @@
         filteredItems: userGroups,
         selected: new Set(),
         highlighted: new Set(),
+        stickyOrder: null,
         lastClickIndex: -1,
         scrollEl: null,
         spacerEl: null,
@@ -43,6 +45,7 @@
         filteredItems: users,
         selected: new Set(),
         highlighted: new Set(),
+        stickyOrder: null,
         lastClickIndex: -1,
         scrollEl: null,
         spacerEl: null,
@@ -338,6 +341,8 @@
     col.contentEl.style.transform = `translateY(${startIdx * rowHeight}px)`;
     col.contentEl.innerHTML = html;
 
+    if (typeof applyRelatedHoverDom === 'function') applyRelatedHoverDom();
+
     const tableHeaderEl = document.getElementById(`${colKey === 'userGroups' ? 'usergroups' : colKey}-table-header`);
     if (tableHeaderEl) {
       tableHeaderEl.innerHTML = isTable ? renderTableHeader(colKey) : '';
@@ -401,6 +406,7 @@
       if (col.selected.size === 1 && col.selected.has(itemId)) {
         col.selected.clear();
         col.lastClickIndex = -1;
+        for (const k of Object.keys(state.columns)) state.columns[k].stickyOrder = null;
       } else {
         col.selected.clear();
         col.selected.add(itemId);
@@ -465,19 +471,114 @@
     return col.searchEl ? col.searchEl.value.trim().toLowerCase() : '';
   }
 
-  function applyHighlightOrder(items, col) {
+  // Returns IDs of source-column items that are related to the given target item.
+  // itemId = highlighted item being sorted; colKey = its column; sourceColKey = column with selections.
+  function getRelatedSourceIds(itemId, colKey, sourceColKey) {
+    if (sourceColKey === 'accounts') {
+      if (colKey === 'userGroups') {
+        // group → which accounts link to it
+        return groupToAccounts[itemId] || [];
+      }
+      if (colKey === 'users') {
+        // user → groups → accounts
+        const result = new Set();
+        for (const gId of (userToGroups[itemId] || [])) {
+          for (const aId of (groupToAccounts[gId] || [])) result.add(aId);
+        }
+        return [...result];
+      }
+    }
+    if (sourceColKey === 'userGroups') {
+      if (colKey === 'accounts') {
+        // account → which groups link to it
+        return accountToGroups[itemId] || [];
+      }
+      if (colKey === 'users') {
+        // user → which groups it belongs to
+        return userToGroups[itemId] || [];
+      }
+    }
+    if (sourceColKey === 'users') {
+      if (colKey === 'userGroups') {
+        // group → which users belong to it
+        return groupToUsers[itemId] || [];
+      }
+      if (colKey === 'accounts') {
+        // account → groups → users
+        const result = new Set();
+        for (const gId of (accountToGroups[itemId] || [])) {
+          for (const uId of (groupToUsers[gId] || [])) result.add(uId);
+        }
+        return [...result];
+      }
+    }
+    return [];
+  }
+
+  function applyStickyOrder(items, col) {
+    const posMap = col.stickyOrder;
+    const inSticky = [];
+    const notInSticky = [];
+    for (const item of items) {
+      if (posMap.has(item.id)) inSticky.push(item);
+      else notInSticky.push(item);
+    }
+    inSticky.sort((a, b) => posMap.get(a.id) - posMap.get(b.id));
+    return inSticky.concat(notInSticky);
+  }
+
+  function applyHighlightOrder(items, col, colKey) {
     const hl = col.highlighted;
     const sel = col.selected;
+
+    // If column has a sticky order from a previous highlight-sort, use it
+    if (col.stickyOrder && hl.size === 0) {
+      return applyStickyOrder(items, col);
+    }
+
     if (sel.size === 0 && hl.size === 0) return items;
-    const selected = [];
+
     const highlighted = [];
     const rest = [];
     for (const item of items) {
-      if (sel.has(item.id)) selected.push(item);
-      else if (hl.has(item.id)) highlighted.push(item);
+      if (hl.has(item.id) && !sel.has(item.id)) highlighted.push(item);
       else rest.push(item);
     }
-    return selected.concat(highlighted, rest);
+
+    if (highlighted.length === 0) return items;
+
+    if (state.activeColumn && state.activeColumn !== colKey) {
+      const sourceColKey = state.activeColumn;
+      const sourceCol = state.columns[sourceColKey];
+      const sourceOrder = sourceCol.filteredItems;
+      const sourcePositionMap = new Map();
+      for (let i = 0; i < sourceOrder.length; i++) {
+        sourcePositionMap.set(sourceOrder[i].id, i);
+      }
+
+      highlighted.sort((a, b) => {
+        const aRels = getRelatedSourceIds(a.id, colKey, sourceColKey);
+        const bRels = getRelatedSourceIds(b.id, colKey, sourceColKey);
+
+        let aMin = Infinity;
+        for (const relId of aRels) {
+          const pos = sourcePositionMap.get(relId);
+          if (pos !== undefined && pos < aMin) aMin = pos;
+        }
+        let bMin = Infinity;
+        for (const relId of bRels) {
+          const pos = sourcePositionMap.get(relId);
+          if (pos !== undefined && pos < bMin) bMin = pos;
+        }
+
+        if (aMin !== bMin) return aMin - bMin;
+        const aName = (a.name || a.displayName || '').toLowerCase();
+        const bName = (b.name || b.displayName || '').toLowerCase();
+        return aName.localeCompare(bName);
+      });
+    }
+
+    return highlighted.concat(rest);
   }
 
   function getBaseFilteredItems(col, query, colKey) {
@@ -644,13 +745,32 @@
     const searchQuery = document.getElementById('globalSearch').value.trim().toLowerCase();
     for (const colKey of Object.keys(state.columns)) {
       const col = state.columns[colKey];
-      if (hlMap[colKey] && hlMap[colKey].size > 0) {
+      const hasNewHighlights = hlMap[colKey] && hlMap[colKey].size > 0;
+
+      if (hasNewHighlights) {
         activeSort[colKey] = null;
-      } else if (!activeSort[colKey]) {
+      } else if (!col.stickyOrder && !activeSort[colKey]) {
         activeSort[colKey] = { key: 'name', dir: 'asc' };
       }
-      col.filteredItems = applyHighlightOrder(getBaseFilteredItems(col, searchQuery, colKey), col);
-      col.scrollEl.scrollTop = 0;
+
+      const prevHighlightCount = col.filteredItems.filter(i => col.highlighted.has(i.id)).length;
+      col.filteredItems = applyHighlightOrder(getBaseFilteredItems(col, searchQuery, colKey), col, colKey);
+
+      // Snapshot the order when highlights produce a new sort
+      if (hasNewHighlights) {
+        const orderMap = new Map();
+        for (let i = 0; i < col.filteredItems.length; i++) {
+          orderMap.set(col.filteredItems[i].id, i);
+        }
+        col.stickyOrder = orderMap;
+      } else if (!col.stickyOrder) {
+        // No sticky order and no highlights — normal mode
+      }
+
+      const newHighlightCount = hasNewHighlights ? hlMap[colKey].size : 0;
+      if (newHighlightCount > 0 && newHighlightCount !== prevHighlightCount) {
+        col.scrollEl.scrollTop = 0;
+      }
       updateVirtualScroll(colKey);
     }
   }
@@ -1036,6 +1156,7 @@
       for (const colKey of Object.keys(state.columns)) {
         state.columns[colKey].selected.clear();
         state.columns[colKey].lastClickIndex = -1;
+        state.columns[colKey].stickyOrder = null;
       }
       state.activeColumn = null;
       highlightMode = 'union';
@@ -1083,7 +1204,7 @@
   function applyColumnSearch(colKey) {
     const col = state.columns[colKey];
     const globalQuery = document.getElementById('globalSearch').value.trim().toLowerCase();
-    col.filteredItems = applyHighlightOrder(getBaseFilteredItems(col, globalQuery, colKey), col);
+    col.filteredItems = applyHighlightOrder(getBaseFilteredItems(col, globalQuery, colKey), col, colKey);
     col.scrollEl.scrollTop = 0;
     updateVirtualScroll(colKey);
   }
@@ -1614,7 +1735,7 @@
     const col = state.columns[colKey];
     const globalQuery = document.getElementById('globalSearch').value.trim().toLowerCase();
 
-    col.filteredItems = applyHighlightOrder(getBaseFilteredItems(col, globalQuery, colKey), col);
+    col.filteredItems = applyHighlightOrder(getBaseFilteredItems(col, globalQuery, colKey), col, colKey);
     col.scrollEl.scrollTop = 0;
     updateVirtualScroll(colKey);
     updateSelectButtonLabels();
@@ -2155,6 +2276,91 @@
     });
   }
 
+  // ─── Cross-Column Related Hover ─────────────────────────
+
+  let relatedHoverState = { active: false, sourceColKey: null, sourceItemId: null, relatedMap: null };
+
+  function getRelatedIdsForItem(itemId, colKey) {
+    const ids = { accounts: new Set(), userGroups: new Set(), users: new Set() };
+
+    if (colKey === 'accounts') {
+      const groups = accountToGroups[itemId] || [];
+      for (const gId of groups) {
+        ids.userGroups.add(gId);
+        for (const uId of (groupToUsers[gId] || [])) ids.users.add(uId);
+      }
+    } else if (colKey === 'userGroups') {
+      for (const aId of (groupToAccounts[itemId] || [])) ids.accounts.add(aId);
+      for (const uId of (groupToUsers[itemId] || [])) ids.users.add(uId);
+    } else if (colKey === 'users') {
+      const groups = userToGroups[itemId] || [];
+      for (const gId of groups) {
+        ids.userGroups.add(gId);
+        for (const aId of (groupToAccounts[gId] || [])) ids.accounts.add(aId);
+      }
+    }
+
+    return ids;
+  }
+
+  function clearRelatedHoverDom() {
+    document.querySelectorAll('.list-item--related-hover, .table-row--related-hover').forEach(el => {
+      el.classList.remove('list-item--related-hover', 'table-row--related-hover');
+    });
+  }
+
+  function clearRelatedHover() {
+    if (!relatedHoverState.active) return;
+    clearRelatedHoverDom();
+    relatedHoverState = { active: false, sourceColKey: null, sourceItemId: null, relatedMap: null };
+  }
+
+  function applyRelatedHoverDom() {
+    if (!relatedHoverState.active) return;
+    const { relatedMap, sourceColKey } = relatedHoverState;
+    for (const colKey of Object.keys(relatedMap)) {
+      if (colKey === sourceColKey) continue;
+      const idSet = relatedMap[colKey];
+      if (idSet.size === 0) continue;
+      const col = state.columns[colKey];
+      const hlSet = col.highlighted;
+      col.contentEl.querySelectorAll('.list-item, .table-row').forEach(el => {
+        const id = el.dataset.id;
+        if (idSet.has(id) && hlSet.has(id)) {
+          el.classList.add(el.classList.contains('table-row') ? 'table-row--related-hover' : 'list-item--related-hover');
+        }
+      });
+    }
+  }
+
+  function setRelatedHover(itemId, colKey) {
+    clearRelatedHoverDom();
+    const relatedMap = getRelatedIdsForItem(itemId, colKey);
+    relatedHoverState = { active: true, sourceColKey: colKey, sourceItemId: itemId, relatedMap };
+    applyRelatedHoverDom();
+  }
+
+  function initRelatedHover() {
+    for (const colKey of Object.keys(state.columns)) {
+      const col = state.columns[colKey];
+      col.contentEl.addEventListener('mouseover', (e) => {
+        if (state.dragSourceColumn) return;
+        const itemEl = closestItem(e.target);
+        if (!itemEl) { clearRelatedHover(); return; }
+
+        const id = itemEl.dataset.id;
+        if (!id || !col.highlighted.has(id)) { clearRelatedHover(); return; }
+        if (relatedHoverState.active && relatedHoverState.sourceItemId === id) return;
+
+        setRelatedHover(id, colKey);
+      });
+
+      col.contentEl.addEventListener('mouseleave', () => {
+        clearRelatedHover();
+      });
+    }
+  }
+
   // ─── Initialize ─────────────────────────────────────────
 
   function init() {
@@ -2167,6 +2373,7 @@
     initFilters();
     initPopover();
     initItemMenus();
+    initRelatedHover();
     initSidePanel();
     initColumnVisibility();
     updateColumnActiveState();

@@ -236,13 +236,17 @@ html, body { height: 100%; overflow: hidden; }
   background: var(--themed-surface-level-2-background, #f9fafb);
 }
 .table-row--selected {
-  background: var(--themed-interaction-pressable-default-background-secondary, #e8f0fe);
+  background: var(--themed-reusable-selected-background);
 }
 .table-row--selected:hover {
-  background: var(--themed-interaction-pressable-hovered-background-secondary, #d2e3fc);
+  background: var(--themed-reusable-selected-hovered-background);
 }
 .table-row--related {
-  background: #ECEEF1;
+  background: var(--themed-reusable-background-row-hover);
+}
+.table-row--related:hover,
+.table-row--related-hover {
+  background: var(--themed-reusable-background-row-hover);
 }
 
 .table-row--dragging { opacity: 0.4; }
@@ -465,27 +469,31 @@ html, body { height: 100%; overflow: hidden; }
   position: relative;
   min-height: 56px;
   border-radius: var(--stellar-radius-sm);
+  border: 2px solid transparent;
 }
 
 .list-item:hover {
-  background: var(--themed-reusable-background-row-hover);
+  background: var(--themed-reusable-background-additional-info);
 }
 
 .list-item--selected {
-  background: #D6E6FF;
+  background: var(--themed-surface-level-1-background);
+  border-color: var(--themed-reusable-border-active);
   border-radius: 6px;
 }
 .list-item--selected:hover {
-  background: #D6E6FF;
+  background: var(--themed-surface-level-1-background);
+  border-color: var(--themed-reusable-selected-hovered-ui);
 }
 
 /* Related / highlighted items (upstream/downstream of selection) */
 .list-item--related {
-  background: #ECEEF1;
+  background: var(--themed-reusable-background-row-hover);
   border-radius: 6px;
 }
-.list-item--related:hover {
-  background: #ECEEF1;
+.list-item--related:hover,
+.list-item--related-hover {
+  background: var(--themed-reusable-selected-background);
 }
 
 .list-item--drag-over {

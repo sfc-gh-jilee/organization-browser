@@ -2110,6 +2110,13 @@
         const id = itemEl.dataset.id;
         if (!id || id === popoverCurrentId) return;
 
+        const isSelected = Object.values(state.columns).some(c => c.selected.has(id));
+        if (isSelected) {
+          clearTimeout(popoverTimer);
+          if (popoverVisible) hidePopover();
+          return;
+        }
+
         clearTimeout(popoverTimer);
         if (popoverVisible) hidePopover();
         popoverTimer = setTimeout(() => showPopover(itemEl, id), 400);
@@ -2326,7 +2333,7 @@
       const hlSet = col.highlighted;
       col.contentEl.querySelectorAll('.list-item, .table-row').forEach(el => {
         const id = el.dataset.id;
-        if (idSet.has(id) && hlSet.has(id)) {
+        if (idSet.has(id) && (hlSet.has(id) || col.selected.has(id))) {
           el.classList.add(el.classList.contains('table-row') ? 'table-row--related-hover' : 'list-item--related-hover');
         }
       });
@@ -2349,7 +2356,7 @@
         if (!itemEl) { clearRelatedHover(); return; }
 
         const id = itemEl.dataset.id;
-        if (!id || !col.highlighted.has(id)) { clearRelatedHover(); return; }
+        if (!id || !(col.highlighted.has(id) || col.selected.has(id))) { clearRelatedHover(); return; }
         if (relatedHoverState.active && relatedHoverState.sourceItemId === id) return;
 
         setRelatedHover(id, colKey);

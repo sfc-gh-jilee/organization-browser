@@ -482,7 +482,7 @@ html, body { height: 100%; overflow: hidden; }
   border-radius: 6px;
 }
 .list-item--selected:hover {
-  background: var(--themed-surface-level-1-background);
+  background: var(--themed-reusable-selected-background);
   border-color: var(--themed-reusable-selected-hovered-ui);
 }
 

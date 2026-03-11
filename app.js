@@ -901,50 +901,52 @@
   };
 
   const CONTEXTUAL_ACTIONS = {
-    users: {
-      buttons: [
-        { key: 'edit', label: 'Edit', icon: 'edit' },
-        { key: 'resetPassword', label: 'Reset password', icon: 'reset' },
-      ],
-      overflow: [
-        { key: 'disable', label: 'Disable' },
-        { key: 'removeFromGroup', label: 'Remove from group' },
-        { key: 'transferOwnership', label: 'Transfer ownership' },
-        { divider: true },
-        { key: 'delete', label: 'Delete', critical: true },
-      ],
-    },
-    userGroups: {
-      buttons: [
-        { key: 'edit', label: 'Edit', icon: 'edit' },
-        { key: 'addMember', label: 'Add member', icon: 'importGroups' },
-      ],
-      overflow: [
-        { key: 'assignToAccount', label: 'Assign to account' },
-        { key: 'removeFromAccount', label: 'Remove from account' },
-        { key: 'duplicate', label: 'Duplicate group' },
-        { divider: true },
-        { key: 'delete', label: 'Delete', critical: true },
-      ],
-    },
-    accounts: {
-      buttons: [
-        { key: 'edit', label: 'Edit', icon: 'edit' },
-        { key: 'importGroups', label: 'Import user groups', icon: 'importGroups' },
-      ],
-      overflow: [
-        { key: 'manageResourceMonitor', label: 'Manage resource monitor' },
-        { key: 'enableReplication', label: 'Enable replication' },
-        { key: 'viewUsage', label: 'View usage' },
-        { divider: true },
-        { key: 'drop', label: 'Drop', critical: true },
-      ],
-    },
+    users: [
+      { key: 'edit', label: 'Edit', icon: 'edit', singleOnly: true },
+      { key: 'resetPassword', label: 'Reset password', icon: 'reset', singleOnly: true },
+      { key: 'disable', label: 'Disable' },
+      { key: 'removeFromGroup', label: 'Remove from group' },
+      { divider: true },
+      { key: 'delete', label: 'Delete', critical: true },
+    ],
+    userGroups: [
+      { key: 'edit', label: 'Edit', icon: 'edit', singleOnly: true },
+      { key: 'addMember', label: 'Add member', icon: 'importGroups' },
+      { key: 'assignToAccount', label: 'Assign to account' },
+      { key: 'removeFromAccount', label: 'Remove from account' },
+      { divider: true },
+      { key: 'delete', label: 'Delete', critical: true },
+    ],
+    accounts: [
+      { key: 'edit', label: 'Edit', icon: 'edit', singleOnly: true },
+      { key: 'importGroups', label: 'Import user groups', icon: 'importGroups' },
+      { key: 'enableReplication', label: 'Enable replication' },
+      { divider: true },
+      { key: 'drop', label: 'Drop', critical: true },
+    ],
   };
 
-  function buildActionButtons(colKey) {
-    const config = CONTEXTUAL_ACTIONS[colKey];
-    if (!config) return '';
+  const MAX_VISIBLE_BUTTONS = 2;
+
+  function buildActionButtons(colKey, selectedCount) {
+    const allActions = CONTEXTUAL_ACTIONS[colKey];
+    if (!allActions) return '';
+    const isMulti = selectedCount > 1;
+
+    const available = allActions.filter(a => a.divider || !(isMulti && a.singleOnly));
+
+    const promoted = [];
+    const overflowActions = [];
+    for (const action of available) {
+      if (!action.divider && !action.critical && promoted.length < MAX_VISIBLE_BUTTONS) {
+        promoted.push(action);
+      } else {
+        overflowActions.push(action);
+      }
+    }
+
+    while (overflowActions.length > 0 && overflowActions[0].divider) overflowActions.shift();
+    while (overflowActions.length > 0 && overflowActions[overflowActions.length - 1].divider) overflowActions.pop();
 
     let html = '';
 
@@ -953,12 +955,12 @@
       html += `<button class="stellar-button stellar-button--secondary" data-bar-action="${parentAction.key}">${parentAction.label}</button>`;
     }
 
-    for (const btn of config.buttons) {
+    for (const btn of promoted) {
       html += `<button class="stellar-button stellar-button--secondary">${ACTION_ICONS[btn.icon] || ''}${btn.label}</button>`;
     }
 
     let overflowItems = '';
-    for (const item of config.overflow) {
+    for (const item of overflowActions) {
       if (item.divider) {
         overflowItems += '<div class="stellar-menu__divider" role="separator"></div>';
         continue;
@@ -973,16 +975,18 @@
       </div>`;
     }
 
-    html += `<div class="stellar-menu-trigger">
-      <button class="stellar-button stellar-button--secondary" data-overflow-trigger>
-        ${ACTION_ICONS.overflow}
-      </button>
-      <div class="stellar-menu action-overflow-menu" role="dialog">
-        <div class="stellar-menu__list" role="menu" tabindex="0">
-          ${overflowItems}
+    if (overflowActions.length > 0) {
+      html += `<div class="stellar-menu-trigger">
+        <button class="stellar-button stellar-button--secondary" data-overflow-trigger>
+          ${ACTION_ICONS.overflow}
+        </button>
+        <div class="stellar-menu action-overflow-menu" role="dialog">
+          <div class="stellar-menu__list" role="menu" tabindex="0">
+            ${overflowItems}
+          </div>
         </div>
-      </div>
-    </div>`;
+      </div>`;
+    }
 
     return html;
   }
@@ -1049,7 +1053,7 @@
       createBtn.style.display = 'none';
       colVisBtn.style.display = 'none';
 
-      actionBtnsEl.innerHTML = buildActionButtons(activeColKey);
+      actionBtnsEl.innerHTML = buildActionButtons(activeColKey, totalSelected);
       currentActionCol = activeColKey;
       initOverflowToggle(actionBtnsEl);
       initBarActions(actionBtnsEl, activeColKey);
@@ -1533,12 +1537,21 @@
 
   function showUnassignToast(count, typeLabel, targetLabel) {
     const text = `Unassigned ${count} ${typeLabel}${count > 1 ? 's' : ''} from ${targetLabel}`;
-    showToast(text);
+    showToast(text, {
+      onUndo: () => showToast(`Reverted unassignment of ${count} ${typeLabel}${count > 1 ? 's' : ''} from ${targetLabel}`)
+    });
   }
 
-  function showToast(text) {
+  function showToast(text, opts = {}) {
     const checkSvg = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink:0;"><circle cx="10" cy="10" r="10" fill="#22a861"/><path d="M8.5 13.2 5.3 10l-.9.9 4.1 4.1 8-8-.9-.9z" fill="#fff"/></svg>';
     const closeSvg = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="cursor:pointer;color:var(--themed-reusable-text-secondary);flex-shrink:0;"><path fill="currentColor" d="m8.708 8 3.646-3.646-.707-.708L8 7.293 4.354 3.646l-.708.708L7.293 8l-3.647 3.646.708.708L8 8.707l3.646 3.647.708-.708z"/></svg>';
+    const undoHtml = opts.onUndo
+      ? `<button class="toast-undo" style="
+          background: none; border: none; cursor: pointer; padding: 0; margin-left: 2px;
+          color: var(--themed-reusable-text-link); font-family: inherit; font-size: 14px; font-weight: 600;
+          text-decoration: none;
+        ">Undo</button><span style="color: var(--themed-reusable-border-default);">|</span>`
+      : '';
     const toast = document.createElement('div');
     toast.style.cssText = `
       position: fixed; top: 24px; left: 50%; transform: translateX(-50%) translateY(-8px);
@@ -1552,13 +1565,24 @@
       z-index: 10000; opacity: 0; transition: opacity 0.2s, transform 0.2s;
       white-space: nowrap;
     `;
-    toast.innerHTML = `${checkSvg}<span>${text}</span><span class="toast-close">${closeSvg}</span>`;
+    toast.innerHTML = `${checkSvg}<span>${text}</span>${undoHtml}<span class="toast-close">${closeSvg}</span>`;
     document.body.appendChild(toast);
-    toast.querySelector('.toast-close').addEventListener('click', () => {
+
+    const dismissToast = () => {
       toast.style.opacity = '0';
       toast.style.transform = 'translateX(-50%) translateY(-8px)';
       setTimeout(() => toast.remove(), 200);
-    });
+    };
+
+    toast.querySelector('.toast-close').addEventListener('click', dismissToast);
+
+    if (opts.onUndo) {
+      toast.querySelector('.toast-undo').addEventListener('click', () => {
+        opts.onUndo();
+        dismissToast();
+      });
+    }
+
     requestAnimationFrame(() => {
       toast.style.opacity = '1';
       toast.style.transform = 'translateX(-50%) translateY(0)';
@@ -1573,7 +1597,9 @@
   }
 
   function showDropToast(count, sourceLabel, targetName) {
-    showToast(`Assigned ${count} ${sourceLabel}${count > 1 ? 's' : ''} to ${targetName}`);
+    showToast(`Assigned ${count} ${sourceLabel}${count > 1 ? 's' : ''} to ${targetName}`, {
+      onUndo: () => showToast(`Reverted assignment of ${count} ${sourceLabel}${count > 1 ? 's' : ''} to ${targetName}`)
+    });
   }
 
   // ─── Column Filters ────────────────────────────────────

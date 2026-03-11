@@ -36,7 +36,7 @@ html, body { height: 100%; overflow: hidden; }
   gap: var(--stellar-space-gap-sm);
   flex: 1;
   justify-content: flex-start;
-  padding-left: var(--stellar-space-horizontal-sm);
+  /* padding-left: var(--stellar-space-horizontal-sm); */
 }
 .control-bar__right { margin-left: auto; display: flex; align-items: center; gap: var(--stellar-space-gap-sm); }
 
@@ -78,6 +78,18 @@ html, body { height: 100%; overflow: hidden; }
 }
 
 /* Tertiary dismiss button */
+.stellar-button--icon-only {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  padding: 0;
+  justify-content: center;
+}
+
+#selectionDismiss {
+  margin-right: 12px;
+}
+
 .selection-dismiss {
   display: inline-flex;
   align-items: center;

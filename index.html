@@ -95,6 +95,14 @@
                     </div>
                   </div>
                 </div>
+                <div class="stellar-menu__item" role="menuitem" data-key="create-bulk-users">
+                  <div class="stellar-menu__item-label" tabindex="0">
+                    <div style="flex-grow:1; min-width:0; display:flex; flex-direction:column; gap:2px">
+                      <span class="stellar-menu__item-text">Create multiple Org users</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="stellar-menu__divider" role="separator"></div>
                 <div class="stellar-menu__item" role="menuitem" data-key="create-group">
                   <div class="stellar-menu__item-label" tabindex="0">
                     <div style="flex-grow:1; min-width:0; display:flex; flex-direction:column; gap:2px">
@@ -676,6 +684,130 @@
           <button class="stellar-button stellar-button--secondary" id="createAccountCancel">Cancel</button>
           <button class="stellar-button stellar-button--primary" id="createAccountNext">Next</button>
           <button class="stellar-button stellar-button--primary" id="createAccountSubmit" style="display:none;">Create account</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bulk Create Org Users Wizard -->
+  <div class="dialog-backdrop" id="bulkUserBackdrop" style="display:none;">
+    <div class="dialog dialog--wizard" role="dialog" aria-labelledby="bulkUserTitle" aria-modal="true">
+      <div class="dialog__header dialog__header--left">
+        <h2 class="dialog__title" id="bulkUserTitle">Add multiple Org users</h2>
+      </div>
+      <div class="wizard__body">
+        <div class="wizard__sidebar" id="bulkUserSidebar">
+          <div class="wizard__step wizard__step--active" data-wizard-step="1">
+            <span class="wizard__step-icon"></span>
+            <span class="wizard__step-label">Add user list</span>
+          </div>
+          <div class="wizard__step" data-wizard-step="2">
+            <span class="wizard__step-icon"></span>
+            <span class="wizard__step-label">Review information</span>
+          </div>
+          <div class="wizard__step" data-wizard-step="3">
+            <span class="wizard__step-icon"></span>
+            <span class="wizard__step-label">Settings</span>
+          </div>
+        </div>
+        <div class="wizard__content">
+
+          <!-- Step 1: Add user list -->
+          <div class="wizard__panel" id="bulkUserStep1">
+            <h3 class="stellar-heading stellar-type-page-header">Add user list</h3>
+            <div class="wizard__option-group">
+              <label class="wizard__radio wizard__radio--checked" id="bulkUserRadioEmail">
+                <span class="wizard__radio-circle"></span>
+                <span>Use emails</span>
+              </label>
+              <textarea class="dialog__textarea" id="bulkUserEmails" rows="6" placeholder="e.g., jane.doe@lseg.com, m.smith@lseg.com, alex_v@lseg.com"></textarea>
+              <p class="stellar-field__description">Paste a list of email addresses separated by commas. AI will automatically generate names and login IDs for your user emails.</p>
+            </div>
+            <div class="wizard__option-group">
+              <label class="wizard__radio" id="bulkUserRadioCsv">
+                <span class="wizard__radio-circle"></span>
+                <span>Upload CSV file</span>
+              </label>
+              <div class="wizard__dropzone" id="bulkUserDropzone">
+                <span class="wizard__dropzone-text">Drag and drop CSV file here or</span>
+                <button class="stellar-button stellar-button--secondary" id="bulkUserBrowse">Browse</button>
+              </div>
+              <p class="stellar-field__description">Use CSV file that has simple structure: with headers like email, first_name, last_name, and login_name. <a href="#" class="wizard__link">Download template CSV file</a></p>
+            </div>
+          </div>
+
+          <!-- Step 2: Review information -->
+          <div class="wizard__panel" id="bulkUserStep2" style="display:none;">
+            <h3 class="stellar-heading stellar-type-page-header" id="bulkUserReviewTitle">Review Org user information</h3>
+            <div class="wizard__review-toolbar">
+              <div class="stellar-textinput stellar-textinput--regular" style="width:200px;">
+                <span class="stellar-textinput__prefix-icon"><svg viewBox="0 0 16 16" width="16" height="16" fill="none"><path fill="currentColor" fill-rule="evenodd" d="M7 2a5 5 0 0 1 3.871 8.164l3.983 3.983-.707.707-3.983-3.983A5 5 0 1 1 7 2m0 1a4 4 0 1 0 0 8 4 4 0 0 0 0-8" clip-rule="evenodd"/></svg></span>
+                <input class="stellar-textinput__input" type="text" id="bulkUserSearch" placeholder="Find" autocomplete="off" />
+              </div>
+              <span class="wizard__review-count" id="bulkUserIssueCount"></span>
+            </div>
+            <div class="wizard__review-table">
+              <div class="wizard__review-header">
+                <div class="wizard__review-cell wizard__review-cell--cb"><div class="table-checkbox" id="bulkUserSelectAll"></div></div>
+                <div class="wizard__review-cell" style="flex:1.2;">Email</div>
+                <div class="wizard__review-cell" style="flex:1.2;">Login name</div>
+                <div class="wizard__review-cell" style="flex:1.2;">Display name</div>
+                <div class="wizard__review-cell" style="flex:0.8;">First name</div>
+                <div class="wizard__review-cell" style="flex:0.8;">Last name</div>
+              </div>
+              <div class="wizard__review-body" id="bulkUserReviewBody"></div>
+            </div>
+          </div>
+
+          <!-- Step 3: Settings -->
+          <div class="wizard__panel" id="bulkUserStep3" style="display:none;">
+            <h3 class="stellar-heading stellar-type-page-header">Settings</h3>
+            <div class="stellar-field" style="flex-direction:column;">
+              <div class="stellar-field__label-area">
+                <label class="stellar-field__label">Org user groups</label>
+              </div>
+              <div class="stellar-field__control-area">
+                <select class="dialog__select" id="bulkUserGroup" style="width:auto;">
+                  <option value="ALL_ORGANIZATION_USERS">ALL_ORGANIZATION_USERS (default)</option>
+                </select>
+              </div>
+            </div>
+            <div class="stellar-field" style="flex-direction:column;">
+              <div class="stellar-field__label-area">
+                <label class="stellar-field__label">Password</label>
+              </div>
+              <div class="stellar-field__control-area">
+                <div class="stellar-textinput stellar-textinput--regular stellar-textinput--fullwidth">
+                  <input class="stellar-textinput__input" type="password" placeholder="Add password" id="bulkUserPassword" />
+                </div>
+              </div>
+            </div>
+            <div class="stellar-field" style="flex-direction:column;">
+              <div class="stellar-field__label-area">
+                <label class="stellar-field__label">Confirm password</label>
+              </div>
+              <div class="stellar-field__control-area">
+                <div class="stellar-textinput stellar-textinput--regular stellar-textinput--fullwidth">
+                  <input class="stellar-textinput__input" type="password" placeholder="Add password" id="bulkUserPasswordConfirm" />
+                </div>
+              </div>
+            </div>
+            <label class="dialog__checkbox-row">
+              <span class="dialog__checkbox dialog__checkbox--checked" id="bulkUserResetPwCheckbox">
+                <svg viewBox="0 0 16 16" width="12" height="12" fill="white"><path d="M6.5 11.2 3.3 8l-.7.7 3.9 3.9 8-8-.7-.7z"/></svg>
+              </span>
+              <span class="dialog__checkbox-label">Must reset password on first login</span>
+            </label>
+          </div>
+
+        </div>
+      </div>
+      <div class="dialog__footer dialog__footer--spaced">
+        <button class="stellar-button stellar-button--secondary" id="bulkUserCancel">Cancel</button>
+        <div class="dialog__footer-right">
+          <button class="stellar-button stellar-button--secondary" id="bulkUserPrev" style="visibility:hidden;">Previous</button>
+          <button class="stellar-button stellar-button--primary" id="bulkUserNext">Next</button>
+          <button class="stellar-button stellar-button--primary" id="bulkUserSubmit" style="display:none;">Create Org users</button>
         </div>
       </div>
     </div>

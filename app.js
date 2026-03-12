@@ -3555,6 +3555,200 @@
     });
   }
 
+  // ─── Bulk Create Org Users Wizard ───────────────────────
+
+  function initBulkUserDialog() {
+    const backdrop = document.getElementById('bulkUserBackdrop');
+    const sidebar = document.getElementById('bulkUserSidebar');
+    const step1El = document.getElementById('bulkUserStep1');
+    const step2El = document.getElementById('bulkUserStep2');
+    const step3El = document.getElementById('bulkUserStep3');
+    const emailsInput = document.getElementById('bulkUserEmails');
+    const reviewBody = document.getElementById('bulkUserReviewBody');
+    const reviewTitle = document.getElementById('bulkUserReviewTitle');
+    const issueCount = document.getElementById('bulkUserIssueCount');
+    const searchInput = document.getElementById('bulkUserSearch');
+    const cancelBtn = document.getElementById('bulkUserCancel');
+    const prevBtn = document.getElementById('bulkUserPrev');
+    const nextBtn = document.getElementById('bulkUserNext');
+    const submitBtn = document.getElementById('bulkUserSubmit');
+    const radioEmail = document.getElementById('bulkUserRadioEmail');
+    const radioCsv = document.getElementById('bulkUserRadioCsv');
+    const resetPwCheckbox = document.getElementById('bulkUserResetPwCheckbox');
+    if (!backdrop) return;
+
+    let currentStep = 1;
+    let parsedUsers = [];
+
+    function parseEmails(text) {
+      const emails = text.split(/[,;\n]+/).map(s => s.trim()).filter(s => s.includes('@'));
+      return emails.map(email => {
+        const local = email.split('@')[0];
+        const parts = local.replace(/[._-]/g, ' ').split(/\s+/);
+        const firstName = (parts[0] || '').charAt(0).toUpperCase() + (parts[0] || '').slice(1);
+        const lastName = parts.length > 1 ? (parts[parts.length - 1] || '').charAt(0).toUpperCase() + (parts[parts.length - 1] || '').slice(1) : '';
+        const displayName = [firstName, lastName].filter(Boolean).join(' ');
+        return {
+          email,
+          loginName: local.replace(/\s/g, ''),
+          displayName,
+          firstName,
+          lastName,
+          error: false,
+        };
+      });
+    }
+
+    function renderReviewTable(filter) {
+      const query = (filter || '').toLowerCase();
+      let html = '';
+      let issues = 0;
+      for (let i = 0; i < parsedUsers.length; i++) {
+        const u = parsedUsers[i];
+        if (query && !u.email.toLowerCase().includes(query) && !u.displayName.toLowerCase().includes(query)) continue;
+        const lastErr = !u.lastName ? ' wizard__review-input--error' : '';
+        if (!u.lastName) issues++;
+        html += `<div class="wizard__review-row" data-idx="${i}">
+          <div class="wizard__review-cell wizard__review-cell--cb"><div class="table-checkbox"></div></div>
+          <div class="wizard__review-cell" style="flex:1.2;"><input value="${u.email}" data-field="email" tabindex="-1" /></div>
+          <div class="wizard__review-cell" style="flex:1.2;"><input value="${u.loginName}" data-field="loginName" /></div>
+          <div class="wizard__review-cell" style="flex:1.2;"><input value="${u.displayName}" data-field="displayName" /></div>
+          <div class="wizard__review-cell" style="flex:0.8;"><input value="${u.firstName}" data-field="firstName" /></div>
+          <div class="wizard__review-cell" style="flex:0.8;"><input value="${u.lastName}" data-field="lastName" class="${lastErr}" /></div>
+        </div>`;
+      }
+      reviewBody.innerHTML = html;
+      reviewTitle.textContent = `Review Org user information (${parsedUsers.length})`;
+      if (issues > 0) {
+        issueCount.innerHTML = `<svg viewBox="0 0 16 16" width="14" height="14" fill="none"><circle cx="8" cy="8" r="7" fill="var(--themed-status-critical-ui, #d93025)"/><path fill="white" d="M7.5 4h1v5h-1zm0 6h1v1h-1z"/></svg> ${issues} issue${issues > 1 ? 's' : ''} to resolve`;
+      } else {
+        issueCount.textContent = '';
+      }
+
+      reviewBody.querySelectorAll('input').forEach(input => {
+        input.addEventListener('input', () => {
+          const row = input.closest('.wizard__review-row');
+          const idx = parseInt(row.dataset.idx);
+          const field = input.dataset.field;
+          if (parsedUsers[idx]) parsedUsers[idx][field] = input.value;
+          if (field === 'lastName') {
+            input.classList.toggle('wizard__review-input--error', !input.value.trim());
+            renderIssueCount();
+          }
+        });
+      });
+    }
+
+    function renderIssueCount() {
+      const issues = parsedUsers.filter(u => !u.lastName).length;
+      if (issues > 0) {
+        issueCount.innerHTML = `<svg viewBox="0 0 16 16" width="14" height="14" fill="none"><circle cx="8" cy="8" r="7" fill="var(--themed-status-critical-ui, #d93025)"/><path fill="white" d="M7.5 4h1v5h-1zm0 6h1v1h-1z"/></svg> ${issues} issue${issues > 1 ? 's' : ''} to resolve`;
+      } else {
+        issueCount.textContent = '';
+      }
+    }
+
+    const ICON_EMPTY = '<svg class="wizard__step-svg" width="16" height="16" viewBox="0 0 16 16" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14Z" fill="currentColor"/></svg>';
+    const ICON_CURRENT = '<svg class="wizard__step-svg wizard__step-svg--current" width="16" height="16" viewBox="0 0 16 16" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14Z" fill="currentColor"/><circle cx="8" cy="8" r="3" fill="currentColor"/></svg>';
+    const ICON_DONE = '<svg class="wizard__step-svg wizard__step-svg--done" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M7.35554 10.3536L11.3555 6.35359L10.6484 5.64648L7.00199 9.29293L5.35554 7.64648L4.64844 8.35359L6.64844 10.3536C6.8437 10.5489 7.16028 10.5489 7.35554 10.3536Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8ZM14 8C14 11.3137 11.3137 14 8 14C4.68629 14 2 11.3137 2 8C2 4.68629 4.68629 2 8 2C11.3137 2 14 4.68629 14 8Z" fill="currentColor"/></svg>';
+
+    function showStep(step) {
+      currentStep = step;
+      step1El.style.display = step === 1 ? '' : 'none';
+      step2El.style.display = step === 2 ? '' : 'none';
+      step3El.style.display = step === 3 ? '' : 'none';
+
+      sidebar.querySelectorAll('.wizard__step').forEach(el => {
+        const s = parseInt(el.dataset.wizardStep);
+        el.classList.remove('wizard__step--active', 'wizard__step--done');
+        const iconEl = el.querySelector('.wizard__step-icon');
+        if (s === step) {
+          el.classList.add('wizard__step--active');
+          iconEl.innerHTML = ICON_CURRENT;
+        } else if (s < step) {
+          el.classList.add('wizard__step--done');
+          iconEl.innerHTML = ICON_DONE;
+        } else {
+          iconEl.innerHTML = ICON_EMPTY;
+        }
+
+        const label = el.querySelector('.wizard__step-label');
+        if (s === 1) {
+          label.textContent = s < step ? 'Emails' : 'Add user list';
+        } else if (s === 2) {
+          label.textContent = parsedUsers.length > 0 ? `Review information (${parsedUsers.length})` : 'Review information';
+        }
+      });
+
+      prevBtn.style.visibility = step === 1 ? 'hidden' : '';
+      nextBtn.style.display = step < 3 ? '' : 'none';
+      submitBtn.style.display = step === 3 ? '' : 'none';
+      if (step === 3) {
+        submitBtn.textContent = `Create ${parsedUsers.length} Org users`;
+      }
+
+      if (step === 2) {
+        parsedUsers = parseEmails(emailsInput.value);
+        renderReviewTable();
+      }
+    }
+
+    function openDialog() {
+      emailsInput.value = '';
+      parsedUsers = [];
+      searchInput.value = '';
+      document.getElementById('bulkUserPassword').value = '';
+      document.getElementById('bulkUserPasswordConfirm').value = '';
+      if (!resetPwCheckbox.classList.contains('dialog__checkbox--checked')) {
+        resetPwCheckbox.classList.add('dialog__checkbox--checked');
+      }
+      radioEmail.classList.add('wizard__radio--checked');
+      radioCsv.classList.remove('wizard__radio--checked');
+      showStep(1);
+      backdrop.style.display = 'flex';
+    }
+
+    function closeDialog() {
+      backdrop.style.display = 'none';
+    }
+
+    window._openBulkUserDialog = openDialog;
+
+    radioEmail.addEventListener('click', () => {
+      radioEmail.classList.add('wizard__radio--checked');
+      radioCsv.classList.remove('wizard__radio--checked');
+    });
+    radioCsv.addEventListener('click', () => {
+      radioCsv.classList.add('wizard__radio--checked');
+      radioEmail.classList.remove('wizard__radio--checked');
+    });
+
+    resetPwCheckbox.closest('.dialog__checkbox-row').addEventListener('click', () => {
+      resetPwCheckbox.classList.toggle('dialog__checkbox--checked');
+    });
+
+    searchInput.addEventListener('input', () => renderReviewTable(searchInput.value));
+
+    const bulkMenuItem = document.querySelector('#createButton .stellar-menu__item[data-key="create-bulk-users"]');
+    if (bulkMenuItem) {
+      bulkMenuItem.addEventListener('click', () => openDialog());
+    }
+
+    cancelBtn.addEventListener('click', closeDialog);
+    prevBtn.addEventListener('click', () => showStep(currentStep - 1));
+    nextBtn.addEventListener('click', () => showStep(currentStep + 1));
+    submitBtn.addEventListener('click', () => {
+      closeDialog();
+      showToast(`Created ${parsedUsers.length} Org users`);
+    });
+    backdrop.addEventListener('click', (e) => {
+      if (e.target === backdrop) closeDialog();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && backdrop.style.display !== 'none') closeDialog();
+    });
+  }
+
   // ─── Create Account Dialog (2-step) ─────────────────────
 
   function initCreateAccountDialog() {
@@ -3899,6 +4093,7 @@
     initUserDialog();
     initGroupDialog();
     initCreateAccountDialog();
+    initBulkUserDialog();
     initEditAccountDialog();
     initDisableDialog();
     initRemoveFromDialog();

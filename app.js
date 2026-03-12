@@ -2403,8 +2403,54 @@
 
   // ─── Initialize ─────────────────────────────────────────
 
+  function buildSkeletonHTML(rowCount) {
+    const widths = ['skeleton-line--long', 'skeleton-line--medium', 'skeleton-line--short'];
+    let html = '';
+    for (let i = 0; i < rowCount; i++) {
+      const w1 = widths[i % widths.length];
+      const w2 = widths[(i + 1) % widths.length];
+      html += `<div class="skeleton-row" style="animation-delay:${i * 60}ms">
+        <div class="skeleton-circle" style="animation-delay:${i * 60}ms"></div>
+        <div class="skeleton-lines">
+          <div class="skeleton-line ${w1}" style="animation-delay:${i * 60 + 100}ms"></div>
+          <div class="skeleton-line ${w2}" style="animation-delay:${i * 60 + 200}ms"></div>
+        </div>
+      </div>`;
+    }
+    return html;
+  }
+
+  function initSkeletonLoading() {
+    const delays = {
+      accounts: 1600 + Math.random() * 2400,
+      userGroups: 1200 + Math.random() * 1600,
+      users: 2000 + Math.random() * 3000,
+    };
+
+    for (const colKey of Object.keys(state.columns)) {
+      const col = state.columns[colKey];
+      const skeleton = document.createElement('div');
+      skeleton.className = 'column__skeleton';
+      skeleton.innerHTML = buildSkeletonHTML(12);
+      col.scrollEl.appendChild(skeleton);
+
+      col.spacerEl.style.visibility = 'hidden';
+      col.contentEl.style.visibility = 'hidden';
+      if (col.countEl) col.countEl.style.visibility = 'hidden';
+
+      setTimeout(() => {
+        skeleton.classList.add('column__skeleton--hidden');
+        col.spacerEl.style.visibility = '';
+        col.contentEl.style.visibility = '';
+        if (col.countEl) col.countEl.style.visibility = '';
+        setTimeout(() => skeleton.remove(), 300);
+      }, delays[colKey]);
+    }
+  }
+
   function init() {
     initDomRefs();
+    initSkeletonLoading();
     initVirtualScroll();
     initSelection();
     initControlBar();

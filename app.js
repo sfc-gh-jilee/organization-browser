@@ -2349,7 +2349,13 @@
     });
   }
 
+  let relatedHoverTimer = null;
+  let relatedClearTimer = null;
+  const RELATED_HOVER_DELAY = 400;
+
   function clearRelatedHover() {
+    clearTimeout(relatedHoverTimer);
+    relatedHoverTimer = null;
     if (!relatedHoverState.active) return;
     clearRelatedHoverDom();
     relatedHoverState = { active: false, sourceColKey: null, sourceItemId: null, relatedMap: null };
@@ -2380,23 +2386,39 @@
     applyRelatedHoverDom();
   }
 
+  function scheduleRelatedHover(itemId, colKey) {
+    clearTimeout(relatedClearTimer);
+    relatedClearTimer = null;
+    if (relatedHoverState.active && relatedHoverState.sourceItemId === itemId) return;
+    clearTimeout(relatedHoverTimer);
+    relatedHoverTimer = setTimeout(() => {
+      relatedHoverTimer = null;
+      setRelatedHover(itemId, colKey);
+    }, RELATED_HOVER_DELAY);
+  }
+
+  function scheduleClearRelatedHover() {
+    clearTimeout(relatedHoverTimer);
+    relatedHoverTimer = null;
+    clearRelatedHover();
+  }
+
   function initRelatedHover() {
     for (const colKey of Object.keys(state.columns)) {
       const col = state.columns[colKey];
       col.contentEl.addEventListener('mouseover', (e) => {
         if (state.dragSourceColumn) return;
         const itemEl = closestItem(e.target);
-        if (!itemEl) { clearRelatedHover(); return; }
+        if (!itemEl) { scheduleClearRelatedHover(); return; }
 
         const id = itemEl.dataset.id;
-        if (!id || !(col.highlighted.has(id) || col.selected.has(id))) { clearRelatedHover(); return; }
-        if (relatedHoverState.active && relatedHoverState.sourceItemId === id) return;
+        if (!id || !(col.highlighted.has(id) || col.selected.has(id))) { scheduleClearRelatedHover(); return; }
 
-        setRelatedHover(id, colKey);
+        scheduleRelatedHover(id, colKey);
       });
 
       col.contentEl.addEventListener('mouseleave', () => {
-        clearRelatedHover();
+        scheduleClearRelatedHover();
       });
     }
   }

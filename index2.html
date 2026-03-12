@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en" class="lightMode">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Organization Browser</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="dist/stellar.css">
+  <link rel="stylesheet" href="app2.css">
+</head>
+<body>
+  <div style="display:flex; height:100vh;">
+    <!-- GlobalNav sidebar -->
+    <aside
+      data-component="globalnav"
+      data-active="admin"
+      data-collapsed="true"
+      data-user='{"name":"Admin User","role":"ORGADMIN","hasNotifications":false}'
+    ></aside>
+
+    <!-- Main content -->
+    <div class="main-content">
+      <!-- Breadcrumb -->
+      <div class="breadcrumb">
+        <span class="stellar-span stellar-type-small-paragraph stellar-text--secondary">London Stock Exchange Group</span>
+        <svg viewBox="0 0 16 16" width="12" height="12" fill="none" aria-hidden="true" style="color:var(--themed-reusable-text-secondary);">
+          <path fill="currentColor" d="m5.854 2.646 5 5a.5.5 0 0 1 0 .708l-5 5-.708-.707L9.793 8 5.146 3.354z"/>
+        </svg>
+        <span class="stellar-span stellar-type-small-paragraph" style="color:var(--themed-reusable-text-primary); font-weight:400;">Org Users and User Groups</span>
+      </div>
+
+      <!-- Page header + control bar (single line) -->
+      <div class="control-bar" id="controlBar">
+        <div class="control-bar__left">
+          <h1 class="stellar-heading stellar-type-page-header" style="margin:0;">Organization users and user groups</h1>
+        </div>
+        <input type="hidden" id="globalSearch" value="">
+        <div class="control-bar__center" id="selectionActions" style="display:none;">
+          <span class="selection-title" id="selectionPill"></span>
+          <div class="highlight-mode-trigger" id="highlightModeTrigger">
+            <button class="highlight-mode-btn" id="highlightModeBtn" aria-label="Change highlight mode">
+              <span class="relation-counts" id="relationCounts"></span>
+              <svg class="highlight-mode-btn__chevron" viewBox="0 0 16 16" width="16" height="16" fill="none"><path fill="currentColor" d="m8 11.293 4.146-4.147.708.708-4.5 4.5a.5.5 0 0 1-.708 0l-4.5-4.5.708-.708z"/></svg>
+            </button>
+            <div class="highlight-mode-menu" id="highlightModeMenu">
+              <div class="highlight-mode-menu__item highlight-mode-menu__item--active" data-mode="union">
+                <svg class="highlight-mode-menu__check" viewBox="0 0 16 16" width="14" height="14" fill="none"><path fill="currentColor" d="M13.854 3.646a.5.5 0 0 1 0 .708l-8 8a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L5.5 11.293l7.646-7.647a.5.5 0 0 1 .708 0"/></svg>
+                Showing all related
+              </div>
+              <div class="highlight-mode-menu__item" data-mode="intersection">
+                <svg class="highlight-mode-menu__check" viewBox="0 0 16 16" width="14" height="14" fill="none"><path fill="currentColor" d="M13.854 3.646a.5.5 0 0 1 0 .708l-8 8a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L5.5 11.293l7.646-7.647a.5.5 0 0 1 .708 0"/></svg>
+                Showing in common
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="control-bar__right">
+          <div class="col-visibility-trigger" id="colVisibilityTrigger">
+            <button class="stellar-button stellar-button--secondary stellar-button--icon-only" title="Toggle columns" aria-label="Toggle columns" id="colVisibilityBtn">
+              <svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true">
+                <rect x="1" y="2" width="3.5" height="12" rx="1" stroke="currentColor" stroke-width="1" fill="none"/>
+                <rect x="6.25" y="2" width="3.5" height="12" rx="1" stroke="currentColor" stroke-width="1" fill="none"/>
+                <rect x="11.5" y="2" width="3.5" height="12" rx="1" stroke="currentColor" stroke-width="1" fill="none"/>
+              </svg>
+            </button>
+            <div class="col-visibility-menu" id="colVisibilityMenu">
+              <label class="col-visibility-menu__item" data-col-toggle="accounts">
+                <input type="checkbox" checked /> Accounts
+              </label>
+              <label class="col-visibility-menu__item" data-col-toggle="userGroups">
+                <input type="checkbox" checked /> Org user groups
+              </label>
+              <label class="col-visibility-menu__item" data-col-toggle="users">
+                <input type="checkbox" checked /> Org users
+              </label>
+            </div>
+          </div>
+          <div class="stellar-splitbutton stellar-splitbutton--primary" id="createButton" style="position:relative;">
+            <button class="stellar-splitbutton__action">
+              Create Org user
+            </button>
+            <button class="stellar-splitbutton__trigger" data-menu-trigger>
+              <svg class="stellar-splitbutton__trigger-icon" viewBox="0 0 16 16" aria-hidden="true" fill="none">
+                <path fill="currentColor" d="m8 10.5-4-5h8z"/>
+              </svg>
+            </button>
+            <div class="stellar-menu" role="dialog">
+              <div class="stellar-menu__list" role="menu" tabindex="0">
+                <div class="stellar-menu__item" role="menuitem" data-key="create-user">
+                  <div class="stellar-menu__item-label" tabindex="0">
+                    <div style="flex-grow:1; min-width:0; display:flex; flex-direction:column; gap:2px">
+                      <span class="stellar-menu__item-text">Create Org user</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="stellar-menu__item" role="menuitem" data-key="create-bulk-users">
+                  <div class="stellar-menu__item-label" tabindex="0">
+                    <div style="flex-grow:1; min-width:0; display:flex; flex-direction:column; gap:2px">
+                      <span class="stellar-menu__item-text">Create multiple Org users</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="stellar-menu__divider" role="separator"></div>
+                <div class="stellar-menu__item" role="menuitem" data-key="create-group">
+                  <div class="stellar-menu__item-label" tabindex="0">
+                    <div style="flex-grow:1; min-width:0; display:flex; flex-direction:column; gap:2px">
+                      <span class="stellar-menu__item-text">Create Org user group</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="stellar-menu__item" role="menuitem" data-key="create-account">
+                  <div class="stellar-menu__item-label" tabindex="0">
+                    <div style="flex-grow:1; min-width:0; display:flex; flex-direction:column; gap:2px">
+                      <span class="stellar-menu__item-text">Create Account</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="actionButtons" style="display:none;"></div>
+          <div class="action-divider" id="selectionDivider" style="display:none; width:1px; height:24px; background:var(--themed-reusable-border-default); margin:0 4px;"></div>
+          <button class="stellar-button stellar-button--primary" id="selectionDismiss" style="display:none;">Done selecting</button>
+        </div>
+      </div>
+
+      <!-- Three-column layout (Users > User Groups > Accounts) -->
+      <div class="columns-container">
+        <!-- Users column -->
+        <div class="column column--active" id="col-users" data-column="users">
+          <div class="column__header">
+            <div class="column__header-left">
+              <div class="column__search-wrap">
+                <svg class="column__search-icon" viewBox="0 0 16 16" width="14" height="14" fill="none"><path fill="currentColor" fill-rule="evenodd" d="M7 2a5 5 0 0 1 3.871 8.164l3.983 3.983-.707.707-3.983-3.983A5 5 0 1 1 7 2m0 1a4 4 0 1 0 0 8 4 4 0 0 0 0-8" clip-rule="evenodd"/></svg>
+                <input type="text" class="column__search" id="users-search" placeholder="Org users (0)" autocomplete="off" />
+                <button class="column__search-clear" aria-label="Clear search" data-search-clear="users">
+                  <svg viewBox="0 0 16 16" width="14" height="14" fill="none"><path fill="currentColor" d="m8.708 8 3.646-3.646-.707-.708L8 7.293 4.354 3.646l-.708.708L7.293 8l-3.647 3.646.708.708L8 8.707l3.646 3.647.708-.708z"/></svg>
+                </button>
+              </div>
+              <span class="column__count" id="users-count"></span>
+            </div>
+            <div class="column__header-right">
+              <button class="column__select-btn" id="users-select-btn">Select unassigned</button>
+              <div class="filter-trigger">
+                <button class="column__icon-btn" title="Filter" aria-label="Filter" id="users-filter-btn">
+                  <svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true">
+                    <path fill="currentColor" fill-rule="evenodd" d="M1.5 3h13v1.003L10 8.838V14l-4-2.5V8.838L1.5 4.003zm1.134 1L7 7.662v3.338l2 1.25V7.662L13.366 4z" clip-rule="evenodd"/>
+                  </svg>
+                </button>
+                <div class="filter-menu" id="users-filter-menu"></div>
+              </div>
+            </div>
+          </div>
+          <div class="column__table-wrap">
+            <div class="column__table-header" id="users-table-header"></div>
+            <div class="column__body" id="users-scroll">
+              <div class="virtual-spacer" id="users-spacer"></div>
+              <div class="virtual-content" id="users-content"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- User Groups column -->
+        <div class="column" id="col-usergroups" data-column="userGroups">
+          <div class="column__header">
+            <div class="column__header-left">
+              <div class="column__search-wrap">
+                <svg class="column__search-icon" viewBox="0 0 16 16" width="14" height="14" fill="none"><path fill="currentColor" fill-rule="evenodd" d="M7 2a5 5 0 0 1 3.871 8.164l3.983 3.983-.707.707-3.983-3.983A5 5 0 1 1 7 2m0 1a4 4 0 1 0 0 8 4 4 0 0 0 0-8" clip-rule="evenodd"/></svg>
+                <input type="text" class="column__search" id="usergroups-search" placeholder="Org user groups (0)" autocomplete="off" />
+                <button class="column__search-clear" aria-label="Clear search" data-search-clear="userGroups">
+                  <svg viewBox="0 0 16 16" width="14" height="14" fill="none"><path fill="currentColor" d="m8.708 8 3.646-3.646-.707-.708L8 7.293 4.354 3.646l-.708.708L7.293 8l-3.647 3.646.708.708L8 8.707l3.646 3.647.708-.708z"/></svg>
+                </button>
+              </div>
+              <span class="column__count" id="usergroups-count"></span>
+            </div>
+            <div class="column__header-right">
+              <button class="column__select-btn" id="usergroups-select-btn">Select unassigned</button>
+              <div class="filter-trigger">
+                <button class="column__icon-btn" title="Filter" aria-label="Filter" id="usergroups-filter-btn">
+                  <svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true">
+                    <path fill="currentColor" fill-rule="evenodd" d="M1.5 3h13v1.003L10 8.838V14l-4-2.5V8.838L1.5 4.003zm1.134 1L7 7.662v3.338l2 1.25V7.662L13.366 4z" clip-rule="evenodd"/>
+                  </svg>
+                </button>
+                <div class="filter-menu" id="usergroups-filter-menu"></div>
+              </div>
+            </div>
+          </div>
+          <div class="column__table-wrap">
+            <div class="column__table-header" id="usergroups-table-header"></div>
+            <div class="column__body" id="usergroups-scroll">
+              <div class="virtual-spacer" id="usergroups-spacer"></div>
+              <div class="virtual-content" id="usergroups-content"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accounts column -->
+        <div class="column" id="col-accounts" data-column="accounts">
+          <div class="column__header">
+            <div class="column__header-left">
+              <div class="column__search-wrap">
+                <svg class="column__search-icon" viewBox="0 0 16 16" width="14" height="14" fill="none"><path fill="currentColor" fill-rule="evenodd" d="M7 2a5 5 0 0 1 3.871 8.164l3.983 3.983-.707.707-3.983-3.983A5 5 0 1 1 7 2m0 1a4 4 0 1 0 0 8 4 4 0 0 0 0-8" clip-rule="evenodd"/></svg>
+                <input type="text" class="column__search" id="accounts-search" placeholder="Accounts (0)" autocomplete="off" />
+                <button class="column__search-clear" aria-label="Clear search" data-search-clear="accounts">
+                  <svg viewBox="0 0 16 16" width="14" height="14" fill="none"><path fill="currentColor" d="m8.708 8 3.646-3.646-.707-.708L8 7.293 4.354 3.646l-.708.708L7.293 8l-3.647 3.646.708.708L8 8.707l3.646 3.647.708-.708z"/></svg>
+                </button>
+              </div>
+              <span class="column__count" id="accounts-count"></span>
+            </div>
+            <div class="column__header-right">
+              <div class="filter-trigger">
+                <button class="column__icon-btn" title="Filter" aria-label="Filter" id="accounts-filter-btn">
+                  <svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true">
+                    <path fill="currentColor" fill-rule="evenodd" d="M1.5 3h13v1.003L10 8.838V14l-4-2.5V8.838L1.5 4.003zm1.134 1L7 7.662v3.338l2 1.25V7.662L13.366 4z" clip-rule="evenodd"/>
+                  </svg>
+                </button>
+                <div class="filter-menu" id="accounts-filter-menu"></div>
+              </div>
+            </div>
+          </div>
+          <div class="column__table-wrap">
+            <div class="column__table-header" id="accounts-table-header"></div>
+            <div class="column__body" id="accounts-scroll">
+              <div class="virtual-spacer" id="accounts-spacer"></div>
+              <div class="virtual-content" id="accounts-content"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Side Panel (Cortex Code mock) -->
+    <div class="side-panel" id="sidePanel">
+      <div class="side-panel__resize-handle" id="sidePanelResize"></div>
+      <div class="side-panel__img side-panel__img--top" style="background-image:url('coco-top.png')"></div>
+      <div class="side-panel__img side-panel__img--center" style="background-image:url('coco-center.png')"></div>
+      <div class="side-panel__img side-panel__img--bottom" style="background-image:url('coco-bottom.png')"></div>
+    </div>
+  </div>
+
+  <!-- Assign to Groups Dialog -->
+  <div class="dialog-backdrop" id="assignGroupsBackdrop" style="display:none;">
+    <div class="dialog dialog--wide" role="dialog" aria-labelledby="assignGroupsTitle" aria-modal="true">
+      <div class="dialog__header">
+        <h2 class="dialog__title" id="assignGroupsTitle">Assign users to groups</h2>
+        <div class="dialog__badges" id="assignGroupsBadges"></div>
+      </div>
+      <div class="dialog__body dialog__body--no-gap">
+        <span class="assign-accounts__count" id="assignGroupsCount">Select groups (0)</span>
+        <div class="assign-accounts__toolbar">
+          <div class="assign-accounts__search-wrap">
+            <svg class="assign-accounts__search-icon" viewBox="0 0 16 16" width="14" height="14" fill="none"><path fill="currentColor" fill-rule="evenodd" d="M7 2a5 5 0 0 1 3.871 8.164l3.983 3.983-.707.707-3.983-3.983A5 5 0 1 1 7 2m0 1a4 4 0 1 0 0 8 4 4 0 0 0 0-8" clip-rule="evenodd"/></svg>
+            <input type="text" class="assign-accounts__search" id="assignGroupsSearch" placeholder="Search by group name" autocomplete="off" />
+          </div>
+          <div class="assign-accounts__actions">
+            <button class="stellar-button stellar-button--secondary" id="assignGroupsSelectAll">Select all</button>
+            <button class="stellar-button stellar-button--secondary" id="assignGroupsUnselectAll">Unselect all</button>
+            <div class="filter-trigger">
+              <button class="stellar-button stellar-button--secondary stellar-button--icon-only" title="Filter" aria-label="Filter" id="assignGroupsFilterBtn">
+                <svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M1.5 3h13v1.003L10 8.838V14l-4-2.5V8.838L1.5 4.003zm1.134 1L7 7.662v3.338l2 1.25V7.662L13.366 4z" clip-rule="evenodd"/></svg>
+              </button>
+              <div class="filter-menu" id="assignGroupsFilterMenu"></div>
+            </div>
+          </div>
+        </div>
+        <div class="assign-accounts__table-wrap">
+          <div class="assign-accounts__table-header" id="assignGroupsTableHeader"></div>
+          <div class="assign-accounts__table-body" id="assignGroupsTableBody"></div>
+        </div>
+      </div>
+      <div class="dialog__footer">
+        <button class="stellar-button stellar-button--secondary" id="assignGroupsCancel">Cancel</button>
+        <button class="stellar-button stellar-button--primary" id="assignGroupsSubmit">Assign</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Assign to Accounts Dialog -->
+  <div class="dialog-backdrop" id="assignAccountsBackdrop" style="display:none;">
+    <div class="dialog dialog--wide" role="dialog" aria-labelledby="assignAccountsTitle" aria-modal="true">
+      <div class="dialog__header">
+        <h2 class="dialog__title" id="assignAccountsTitle">Assign groups to accounts</h2>
+        <div class="dialog__badges" id="assignAccountsBadges"></div>
+      </div>
+      <div class="dialog__body dialog__body--no-gap">
+        <span class="assign-accounts__count" id="assignAccountsCount">Select accounts (0)</span>
+        <div class="assign-accounts__toolbar">
+          <div class="assign-accounts__search-wrap">
+            <svg class="assign-accounts__search-icon" viewBox="0 0 16 16" width="14" height="14" fill="none"><path fill="currentColor" fill-rule="evenodd" d="M7 2a5 5 0 0 1 3.871 8.164l3.983 3.983-.707.707-3.983-3.983A5 5 0 1 1 7 2m0 1a4 4 0 1 0 0 8 4 4 0 0 0 0-8" clip-rule="evenodd"/></svg>
+            <input type="text" class="assign-accounts__search" id="assignAccountsSearch" placeholder="Search by account name or region" autocomplete="off" />
+          </div>
+          <div class="assign-accounts__actions">
+            <button class="stellar-button stellar-button--secondary" id="assignAccountsSelectAll">Select all</button>
+            <button class="stellar-button stellar-button--secondary" id="assignAccountsUnselectAll">Unselect all</button>
+            <div class="filter-trigger">
+              <button class="stellar-button stellar-button--secondary stellar-button--icon-only" title="Filter" aria-label="Filter" id="assignAccountsFilterBtn">
+                <svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M1.5 3h13v1.003L10 8.838V14l-4-2.5V8.838L1.5 4.003zm1.134 1L7 7.662v3.338l2 1.25V7.662L13.366 4z" clip-rule="evenodd"/></svg>
+              </button>
+              <div class="filter-menu" id="assignAccountsFilterMenu"></div>
+            </div>
+          </div>
+        </div>
+        <div class="assign-accounts__table-wrap">
+          <div class="assign-accounts__table-header" id="assignAccountsTableHeader"></div>
+          <div class="assign-accounts__table-body" id="assignAccountsTableBody"></div>
+        </div>
+        <label class="assign-accounts__visible-all" id="assignAccountsVisibleAll" style="display:none;">
+          <span class="dialog__checkbox dialog__checkbox--checked" id="assignAccountsVisibleCheckbox">
+            <svg viewBox="0 0 16 16" width="12" height="12" fill="white"><path d="M6.5 11.2 3.3 8l-.7.7 3.9 3.9 8-8-.7-.7z"/></svg>
+          </span>
+          <div class="assign-accounts__visible-text">
+            <span class="assign-accounts__visible-label">Make visible to all current and future accounts</span>
+            <span class="assign-accounts__visible-desc">Enable this to automatically share this group with every account in your organization.</span>
+          </div>
+        </label>
+      </div>
+      <div class="dialog__footer">
+        <button class="stellar-button stellar-button--secondary" id="assignAccountsCancel">Cancel</button>
+        <button class="stellar-button stellar-button--primary" id="assignAccountsSubmit">Assign</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Disable/Enable User Confirmation Dialog -->
+  <div class="dialog-backdrop" id="disableDialogBackdrop" style="display:none;">
+    <div class="dialog dialog--narrow" role="dialog" aria-labelledby="disableDialogTitle" aria-modal="true">
+      <div class="dialog__header">
+        <h2 class="dialog__title" id="disableDialogTitle">Disable user</h2>
+      </div>
+      <div class="dialog__body">
+        <p class="dialog__message" id="disableDialogMessage">Are you sure you want to disable this user? They will no longer be able to sign in to any account in the organization.</p>
+        <div class="dialog__user-list" id="disableDialogUserList" style="display:none;"></div>
+      </div>
+      <div class="dialog__footer">
+        <button class="stellar-button stellar-button--secondary" id="disableDialogCancel">Cancel</button>
+        <button class="stellar-button stellar-button--critical" id="disableDialogSubmit">Disable</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Remove From Confirmation Dialog -->
+  <div class="dialog-backdrop" id="removeFromBackdrop" style="display:none;">
+    <div class="dialog dialog--narrow" role="dialog" aria-labelledby="removeFromTitle" aria-modal="true">
+      <div class="dialog__header">
+        <h2 class="dialog__title" id="removeFromTitle">Remove from groups</h2>
+        <div class="dialog__badges" id="removeFromBadges"></div>
+      </div>
+      <div class="dialog__body">
+        <p class="dialog__message" id="removeFromMessage"></p>
+        <div class="dialog__user-list" id="removeFromParentList" style="display:none;"></div>
+      </div>
+      <div class="dialog__footer">
+        <button class="stellar-button stellar-button--secondary" id="removeFromCancel">Cancel</button>
+        <button class="stellar-button stellar-button--critical" id="removeFromSubmit">Remove</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Org User Group Dialog -->
+  <div class="dialog-backdrop" id="groupDialogBackdrop" style="display:none;">
+    <div class="dialog" role="dialog" aria-labelledby="groupDialogTitle" aria-modal="true">
+      <div class="dialog__header">
+        <h2 class="dialog__title" id="groupDialogTitle">Create Org user group</h2>
+      </div>
+      <div class="dialog__body">
+        <div class="stellar-field" style="flex-direction:column;">
+          <div class="stellar-field__label-area">
+            <label class="stellar-field__label">Group name</label>
+          </div>
+          <div class="stellar-field__control-area">
+            <div class="stellar-textinput stellar-textinput--regular stellar-textinput--fullwidth">
+              <input class="stellar-textinput__input" type="text" placeholder="Add group name" id="groupNameInput" />
+            </div>
+            <p class="stellar-field__description">Group names must be unique within the organization and can only contain letters, numbers, and underscores.</p>
+          </div>
+        </div>
+
+        <div class="stellar-field" style="flex-direction:column;">
+          <div class="stellar-field__label-area">
+            <label class="stellar-field__label">Description</label>
+          </div>
+          <div class="stellar-field__control-area">
+            <textarea class="dialog__textarea" placeholder="Describe group" id="groupDescInput" rows="3"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="dialog__footer">
+        <button class="stellar-button stellar-button--secondary" id="groupDialogCancel">Cancel</button>
+        <button class="stellar-button stellar-button--primary" id="groupDialogSubmit">Create</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Org User Dialog -->
+  <div class="dialog-backdrop" id="createUserBackdrop" style="display:none;">
+    <div class="dialog" role="dialog" aria-labelledby="createUserTitle" aria-modal="true">
+      <div class="dialog__header">
+        <h2 class="dialog__title" id="createUserTitle">Create Org user</h2>
+      </div>
+      <div class="dialog__body">
+        <div class="dialog__row dialog__row--two-col">
+          <div class="stellar-field" style="flex-direction:column; flex:1;">
+            <div class="stellar-field__label-area">
+              <label class="stellar-field__label">First name</label>
+            </div>
+            <div class="stellar-field__control-area">
+              <div class="stellar-textinput stellar-textinput--regular stellar-textinput--fullwidth">
+                <input class="stellar-textinput__input" type="text" placeholder="Add first name" />
+              </div>
+            </div>
+          </div>
+          <div class="stellar-field" style="flex-direction:column; flex:1;">
+            <div class="stellar-field__label-area">
+              <label class="stellar-field__label">Last name</label>
+            </div>
+            <div class="stellar-field__control-area">
+              <div class="stellar-textinput stellar-textinput--regular stellar-textinput--fullwidth">
+                <input class="stellar-textinput__input" type="text" placeholder="Add last name" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stellar-field" style="flex-direction:column;">
+          <div class="stellar-field__label-area">
+            <label class="stellar-field__label">Login name</label>
+          </div>
+          <div class="stellar-field__control-area">
+            <div class="stellar-textinput stellar-textinput--regular stellar-textinput--fullwidth">
+              <input class="stellar-textinput__input" type="text" placeholder="Add unique identifier to sign in" />
+            </div>
+          </div>
+        </div>
+
+        <div class="stellar-field" style="flex-direction:column;">
+          <div class="stellar-field__label-area">
+            <label class="stellar-field__label">Display name</label>
+          </div>
+          <div class="stellar-field__control-area">
+            <div class="stellar-textinput stellar-textinput--regular stellar-textinput--fullwidth">
+              <input class="stellar-textinput__input" type="text" placeholder="Add display name" />
+            </div>
+          </div>
+        </div>
+
+        <div class="stellar-field" style="flex-direction:column;">
+          <div class="stellar-field__label-area">
+            <label class="stellar-field__label">Email</label>
+          </div>
+          <div class="stellar-field__control-area">
+            <div class="stellar-textinput stellar-textinput--regular stellar-textinput--fullwidth">
+              <input class="stellar-textinput__input" type="text" placeholder="Add email" />
+            </div>
+          </div>
+        </div>
+
+        <div class="dialog__row dialog__row--two-col">
+          <div class="stellar-field" style="flex-direction:column; flex:1;">
+            <div class="stellar-field__label-area">
+              <label class="stellar-field__label">Password</label>
+            </div>
+            <div class="stellar-field__control-area">
+              <div class="stellar-textinput stellar-textinput--regular stellar-textinput--fullwidth">
+                <input class="stellar-textinput__input" type="password" placeholder="Add password" />
+              </div>
+            </div>
+          </div>
+          <div class="stellar-field" style="flex-direction:column; flex:1;">
+            <div class="stellar-field__label-area">
+              <label class="stellar-field__label">Confirm password</label>
+            </div>
+            <div class="stellar-field__control-area">
+              <div class="stellar-textinput stellar-textinput--regular stellar-textinput--fullwidth">
+                <input class="stellar-textinput__input" type="password" placeholder="Add password" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <label class="dialog__checkbox-row">
+          <span class="dialog__checkbox dialog__checkbox--checked" id="resetPasswordCheckbox">
+            <svg viewBox="0 0 16 16" width="12" height="12" fill="white"><path d="M6.5 11.2 3.3 8l-.7.7 3.9 3.9 8-8-.7-.7z"/></svg>
+          </span>
+          <span class="dialog__checkbox-label">Must reset password on first login</span>
+        </label>
+      </div>
+      <div class="dialog__footer">
+        <button class="stellar-button stellar-button--secondary" id="createUserCancel">Cancel</button>
+        <button class="stellar-button stellar-button--primary" id="createUserSubmit">Create</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Account Dialog -->
+  <div class="dialog-backdrop" id="editAccountBackdrop" style="display:none;">
+    <div class="dialog" role="dialog" aria-labelledby="editAccountTitle" aria-modal="true">
+      <div class="dialog__header">
+        <h2 class="dialog__title" id="editAccountTitle">Edit account</h2>
+      </div>
+      <div class="dialog__body">
+        <div class="stellar-field" style="flex-direction:column;">
+          <div class="stellar-field__label-area">
+            <label class="stellar-field__label">Account name</label>
+          </div>
+          <div class="stellar-field__control-area">
+            <div class="stellar-textinput stellar-textinput--regular stellar-textinput--fullwidth">
+              <input class="stellar-textinput__input" type="text" id="editAccountName" />
+            </div>
+          </div>
+        </div>
+
+        <div class="stellar-field" style="flex-direction:column;">
+          <div class="stellar-field__label-area">
+            <label class="stellar-field__label">Account URLs</label>
+          </div>
+          <div class="stellar-field__control-area">
+            <div class="dialog__url-preview" id="editAccountUrlPreview"></div>
+            <label class="dialog__checkbox-row" style="margin-top:8px;">
+              <span class="dialog__checkbox" id="editAccountSaveOldUrl">
+                <svg viewBox="0 0 16 16" width="12" height="12" fill="white"><path d="M6.5 11.2 3.3 8l-.7.7 3.9 3.9 8-8-.7-.7z"/></svg>
+              </span>
+              <span class="dialog__checkbox-label">Save old URL (allows previous URL to keep working during transition)</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="dialog__row dialog__row--two-col">
+          <div class="stellar-field" style="flex-direction:column; flex:1;">
+            <div class="stellar-field__label-area">
+              <label class="stellar-field__label">Account edition</label>
+            </div>
+            <div class="stellar-field__control-area">
+              <select class="dialog__select" id="editAccountEdition">
+                <option value="Standard">Standard</option>
+                <option value="Enterprise">Enterprise</option>
+                <option value="Business Critical">Business Critical</option>
+              </select>
+            </div>
+          </div>
+          <div class="stellar-field" style="flex-direction:column; flex:1;">
+            <div class="stellar-field__label-area">
+              <label class="stellar-field__label">Tenant type</label>
+            </div>
+            <div class="stellar-field__control-area">
+              <select class="dialog__select" id="editAccountTenantType">
+                <option value="Internal">Internal</option>
+                <option value="External">External</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="stellar-field" style="flex-direction:column;">
+          <div class="stellar-field__label-area">
+            <label class="stellar-field__label">Comment</label>
+          </div>
+          <div class="stellar-field__control-area">
+            <textarea class="dialog__textarea" placeholder="Add administrative notes" id="editAccountComment" rows="3"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="dialog__footer">
+        <button class="stellar-button stellar-button--secondary" id="editAccountCancel">Cancel</button>
+        <button class="stellar-button stellar-button--primary" id="editAccountSubmit">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Account Dialog (2-step) -->
+  <div class="dialog-backdrop" id="createAccountBackdrop" style="display:none;">
+    <div class="dialog" role="dialog" aria-labelledby="createAccountTitle" aria-modal="true">
+      <div class="dialog__header">
+        <h2 class="dialog__title" id="createAccountTitle">Create new account</h2>
+        <p class="dialog__subtitle" id="createAccountSubtitle">Each account in your organization will have its own set of users, roles, databases and warehouses.</p>
+      </div>
+
+      <!-- Step 1: Cloud / Region / Edition -->
+      <div class="dialog__body" id="createAccountStep1">
+        <div class="stellar-field" style="flex-direction:column;">
+          <div class="stellar-field__label-area">
+            <label class="stellar-field__label">Cloud</label>
+          </div>
+          <div class="stellar-field__control-area">
+            <select class="dialog__select" id="createAccountCloud">
+              <option value="AWS">Amazon Web Services</option>
+              <option value="Azure">Microsoft Azure</option>
+              <option value="GCP">Google Cloud Platform</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="stellar-field" style="flex-direction:column;">
+          <div class="stellar-field__label-area">
+            <label class="stellar-field__label">Region</label>
+          </div>
+          <div class="stellar-field__control-area">
+            <select class="dialog__select" id="createAccountRegion"></select>
+          </div>
+        </div>
+
+        <div class="stellar-field" style="flex-direction:column;">
+          <div class="stellar-field__label-area">
+            <label class="stellar-field__label">Edition</label>
+          </div>
+          <div class="stellar-field__control-area">
+            <select class="dialog__select" id="createAccountEdition">
+              <option value="Standard">Standard - $2 Credit, $23 TB</option>
+              <option value="Enterprise">Enterprise - $3 Credit, $40 TB</option>
+              <option value="Business Critical">Business Critical - $4 Credit, $56 TB</option>
+            </select>
+            <p class="stellar-field__description">You will be billed for usage of all your accounts on a single bill. The service rates displayed are standard list prices and may not reflect any discounts you may have.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Account name / User / Password / Email -->
+      <div class="dialog__body" id="createAccountStep2" style="display:none;">
+        <div class="dialog__step2-context" id="createAccountStep2Context"></div>
+
+        <div class="stellar-field" style="flex-direction:column;">
+          <div class="stellar-field__label-area">
+            <label class="stellar-field__label">Account name</label>
+          </div>
+          <div class="stellar-field__control-area">
+            <div class="stellar-textinput stellar-textinput--regular stellar-textinput--fullwidth">
+              <input class="stellar-textinput__input" type="text" placeholder="NEW_ACCOUNT" id="createAccountName" />
+            </div>
+          </div>
+        </div>
+
+        <div class="stellar-field" style="flex-direction:column;">
+          <div class="stellar-field__label-area">
+            <label class="stellar-field__label">User name</label>
+          </div>
+          <div class="stellar-field__control-area">
+            <div class="stellar-textinput stellar-textinput--regular stellar-textinput--fullwidth">
+              <input class="stellar-textinput__input" type="text" placeholder="e.g. jdoe" id="createAccountUser" />
+            </div>
+          </div>
+        </div>
+
+        <div class="dialog__row dialog__row--two-col">
+          <div class="stellar-field" style="flex-direction:column; flex:1;">
+            <div class="stellar-field__label-area">
+              <label class="stellar-field__label">Password</label>
+            </div>
+            <div class="stellar-field__control-area">
+              <div class="stellar-textinput stellar-textinput--regular stellar-textinput--fullwidth">
+                <input class="stellar-textinput__input" type="password" placeholder="Password" id="createAccountPassword" />
+              </div>
+            </div>
+          </div>
+          <div class="stellar-field" style="flex-direction:column; flex:1;">
+            <div class="stellar-field__label-area">
+              <label class="stellar-field__label">Confirm password</label>
+            </div>
+            <div class="stellar-field__control-area">
+              <div class="stellar-textinput stellar-textinput--regular stellar-textinput--fullwidth">
+                <input class="stellar-textinput__input" type="password" placeholder="Confirm password" id="createAccountPasswordConfirm" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stellar-field" style="flex-direction:column;">
+          <div class="stellar-field__label-area">
+            <label class="stellar-field__label">Email</label>
+          </div>
+          <div class="stellar-field__control-area">
+            <div class="stellar-textinput stellar-textinput--regular stellar-textinput--fullwidth">
+              <input class="stellar-textinput__input" type="text" placeholder="user@company.com" id="createAccountEmail" />
+            </div>
+          </div>
+        </div>
+
+        <p class="stellar-field__description">Please note once you click on Create Account, the process may take up to 30 seconds.</p>
+      </div>
+
+      <div class="dialog__footer dialog__footer--spaced" id="createAccountFooter">
+        <button class="stellar-button stellar-button--secondary" id="createAccountBack" style="visibility:hidden;">Back</button>
+        <div class="dialog__footer-right">
+          <button class="stellar-button stellar-button--secondary" id="createAccountCancel">Cancel</button>
+          <button class="stellar-button stellar-button--primary" id="createAccountNext">Next</button>
+          <button class="stellar-button stellar-button--primary" id="createAccountSubmit" style="display:none;">Create account</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bulk Create Org Users Wizard -->
+  <div class="dialog-backdrop" id="bulkUserBackdrop" style="display:none;">
+    <div class="dialog dialog--wizard" role="dialog" aria-labelledby="bulkUserTitle" aria-modal="true">
+      <div class="dialog__header dialog__header--left">
+        <h2 class="dialog__title" id="bulkUserTitle">Add multiple Org users</h2>
+      </div>
+      <div class="wizard__body">
+        <div class="wizard__sidebar" id="bulkUserSidebar">
+          <div class="wizard__step wizard__step--active" data-wizard-step="1">
+            <span class="wizard__step-icon"></span>
+            <span class="wizard__step-label">Add user list</span>
+          </div>
+          <div class="wizard__step" data-wizard-step="2">
+            <span class="wizard__step-icon"></span>
+            <span class="wizard__step-label">Review information</span>
+          </div>
+          <div class="wizard__step" data-wizard-step="3">
+            <span class="wizard__step-icon"></span>
+            <span class="wizard__step-label">Settings</span>
+          </div>
+        </div>
+        <div class="wizard__content">
+
+          <!-- Step 1: Add user list -->
+          <div class="wizard__panel" id="bulkUserStep1">
+            <h3 class="stellar-heading stellar-type-page-header">Add user list</h3>
+            <div class="wizard__option-group">
+              <label class="wizard__radio wizard__radio--checked" id="bulkUserRadioEmail">
+                <span class="wizard__radio-circle"></span>
+                <span>Use emails</span>
+              </label>
+              <textarea class="dialog__textarea" id="bulkUserEmails" rows="6" placeholder="e.g., jane.doe@lseg.com, m.smith@lseg.com, alex_v@lseg.com"></textarea>
+              <p class="stellar-field__description">Paste a list of email addresses separated by commas. AI will automatically generate names and login IDs for your user emails.</p>
+            </div>
+            <div class="wizard__option-group">
+              <label class="wizard__radio" id="bulkUserRadioCsv">
+                <span class="wizard__radio-circle"></span>
+                <span>Upload CSV file</span>
+              </label>
+              <div class="wizard__dropzone" id="bulkUserDropzone">
+                <span class="wizard__dropzone-text">Drag and drop CSV file here or</span>
+                <button class="stellar-button stellar-button--secondary" id="bulkUserBrowse">Browse</button>
+              </div>
+              <p class="stellar-field__description">Use CSV file that has simple structure: with headers like email, first_name, last_name, and login_name. <a href="#" class="wizard__link">Download template CSV file</a></p>
+            </div>
+          </div>
+
+          <!-- Step 2: Review information -->
+          <div class="wizard__panel" id="bulkUserStep2" style="display:none;">
+            <h3 class="stellar-heading stellar-type-page-header" id="bulkUserReviewTitle">Review Org user information</h3>
+            <div class="wizard__review-toolbar">
+              <div class="stellar-textinput stellar-textinput--regular" style="width:200px;">
+                <span class="stellar-textinput__prefix-icon"><svg viewBox="0 0 16 16" width="16" height="16" fill="none"><path fill="currentColor" fill-rule="evenodd" d="M7 2a5 5 0 0 1 3.871 8.164l3.983 3.983-.707.707-3.983-3.983A5 5 0 1 1 7 2m0 1a4 4 0 1 0 0 8 4 4 0 0 0 0-8" clip-rule="evenodd"/></svg></span>
+                <input class="stellar-textinput__input" type="text" id="bulkUserSearch" placeholder="Find" autocomplete="off" />
+              </div>
+              <span class="wizard__review-count" id="bulkUserIssueCount"></span>
+            </div>
+            <div class="wizard__review-table">
+              <div class="wizard__review-header">
+                <div class="wizard__review-cell wizard__review-cell--cb"><div class="table-checkbox" id="bulkUserSelectAll"></div></div>
+                <div class="wizard__review-cell" style="flex:1.2;">Email</div>
+                <div class="wizard__review-cell" style="flex:1.2;">Login name</div>
+                <div class="wizard__review-cell" style="flex:1.2;">Display name</div>
+                <div class="wizard__review-cell" style="flex:0.8;">First name</div>
+                <div class="wizard__review-cell" style="flex:0.8;">Last name</div>
+              </div>
+              <div class="wizard__review-body" id="bulkUserReviewBody"></div>
+            </div>
+          </div>
+
+          <!-- Step 3: Settings -->
+          <div class="wizard__panel" id="bulkUserStep3" style="display:none;">
+            <h3 class="stellar-heading stellar-type-page-header">Settings</h3>
+            <div class="stellar-field" style="flex-direction:column;">
+              <div class="stellar-field__label-area">
+                <label class="stellar-field__label">Org user groups</label>
+              </div>
+              <div class="stellar-field__control-area">
+                <select class="dialog__select" id="bulkUserGroup" style="width:auto;">
+                  <option value="ALL_ORGANIZATION_USERS">ALL_ORGANIZATION_USERS (default)</option>
+                </select>
+              </div>
+            </div>
+            <div class="stellar-field" style="flex-direction:column;">
+              <div class="stellar-field__label-area">
+                <label class="stellar-field__label">Password</label>
+              </div>
+              <div class="stellar-field__control-area">
+                <div class="stellar-textinput stellar-textinput--regular stellar-textinput--fullwidth">
+                  <input class="stellar-textinput__input" type="password" placeholder="Add password" id="bulkUserPassword" />
+                </div>
+              </div>
+            </div>
+            <div class="stellar-field" style="flex-direction:column;">
+              <div class="stellar-field__label-area">
+                <label class="stellar-field__label">Confirm password</label>
+              </div>
+              <div class="stellar-field__control-area">
+                <div class="stellar-textinput stellar-textinput--regular stellar-textinput--fullwidth">
+                  <input class="stellar-textinput__input" type="password" placeholder="Add password" id="bulkUserPasswordConfirm" />
+                </div>
+              </div>
+            </div>
+            <label class="dialog__checkbox-row">
+              <span class="dialog__checkbox dialog__checkbox--checked" id="bulkUserResetPwCheckbox">
+                <svg viewBox="0 0 16 16" width="12" height="12" fill="white"><path d="M6.5 11.2 3.3 8l-.7.7 3.9 3.9 8-8-.7-.7z"/></svg>
+              </span>
+              <span class="dialog__checkbox-label">Must reset password on first login</span>
+            </label>
+          </div>
+
+        </div>
+      </div>
+      <div class="dialog__footer dialog__footer--spaced">
+        <button class="stellar-button stellar-button--secondary" id="bulkUserCancel">Cancel</button>
+        <div class="dialog__footer-right">
+          <button class="stellar-button stellar-button--secondary" id="bulkUserPrev" style="visibility:hidden;">Previous</button>
+          <button class="stellar-button stellar-button--primary" id="bulkUserNext">Next</button>
+          <button class="stellar-button stellar-button--primary" id="bulkUserSubmit" style="display:none;">Create Org users</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hover popover -->
+  <div id="itemPopover" class="item-popover" style="display:none;"></div>
+
+  <!-- Inline item menu (shared, repositioned per click) -->
+  <div id="itemInlineMenu" class="item-inline-menu"></div>
+
+  <!-- Drag ghost template (hidden) -->
+  <div id="dragGhost" class="drag-ghost" style="display:none;">
+    <span class="drag-ghost__count"></span>
+    <span class="drag-ghost__label"></span>
+  </div>
+
+  <script src="dist/stellar.js"></script>
+  <script src="data.js"></script>
+  <script src="app2.js"></script>
+</body>
+</html>

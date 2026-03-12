@@ -1567,7 +1567,10 @@ html, body { height: 100%; overflow: hidden; }
   line-height: var(--themed-line-height-large-single-line, 24px);
   color: var(--themed-reusable-text-primary);
   margin: 0;
-  /* text-align: center; */
+  text-align: center;
+}
+.dialog--wizard .dialog__title {
+  text-align: left;
 }
 
 .dialog__body {

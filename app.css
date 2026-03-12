@@ -86,9 +86,7 @@ html, body { height: 100%; overflow: hidden; }
   justify-content: center;
 }
 
-#selectionDismiss {
-  margin-right: 12px;
-}
+
 
 .selection-dismiss {
   display: inline-flex;

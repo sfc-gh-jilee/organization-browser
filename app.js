@@ -977,7 +977,7 @@
 
     if (overflowActions.length > 0) {
       html += `<div class="stellar-menu-trigger">
-        <button class="stellar-button stellar-button--secondary" data-overflow-trigger>
+        <button class="stellar-button stellar-button--secondary stellar-button--icon-only" data-overflow-trigger>
           ${ACTION_ICONS.overflow}
         </button>
         <div class="stellar-menu action-overflow-menu" role="dialog">
@@ -1047,11 +1047,16 @@
     const colVisBtn = document.getElementById('colVisibilityTrigger');
     const pillEl = document.getElementById('selectionPill');
 
+    const doneBtn = document.getElementById('selectionDismiss');
+    const selDivider = document.getElementById('selectionDivider');
+
     if (totalSelected > 0) {
       actionsEl.style.display = 'flex';
       headerEl.style.display = 'none';
       createBtn.style.display = 'none';
       colVisBtn.style.display = 'none';
+      doneBtn.style.display = '';
+      selDivider.style.display = '';
 
       actionBtnsEl.innerHTML = buildActionButtons(activeColKey, totalSelected);
       currentActionCol = activeColKey;
@@ -1113,6 +1118,8 @@
     } else {
       actionsEl.style.display = 'none';
       actionBtnsEl.style.display = 'none';
+      doneBtn.style.display = 'none';
+      selDivider.style.display = 'none';
       actionBtnsEl.innerHTML = '';
       currentActionCol = null;
       headerEl.style.display = '';

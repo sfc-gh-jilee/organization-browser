@@ -38,9 +38,6 @@
         </div>
         <input type="hidden" id="globalSearch" value="">
         <div class="control-bar__center" id="selectionActions" style="display:none;">
-          <button class="stellar-button stellar-button--secondary stellar-button--icon-only" id="selectionDismiss" aria-label="Deselect">
-            <svg viewBox="0 0 16 16" width="16" height="16" fill="none"><path fill="currentColor" d="m8.708 8 3.646-3.646-.707-.708L8 7.293 4.354 3.646l-.708.708L7.293 8l-3.647 3.646.708.708L8 8.707l3.646 3.647.708-.708z"/></svg>
-          </button>
           <span class="selection-title" id="selectionPill"></span>
           <div class="highlight-mode-trigger" id="highlightModeTrigger">
             <button class="highlight-mode-btn" id="highlightModeBtn" aria-label="Change highlight mode">
@@ -116,6 +113,8 @@
             </div>
           </div>
           <div id="actionButtons" style="display:none;"></div>
+          <div class="action-divider" id="selectionDivider" style="display:none; width:1px; height:24px; background:var(--themed-reusable-border-default); margin:0 4px;"></div>
+          <button class="stellar-button stellar-button--primary" id="selectionDismiss" style="display:none;">Done selecting</button>
         </div>
       </div>
 

@@ -1590,6 +1590,15 @@ html, body { height: 100%; overflow: hidden; }
   border-top: 1px solid var(--themed-reusable-border-default, #e5e7eb);
 }
 
+.dialog__footer--spaced {
+  justify-content: space-between;
+}
+
+.dialog__footer-right {
+  display: flex;
+  gap: 8px;
+}
+
 .dialog__checkbox-row {
   display: flex;
   align-items: center;
@@ -1648,6 +1657,27 @@ html, body { height: 100%; overflow: hidden; }
 }
 
 .dialog__textarea::placeholder {
+  color: var(--themed-reusable-text-secondary);
+}
+
+.dialog__subtitle {
+  font-family: var(--themed-font-family-body, Inter, sans-serif);
+  font-size: var(--themed-font-size-small, 12px);
+  line-height: var(--themed-line-height-regular-body, 20px);
+  color: var(--themed-reusable-text-secondary);
+  margin: 4px 0 0;
+  text-align: center;
+}
+
+.dialog__step2-context {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: var(--stellar-radius-sm, 4px);
+  background: var(--themed-reusable-background-secondary);
+  font-family: var(--themed-font-family-body, Inter, sans-serif);
+  font-size: var(--themed-font-size-small, 12px);
   color: var(--themed-reusable-text-secondary);
 }
 

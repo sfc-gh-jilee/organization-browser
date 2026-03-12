@@ -560,6 +560,127 @@
     </div>
   </div>
 
+  <!-- Create Account Dialog (2-step) -->
+  <div class="dialog-backdrop" id="createAccountBackdrop" style="display:none;">
+    <div class="dialog" role="dialog" aria-labelledby="createAccountTitle" aria-modal="true">
+      <div class="dialog__header">
+        <h2 class="dialog__title" id="createAccountTitle">Create new account</h2>
+        <p class="dialog__subtitle" id="createAccountSubtitle">Each account in your organization will have its own set of users, roles, databases and warehouses.</p>
+      </div>
+
+      <!-- Step 1: Cloud / Region / Edition -->
+      <div class="dialog__body" id="createAccountStep1">
+        <div class="stellar-field" style="flex-direction:column;">
+          <div class="stellar-field__label-area">
+            <label class="stellar-field__label">Cloud</label>
+          </div>
+          <div class="stellar-field__control-area">
+            <select class="dialog__select" id="createAccountCloud">
+              <option value="AWS">Amazon Web Services</option>
+              <option value="Azure">Microsoft Azure</option>
+              <option value="GCP">Google Cloud Platform</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="stellar-field" style="flex-direction:column;">
+          <div class="stellar-field__label-area">
+            <label class="stellar-field__label">Region</label>
+          </div>
+          <div class="stellar-field__control-area">
+            <select class="dialog__select" id="createAccountRegion"></select>
+          </div>
+        </div>
+
+        <div class="stellar-field" style="flex-direction:column;">
+          <div class="stellar-field__label-area">
+            <label class="stellar-field__label">Edition</label>
+          </div>
+          <div class="stellar-field__control-area">
+            <select class="dialog__select" id="createAccountEdition">
+              <option value="Standard">Standard - $2 Credit, $23 TB</option>
+              <option value="Enterprise">Enterprise - $3 Credit, $40 TB</option>
+              <option value="Business Critical">Business Critical - $4 Credit, $56 TB</option>
+            </select>
+            <p class="stellar-field__description">You will be billed for usage of all your accounts on a single bill. The service rates displayed are standard list prices and may not reflect any discounts you may have.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Account name / User / Password / Email -->
+      <div class="dialog__body" id="createAccountStep2" style="display:none;">
+        <div class="dialog__step2-context" id="createAccountStep2Context"></div>
+
+        <div class="stellar-field" style="flex-direction:column;">
+          <div class="stellar-field__label-area">
+            <label class="stellar-field__label">Account name</label>
+          </div>
+          <div class="stellar-field__control-area">
+            <div class="stellar-textinput stellar-textinput--regular stellar-textinput--fullwidth">
+              <input class="stellar-textinput__input" type="text" placeholder="NEW_ACCOUNT" id="createAccountName" />
+            </div>
+          </div>
+        </div>
+
+        <div class="stellar-field" style="flex-direction:column;">
+          <div class="stellar-field__label-area">
+            <label class="stellar-field__label">User name</label>
+          </div>
+          <div class="stellar-field__control-area">
+            <div class="stellar-textinput stellar-textinput--regular stellar-textinput--fullwidth">
+              <input class="stellar-textinput__input" type="text" placeholder="e.g. jdoe" id="createAccountUser" />
+            </div>
+          </div>
+        </div>
+
+        <div class="dialog__row dialog__row--two-col">
+          <div class="stellar-field" style="flex-direction:column; flex:1;">
+            <div class="stellar-field__label-area">
+              <label class="stellar-field__label">Password</label>
+            </div>
+            <div class="stellar-field__control-area">
+              <div class="stellar-textinput stellar-textinput--regular stellar-textinput--fullwidth">
+                <input class="stellar-textinput__input" type="password" placeholder="Password" id="createAccountPassword" />
+              </div>
+            </div>
+          </div>
+          <div class="stellar-field" style="flex-direction:column; flex:1;">
+            <div class="stellar-field__label-area">
+              <label class="stellar-field__label">Confirm password</label>
+            </div>
+            <div class="stellar-field__control-area">
+              <div class="stellar-textinput stellar-textinput--regular stellar-textinput--fullwidth">
+                <input class="stellar-textinput__input" type="password" placeholder="Confirm password" id="createAccountPasswordConfirm" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stellar-field" style="flex-direction:column;">
+          <div class="stellar-field__label-area">
+            <label class="stellar-field__label">Email</label>
+          </div>
+          <div class="stellar-field__control-area">
+            <div class="stellar-textinput stellar-textinput--regular stellar-textinput--fullwidth">
+              <input class="stellar-textinput__input" type="text" placeholder="user@company.com" id="createAccountEmail" />
+            </div>
+          </div>
+        </div>
+
+        <p class="stellar-field__description">Please note once you click on Create Account, the process may take up to 30 seconds.</p>
+      </div>
+
+      <div class="dialog__footer dialog__footer--spaced" id="createAccountFooter">
+        <button class="stellar-button stellar-button--secondary" id="createAccountBack" style="visibility:hidden;">Back</button>
+        <div class="dialog__footer-right">
+          <button class="stellar-button stellar-button--secondary" id="createAccountCancel">Cancel</button>
+          <button class="stellar-button stellar-button--primary" id="createAccountNext">Next</button>
+          <button class="stellar-button stellar-button--primary" id="createAccountSubmit" style="display:none;">Create account</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Hover popover -->
   <div id="itemPopover" class="item-popover" style="display:none;"></div>
 

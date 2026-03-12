@@ -3555,6 +3555,144 @@
     });
   }
 
+  // ─── Create Account Dialog (2-step) ─────────────────────
+
+  function initCreateAccountDialog() {
+    const backdrop = document.getElementById('createAccountBackdrop');
+    const titleEl = document.getElementById('createAccountTitle');
+    const subtitleEl = document.getElementById('createAccountSubtitle');
+    const step1El = document.getElementById('createAccountStep1');
+    const step2El = document.getElementById('createAccountStep2');
+    const contextEl = document.getElementById('createAccountStep2Context');
+    const cloudSelect = document.getElementById('createAccountCloud');
+    const regionSelect = document.getElementById('createAccountRegion');
+    const editionSelect = document.getElementById('createAccountEdition');
+    const nameInput = document.getElementById('createAccountName');
+    const userInput = document.getElementById('createAccountUser');
+    const passwordInput = document.getElementById('createAccountPassword');
+    const passwordConfirmInput = document.getElementById('createAccountPasswordConfirm');
+    const emailInput = document.getElementById('createAccountEmail');
+    const cancelBtn = document.getElementById('createAccountCancel');
+    const nextBtn = document.getElementById('createAccountNext');
+    const backBtn = document.getElementById('createAccountBack');
+    const submitBtn = document.getElementById('createAccountSubmit');
+    if (!backdrop) return;
+
+    const REGIONS = {
+      AWS: ['US-East-1', 'US-East-2', 'US-West-2', 'EU-West-1', 'EU-Central-1', 'AP-Southeast-1', 'AP-Northeast-1', 'CA-Central-1', 'SA-East-1'],
+      Azure: ['East US', 'East US 2', 'West US 2', 'West Europe', 'North Europe', 'Southeast Asia', 'Australia East', 'Canada Central', 'Japan East'],
+      GCP: ['US-Central1', 'US-East4', 'Europe-West1', 'Europe-West4', 'Asia-East1', 'Asia-Northeast1', 'Australia-Southeast1'],
+    };
+
+    let currentStep = 1;
+
+    function populateRegions() {
+      const cloud = cloudSelect.value;
+      const regions = REGIONS[cloud] || [];
+      regionSelect.innerHTML = regions.map(r => `<option value="${r}">${r}</option>`).join('');
+    }
+
+    function showStep(step) {
+      currentStep = step;
+      if (step === 1) {
+        step1El.style.display = '';
+        step2El.style.display = 'none';
+        titleEl.textContent = 'Create new account';
+        subtitleEl.textContent = 'Each account in your organization will have its own set of users, roles, databases and warehouses.';
+        subtitleEl.style.display = '';
+        contextEl.style.display = '';
+        nextBtn.style.display = '';
+        backBtn.style.visibility = 'hidden';
+        submitBtn.style.display = 'none';
+      } else {
+        step1El.style.display = 'none';
+        step2El.style.display = '';
+        const cloudLabel = cloudSelect.options[cloudSelect.selectedIndex].text;
+        const editionLabel = editionSelect.value;
+        titleEl.textContent = 'Create new account';
+        subtitleEl.textContent = `${cloudLabel} · ${regionSelect.value} · ${editionLabel === 'Business Critical' ? 'Business critical' : editionLabel} Edition`;
+        subtitleEl.style.display = '';
+        contextEl.style.display = 'none';
+        nextBtn.style.display = 'none';
+        backBtn.style.visibility = '';
+        submitBtn.style.display = '';
+        setTimeout(() => nameInput.focus(), 50);
+      }
+    }
+
+    function openDialog() {
+      cloudSelect.value = 'AWS';
+      populateRegions();
+      editionSelect.value = 'Standard';
+      nameInput.value = '';
+      userInput.value = '';
+      passwordInput.value = '';
+      passwordConfirmInput.value = '';
+      emailInput.value = '';
+      showStep(1);
+      backdrop.style.display = 'flex';
+    }
+
+    function closeDialog() {
+      backdrop.style.display = 'none';
+    }
+
+    function createAccount() {
+      const name = nameInput.value.trim() || 'NEW_ACCOUNT';
+      const cloud = cloudSelect.value;
+      const region = regionSelect.value;
+      const edition = editionSelect.value;
+
+      const newAccount = {
+        id: `acc-new-${Date.now()}`,
+        name: name.toUpperCase().replace(/[^A-Z0-9_]/g, '_'),
+        edition,
+        cloud,
+        region,
+        created: new Date().toISOString().split('T')[0],
+        locator: name.slice(0, 7).toUpperCase(),
+        tenantType: 'Internal',
+      };
+
+      state.columns.accounts.items.unshift(newAccount);
+      applyFilters('accounts');
+      updateVirtualScroll('accounts');
+      updateRelationshipHighlights();
+
+      showToast(`Account "${newAccount.name}" created`);
+    }
+
+    window._openCreateAccountDialog = openDialog;
+
+    const splitActionBtn = document.querySelector('#createButton .stellar-splitbutton__action');
+    if (splitActionBtn) {
+      splitActionBtn.addEventListener('click', () => {
+        const label = splitActionBtn.textContent.trim();
+        if (label === 'Create Account') openDialog();
+      });
+    }
+
+    const createAccountMenuItem = document.querySelector('#createButton .stellar-menu__item[data-key="create-account"]');
+    if (createAccountMenuItem) {
+      createAccountMenuItem.addEventListener('click', () => openDialog());
+    }
+
+    cloudSelect.addEventListener('change', populateRegions);
+    cancelBtn.addEventListener('click', closeDialog);
+    nextBtn.addEventListener('click', () => showStep(2));
+    backBtn.addEventListener('click', () => showStep(1));
+    submitBtn.addEventListener('click', () => {
+      createAccount();
+      closeDialog();
+    });
+    backdrop.addEventListener('click', (e) => {
+      if (e.target === backdrop) closeDialog();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && backdrop.style.display !== 'none') closeDialog();
+    });
+  }
+
   // ─── Edit Account Dialog ────────────────────────────────
 
   function initEditAccountDialog() {
@@ -3760,6 +3898,7 @@
     initColumnVisibility();
     initUserDialog();
     initGroupDialog();
+    initCreateAccountDialog();
     initEditAccountDialog();
     initDisableDialog();
     initRemoveFromDialog();

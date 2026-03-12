@@ -196,6 +196,7 @@
       { key: 'edition', label: 'EDITION', flex: 1.2 },
       { key: 'cloud', label: 'CLOUD', flex: 0.8 },
       { key: 'region', label: 'REGION', flex: 1.4 },
+      { key: 'tenantType', label: 'TENANT TYPE', flex: 1 },
       { key: 'created', label: 'CREATED', flex: 1.2 },
       { key: 'locator', label: 'LOCATOR', flex: 1 },
     ],
@@ -903,24 +904,23 @@
   const CONTEXTUAL_ACTIONS = {
     users: [
       { key: 'edit', label: 'Edit', icon: 'edit', singleOnly: true },
+      { key: 'assignToGroup', label: 'Assign to groups' },
+      { key: 'removeFromGroup', label: 'Remove from groups' },
       { key: 'resetPassword', label: 'Reset password', icon: 'reset', singleOnly: true },
       { key: 'disable', label: 'Disable' },
-      { key: 'removeFromGroup', label: 'Remove from group' },
       { divider: true },
-      { key: 'delete', label: 'Delete', critical: true },
+      { key: 'drop', label: 'Drop', critical: true },
     ],
     userGroups: [
       { key: 'edit', label: 'Edit', icon: 'edit', singleOnly: true },
-      { key: 'addMember', label: 'Add member', icon: 'importGroups' },
-      { key: 'assignToAccount', label: 'Assign to account' },
-      { key: 'removeFromAccount', label: 'Remove from account' },
+      { key: 'assignToAccount', label: 'Assign to accounts' },
+      { key: 'removeFromAccount', label: 'Remove from accounts' },
       { divider: true },
-      { key: 'delete', label: 'Delete', critical: true },
+      { key: 'drop', label: 'Drop', critical: true },
     ],
     accounts: [
       { key: 'edit', label: 'Edit', icon: 'edit', singleOnly: true },
-      { key: 'importGroups', label: 'Import user groups', icon: 'importGroups' },
-      { key: 'enableReplication', label: 'Enable replication' },
+      { key: 'setTenantType', label: 'Set as external' },
       { divider: true },
       { key: 'drop', label: 'Drop', critical: true },
     ],
@@ -929,9 +929,54 @@
   const MAX_VISIBLE_BUTTONS = 2;
 
   function buildActionButtons(colKey, selectedCount) {
-    const allActions = CONTEXTUAL_ACTIONS[colKey];
+    let allActions = CONTEXTUAL_ACTIONS[colKey];
     if (!allActions) return '';
     const isMulti = selectedCount > 1;
+
+    if (colKey === 'users') {
+      const selectedIds = [...state.columns.users.selected];
+      const selectedUsers = selectedIds.map(id => state.columns.users.items.find(i => i.id === id)).filter(Boolean);
+      const allDisabled = selectedUsers.length > 0 && selectedUsers.every(u => u.status === 'Disabled');
+      const allEnabled = selectedUsers.length > 0 && selectedUsers.every(u => u.status === 'Enabled');
+
+      allActions = allActions.map(a => {
+        if (a.key !== 'disable') return a;
+        if (isMulti) {
+          return [
+            { key: 'enable', label: 'Enable all selected' },
+            { key: 'disable', label: 'Disable all selected' },
+          ];
+        }
+        if (allDisabled) return { key: 'enable', label: 'Enable' };
+        return a;
+      }).flat();
+    }
+
+    if (colKey === 'accounts') {
+      const selectedIds = [...state.columns.accounts.selected];
+      const selectedAccounts = selectedIds.map(id => state.columns.accounts.items.find(i => i.id === id)).filter(Boolean);
+      const allInternal = selectedAccounts.length > 0 && selectedAccounts.every(a => a.tenantType !== 'External');
+      const allExternal = selectedAccounts.length > 0 && selectedAccounts.every(a => a.tenantType === 'External');
+
+      allActions = allActions.map(a => {
+        if (a.key !== 'setTenantType') return a;
+        if (isMulti) {
+          return [
+            { key: 'setInternal', label: 'Set as internal' },
+            { key: 'setExternal', label: 'Set as external' },
+          ];
+        }
+        if (allExternal) return { key: 'setInternal', label: 'Set as internal' };
+        return { key: 'setExternal', label: 'Set as external' };
+      }).flat();
+    }
+
+    if (isMulti) {
+      allActions = allActions.map(a => {
+        if (a.key === 'drop') return { ...a, label: 'Drop all selected' };
+        return a;
+      });
+    }
 
     const available = allActions.filter(a => a.divider || !(isMulti && a.singleOnly));
 
@@ -956,7 +1001,7 @@
     }
 
     for (const btn of promoted) {
-      html += `<button class="stellar-button stellar-button--secondary">${ACTION_ICONS[btn.icon] || ''}${btn.label}</button>`;
+      html += `<button class="stellar-button stellar-button--secondary" data-bar-action="${btn.key}">${ACTION_ICONS[btn.icon] || ''}${btn.label}</button>`;
     }
 
     let overflowItems = '';
@@ -1145,14 +1190,87 @@
     });
   }
 
+  function handleBarAction(action, colKey) {
+    const selectedIds = [...state.columns[colKey].selected];
+    if (selectedIds.length === 0) return;
+    if (action === 'edit' && selectedIds.length === 1) {
+      if (colKey === 'users' && window._openEditUserDialog) {
+        window._openEditUserDialog(selectedIds[0]);
+        return;
+      }
+      if (colKey === 'userGroups' && window._openEditGroupDialog) {
+        window._openEditGroupDialog(selectedIds[0]);
+        return;
+      }
+      if (colKey === 'accounts' && window._openEditAccountDialog) {
+        window._openEditAccountDialog(selectedIds[0]);
+        return;
+      }
+    }
+    if ((action === 'disable' || action === 'enable') && colKey === 'users' && window._openDisableDialog) {
+      window._openDisableDialog(selectedIds, action === 'enable');
+      return;
+    }
+    if (action === 'assignToAccount' && colKey === 'userGroups' && window._openAssignAccountsDialog) {
+      window._openAssignAccountsDialog(selectedIds);
+      return;
+    }
+    if (action === 'assignToGroup' && colKey === 'users' && window._openAssignGroupsDialog) {
+      window._openAssignGroupsDialog(selectedIds);
+      return;
+    }
+    if ((action === 'removeFromGroup' || action === 'removeFromAccount') && window._openRemoveFromDialog) {
+      window._openRemoveFromDialog(action, selectedIds, colKey);
+      return;
+    }
+    if ((action === 'setInternal' || action === 'setExternal') && colKey === 'accounts') {
+      const newType = action === 'setInternal' ? 'Internal' : 'External';
+      const prevTypes = {};
+      for (const id of selectedIds) {
+        const acc = state.columns.accounts.items.find(i => i.id === id);
+        if (acc) {
+          prevTypes[id] = acc.tenantType;
+          acc.tenantType = newType;
+        }
+      }
+      applyFilters('accounts');
+      updateRelationshipHighlights();
+      updateControlBar();
+      const count = selectedIds.length;
+      const label = count === 1
+        ? `Set "${state.columns.accounts.items.find(i => i.id === selectedIds[0])?.name}" as ${newType.toLowerCase()}`
+        : `Set ${count} accounts as ${newType.toLowerCase()}`;
+      showToast(label, {
+        onUndo: () => {
+          for (const id of selectedIds) {
+            const acc = state.columns.accounts.items.find(i => i.id === id);
+            if (acc && prevTypes[id]) acc.tenantType = prevTypes[id];
+          }
+          applyFilters('accounts');
+          updateRelationshipHighlights();
+          updateControlBar();
+          showToast(`Reverted tenant type change for ${count} account${count > 1 ? 's' : ''}`);
+        }
+      });
+      return;
+    }
+    handleUnassignAction(action, selectedIds, colKey);
+  }
+
   function initBarActions(container, colKey) {
     container.querySelectorAll('[data-bar-action]').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
-        const action = btn.dataset.barAction;
-        const selectedIds = [...state.columns[colKey].selected];
-        if (selectedIds.length === 0) return;
-        handleUnassignAction(action, selectedIds, colKey);
+        handleBarAction(btn.dataset.barAction, colKey);
+      });
+    });
+
+    container.querySelectorAll('.action-overflow-menu .stellar-menu__item[data-key]').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const menuEl = item.closest('.action-overflow-menu');
+        if (menuEl) menuEl.classList.remove('stellar-menu--open');
+        handleBarAction(item.dataset.key, colKey);
       });
     });
   }
@@ -1552,12 +1670,9 @@
   function showToast(text, opts = {}) {
     const checkSvg = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink:0;"><circle cx="10" cy="10" r="10" fill="#22a861"/><path d="M8.5 13.2 5.3 10l-.9.9 4.1 4.1 8-8-.9-.9z" fill="#fff"/></svg>';
     const closeSvg = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="cursor:pointer;color:var(--themed-reusable-text-secondary);flex-shrink:0;"><path fill="currentColor" d="m8.708 8 3.646-3.646-.707-.708L8 7.293 4.354 3.646l-.708.708L7.293 8l-3.647 3.646.708.708L8 8.707l3.646 3.647.708-.708z"/></svg>';
+    const undoIcon = '<svg class="stellar-button__icon" viewBox="0 0 16 16" fill="none"><path fill="currentColor" d="M2 6.5c0 .133.053.26.146.354l3 3 .708-.708L3.707 7H10.5C11.881 7 13 8.119 13 9.5S11.881 12 10.5 12H7.5v1h3C12.433 13 14 11.433 14 9.5S12.433 6 10.5 6H3.707l2.147-2.146-.708-.708-3 3A.5.5 0 0 0 2 6.5z"/></svg>';
     const undoHtml = opts.onUndo
-      ? `<button class="toast-undo" style="
-          background: none; border: none; cursor: pointer; padding: 0; margin-left: 2px;
-          color: var(--themed-reusable-text-link); font-family: inherit; font-size: 14px; font-weight: 600;
-          text-decoration: none;
-        ">Undo</button><span style="color: var(--themed-reusable-border-default);">|</span>`
+      ? `<button class="stellar-button stellar-button--secondary stellar-button--small toast-undo">${undoIcon}Undo</button>`
       : '';
     const toast = document.createElement('div');
     toast.style.cssText = `
@@ -1600,7 +1715,7 @@
         toast.style.transform = 'translateX(-50%) translateY(-8px)';
         setTimeout(() => toast.remove(), 300);
       }
-    }, 4000);
+    }, 5000);
   }
 
   function showDropToast(count, sourceLabel, targetName) {
@@ -2195,8 +2310,8 @@
   }
 
   function buildInlineMenuHTML(colKey, itemId) {
-    const config = CONTEXTUAL_ACTIONS[colKey];
-    if (!config) return '';
+    const actions = CONTEXTUAL_ACTIONS[colKey];
+    if (!actions) return '';
 
     let html = '';
 
@@ -2206,17 +2321,32 @@
       html += '<div class="item-inline-menu__divider"></div>';
     }
 
-    for (const btn of config.buttons) {
-      html += `<div class="item-inline-menu__item" data-action="${btn.key}" data-item-id="${itemId}">${btn.label}</div>`;
-    }
-
-    for (const item of config.overflow) {
+    for (const item of actions) {
       if (item.divider) {
         html += '<div class="item-inline-menu__divider"></div>';
         continue;
       }
+      let actionKey = item.key;
+      let actionLabel = item.label;
+      if (item.key === 'disable' && colKey === 'users') {
+        const user = state.columns.users.items.find(i => i.id === itemId);
+        if (user && user.status === 'Disabled') {
+          actionKey = 'enable';
+          actionLabel = 'Enable';
+        }
+      }
+      if (item.key === 'setTenantType' && colKey === 'accounts') {
+        const acc = state.columns.accounts.items.find(i => i.id === itemId);
+        if (acc && acc.tenantType === 'External') {
+          actionKey = 'setInternal';
+          actionLabel = 'Set as internal';
+        } else {
+          actionKey = 'setExternal';
+          actionLabel = 'Set as external';
+        }
+      }
       const cls = item.critical ? 'item-inline-menu__item item-inline-menu__item--critical' : 'item-inline-menu__item';
-      html += `<div class="${cls}" data-action="${item.key}" data-item-id="${itemId}">${item.label}</div>`;
+      html += `<div class="${cls}" data-action="${actionKey}" data-item-id="${itemId}">${actionLabel}</div>`;
     }
 
     return html;
@@ -2304,6 +2434,39 @@
 
       if (action === 'unassignFromAccount' || action === 'unassignFromGroup') {
         handleUnassignAction(action, [itemId], colKey);
+      } else if (action === 'edit' && colKey === 'users' && window._openEditUserDialog) {
+        window._openEditUserDialog(itemId);
+      } else if (action === 'edit' && colKey === 'userGroups' && window._openEditGroupDialog) {
+        window._openEditGroupDialog(itemId);
+      } else if (action === 'edit' && colKey === 'accounts' && window._openEditAccountDialog) {
+        window._openEditAccountDialog(itemId);
+      } else if ((action === 'disable' || action === 'enable') && colKey === 'users' && window._openDisableDialog) {
+        window._openDisableDialog([itemId], action === 'enable');
+      } else if (action === 'assignToAccount' && colKey === 'userGroups' && window._openAssignAccountsDialog) {
+        window._openAssignAccountsDialog([itemId]);
+      } else if (action === 'assignToGroup' && colKey === 'users' && window._openAssignGroupsDialog) {
+        window._openAssignGroupsDialog([itemId]);
+      } else if ((action === 'removeFromGroup' || action === 'removeFromAccount') && window._openRemoveFromDialog) {
+        window._openRemoveFromDialog(action, [itemId], colKey);
+      } else if ((action === 'setInternal' || action === 'setExternal') && colKey === 'accounts') {
+        const newType = action === 'setInternal' ? 'Internal' : 'External';
+        const acc = state.columns.accounts.items.find(i => i.id === itemId);
+        if (acc) {
+          const prevType = acc.tenantType;
+          acc.tenantType = newType;
+          applyFilters('accounts');
+          updateRelationshipHighlights();
+          updateControlBar();
+          showToast(`Set "${acc.name}" as ${newType.toLowerCase()}`, {
+            onUndo: () => {
+              acc.tenantType = prevType;
+              applyFilters('accounts');
+              updateRelationshipHighlights();
+              updateControlBar();
+              showToast(`Reverted tenant type for "${acc.name}"`);
+            }
+          });
+        }
       }
 
       closeInlineMenu();
@@ -2425,17 +2588,25 @@
 
   // ─── Initialize ─────────────────────────────────────────
 
-  function buildSkeletonHTML(rowCount) {
+  function buildSkeletonHTML(rowCount, colKey) {
     const widths = ['skeleton-line--long', 'skeleton-line--medium', 'skeleton-line--short'];
     let html = '';
     for (let i = 0; i < rowCount; i++) {
       const w1 = widths[i % widths.length];
       const w2 = widths[(i + 1) % widths.length];
-      html += `<div class="skeleton-row" style="animation-delay:${i * 60}ms">
-        <div class="skeleton-circle" style="animation-delay:${i * 60}ms"></div>
+      const d = i * 60;
+      let leading = '';
+      if (colKey === 'users') {
+        leading = `<div class="skeleton-dot" style="animation-delay:${d}ms"></div>
+          <div class="skeleton-circle" style="animation-delay:${d}ms"></div>`;
+      } else {
+        leading = `<div class="skeleton-icon" style="animation-delay:${d}ms"></div>`;
+      }
+      html += `<div class="skeleton-row" style="animation-delay:${d}ms">
+        ${leading}
         <div class="skeleton-lines">
-          <div class="skeleton-line ${w1}" style="animation-delay:${i * 60 + 100}ms"></div>
-          <div class="skeleton-line ${w2}" style="animation-delay:${i * 60 + 200}ms"></div>
+          <div class="skeleton-line ${w1}" style="animation-delay:${d + 100}ms"></div>
+          <div class="skeleton-line ${w2}" style="animation-delay:${d + 200}ms"></div>
         </div>
       </div>`;
     }
@@ -2453,7 +2624,7 @@
       const col = state.columns[colKey];
       const skeleton = document.createElement('div');
       skeleton.className = 'column__skeleton';
-      skeleton.innerHTML = buildSkeletonHTML(12);
+      skeleton.innerHTML = buildSkeletonHTML(12, colKey);
       col.scrollEl.appendChild(skeleton);
 
       col.spacerEl.style.visibility = 'hidden';
@@ -2470,6 +2641,1109 @@
     }
   }
 
+  // ─── Org User Dialog (Create / Edit) ────────────────────
+
+  let userDialogMode = 'create';
+  let userDialogEditId = null;
+
+  function initUserDialog() {
+    const backdrop = document.getElementById('createUserBackdrop');
+    const titleEl = document.getElementById('createUserTitle');
+    const cancelBtn = document.getElementById('createUserCancel');
+    const submitBtn = document.getElementById('createUserSubmit');
+    const checkbox = document.getElementById('resetPasswordCheckbox');
+    const checkboxRow = checkbox ? checkbox.closest('.dialog__checkbox-row') : null;
+    if (!backdrop) return;
+
+    const inputs = backdrop.querySelectorAll('.stellar-textinput__input');
+    const [firstNameInput, lastNameInput, loginInput, displayInput, emailInput, passwordInput, confirmPasswordInput] = inputs;
+
+    function openCreateDialog() {
+      userDialogMode = 'create';
+      userDialogEditId = null;
+      titleEl.textContent = 'Create Org user';
+      submitBtn.textContent = 'Create';
+      inputs.forEach(inp => { inp.value = ''; });
+      if (checkboxRow) checkboxRow.style.display = '';
+      if (!checkbox.classList.contains('dialog__checkbox--checked')) {
+        checkbox.classList.add('dialog__checkbox--checked');
+      }
+      passwordInput.closest('.dialog__row').style.display = '';
+      backdrop.style.display = 'flex';
+      setTimeout(() => firstNameInput.focus(), 50);
+    }
+
+    function openEditDialog(userId) {
+      const result = findItemById(userId);
+      if (!result || result.colKey !== 'users') return;
+      const user = result.item;
+
+      userDialogMode = 'edit';
+      userDialogEditId = userId;
+      titleEl.textContent = 'Edit Org user';
+      submitBtn.textContent = 'Save';
+
+      const nameParts = (user.displayName || '').split(' ');
+      firstNameInput.value = nameParts[0] || '';
+      lastNameInput.value = nameParts.slice(1).join(' ') || '';
+      loginInput.value = user.name || '';
+      displayInput.value = user.displayName || '';
+      emailInput.value = user.email || '';
+      passwordInput.closest('.dialog__row').style.display = 'none';
+      if (checkboxRow) checkboxRow.style.display = 'none';
+
+      backdrop.style.display = 'flex';
+      setTimeout(() => firstNameInput.focus(), 50);
+    }
+
+    function closeDialog() {
+      backdrop.style.display = 'none';
+      inputs.forEach(inp => { inp.value = ''; });
+    }
+
+    // Expose for external callers
+    window._openEditUserDialog = openEditDialog;
+
+    const splitActionBtn = document.querySelector('#createButton .stellar-splitbutton__action');
+    if (splitActionBtn) {
+      splitActionBtn.addEventListener('click', () => {
+        const label = splitActionBtn.textContent.trim();
+        if (label === 'Create Org user') openCreateDialog();
+      });
+    }
+
+    const createUserMenuItem = document.querySelector('#createButton .stellar-menu__item[data-key="create-user"]');
+    if (createUserMenuItem) {
+      createUserMenuItem.addEventListener('click', () => openCreateDialog());
+    }
+
+    cancelBtn.addEventListener('click', closeDialog);
+
+    submitBtn.addEventListener('click', () => {
+      closeDialog();
+      if (userDialogMode === 'edit') {
+        showToast('Org user updated successfully');
+      } else {
+        showToast('Org user created successfully');
+      }
+    });
+
+    backdrop.addEventListener('click', (e) => {
+      if (e.target === backdrop) closeDialog();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && backdrop.style.display !== 'none') closeDialog();
+    });
+
+    if (checkboxRow) {
+      checkboxRow.addEventListener('click', () => {
+        checkbox.classList.toggle('dialog__checkbox--checked');
+      });
+    }
+  }
+
+  // ─── Disable / Enable User Dialog ───────────────────────
+
+  function initDisableDialog() {
+    const backdrop = document.getElementById('disableDialogBackdrop');
+    const titleEl = document.getElementById('disableDialogTitle');
+    const messageEl = document.getElementById('disableDialogMessage');
+    const userListEl = document.getElementById('disableDialogUserList');
+    const cancelBtn = document.getElementById('disableDialogCancel');
+    const submitBtn = document.getElementById('disableDialogSubmit');
+    if (!backdrop) return;
+
+    let pendingUserIds = [];
+    let isEnabling = false;
+
+    function openDialog(userIds, forceEnable) {
+      pendingUserIds = userIds;
+      const users = userIds.map(id => state.columns.users.items.find(i => i.id === id)).filter(Boolean);
+      if (users.length === 0) return;
+
+      isEnabling = forceEnable != null ? forceEnable : users.every(u => u.status === 'Disabled');
+      const action = isEnabling ? 'enable' : 'disable';
+      const Action = isEnabling ? 'Enable' : 'Disable';
+
+      if (users.length === 1) {
+        titleEl.textContent = `${Action} user`;
+        messageEl.textContent = `Are you sure you want to ${action} ${users[0].name}? ${isEnabling
+          ? 'They will be able to sign in to accounts in the organization again.'
+          : 'They will no longer be able to sign in to any account in the organization.'}`;
+        userListEl.style.display = 'none';
+      } else {
+        titleEl.textContent = `${Action} ${users.length} users`;
+        messageEl.textContent = `Are you sure you want to ${action} these ${users.length} users? ${isEnabling
+          ? 'They will be able to sign in to accounts in the organization again.'
+          : 'They will no longer be able to sign in to any account in the organization.'}`;
+        userListEl.innerHTML = users.map(u => `<span class="dialog__user-list-item">${u.name}</span>`).join('');
+        userListEl.style.display = '';
+      }
+
+      submitBtn.textContent = Action;
+      submitBtn.className = isEnabling
+        ? 'stellar-button stellar-button--primary'
+        : 'stellar-button stellar-button--critical';
+
+      backdrop.style.display = 'flex';
+    }
+
+    function closeDialog() {
+      backdrop.style.display = 'none';
+      pendingUserIds = [];
+    }
+
+    function applyStatusChange() {
+      const newStatus = isEnabling ? 'Enabled' : 'Disabled';
+      const prevStatuses = {};
+      for (const id of pendingUserIds) {
+        const user = state.columns.users.items.find(i => i.id === id);
+        if (user) {
+          prevStatuses[id] = user.status;
+          user.status = newStatus;
+        }
+      }
+      applyFilters('users');
+      updateVirtualScroll('users');
+      updateRelationshipHighlights();
+
+      const count = pendingUserIds.length;
+      const action = isEnabling ? 'Enabled' : 'Disabled';
+      const label = count === 1
+        ? `${action} ${state.columns.users.items.find(i => i.id === pendingUserIds[0])?.name || 'user'}`
+        : `${action} ${count} users`;
+
+      const savedIds = [...pendingUserIds];
+      showToast(label, {
+        onUndo: () => {
+          for (const id of savedIds) {
+            const user = state.columns.users.items.find(i => i.id === id);
+            if (user && prevStatuses[id]) user.status = prevStatuses[id];
+          }
+          applyFilters('users');
+          updateVirtualScroll('users');
+          showToast(`Reverted status change for ${count} user${count > 1 ? 's' : ''}`);
+        }
+      });
+    }
+
+    window._openDisableDialog = openDialog;
+
+    cancelBtn.addEventListener('click', closeDialog);
+    submitBtn.addEventListener('click', () => {
+      applyStatusChange();
+      closeDialog();
+    });
+    backdrop.addEventListener('click', (e) => {
+      if (e.target === backdrop) closeDialog();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && backdrop.style.display !== 'none') closeDialog();
+    });
+  }
+
+  // ─── Remove From Confirmation Dialog ────────────────────
+
+  function initRemoveFromDialog() {
+    const backdrop = document.getElementById('removeFromBackdrop');
+    const titleEl = document.getElementById('removeFromTitle');
+    const badgesEl = document.getElementById('removeFromBadges');
+    const messageEl = document.getElementById('removeFromMessage');
+    const parentListEl = document.getElementById('removeFromParentList');
+    const cancelBtn = document.getElementById('removeFromCancel');
+    const submitBtn = document.getElementById('removeFromSubmit');
+    if (!backdrop) return;
+
+    const userIcon = '<svg class="dialog__badge-icon" viewBox="0 0 16 16" fill="none"><path fill="currentColor" d="M8 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6M6 5a2 2 0 1 1 4 0 2 2 0 0 1-4 0m-2.5 9v-1.5A1.5 1.5 0 0 1 5 11h6a1.5 1.5 0 0 1 1.5 1.5V14h-1v-1.5a.5.5 0 0 0-.5-.5H5a.5.5 0 0 0-.5.5V14z"/></svg>';
+    const groupIcon = '<svg class="dialog__badge-icon" viewBox="0 0 16 16" fill="none"><g fill="currentColor"><path d="M8.5 11a1.5 1.5 0 0 1 1.5 1.5V14H9v-1.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0-.5.5V14H1v-1.5A1.5 1.5 0 0 1 2.5 11zm5-2a1.5 1.5 0 0 1 1.5 1.5V12h-1v-1.5a.5.5 0 0 0-.5-.5H11V9z"/><path fill-rule="evenodd" d="M5.5 3a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7m0 1a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5" clip-rule="evenodd"/><path d="M11 2a3 3 0 1 1-1.005 5.824L9.992 7h.012l-.001-.269a2 2 0 1 0-.352-3.206l-.603-.8A3 3 0 0 1 11 2"/></g></svg>';
+    const accountIcon = '<svg class="dialog__badge-icon" viewBox="0 0 16 16" fill="none"><path fill="currentColor" d="M14 9.5c0-1.312-.997-2.39-2.274-2.52l-.26-.013q-.13 0-.253.012l-.479.047-.066-.475a2.97 2.97 0 0 0-2.66-2.538L7.732 4a2.967 2.967 0 0 0-2.966 2.967l.004.163q.004.08.012.158l.064.594-.596-.041a2 2 0 0 0-.15-.008 2.1 2.1 0 0 0-2.1 2.1l.01.215a2.1 2.1 0 0 0 2.09 1.885h7.354l.151-.004a2.53 2.53 0 0 0 2.382-2.278zm.996.176a3.534 3.534 0 0 1-3.348 3.352l-.012.001-.156.004H4.1a3.1 3.1 0 0 1-3.096-2.94L1 9.933a3.1 3.1 0 0 1 2.767-3.082A3.967 3.967 0 0 1 7.73 3l.187.004a3.97 3.97 0 0 1 3.651 2.965A3.533 3.533 0 0 1 15 9.5z"/></svg>';
+
+    let pendingAction = null;
+
+    function openDialog(actionType, itemIds, colKey) {
+      const isRemoveFromGroups = actionType === 'removeFromGroup';
+      const items = itemIds.map(id => state.columns[colKey].items.find(i => i.id === id)).filter(Boolean);
+      if (items.length === 0) return;
+
+      // Collect affected parents
+      const parentIds = new Set();
+      if (isRemoveFromGroups) {
+        for (const id of itemIds) {
+          for (const gId of (userToGroups[id] || [])) parentIds.add(gId);
+        }
+      } else {
+        for (const id of itemIds) {
+          for (const aId of (groupToAccounts[id] || [])) parentIds.add(aId);
+        }
+      }
+
+      if (parentIds.size === 0) {
+        const parentLabel = isRemoveFromGroups ? 'groups' : 'accounts';
+        const typeLabel = isRemoveFromGroups ? 'user' : 'group';
+        showToast(`Selected ${typeLabel}${items.length > 1 ? 's are' : ' is'} not assigned to any ${parentLabel}`);
+        return;
+      }
+
+      // Build badge chips for selected items
+      const badgeIcon = isRemoveFromGroups ? userIcon : groupIcon;
+      if (items.length === 1) {
+        const name = items[0].name || items[0].displayName;
+        badgesEl.innerHTML = `<span class="dialog__badge">${badgeIcon} ${name}</span>`;
+      } else {
+        const typeLabel = isRemoveFromGroups ? 'Org users' : 'Org user groups';
+        badgesEl.innerHTML = `<span class="dialog__badge">${badgeIcon} ${items.length} ${typeLabel}</span>`;
+      }
+
+      // Title
+      const parentTypeLabel = isRemoveFromGroups ? 'groups' : 'accounts';
+      titleEl.textContent = `Remove from ${parentTypeLabel}`;
+
+      // Message + parent list
+      const parentPlural = parentIds.size === 1
+        ? (isRemoveFromGroups ? 'group' : 'account')
+        : (isRemoveFromGroups ? 'groups' : 'accounts');
+      messageEl.textContent = `Will be removed from ${parentIds.size} ${parentPlural}:`;
+
+      const parentIcon = isRemoveFromGroups ? groupIcon : accountIcon;
+      const parentItems = [...parentIds].map(id => {
+        if (isRemoveFromGroups) {
+          const g = userGroups.find(g => g.id === id);
+          return g ? g.name : id;
+        } else {
+          const a = accounts.find(a => a.id === id);
+          return a ? a.name : id;
+        }
+      });
+      parentListEl.innerHTML = parentItems.map(name =>
+        `<span class="dialog__user-list-item">${parentIcon} ${name}</span>`
+      ).join('');
+      parentListEl.style.display = '';
+
+      pendingAction = { actionType, itemIds: [...itemIds], colKey };
+      backdrop.style.display = 'flex';
+    }
+
+    function closeDialog() {
+      backdrop.style.display = 'none';
+      pendingAction = null;
+    }
+
+    function applyRemoval() {
+      if (!pendingAction) return;
+      const { actionType, itemIds, colKey } = pendingAction;
+      const isRemoveFromGroups = actionType === 'removeFromGroup';
+
+      const prevState = {};
+      let totalRemoved = 0;
+
+      if (isRemoveFromGroups) {
+        for (const userId of itemIds) {
+          const groups = [...(userToGroups[userId] || [])];
+          prevState[userId] = groups;
+          for (const gId of groups) {
+            removeFromArray(userToGroups[userId], gId);
+            if (groupToUsers[gId]) removeFromArray(groupToUsers[gId], userId);
+            const grp = userGroups.find(g => g.id === gId);
+            if (grp) grp.userCount = (groupToUsers[gId] || []).length;
+            totalRemoved++;
+          }
+        }
+      } else {
+        for (const gId of itemIds) {
+          const accts = [...(groupToAccounts[gId] || [])];
+          prevState[gId] = accts;
+          for (const aId of accts) {
+            removeFromArray(groupToAccounts[gId], aId);
+            if (accountToGroups[aId]) removeFromArray(accountToGroups[aId], gId);
+            const grp = userGroups.find(g => g.id === gId);
+            if (grp) grp.accountCount = (groupToAccounts[gId] || []).length;
+            totalRemoved++;
+          }
+        }
+      }
+
+      ['accounts', 'userGroups', 'users'].forEach(k => applyFilters(k));
+      updateRelationshipHighlights();
+      updateControlBar();
+
+      const parentLabel = isRemoveFromGroups ? 'group' : 'account';
+      const typeLabel = isRemoveFromGroups ? 'user' : 'group';
+      const names = itemIds.map(id => {
+        const item = state.columns[colKey].items.find(i => i.id === id);
+        return item ? (item.name || item.displayName) : id;
+      });
+      const subjectText = names.length === 1 ? names[0] : `${names.length} ${typeLabel}s`;
+      const toastText = `Removed ${subjectText} from ${totalRemoved} ${totalRemoved === 1 ? parentLabel : parentLabel + 's'}`;
+
+      showToast(toastText, {
+        onUndo: () => {
+          if (isRemoveFromGroups) {
+            for (const userId of itemIds) {
+              const groups = prevState[userId] || [];
+              userToGroups[userId] = groups;
+              for (const gId of groups) {
+                if (!groupToUsers[gId]) groupToUsers[gId] = [];
+                if (!groupToUsers[gId].includes(userId)) groupToUsers[gId].push(userId);
+                const grp = userGroups.find(g => g.id === gId);
+                if (grp) grp.userCount = (groupToUsers[gId] || []).length;
+              }
+            }
+          } else {
+            for (const gId of itemIds) {
+              const accts = prevState[gId] || [];
+              groupToAccounts[gId] = accts;
+              for (const aId of accts) {
+                if (!accountToGroups[aId]) accountToGroups[aId] = [];
+                if (!accountToGroups[aId].includes(gId)) accountToGroups[aId].push(gId);
+                const grp = userGroups.find(g => g.id === gId);
+                if (grp) grp.accountCount = (groupToAccounts[gId] || []).length;
+              }
+            }
+          }
+          ['accounts', 'userGroups', 'users'].forEach(k => applyFilters(k));
+          updateRelationshipHighlights();
+          updateControlBar();
+          showToast(`Reverted removal of ${subjectText}`);
+        }
+      });
+    }
+
+    window._openRemoveFromDialog = openDialog;
+
+    cancelBtn.addEventListener('click', closeDialog);
+    submitBtn.addEventListener('click', () => {
+      applyRemoval();
+      closeDialog();
+    });
+    backdrop.addEventListener('click', (e) => {
+      if (e.target === backdrop) closeDialog();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && backdrop.style.display !== 'none') closeDialog();
+    });
+  }
+
+  // ─── Org User Group Dialog (Create / Edit) ──────────────
+
+  // ─── Dialog Filter Helper ───────────────────────────────
+
+  function initDialogFilter(btnEl, menuEl, filterDefs, items, activeFilters, onFilterChange) {
+    const chevronSvg = '<svg class="filter-menu__item-chevron" viewBox="0 0 16 16" fill="none"><path fill="currentColor" d="m5.854 2.646 5 5a.5.5 0 0 1 0 .708l-5 5-.708-.707L9.793 8 5.146 3.354z"/></svg>';
+    const checkSvg = '<svg class="filter-submenu__check-icon" viewBox="0 0 16 16" fill="none"><path fill="currentColor" d="m13.86 4.847-7.214 7.5a.5.5 0 0 1-.702.018l-4.285-4 .682-.73 3.926 3.663 6.873-7.145z"/></svg>';
+
+    function getOptions(filterKey) {
+      const def = filterDefs.find(d => d.key === filterKey);
+      if (!def) return [];
+      const countMap = {};
+      for (const item of items()) {
+        const val = def.accessor(item);
+        countMap[val] = (countMap[val] || 0) + 1;
+      }
+      return Object.keys(countMap).sort().map(val => ({ value: val, count: countMap[val] }));
+    }
+
+    function buildMenu() {
+      let html = '';
+      for (const def of filterDefs) {
+        const options = getOptions(def.key);
+        const active = activeFilters[def.key] || new Set();
+        const menuLabel = active.size > 0 ? `${def.label} (${active.size})` : def.label;
+        const itemClass = active.size > 0 ? 'filter-menu__item filter-menu__item--active' : 'filter-menu__item';
+        html += `<div class="${itemClass}" data-filter-key="${def.key}">
+          <span>${menuLabel}</span>${chevronSvg}
+          <div class="filter-submenu">`;
+        for (const opt of options) {
+          const isActive = active.has(opt.value);
+          html += `<div class="filter-submenu__item${isActive ? ' filter-submenu__item--active' : ''}" data-filter-key="${def.key}" data-filter-value="${opt.value}">
+            <span class="filter-submenu__check">${checkSvg}</span>
+            <span>${opt.value}</span>
+            <span class="filter-submenu__count">${opt.count}</span>
+          </div>`;
+        }
+        html += '</div></div>';
+      }
+      const hasActive = Object.values(activeFilters).some(s => s && s.size > 0);
+      if (hasActive) {
+        html += `<div class="filter-menu__clear" data-action="clear">Clear all filters</div>`;
+      }
+      menuEl.innerHTML = html;
+    }
+
+    function updateBtn() {
+      let total = 0;
+      for (const s of Object.values(activeFilters)) if (s && s.size > 0) total += s.size;
+      if (total > 0) {
+        btnEl.innerHTML = `<span class="filter-count-badge">${total}</span>`;
+        btnEl.classList.add('stellar-button--primary');
+        btnEl.classList.remove('stellar-button--secondary');
+      } else {
+        btnEl.innerHTML = '<svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M1.5 3h13v1.003L10 8.838V14l-4-2.5V8.838L1.5 4.003zm1.134 1L7 7.662v3.338l2 1.25V7.662L13.366 4z" clip-rule="evenodd"/></svg>';
+        btnEl.classList.remove('stellar-button--primary');
+        btnEl.classList.add('stellar-button--secondary');
+      }
+    }
+
+    function applyFilter(filterKey, filterValue) {
+      if (!activeFilters[filterKey]) activeFilters[filterKey] = new Set();
+      const set = activeFilters[filterKey];
+      if (set.has(filterValue)) { set.delete(filterValue); } else { set.add(filterValue); }
+      buildMenu();
+      updateBtn();
+      onFilterChange();
+    }
+
+    function clearAll() {
+      for (const k in activeFilters) activeFilters[k] = new Set();
+      buildMenu();
+      updateBtn();
+      onFilterChange();
+    }
+
+    function reset() {
+      for (const k in activeFilters) activeFilters[k] = new Set();
+      updateBtn();
+    }
+
+    function matchesFilters(item) {
+      for (const def of filterDefs) {
+        const set = activeFilters[def.key];
+        if (set && set.size > 0 && !set.has(def.accessor(item))) return false;
+      }
+      return true;
+    }
+
+    btnEl.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = menuEl.classList.contains('filter-menu--open');
+      document.querySelectorAll('.filter-menu').forEach(m => m.classList.remove('filter-menu--open'));
+      if (!isOpen) {
+        buildMenu();
+        menuEl.classList.add('filter-menu--open');
+        positionFilterMenu(menuEl);
+      }
+    });
+
+    menuEl.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const clearEl = e.target.closest('[data-action="clear"]');
+      if (clearEl) { clearAll(); return; }
+      const subItem = e.target.closest('.filter-submenu__item[data-filter-value]');
+      if (subItem) {
+        applyFilter(subItem.dataset.filterKey, subItem.dataset.filterValue);
+      }
+    });
+
+    return { reset, matchesFilters, buildMenu };
+  }
+
+  // ─── Assign to Groups Dialog ────────────────────────────
+
+  function initAssignGroupsDialog() {
+    const backdrop = document.getElementById('assignGroupsBackdrop');
+    const badgesEl = document.getElementById('assignGroupsBadges');
+    const countEl = document.getElementById('assignGroupsCount');
+    const searchInput = document.getElementById('assignGroupsSearch');
+    const tableHeaderEl = document.getElementById('assignGroupsTableHeader');
+    const tableBodyEl = document.getElementById('assignGroupsTableBody');
+    const selectAllBtn = document.getElementById('assignGroupsSelectAll');
+    const unselectAllBtn = document.getElementById('assignGroupsUnselectAll');
+    const filterBtn = document.getElementById('assignGroupsFilterBtn');
+    const filterMenuEl = document.getElementById('assignGroupsFilterMenu');
+    const cancelBtn = document.getElementById('assignGroupsCancel');
+    const submitBtn = document.getElementById('assignGroupsSubmit');
+    if (!backdrop) return;
+
+    let pendingUserIds = [];
+    let selectedGroups = new Set();
+    let allGroups = [];
+    let filteredGroups = [];
+    let grpSort = null;
+
+    const grpFilterDefs = FILTER_DEFS.userGroups;
+    const grpActiveFilters = {};
+    for (const d of grpFilterDefs) grpActiveFilters[d.key] = new Set();
+    const grpFilter = initDialogFilter(filterBtn, filterMenuEl, grpFilterDefs, () => allGroups, grpActiveFilters, () => renderRows());
+
+    const TABLE_COLS_GRP = [
+      { key: 'name', label: 'GROUP', flex: 2 },
+      { key: 'comment', label: 'COMMENT', flex: 2.5 },
+      { key: 'userCount', label: 'USERS', flex: 0.6 },
+      { key: 'accountCount', label: 'ACCOUNTS', flex: 0.7 },
+      { key: 'created', label: 'CREATED', flex: 1.2 },
+    ];
+
+    const sortUp = '<svg class="table-sort-icon" viewBox="0 0 16 16" width="14" height="14" fill="none"><path fill="currentColor" d="M8 2a.5.5 0 0 1 .354.146l5 5-.707.708L8.5 3.707V14h-1V3.707L3.354 7.854l-.708-.708 5-5A.5.5 0 0 1 8 2"/></svg>';
+    const sortDown = '<svg class="table-sort-icon" viewBox="0 0 16 16" width="14" height="14" fill="none"><path fill="currentColor" d="M8 14a.5.5 0 0 0 .354-.146l5-5-.707-.708L8.5 12.293V2h-1v10.293L3.354 8.146l-.708.708 5 5A.5.5 0 0 0 8 14"/></svg>';
+
+    function buildHeader() {
+      const allChecked = filteredGroups.length > 0 && filteredGroups.every(g => selectedGroups.has(g.id));
+      const someChecked = !allChecked && filteredGroups.some(g => selectedGroups.has(g.id));
+      const cls = allChecked ? ' table-checkbox--checked' : (someChecked ? ' table-checkbox--indeterminate' : '');
+      let html = `<div class="table-cell table-cell--checkbox" style="flex:0 0 36px;"><div class="table-checkbox${cls}" data-select-all-visible></div></div>`;
+      for (const c of TABLE_COLS_GRP) {
+        const isActive = grpSort && grpSort.key === c.key;
+        const arrow = isActive ? (grpSort.dir === 'asc' ? sortUp : sortDown) : '';
+        const activeCls = isActive ? ' table-cell--sort-active' : '';
+        html += `<div class="table-cell table-cell--header table-cell--sortable${activeCls}" style="flex:${c.flex};" data-grp-sort="${c.key}">${c.label}${arrow}</div>`;
+      }
+      tableHeaderEl.innerHTML = html;
+    }
+
+    function sortGroups(list) {
+      if (!grpSort) return list;
+      const { key, dir } = grpSort;
+      return list.sort((a, b) => {
+        let va = a[key] ?? '', vb = b[key] ?? '';
+        if (key === 'created') {
+          va = new Date(va).getTime(); vb = new Date(vb).getTime();
+        } else if (key === 'userCount' || key === 'accountCount') {
+          va = Number(va); vb = Number(vb);
+        } else {
+          va = String(va).toLowerCase(); vb = String(vb).toLowerCase();
+        }
+        if (va < vb) return dir === 'asc' ? -1 : 1;
+        if (va > vb) return dir === 'asc' ? 1 : -1;
+        return 0;
+      });
+    }
+
+    function renderRows() {
+      const query = searchInput.value.trim().toLowerCase();
+      filteredGroups = allGroups.filter(g => {
+        if (query && !g.name.toLowerCase().includes(query) && !(g.comment || '').toLowerCase().includes(query)) return false;
+        return grpFilter.matchesFilters(g);
+      });
+      filteredGroups = sortGroups(filteredGroups);
+      filteredGroups.sort((a, b) => {
+        const aS = selectedGroups.has(a.id) ? 0 : 1;
+        const bS = selectedGroups.has(b.id) ? 0 : 1;
+        return aS - bS;
+      });
+
+      let html = '';
+      for (const grp of filteredGroups) {
+        const isSel = selectedGroups.has(grp.id);
+        const cls = 'assign-accounts__row' + (isSel ? ' assign-accounts__row--selected' : '');
+        html += `<div class="${cls}" data-grp-id="${grp.id}">`;
+        html += `<div class="table-cell table-cell--checkbox" style="flex:0 0 36px;"><div class="table-checkbox${isSel ? ' table-checkbox--checked' : ''}"></div></div>`;
+        for (const c of TABLE_COLS_GRP) {
+          html += `<div class="table-cell" style="flex:${c.flex};">${formatTableCell(grp, c.key, 'userGroups')}</div>`;
+        }
+        html += '</div>';
+      }
+      tableBodyEl.innerHTML = html;
+      countEl.textContent = `Select groups (${selectedGroups.size})`;
+      buildHeader();
+    }
+
+    function openDialog(userIds) {
+      pendingUserIds = userIds;
+      allGroups = [...state.columns.userGroups.items];
+      selectedGroups = new Set();
+      grpSort = null;
+      grpFilter.reset();
+
+      if (userIds.length === 1) {
+        for (const gId of (userToGroups[userIds[0]] || [])) selectedGroups.add(gId);
+      } else {
+        const sets = userIds.map(uId => new Set(userToGroups[uId] || []));
+        for (const gId of sets[0]) {
+          if (sets.every(s => s.has(gId))) selectedGroups.add(gId);
+        }
+      }
+
+      const userIcon = '<svg class="dialog__badge-icon" viewBox="0 0 16 16" fill="none"><path fill="currentColor" d="M8 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6M6 5a2 2 0 1 1 4 0 2 2 0 0 1-4 0m-2.5 9v-1.5A1.5 1.5 0 0 1 5 11h6a1.5 1.5 0 0 1 1.5 1.5V14h-1v-1.5a.5.5 0 0 0-.5-.5H5a.5.5 0 0 0-.5.5V14z"/></svg>';
+      if (userIds.length === 1) {
+        const u = state.columns.users.items.find(i => i.id === userIds[0]);
+        const name = u ? u.name : userIds[0];
+        badgesEl.innerHTML = `<span class="dialog__badge">${userIcon} ${name}</span>`;
+      } else {
+        badgesEl.innerHTML = `<span class="dialog__badge">${userIcon} ${userIds.length} Org users</span>`;
+      }
+
+      searchInput.value = '';
+      buildHeader();
+      renderRows();
+      backdrop.style.display = 'flex';
+    }
+
+    function closeDialog() {
+      backdrop.style.display = 'none';
+      pendingUserIds = [];
+      selectedGroups.clear();
+    }
+
+    window._openAssignGroupsDialog = openDialog;
+
+    tableHeaderEl.addEventListener('click', (e) => {
+      if (e.target.closest('[data-select-all-visible]')) {
+        const allChecked = filteredGroups.length > 0 && filteredGroups.every(g => selectedGroups.has(g.id));
+        for (const g of filteredGroups) {
+          if (allChecked) { selectedGroups.delete(g.id); } else { selectedGroups.add(g.id); }
+        }
+        renderRows();
+        return;
+      }
+      const cell = e.target.closest('[data-grp-sort]');
+      if (!cell) return;
+      const key = cell.dataset.grpSort;
+      if (grpSort && grpSort.key === key) {
+        grpSort.dir = grpSort.dir === 'asc' ? 'desc' : 'asc';
+      } else {
+        grpSort = { key, dir: 'asc' };
+      }
+      buildHeader();
+      renderRows();
+    });
+
+    tableBodyEl.addEventListener('click', (e) => {
+      const row = e.target.closest('[data-grp-id]');
+      if (!row) return;
+      const gId = row.dataset.grpId;
+      if (selectedGroups.has(gId)) {
+        selectedGroups.delete(gId);
+      } else {
+        selectedGroups.add(gId);
+      }
+      renderRows();
+    });
+
+    selectAllBtn.addEventListener('click', () => {
+      for (const g of allGroups) selectedGroups.add(g.id);
+      renderRows();
+    });
+
+    unselectAllBtn.addEventListener('click', () => {
+      selectedGroups.clear();
+      renderRows();
+    });
+
+    searchInput.addEventListener('input', () => renderRows());
+    cancelBtn.addEventListener('click', closeDialog);
+
+    submitBtn.addEventListener('click', () => {
+      const count = selectedGroups.size;
+      const msg = `Assigned ${pendingUserIds.length > 1 ? pendingUserIds.length + ' users' : '1 user'} to ${count} group${count !== 1 ? 's' : ''}`;
+      closeDialog();
+      showToast(msg, { onUndo: () => showToast('Assignment reverted') });
+    });
+
+    backdrop.addEventListener('click', (e) => {
+      if (e.target === backdrop) closeDialog();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && backdrop.style.display !== 'none') closeDialog();
+    });
+  }
+
+  // ─── Assign to Accounts Dialog ──────────────────────────
+
+  function initAssignAccountsDialog() {
+    const backdrop = document.getElementById('assignAccountsBackdrop');
+    const titleEl = document.getElementById('assignAccountsTitle');
+    const badgesEl = document.getElementById('assignAccountsBadges');
+    const countEl = document.getElementById('assignAccountsCount');
+    const searchInput = document.getElementById('assignAccountsSearch');
+    const tableHeaderEl = document.getElementById('assignAccountsTableHeader');
+    const tableBodyEl = document.getElementById('assignAccountsTableBody');
+    const selectAllBtn = document.getElementById('assignAccountsSelectAll');
+    const unselectAllBtn = document.getElementById('assignAccountsUnselectAll');
+    const filterBtn = document.getElementById('assignAccountsFilterBtn');
+    const filterMenuEl = document.getElementById('assignAccountsFilterMenu');
+    const visibleAllEl = document.getElementById('assignAccountsVisibleAll');
+    const visibleCheckbox = document.getElementById('assignAccountsVisibleCheckbox');
+    const cancelBtn = document.getElementById('assignAccountsCancel');
+    const submitBtn = document.getElementById('assignAccountsSubmit');
+    if (!backdrop) return;
+
+    let pendingGroupIds = [];
+    let selectedAccounts = new Set();
+    let allAccounts = [];
+    let filteredAccounts = [];
+    let assignSort = null;
+
+    const acctFilterDefs = FILTER_DEFS.accounts;
+    const acctActiveFilters = {};
+    for (const d of acctFilterDefs) acctActiveFilters[d.key] = new Set();
+    const acctFilter = initDialogFilter(filterBtn, filterMenuEl, acctFilterDefs, () => allAccounts, acctActiveFilters, () => renderRows());
+
+    const TABLE_COLS_ASSIGN = [
+      { key: 'name', label: 'ACCOUNT', flex: 2 },
+      { key: 'edition', label: 'EDITION', flex: 1.2 },
+      { key: 'cloud', label: 'CLOUD', flex: 0.8 },
+      { key: 'region', label: 'REGION', flex: 1.4 },
+      { key: 'created', label: 'CREATED', flex: 1.2 },
+    ];
+
+    const sortArrowUp = '<svg class="table-sort-icon" viewBox="0 0 16 16" width="14" height="14" fill="none"><path fill="currentColor" d="M8 2a.5.5 0 0 1 .354.146l5 5-.707.708L8.5 3.707V14h-1V3.707L3.354 7.854l-.708-.708 5-5A.5.5 0 0 1 8 2"/></svg>';
+    const sortArrowDown = '<svg class="table-sort-icon" viewBox="0 0 16 16" width="14" height="14" fill="none"><path fill="currentColor" d="M8 14a.5.5 0 0 0 .354-.146l5-5-.707-.708L8.5 12.293V2h-1v10.293L3.354 8.146l-.708.708 5 5A.5.5 0 0 0 8 14"/></svg>';
+
+    function buildHeader() {
+      const allChecked = filteredAccounts.length > 0 && filteredAccounts.every(a => selectedAccounts.has(a.id));
+      const someChecked = !allChecked && filteredAccounts.some(a => selectedAccounts.has(a.id));
+      const cls = allChecked ? ' table-checkbox--checked' : (someChecked ? ' table-checkbox--indeterminate' : '');
+      let html = `<div class="table-cell table-cell--checkbox" style="flex:0 0 36px;"><div class="table-checkbox${cls}" data-select-all-visible></div></div>`;
+      for (const c of TABLE_COLS_ASSIGN) {
+        const isActive = assignSort && assignSort.key === c.key;
+        const arrow = isActive ? (assignSort.dir === 'asc' ? sortArrowUp : sortArrowDown) : '';
+        const activeCls = isActive ? ' table-cell--sort-active' : '';
+        html += `<div class="table-cell table-cell--header table-cell--sortable${activeCls}" style="flex:${c.flex};" data-assign-sort="${c.key}">${c.label}${arrow}</div>`;
+      }
+      tableHeaderEl.innerHTML = html;
+    }
+
+    function sortAccounts(list) {
+      if (!assignSort) return list;
+      const { key, dir } = assignSort;
+      return list.sort((a, b) => {
+        let va = a[key] ?? '', vb = b[key] ?? '';
+        if (key === 'created') {
+          va = new Date(va).getTime(); vb = new Date(vb).getTime();
+        } else {
+          va = String(va).toLowerCase(); vb = String(vb).toLowerCase();
+        }
+        if (va < vb) return dir === 'asc' ? -1 : 1;
+        if (va > vb) return dir === 'asc' ? 1 : -1;
+        return 0;
+      });
+    }
+
+    function renderRows() {
+      const query = searchInput.value.trim().toLowerCase();
+      filteredAccounts = allAccounts.filter(a => {
+        if (query && !a.name.toLowerCase().includes(query) && !(a.region || '').toLowerCase().includes(query) && !(a.cloud || '').toLowerCase().includes(query)) return false;
+        return acctFilter.matchesFilters(a);
+      });
+      filteredAccounts = sortAccounts(filteredAccounts);
+      filteredAccounts.sort((a, b) => {
+        const aS = selectedAccounts.has(a.id) ? 0 : 1;
+        const bS = selectedAccounts.has(b.id) ? 0 : 1;
+        return aS - bS;
+      });
+
+      let html = '';
+      for (const acc of filteredAccounts) {
+        const isSel = selectedAccounts.has(acc.id);
+        const cls = 'assign-accounts__row' + (isSel ? ' assign-accounts__row--selected' : '');
+        html += `<div class="${cls}" data-acc-id="${acc.id}">`;
+        html += `<div class="table-cell table-cell--checkbox" style="flex:0 0 36px;"><div class="table-checkbox${isSel ? ' table-checkbox--checked' : ''}"></div></div>`;
+        for (const c of TABLE_COLS_ASSIGN) {
+          html += `<div class="table-cell" style="flex:${c.flex};">${formatTableCell(acc, c.key, 'accounts')}</div>`;
+        }
+        html += '</div>';
+      }
+      tableBodyEl.innerHTML = html;
+      updateCount();
+      buildHeader();
+    }
+
+    function updateCount() {
+      const total = selectedAccounts.size;
+      countEl.textContent = `Select accounts (${total})`;
+      visibleAllEl.style.display = total === allAccounts.length && total > 0 ? '' : 'none';
+    }
+
+    function openDialog(groupIds) {
+      pendingGroupIds = groupIds;
+      allAccounts = [...state.columns.accounts.items];
+      selectedAccounts = new Set();
+      assignSort = null;
+      acctFilter.reset();
+
+      if (groupIds.length === 1) {
+        for (const aId of (groupToAccounts[groupIds[0]] || [])) selectedAccounts.add(aId);
+      } else {
+        const sets = groupIds.map(gId => new Set(groupToAccounts[gId] || []));
+        for (const aId of sets[0]) {
+          if (sets.every(s => s.has(aId))) selectedAccounts.add(aId);
+        }
+      }
+
+      const groupIcon = '<svg class="dialog__badge-icon" viewBox="0 0 16 16" fill="none"><g fill="currentColor"><path d="M8.5 11a1.5 1.5 0 0 1 1.5 1.5V14H9v-1.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0-.5.5V14H1v-1.5A1.5 1.5 0 0 1 2.5 11zm5-2a1.5 1.5 0 0 1 1.5 1.5V12h-1v-1.5a.5.5 0 0 0-.5-.5H11V9z"/><path fill-rule="evenodd" d="M5.5 3a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7m0 1a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5" clip-rule="evenodd"/><path d="M11 2a3 3 0 1 1-1.005 5.824L9.992 7h.012l-.001-.269a2 2 0 1 0-.352-3.206l-.603-.8A3 3 0 0 1 11 2"/></g></svg>';
+      if (groupIds.length === 1) {
+        const g = state.columns.userGroups.items.find(i => i.id === groupIds[0]);
+        const name = g ? g.name : groupIds[0];
+        badgesEl.innerHTML = `<span class="dialog__badge">${groupIcon} ${name}</span>`;
+      } else {
+        badgesEl.innerHTML = `<span class="dialog__badge">${groupIcon} ${groupIds.length} Org user groups</span>`;
+      }
+
+      if (!visibleCheckbox.classList.contains('dialog__checkbox--checked')) {
+        visibleCheckbox.classList.add('dialog__checkbox--checked');
+      }
+
+      searchInput.value = '';
+      buildHeader();
+      renderRows();
+      backdrop.style.display = 'flex';
+    }
+
+    function closeDialog() {
+      backdrop.style.display = 'none';
+      pendingGroupIds = [];
+      selectedAccounts.clear();
+    }
+
+    window._openAssignAccountsDialog = openDialog;
+
+    tableHeaderEl.addEventListener('click', (e) => {
+      if (e.target.closest('[data-select-all-visible]')) {
+        const allChecked = filteredAccounts.length > 0 && filteredAccounts.every(a => selectedAccounts.has(a.id));
+        for (const a of filteredAccounts) {
+          if (allChecked) { selectedAccounts.delete(a.id); } else { selectedAccounts.add(a.id); }
+        }
+        renderRows();
+        return;
+      }
+      const cell = e.target.closest('[data-assign-sort]');
+      if (!cell) return;
+      const key = cell.dataset.assignSort;
+      if (assignSort && assignSort.key === key) {
+        assignSort.dir = assignSort.dir === 'asc' ? 'desc' : 'asc';
+      } else {
+        assignSort = { key, dir: 'asc' };
+      }
+      buildHeader();
+      renderRows();
+    });
+
+    tableBodyEl.addEventListener('click', (e) => {
+      const row = e.target.closest('[data-acc-id]');
+      if (!row) return;
+      const accId = row.dataset.accId;
+      if (selectedAccounts.has(accId)) {
+        selectedAccounts.delete(accId);
+      } else {
+        selectedAccounts.add(accId);
+      }
+      renderRows();
+    });
+
+    selectAllBtn.addEventListener('click', () => {
+      for (const acc of allAccounts) selectedAccounts.add(acc.id);
+      renderRows();
+    });
+
+    unselectAllBtn.addEventListener('click', () => {
+      selectedAccounts.clear();
+      renderRows();
+    });
+
+    searchInput.addEventListener('input', () => renderRows());
+
+    visibleAllEl.addEventListener('click', () => {
+      visibleCheckbox.classList.toggle('dialog__checkbox--checked');
+    });
+
+    cancelBtn.addEventListener('click', closeDialog);
+
+    submitBtn.addEventListener('click', () => {
+      const count = selectedAccounts.size;
+      const msg = `Assigned ${pendingGroupIds.length > 1 ? pendingGroupIds.length + ' groups' : '1 group'} to ${count} account${count !== 1 ? 's' : ''}`;
+      closeDialog();
+      showToast(msg, { onUndo: () => showToast('Assignment reverted') });
+    });
+
+    backdrop.addEventListener('click', (e) => {
+      if (e.target === backdrop) closeDialog();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && backdrop.style.display !== 'none') closeDialog();
+    });
+  }
+
+  // ─── Edit Account Dialog ────────────────────────────────
+
+  function initEditAccountDialog() {
+    const backdrop = document.getElementById('editAccountBackdrop');
+    const titleEl = document.getElementById('editAccountTitle');
+    const nameInput = document.getElementById('editAccountName');
+    const urlPreview = document.getElementById('editAccountUrlPreview');
+    const saveOldUrlCheckbox = document.getElementById('editAccountSaveOldUrl');
+    const editionSelect = document.getElementById('editAccountEdition');
+    const tenantTypeSelect = document.getElementById('editAccountTenantType');
+    const commentInput = document.getElementById('editAccountComment');
+    const cancelBtn = document.getElementById('editAccountCancel');
+    const submitBtn = document.getElementById('editAccountSubmit');
+    if (!backdrop) return;
+
+    let editingAccountId = null;
+    let originalName = '';
+    const orgName = 'ACMECORP';
+
+    function updateUrlPreview() {
+      const newName = nameInput.value.trim().toUpperCase().replace(/[^A-Z0-9_]/g, '_') || 'ACCOUNT_NAME';
+      const oldUrl = `${orgName}-${originalName}.snowflakecomputing.com`;
+      const newUrl = `${orgName}-${newName}.snowflakecomputing.com`;
+      const changed = newName !== originalName;
+      if (changed) {
+        urlPreview.innerHTML =
+          `<div style="margin-bottom:4px;"><span style="color:var(--themed-reusable-text-tertiary);">New URL:</span> ${newUrl.toLowerCase()}</div>` +
+          `<div><span style="color:var(--themed-reusable-text-tertiary);">Old URL:</span> ${oldUrl.toLowerCase()}</div>`;
+        saveOldUrlCheckbox.closest('.dialog__checkbox-row').style.display = '';
+      } else {
+        urlPreview.innerHTML = `<div>${newUrl.toLowerCase()}</div>`;
+        saveOldUrlCheckbox.closest('.dialog__checkbox-row').style.display = 'none';
+      }
+    }
+
+    function openDialog(accountId) {
+      const result = findItemById(accountId);
+      if (!result || result.colKey !== 'accounts') return;
+      const account = result.item;
+
+      editingAccountId = accountId;
+      originalName = account.name;
+      titleEl.textContent = 'Edit account';
+      nameInput.value = account.name;
+      editionSelect.value = account.edition;
+      tenantTypeSelect.value = account.tenantType || 'Internal';
+      commentInput.value = account.comment || '';
+
+      if (!saveOldUrlCheckbox.classList.contains('dialog__checkbox--checked')) {
+        saveOldUrlCheckbox.classList.add('dialog__checkbox--checked');
+      }
+
+      updateUrlPreview();
+      backdrop.style.display = 'flex';
+      setTimeout(() => nameInput.focus(), 50);
+    }
+
+    function closeDialog() {
+      backdrop.style.display = 'none';
+      editingAccountId = null;
+    }
+
+    function applyChanges() {
+      if (!editingAccountId) return;
+      const account = state.columns.accounts.items.find(i => i.id === editingAccountId);
+      if (!account) return;
+
+      const newName = nameInput.value.trim();
+      const prevName = account.name;
+      const prevEdition = account.edition;
+      const prevTenantType = account.tenantType;
+      const prevComment = account.comment;
+
+      if (newName) account.name = newName;
+      account.edition = editionSelect.value;
+      account.tenantType = tenantTypeSelect.value;
+      account.comment = commentInput.value.trim();
+
+      applyFilters('accounts');
+      updateRelationshipHighlights();
+      updateControlBar();
+
+      showToast(`Account "${account.name}" updated`, {
+        onUndo: () => {
+          account.name = prevName;
+          account.edition = prevEdition;
+          account.tenantType = prevTenantType;
+          account.comment = prevComment;
+          applyFilters('accounts');
+          updateRelationshipHighlights();
+          updateControlBar();
+          showToast(`Reverted changes to "${prevName}"`);
+        }
+      });
+    }
+
+    window._openEditAccountDialog = openDialog;
+
+    nameInput.addEventListener('input', updateUrlPreview);
+
+    saveOldUrlCheckbox.closest('.dialog__checkbox-row').addEventListener('click', () => {
+      saveOldUrlCheckbox.classList.toggle('dialog__checkbox--checked');
+    });
+
+    cancelBtn.addEventListener('click', closeDialog);
+    submitBtn.addEventListener('click', () => {
+      applyChanges();
+      closeDialog();
+    });
+    backdrop.addEventListener('click', (e) => {
+      if (e.target === backdrop) closeDialog();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && backdrop.style.display !== 'none') closeDialog();
+    });
+  }
+
+  function initGroupDialog() {
+    const backdrop = document.getElementById('groupDialogBackdrop');
+    const titleEl = document.getElementById('groupDialogTitle');
+    const cancelBtn = document.getElementById('groupDialogCancel');
+    const submitBtn = document.getElementById('groupDialogSubmit');
+    const nameInput = document.getElementById('groupNameInput');
+    const descInput = document.getElementById('groupDescInput');
+    if (!backdrop) return;
+
+    let mode = 'create';
+
+    function openCreateDialog() {
+      mode = 'create';
+      titleEl.textContent = 'Create Org user group';
+      submitBtn.textContent = 'Create';
+      nameInput.value = '';
+      descInput.value = '';
+      backdrop.style.display = 'flex';
+      setTimeout(() => nameInput.focus(), 50);
+    }
+
+    function openEditDialog(groupId) {
+      const result = findItemById(groupId);
+      if (!result || result.colKey !== 'userGroups') return;
+      const group = result.item;
+
+      mode = 'edit';
+      titleEl.textContent = 'Edit Org user group';
+      submitBtn.textContent = 'Save';
+      nameInput.value = group.name || '';
+      descInput.value = group.comment || '';
+      backdrop.style.display = 'flex';
+      setTimeout(() => nameInput.focus(), 50);
+    }
+
+    function closeDialog() {
+      backdrop.style.display = 'none';
+      nameInput.value = '';
+      descInput.value = '';
+    }
+
+    window._openEditGroupDialog = openEditDialog;
+
+    const splitActionBtn = document.querySelector('#createButton .stellar-splitbutton__action');
+    if (splitActionBtn) {
+      splitActionBtn.addEventListener('click', () => {
+        const label = splitActionBtn.textContent.trim();
+        if (label === 'Create User group') openCreateDialog();
+      });
+    }
+
+    const createGroupMenuItem = document.querySelector('#createButton .stellar-menu__item[data-key="create-group"]');
+    if (createGroupMenuItem) {
+      createGroupMenuItem.addEventListener('click', () => openCreateDialog());
+    }
+
+    cancelBtn.addEventListener('click', closeDialog);
+
+    submitBtn.addEventListener('click', () => {
+      closeDialog();
+      showToast(mode === 'edit' ? 'Org user group updated successfully' : 'Org user group created successfully');
+    });
+
+    backdrop.addEventListener('click', (e) => {
+      if (e.target === backdrop) closeDialog();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && backdrop.style.display !== 'none') closeDialog();
+    });
+  }
+
   function init() {
     initDomRefs();
     initSkeletonLoading();
@@ -2484,6 +3758,13 @@
     initRelatedHover();
     initSidePanel();
     initColumnVisibility();
+    initUserDialog();
+    initGroupDialog();
+    initEditAccountDialog();
+    initDisableDialog();
+    initRemoveFromDialog();
+    initAssignGroupsDialog();
+    initAssignAccountsDialog();
     updateColumnActiveState();
   }
 

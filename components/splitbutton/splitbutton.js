@@ -98,6 +98,18 @@ class StellarSplitButton {
       }
     });
 
+    this.menuEl.addEventListener('click', (e) => {
+      const itemEl = e.target.closest('.stellar-menu__item:not(.stellar-menu__item--disabled)');
+      if (!itemEl) return;
+      const event = new CustomEvent('menu-select', {
+        detail: { id: itemEl.dataset.key },
+        bubbles: true,
+      });
+      this.root.dispatchEvent(event);
+      this.close();
+      this.trigger.focus();
+    });
+
     document.addEventListener('click', (e) => {
       if (this.isOpen && !this.root.contains(e.target)) {
         this.close();

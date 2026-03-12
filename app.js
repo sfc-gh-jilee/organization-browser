@@ -2714,7 +2714,11 @@
 
     const createUserMenuItem = document.querySelector('#createButton .stellar-menu__item[data-key="create-user"]');
     if (createUserMenuItem) {
-      createUserMenuItem.addEventListener('click', () => openCreateDialog());
+      createUserMenuItem.addEventListener('click', () => {
+        const menu = document.querySelector('#createButton .stellar-menu');
+        if (menu) menu.classList.remove('stellar-menu--open');
+        openCreateDialog();
+      });
     }
 
     cancelBtn.addEventListener('click', closeDialog);
@@ -3731,7 +3735,11 @@
 
     const bulkMenuItem = document.querySelector('#createButton .stellar-menu__item[data-key="create-bulk-users"]');
     if (bulkMenuItem) {
-      bulkMenuItem.addEventListener('click', () => openDialog());
+      bulkMenuItem.addEventListener('click', () => {
+        const menu = document.querySelector('#createButton .stellar-menu');
+        if (menu) menu.classList.remove('stellar-menu--open');
+        openDialog();
+      });
     }
 
     cancelBtn.addEventListener('click', closeDialog);
@@ -3868,7 +3876,11 @@
 
     const createAccountMenuItem = document.querySelector('#createButton .stellar-menu__item[data-key="create-account"]');
     if (createAccountMenuItem) {
-      createAccountMenuItem.addEventListener('click', () => openDialog());
+      createAccountMenuItem.addEventListener('click', () => {
+        const menu = document.querySelector('#createButton .stellar-menu');
+        if (menu) menu.classList.remove('stellar-menu--open');
+        openDialog();
+      });
     }
 
     cloudSelect.addEventListener('change', populateRegions);
@@ -4057,7 +4069,11 @@
 
     const createGroupMenuItem = document.querySelector('#createButton .stellar-menu__item[data-key="create-group"]');
     if (createGroupMenuItem) {
-      createGroupMenuItem.addEventListener('click', () => openCreateDialog());
+      createGroupMenuItem.addEventListener('click', () => {
+        const menu = document.querySelector('#createButton .stellar-menu');
+        if (menu) menu.classList.remove('stellar-menu--open');
+        openCreateDialog();
+      });
     }
 
     cancelBtn.addEventListener('click', closeDialog);

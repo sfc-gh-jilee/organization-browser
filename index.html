@@ -126,6 +126,31 @@
         </div>
       </div>
 
+      <div class="status-bar" id="statusBar" style="display:none;">
+        <button class="stellar-button stellar-button--secondary stellar-button--small stellar-button--icon-only" id="statusBarPrev" aria-label="Previous column">
+          <svg class="stellar-button__icon" viewBox="0 0 16 16" fill="none"><path fill="currentColor" d="m10.146 2.646-5 5a.5.5 0 0 0 0 .708l5 5 .708-.707L6.207 8l4.647-4.646z"/></svg>
+        </button>
+        <button class="stellar-button stellar-button--secondary stellar-button--small stellar-button--icon-only" id="statusBarNext" aria-label="Next column">
+          <svg class="stellar-button__icon" viewBox="0 0 16 16" fill="none"><path fill="currentColor" d="m5.854 2.646 5 5a.5.5 0 0 1 0 .708l-5 5-.708-.707L9.793 8 5.146 3.354z"/></svg>
+        </button>
+        <div class="highlight-mode-trigger" id="statusBarHighlightTrigger" style="display:none; position:relative;">
+          <button class="highlight-mode-btn" id="statusBarHighlightBtn" aria-label="Change highlight mode">
+            <span class="relation-counts" id="statusBarRelationCounts"></span>
+            <svg class="highlight-mode-btn__chevron" viewBox="0 0 16 16" width="16" height="16" fill="none"><path fill="currentColor" d="m8 11.293 4.146-4.147.708.708-4.5 4.5a.5.5 0 0 1-.708 0l-4.5-4.5.708-.708z"/></svg>
+          </button>
+          <div class="highlight-mode-menu" id="statusBarHighlightMenu">
+            <div class="highlight-mode-menu__item highlight-mode-menu__item--active" data-mode="union">
+              <svg class="highlight-mode-menu__check" viewBox="0 0 16 16" width="14" height="14" fill="none"><path fill="currentColor" d="M13.854 3.646a.5.5 0 0 1 0 .708l-8 8a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L5.5 11.293l7.646-7.647a.5.5 0 0 1 .708 0"/></svg>
+              Showing all related
+            </div>
+            <div class="highlight-mode-menu__item" data-mode="intersection">
+              <svg class="highlight-mode-menu__check" viewBox="0 0 16 16" width="14" height="14" fill="none"><path fill="currentColor" d="M13.854 3.646a.5.5 0 0 1 0 .708l-8 8a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L5.5 11.293l7.646-7.647a.5.5 0 0 1 .708 0"/></svg>
+              Showing in common
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Three-column layout -->
       <div class="columns-container">
         <!-- Accounts column -->
@@ -229,30 +254,6 @@
             <div class="column__body" id="users-scroll">
               <div class="virtual-spacer" id="users-spacer"></div>
               <div class="virtual-content" id="users-content"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="status-bar" id="statusBar" style="display:none;">
-        <button class="stellar-button stellar-button--secondary stellar-button--icon-only" id="statusBarPrev" aria-label="Previous column">
-          <svg class="stellar-button__icon" viewBox="0 0 16 16" fill="none"><path fill="currentColor" d="m10.146 2.646-5 5a.5.5 0 0 0 0 .708l5 5 .708-.707L6.207 8l4.647-4.646z"/></svg>
-        </button>
-        <button class="stellar-button stellar-button--secondary stellar-button--icon-only" id="statusBarNext" aria-label="Next column">
-          <svg class="stellar-button__icon" viewBox="0 0 16 16" fill="none"><path fill="currentColor" d="m5.854 2.646 5 5a.5.5 0 0 1 0 .708l-5 5-.708-.707L9.793 8 5.146 3.354z"/></svg>
-        </button>
-        <div class="highlight-mode-trigger" id="statusBarHighlightTrigger" style="display:none; position:relative;">
-          <button class="highlight-mode-btn" id="statusBarHighlightBtn" aria-label="Change highlight mode">
-            <span class="relation-counts" id="statusBarRelationCounts"></span>
-            <svg class="highlight-mode-btn__chevron" viewBox="0 0 16 16" width="16" height="16" fill="none"><path fill="currentColor" d="m8 11.293 4.146-4.147.708.708-4.5 4.5a.5.5 0 0 1-.708 0l-4.5-4.5.708-.708z"/></svg>
-          </button>
-          <div class="highlight-mode-menu" id="statusBarHighlightMenu">
-            <div class="highlight-mode-menu__item highlight-mode-menu__item--active" data-mode="union">
-              <svg class="highlight-mode-menu__check" viewBox="0 0 16 16" width="14" height="14" fill="none"><path fill="currentColor" d="M13.854 3.646a.5.5 0 0 1 0 .708l-8 8a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L5.5 11.293l7.646-7.647a.5.5 0 0 1 .708 0"/></svg>
-              Showing all related
-            </div>
-            <div class="highlight-mode-menu__item" data-mode="intersection">
-              <svg class="highlight-mode-menu__check" viewBox="0 0 16 16" width="14" height="14" fill="none"><path fill="currentColor" d="M13.854 3.646a.5.5 0 0 1 0 .708l-8 8a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L5.5 11.293l7.646-7.647a.5.5 0 0 1 .708 0"/></svg>
-              Showing in common
             </div>
           </div>
         </div>

@@ -294,11 +294,21 @@ function buildRelationships(accounts, userGroups, users) {
   for (const a of accounts) accountToGroups[a.id] = [];
   for (const u of users) userToGroups[u.id] = [];
 
-  // Assign each user to 0-4 random groups (~15% get none)
+  // Every user belongs to ALL_ORGANIZATION_USERS
+  const allOrgGroup = userGroups.find(g => g.id === 'grp-all-org-users');
+  if (allOrgGroup) {
+    for (const u of users) {
+      userToGroups[u.id].push(allOrgGroup.id);
+      groupToUsers[allOrgGroup.id].push(u.id);
+    }
+  }
+
+  // Assign each user to 0-4 additional random groups (~15% get none)
+  const otherGroups = userGroups.filter(g => g.id !== 'grp-all-org-users');
   for (const u of users) {
     if (rand() < 0.15) continue;
     const numGroups = Math.floor(rand() * 4) + 1;
-    const chosen = pickN(userGroups, Math.min(numGroups, userGroups.length));
+    const chosen = pickN(otherGroups, Math.min(numGroups, otherGroups.length));
     for (const g of chosen) {
       userToGroups[u.id].push(g.id);
       groupToUsers[g.id].push(u.id);
@@ -335,6 +345,15 @@ function buildRelationships(accounts, userGroups, users) {
 
 const accounts = generateAccounts(100);
 const userGroups = generateUserGroups(25);
+userGroups.unshift({
+  id: 'grp-all-org-users',
+  name: 'ALL_ORGANIZATION_USERS',
+  comment: 'Default group containing all organization users',
+  userCount: 0,
+  accountCount: 0,
+  owner: 'GLOBALORGADMIN',
+  created: '2019-01-01',
+});
 const users = generateUsers(2000);
 const relationships = buildRelationships(accounts, userGroups, users);
 

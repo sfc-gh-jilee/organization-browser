@@ -85,6 +85,11 @@ html, body { height: 100%; overflow: hidden; }
   padding: 0;
   justify-content: center;
 }
+.stellar-button--icon-only.stellar-button--small {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+}
 
 
 
@@ -132,26 +137,25 @@ html, body { height: 100%; overflow: hidden; }
 .column--hidden { display: none; }
 .column--narrow { flex: 0 0 320px; width: 320px; }
 
-/* --- Bottom status bar (< 1440px) --- */
+/* --- Status bar (above columns, < 1440px) --- */
 .status-bar {
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 4px 8px;
-  margin-top: -24px;
-  border-top: 1px solid var(--themed-reusable-border-default);
+  gap: 8px;
+  padding: 0 0 8px;
+  margin-bottom: -24px;
+  /* border-bottom: 1px solid var(--themed-reusable-border-default); */
   background: var(--themed-surface-level-1-background);
   flex-shrink: 0;
   position: relative;
 }
 .status-bar .highlight-mode-trigger {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  margin-left: 8px;
 }
-.status-bar .highlight-mode-menu {
-  bottom: calc(100% + 4px);
-  top: auto;
+.status-bar .highlight-mode-btn {
+  height: 24px;
+  font-size: 12px;
+  padding: 0 6px;
 }
 
 /* --- Column resize handle --- */
@@ -192,7 +196,7 @@ html, body { height: 100%; overflow: hidden; }
 }
 .column--expanded .column__table-wrap {
   overflow-x: auto;
-  padding: 8px 16px;
+  padding: 8px 32px;
 }
 .column--expanded .column__table-header,
 .column--expanded .column__body {
@@ -1975,9 +1979,11 @@ html, body { height: 100%; overflow: hidden; }
 }
 
 .wizard__review-table {
-  /* border: 1px solid var(--themed-reusable-border-default, #e5e7eb); */
-  /* border-radius: var(--stellar-radius-sm, 4px); */
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
 }
 
 .wizard__review-header {
@@ -2009,8 +2015,9 @@ html, body { height: 100%; overflow: hidden; }
 }
 
 .wizard__review-body {
-  max-height: 320px;
+  flex: 1;
   overflow-y: auto;
+  min-height: 0;
 }
 
 .wizard__review-row {

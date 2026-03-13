@@ -929,11 +929,11 @@
     ],
   };
 
-  const MAX_VISIBLE_BUTTONS_DEFAULT = 2;
-
   function getResponsiveActionLayout() {
     const w = window.innerWidth;
-    if (w >= 1600) return { maxPromoted: MAX_VISIBLE_BUTTONS_DEFAULT, showRelationCounts: true, showStatusBar: false };
+    if (w >= 1920) return { maxPromoted: 4, showRelationCounts: true, showStatusBar: false };
+    if (w >= 1760) return { maxPromoted: 3, showRelationCounts: true, showStatusBar: false };
+    if (w >= 1600) return { maxPromoted: 2, showRelationCounts: true, showStatusBar: false };
     if (w >= 1440) return { maxPromoted: 1, showRelationCounts: true, showStatusBar: false };
     return { maxPromoted: 0, showRelationCounts: false, showStatusBar: true };
   }
@@ -1868,9 +1868,9 @@
   };
 
   const activeSort = {
-    accounts: { key: 'name', dir: 'asc' },
-    userGroups: { key: 'name', dir: 'asc' },
-    users: { key: 'name', dir: 'asc' },
+    accounts: { key: 'created', dir: 'desc' },
+    userGroups: { key: 'created', dir: 'desc' },
+    users: { key: 'created', dir: 'desc' },
   };
 
   function compareFn(a, b, key, dir) {
@@ -3804,6 +3804,17 @@
       }
       radioEmail.classList.add('wizard__radio--checked');
       radioCsv.classList.remove('wizard__radio--checked');
+
+      const groupSelect = document.getElementById('bulkUserGroup');
+      groupSelect.innerHTML = '';
+      for (const g of state.columns.userGroups.items) {
+        const opt = document.createElement('option');
+        opt.value = g.id;
+        opt.textContent = g.id === 'grp-all-org-users' ? `${g.name} (default)` : g.name;
+        if (g.id === 'grp-all-org-users') opt.selected = true;
+        groupSelect.appendChild(opt);
+      }
+
       showStep(1);
       backdrop.style.display = 'flex';
     }
@@ -3842,6 +3853,43 @@
     prevBtn.addEventListener('click', () => showStep(currentStep - 1));
     nextBtn.addEventListener('click', () => showStep(currentStep + 1));
     submitBtn.addEventListener('click', () => {
+      const newUserIds = [];
+      const allOrgGroupId = 'grp-all-org-users';
+      const now = new Date().toISOString().split('T')[0];
+
+      for (const pu of parsedUsers) {
+        const uid = `usr-bulk-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+        const newUser = {
+          id: uid,
+          name: pu.loginName.toUpperCase(),
+          displayName: pu.displayName,
+          email: pu.email,
+          authMethod: 'Password',
+          mfaEnabled: false,
+          userType: 'Person',
+          owner: 'GLOBALORGADMIN',
+          created: now,
+          status: 'Enabled',
+        };
+        state.columns.users.items.unshift(newUser);
+        newUserIds.push(uid);
+
+        userToGroups[uid] = [allOrgGroupId];
+        if (!groupToUsers[allOrgGroupId]) groupToUsers[allOrgGroupId] = [];
+        groupToUsers[allOrgGroupId].push(uid);
+      }
+
+      const allOrgGroup = state.columns.userGroups.items.find(g => g.id === allOrgGroupId);
+      if (allOrgGroup) allOrgGroup.userCount = groupToUsers[allOrgGroupId].length;
+
+      state.columns.users.selected = new Set(newUserIds);
+      state.activeColumn = 'users';
+
+      applyFilters('users');
+      applyFilters('userGroups');
+      updateRelationshipHighlights();
+      updateControlBar();
+
       closeDialog();
       showToast(`Created ${parsedUsers.length} Org users`);
     });
@@ -4358,18 +4406,19 @@
   // ─── Status Bar (column snap navigation) ─────────────
 
   function getVisibleColumnEls() {
-    return Object.keys(columnVisibility)
-      .filter(k => columnVisibility[k])
-      .map(k => document.getElementById(COL_KEY_TO_EL_ID[k]))
-      .filter(Boolean);
+    const container = document.querySelector('.columns-container');
+    if (!container) return [];
+    return Array.from(container.querySelectorAll('.column:not(.column--hidden)'));
   }
 
   function getSnappedIndex(container, columns) {
     const scrollLeft = container.scrollLeft;
+    const containerLeft = container.getBoundingClientRect().left;
     let closest = 0;
     let minDist = Infinity;
     for (let i = 0; i < columns.length; i++) {
-      const dist = Math.abs(columns[i].offsetLeft - scrollLeft);
+      const colLeft = columns[i].getBoundingClientRect().left - containerLeft + scrollLeft;
+      const dist = Math.abs(colLeft - scrollLeft);
       if (dist < minDist) { minDist = dist; closest = i; }
     }
     return closest;
@@ -4409,7 +4458,7 @@
       const cols = getVisibleColumnEls();
       const idx = getSnappedIndex(container, cols);
       if (idx > 0) {
-        container.scrollTo({ left: cols[idx - 1].offsetLeft, behavior: 'smooth' });
+        cols[idx - 1].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
         setTimeout(updateStatusBarButtons, 350);
       }
     });
@@ -4418,7 +4467,7 @@
       const cols = getVisibleColumnEls();
       const idx = getSnappedIndex(container, cols);
       if (idx < cols.length - 1) {
-        container.scrollTo({ left: cols[idx + 1].offsetLeft, behavior: 'smooth' });
+        cols[idx + 1].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
         setTimeout(updateStatusBarButtons, 350);
       }
     });

@@ -418,6 +418,7 @@
     updateControlBar();
     updateColumnActiveState();
     updateRelationshipHighlights();
+    snapColumnIntoView(colKey);
   }
 
   function handleCheckboxClick(colKey, itemId) {
@@ -434,6 +435,7 @@
     updateControlBar();
     updateColumnActiveState();
     updateRelationshipHighlights();
+    snapColumnIntoView(colKey);
   }
 
   function handleSelectAll(colKey) {
@@ -454,6 +456,7 @@
     updateControlBar();
     updateColumnActiveState();
     updateRelationshipHighlights();
+    snapColumnIntoView(colKey);
   }
 
   function updateColumnActiveState() {
@@ -926,7 +929,14 @@
     ],
   };
 
-  const MAX_VISIBLE_BUTTONS = 2;
+  const MAX_VISIBLE_BUTTONS_DEFAULT = 2;
+
+  function getResponsiveActionLayout() {
+    const w = window.innerWidth;
+    if (w >= 1600) return { maxPromoted: MAX_VISIBLE_BUTTONS_DEFAULT, showRelationCounts: true, showStatusBar: false };
+    if (w >= 1440) return { maxPromoted: 1, showRelationCounts: true, showStatusBar: false };
+    return { maxPromoted: 0, showRelationCounts: false, showStatusBar: true };
+  }
 
   function buildActionButtons(colKey, selectedCount) {
     let allActions = CONTEXTUAL_ACTIONS[colKey];
@@ -980,10 +990,11 @@
 
     const available = allActions.filter(a => a.divider || !(isMulti && a.singleOnly));
 
+    const { maxPromoted } = getResponsiveActionLayout();
     const promoted = [];
     const overflowActions = [];
     for (const action of available) {
-      if (!action.divider && !action.critical && promoted.length < MAX_VISIBLE_BUTTONS) {
+      if (!action.divider && !action.critical && promoted.length < maxPromoted) {
         promoted.push(action);
       } else {
         overflowActions.push(action);
@@ -1126,11 +1137,18 @@
       }
       pillEl.innerHTML = pillIcon + `<span>${pillText}</span>`;
 
+      const { showRelationCounts, showStatusBar } = getResponsiveActionLayout();
+      if (!showRelationCounts) {
+        document.getElementById('highlightModeTrigger').style.display = 'none';
+      } else {
+        document.getElementById('highlightModeTrigger').style.display = '';
+      }
+      pillEl.style.display = '';
+
       const countsEl = document.getElementById('relationCounts');
       const hlModeTrigger = document.getElementById('highlightModeTrigger');
       const parts = [];
 
-      // Compute counts from raw relationships (before selected-item removal)
       const useIntersection = highlightMode === 'intersection' && totalSelected >= 2;
       const { acctHL: acctCounts, grpHL: grpCounts, usrHL: usrCounts } = useIntersection
         ? computeHighlightsIntersection()
@@ -1149,9 +1167,9 @@
       const suffix = totalSelected >= 2
         ? (highlightMode === 'intersection' ? ' in common' : ' combined')
         : '';
-      countsEl.textContent = parts.join(' · ') + suffix;
+      const relationText = parts.join(' · ') + suffix;
+      countsEl.textContent = relationText;
 
-      // Show chevron only for multi-select (dropdown available)
       const chevron = hlModeTrigger.querySelector('.highlight-mode-btn__chevron');
       if (totalSelected >= 2) {
         chevron.style.display = '';
@@ -1160,6 +1178,28 @@
         chevron.style.display = 'none';
         hlModeTrigger.querySelector('.highlight-mode-btn').style.cursor = 'default';
       }
+
+      const statusBar = document.getElementById('statusBar');
+      const sbTrigger = document.getElementById('statusBarHighlightTrigger');
+      const sbCounts = document.getElementById('statusBarRelationCounts');
+      const sbChevron = sbTrigger.querySelector('.highlight-mode-btn__chevron');
+      const sbBtn = sbTrigger.querySelector('.highlight-mode-btn');
+      if (showStatusBar) {
+        statusBar.style.display = '';
+        sbTrigger.style.display = '';
+        sbCounts.textContent = relationText;
+        if (totalSelected >= 2) {
+          sbChevron.style.display = '';
+          sbBtn.style.cursor = 'pointer';
+        } else {
+          sbChevron.style.display = 'none';
+          sbBtn.style.cursor = 'default';
+        }
+      } else {
+        statusBar.style.display = 'none';
+        sbTrigger.style.display = 'none';
+      }
+      updateStatusBarButtons();
     } else {
       actionsEl.style.display = 'none';
       actionBtnsEl.style.display = 'none';
@@ -1167,9 +1207,16 @@
       selDivider.style.display = 'none';
       actionBtnsEl.innerHTML = '';
       currentActionCol = null;
+
       headerEl.style.display = '';
       createBtn.style.display = '';
       colVisBtn.style.display = '';
+
+      const { showStatusBar } = getResponsiveActionLayout();
+      const statusBar = document.getElementById('statusBar');
+      statusBar.style.display = showStatusBar ? '' : 'none';
+      document.getElementById('statusBarHighlightTrigger').style.display = 'none';
+      updateStatusBarButtons();
     }
   }
 
@@ -1191,6 +1238,19 @@
   }
 
   function handleBarAction(action, colKey) {
+    if (action === 'dismiss') {
+      for (const ck of Object.keys(state.columns)) {
+        state.columns[ck].selected.clear();
+        state.columns[ck].lastClickIndex = -1;
+        state.columns[ck].stickyOrder = null;
+      }
+      state.activeColumn = null;
+      highlightMode = 'union';
+      updateControlBar();
+      updateColumnActiveState();
+      updateRelationshipHighlights();
+      return;
+    }
     const selectedIds = [...state.columns[colKey].selected];
     if (selectedIds.length === 0) return;
     if (action === 'edit' && selectedIds.length === 1) {
@@ -1315,17 +1375,53 @@
         return;
       }
       highlightMode = mode;
-      hlModeMenu.querySelectorAll('.highlight-mode-menu__item').forEach(el => {
-        el.classList.toggle('highlight-mode-menu__item--active', el.dataset.mode === mode);
+      const sbMenu = document.getElementById('statusBarHighlightMenu');
+      [hlModeMenu, sbMenu].forEach(menu => {
+        menu.querySelectorAll('.highlight-mode-menu__item').forEach(el => {
+          el.classList.toggle('highlight-mode-menu__item--active', el.dataset.mode === mode);
+        });
       });
       hlModeMenu.classList.remove('highlight-mode-menu--open');
       updateRelationshipHighlights();
       updateControlBar();
     });
 
+    // Status bar highlight mode (mirror of the top one)
+    const sbHlBtn = document.getElementById('statusBarHighlightBtn');
+    const sbHlMenu = document.getElementById('statusBarHighlightMenu');
+
+    sbHlBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      let totalSel = 0;
+      for (const colKey of Object.keys(state.columns)) totalSel += state.columns[colKey].selected.size;
+      if (totalSel < 2) return;
+      sbHlMenu.classList.toggle('highlight-mode-menu--open');
+    });
+
+    sbHlMenu.addEventListener('click', (e) => {
+      const item = e.target.closest('.highlight-mode-menu__item');
+      if (!item) return;
+      const mode = item.dataset.mode;
+      if (mode === highlightMode) {
+        sbHlMenu.classList.remove('highlight-mode-menu--open');
+        return;
+      }
+      highlightMode = mode;
+      [hlModeMenu, sbHlMenu].forEach(menu => {
+        menu.querySelectorAll('.highlight-mode-menu__item').forEach(el => {
+          el.classList.toggle('highlight-mode-menu__item--active', el.dataset.mode === mode);
+        });
+      });
+      sbHlMenu.classList.remove('highlight-mode-menu--open');
+      updateRelationshipHighlights();
+      updateControlBar();
+    });
+
     document.addEventListener('click', () => {
       hlModeMenu.classList.remove('highlight-mode-menu--open');
+      sbHlMenu.classList.remove('highlight-mode-menu--open');
     });
+
   }
 
   // ─── Search / Filter ───────────────────────────────────
@@ -4105,7 +4201,11 @@
     initItemMenus();
     initRelatedHover();
     initSidePanel();
+    initColumnResize();
     initColumnVisibility();
+    initStatusBar();
+    updateExpandedByWidth();
+    updateControlBar();
     initUserDialog();
     initGroupDialog();
     initCreateAccountDialog();
@@ -4165,33 +4265,35 @@
       checkbox.disabled = isLastVisible;
     });
 
-    // Determine which columns are expanded (table view)
+    // Clear expanded state; will be recalculated by width after layout
     expandedColumns.clear();
-    if (visibleKeys.length === 1) {
-      expandedColumns.add(visibleKeys[0]);
-    } else if (visibleKeys.length === 2) {
-      expandedColumns.add(visibleKeys[1]);
-    }
 
-    // Show/hide columns and apply sizing
+    // Show/hide columns and apply sizing (reset custom resize widths)
     for (const colKey of Object.keys(columnVisibility)) {
       const colEl = document.getElementById(COL_KEY_TO_EL_ID[colKey]);
       if (!colEl) continue;
       colEl.classList.toggle('column--hidden', !columnVisibility[colKey]);
-      colEl.classList.toggle('column--expanded', expandedColumns.has(colKey));
+      colEl.classList.remove('column--expanded');
+      colEl.style.width = '';
+      colEl.style.flex = '';
 
       if (visibleKeys.length === 2 && columnVisibility[colKey]) {
         const idx = visibleKeys.indexOf(colKey);
-        colEl.classList.toggle('column--narrow', idx === 0);
-        if (idx !== 0) {
+        colEl.classList.toggle('column--narrow', idx === 1);
+        if (idx !== 1) {
           colEl.classList.remove('column--narrow');
-          colEl.style.flex = '1';
         }
       } else {
         colEl.classList.remove('column--narrow');
-        colEl.style.flex = '';
       }
     }
+
+    // Show/hide resize handles based on adjacent column visibility
+    document.querySelectorAll('.column-resize-handle').forEach(handle => {
+      const leftVisible = columnVisibility[handle.dataset.left];
+      const rightVisible = columnVisibility[handle.dataset.right];
+      handle.classList.toggle('column-resize-handle--hidden', !leftVisible || !rightVisible);
+    });
 
     // Mark last visible column
     const allKeys = Object.keys(columnVisibility);
@@ -4205,7 +4307,7 @@
       if (lastEl) lastEl.classList.add('column--last-visible');
     }
 
-    // Update primary create button based on rightmost visible column
+    // Update primary create button based on leftmost visible column
     const createActionBtn = document.querySelector('#createButton .stellar-splitbutton__action');
     if (createActionBtn) {
       const CREATE_LABELS = {
@@ -4213,14 +4315,235 @@
         userGroups: 'Create User group',
         users: 'Create Org user',
       };
-      createActionBtn.textContent = CREATE_LABELS[lastVisibleKey] || 'Create Org user';
+      const firstVisibleKey = visibleKeys[0];
+      createActionBtn.textContent = CREATE_LABELS[firstVisibleKey] || 'Create Org user';
     }
+
+    // Determine expanded (table view) by actual column width after layout
+    updateExpandedByWidth();
 
     // Reset scroll and re-render visible columns
     for (const colKey of visibleKeys) {
       state.columns[colKey].scrollEl.scrollTop = 0;
       updateVirtualScroll(colKey);
     }
+
+    // Update control bar for compact/normal mode
+    updateControlBar();
+  }
+
+  // ─── Column Resize Handles ────────────────────────────
+
+  const COL_MIN_WIDTH = 360;
+  const COL_TABLE_THRESHOLD = 760;
+
+  function updateExpandedByWidth() {
+    for (const colKey of Object.keys(columnVisibility)) {
+      if (!columnVisibility[colKey]) continue;
+      const colEl = document.getElementById(COL_KEY_TO_EL_ID[colKey]);
+      if (!colEl) continue;
+      const wide = colEl.offsetWidth >= COL_TABLE_THRESHOLD;
+      if (wide && !expandedColumns.has(colKey)) {
+        expandedColumns.add(colKey);
+        colEl.classList.add('column--expanded');
+        updateVirtualScroll(colKey);
+      } else if (!wide && expandedColumns.has(colKey)) {
+        expandedColumns.delete(colKey);
+        colEl.classList.remove('column--expanded');
+        updateVirtualScroll(colKey);
+      }
+    }
+  }
+
+  // ─── Status Bar (column snap navigation) ─────────────
+
+  function getVisibleColumnEls() {
+    return Object.keys(columnVisibility)
+      .filter(k => columnVisibility[k])
+      .map(k => document.getElementById(COL_KEY_TO_EL_ID[k]))
+      .filter(Boolean);
+  }
+
+  function getSnappedIndex(container, columns) {
+    const scrollLeft = container.scrollLeft;
+    let closest = 0;
+    let minDist = Infinity;
+    for (let i = 0; i < columns.length; i++) {
+      const dist = Math.abs(columns[i].offsetLeft - scrollLeft);
+      if (dist < minDist) { minDist = dist; closest = i; }
+    }
+    return closest;
+  }
+
+  function updateStatusBarButtons() {
+    const container = document.querySelector('.columns-container');
+    const prevBtn = document.getElementById('statusBarPrev');
+    const nextBtn = document.getElementById('statusBarNext');
+    if (!container || !prevBtn || !nextBtn) return;
+    const cols = getVisibleColumnEls();
+    if (cols.length <= 1) {
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+      return;
+    }
+    const idx = getSnappedIndex(container, cols);
+    prevBtn.disabled = idx <= 0;
+    nextBtn.disabled = idx >= cols.length - 1;
+  }
+
+  function snapColumnIntoView(colKey) {
+    const container = document.querySelector('.columns-container');
+    const colEl = document.getElementById(COL_KEY_TO_EL_ID[colKey]);
+    if (!container || !colEl || colEl.classList.contains('column--hidden')) return;
+    colEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+    setTimeout(updateStatusBarButtons, 350);
+  }
+
+  function initStatusBar() {
+    const container = document.querySelector('.columns-container');
+    const prevBtn = document.getElementById('statusBarPrev');
+    const nextBtn = document.getElementById('statusBarNext');
+    if (!container || !prevBtn || !nextBtn) return;
+
+    prevBtn.addEventListener('click', () => {
+      const cols = getVisibleColumnEls();
+      const idx = getSnappedIndex(container, cols);
+      if (idx > 0) {
+        container.scrollTo({ left: cols[idx - 1].offsetLeft, behavior: 'smooth' });
+        setTimeout(updateStatusBarButtons, 350);
+      }
+    });
+
+    nextBtn.addEventListener('click', () => {
+      const cols = getVisibleColumnEls();
+      const idx = getSnappedIndex(container, cols);
+      if (idx < cols.length - 1) {
+        container.scrollTo({ left: cols[idx + 1].offsetLeft, behavior: 'smooth' });
+        setTimeout(updateStatusBarButtons, 350);
+      }
+    });
+
+    container.addEventListener('scroll', () => {
+      updateStatusBarButtons();
+    });
+  }
+
+  // ─── Column Resize Handles ────────────────────────────
+
+  function initColumnResize() {
+    const handles = document.querySelectorAll('.column-resize-handle');
+    let dragging = false;
+    let activeHandle = null;
+    let startX = 0;
+    let startLeftWidth = 0;
+    let startRightWidth = 0;
+    let leftColEl = null;
+    let rightColEl = null;
+    let leftColKey = null;
+    let rightColKey = null;
+
+    handles.forEach(handle => {
+      handle.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        leftColKey = handle.dataset.left;
+        rightColKey = handle.dataset.right;
+        leftColEl = document.getElementById(COL_KEY_TO_EL_ID[leftColKey]);
+        rightColEl = document.getElementById(COL_KEY_TO_EL_ID[rightColKey]);
+        if (!leftColEl || !rightColEl) return;
+
+        dragging = true;
+        activeHandle = handle;
+        startX = e.clientX;
+        startLeftWidth = leftColEl.offsetWidth;
+        startRightWidth = rightColEl.offsetWidth;
+
+        handle.classList.add('column-resize-handle--active');
+        document.body.style.cursor = 'col-resize';
+        document.body.style.userSelect = 'none';
+      });
+
+      handle.addEventListener('dblclick', () => {
+        const lk = handle.dataset.left;
+        const rk = handle.dataset.right;
+        const lEl = document.getElementById(COL_KEY_TO_EL_ID[lk]);
+        const rEl = document.getElementById(COL_KEY_TO_EL_ID[rk]);
+        if (!lEl || !rEl) return;
+        lEl.style.flex = '';
+        lEl.style.width = '';
+        rEl.style.flex = '';
+        rEl.style.width = '';
+        lEl.classList.remove('column--narrow');
+        rEl.classList.remove('column--narrow');
+        updateExpandedByWidth();
+      });
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!dragging) return;
+      const delta = e.clientX - startX;
+      const totalWidth = startLeftWidth + startRightWidth;
+
+      let newLeft = startLeftWidth + delta;
+      let newRight = startRightWidth - delta;
+      if (newLeft < COL_MIN_WIDTH) { newLeft = COL_MIN_WIDTH; newRight = totalWidth - COL_MIN_WIDTH; }
+      if (newRight < COL_MIN_WIDTH) { newRight = COL_MIN_WIDTH; newLeft = totalWidth - COL_MIN_WIDTH; }
+
+      leftColEl.style.flex = `0 0 ${newLeft}px`;
+      leftColEl.style.width = `${newLeft}px`;
+      leftColEl.classList.remove('column--narrow');
+      rightColEl.style.flex = `0 0 ${newRight}px`;
+      rightColEl.style.width = `${newRight}px`;
+      rightColEl.classList.remove('column--narrow');
+
+      updateExpandedByWidth();
+    });
+
+    document.addEventListener('mouseup', () => {
+      if (!dragging) return;
+      dragging = false;
+      if (activeHandle) activeHandle.classList.remove('column-resize-handle--active');
+      activeHandle = null;
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
+    });
+
+    // Proportionally rescale fixed-width columns on browser resize
+    let prevContainerWidth = 0;
+    const container = document.querySelector('.columns-container');
+    if (container) prevContainerWidth = container.offsetWidth;
+
+    window.addEventListener('resize', () => {
+      if (dragging || !container) return;
+
+      const visibleKeys = Object.keys(columnVisibility).filter(k => columnVisibility[k]);
+      const hasCustomWidth = visibleKeys.some(k => {
+        const el = document.getElementById(COL_KEY_TO_EL_ID[k]);
+        return el && el.style.width && el.style.width.endsWith('px');
+      });
+
+      if (hasCustomWidth) {
+        const newContainerWidth = container.offsetWidth;
+        if (newContainerWidth !== prevContainerWidth && prevContainerWidth !== 0) {
+          const ratio = newContainerWidth / prevContainerWidth;
+          for (const colKey of visibleKeys) {
+            const colEl = document.getElementById(COL_KEY_TO_EL_ID[colKey]);
+            if (!colEl) continue;
+            const curWidth = colEl.offsetWidth;
+            const newWidth = Math.max(COL_MIN_WIDTH, Math.round(curWidth * ratio));
+            colEl.style.flex = `0 0 ${newWidth}px`;
+            colEl.style.width = `${newWidth}px`;
+          }
+        }
+      }
+
+      prevContainerWidth = container.offsetWidth;
+      updateExpandedByWidth();
+
+      const updatedVisible = Object.keys(columnVisibility).filter(k => columnVisibility[k]);
+      for (const colKey of updatedVisible) updateVirtualScroll(colKey);
+
+      updateControlBar();
+    });
   }
 
   // ─── Side Panel (resize & collapse) ────────────────────

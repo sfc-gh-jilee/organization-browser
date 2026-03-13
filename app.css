@@ -111,26 +111,74 @@ html, body { height: 100%; overflow: hidden; }
 .columns-container {
   flex: 1;
   display: flex;
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
   min-height: 0;
   border-top: 1px solid var(--themed-reusable-border-default);
+  scroll-snap-type: x mandatory;
 }
 
 /* --- Individual column --- */
 .column {
-  flex: 1;
+  flex: 1 0 360px;
   display: flex;
   flex-direction: column;
   border: 1px solid transparent;
-  border-right: 1px solid var(--themed-reusable-border-default);
-  min-width: 0;
+  min-width: 360px;
   min-height: 0;
   box-sizing: border-box;
+  scroll-snap-align: start;
 }
-.column:last-child { border-right: none; }
-.column--last-visible { border-right: none; }
 .column--hidden { display: none; }
 .column--narrow { flex: 0 0 320px; width: 320px; }
+
+/* --- Bottom status bar (< 1440px) --- */
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  margin-top: -24px;
+  border-top: 1px solid var(--themed-reusable-border-default);
+  background: var(--themed-surface-level-1-background);
+  flex-shrink: 0;
+  position: relative;
+}
+.status-bar .highlight-mode-trigger {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.status-bar .highlight-mode-menu {
+  bottom: calc(100% + 4px);
+  top: auto;
+}
+
+/* --- Column resize handle --- */
+.column-resize-handle {
+  flex: 0 0 1px;
+  width: 1px;
+  background: var(--themed-reusable-border-default);
+  position: relative;
+  cursor: col-resize;
+  z-index: 5;
+}
+.column-resize-handle::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -3px;
+  right: -3px;
+}
+.column-resize-handle:hover,
+.column-resize-handle--active {
+  background: var(--themed-interaction-pressable-default-background, #1b73e8);
+  width: 3px;
+  margin-left: -1px;
+  margin-right: -1px;
+}
+.column-resize-handle--hidden { display: none; }
 .column--narrow .column__select-btn { display: none; }
 .column--narrow .list-item__chevron { display: none; }
 
@@ -260,7 +308,10 @@ html, body { height: 100%; overflow: hidden; }
 }
 
 .table-row--dragging { opacity: 0.4; }
-.table-row--drag-over { background: var(--themed-surface-level-2-background, #f5f6f8); }
+.table-row--drag-over {
+  background: transparent;
+  box-shadow: inset 0 0 0 2px var(--themed-reusable-border-active, #1b73e8);
+}
 
 /* --- Column Visibility Toggle --- */
 .col-visibility-trigger { position: relative; }
